@@ -29,6 +29,16 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
    y se niega si hay cambios sin commitear o drift en producción. Se despliega directo a producción (decisión del usuario).
 4. Si se editan archivos del tema vía WPVibe o por SSH directamente, después hacer `pull` + commit para no perderlos.
 
+## Convenciones de rendimiento
+- Imágenes de plantillas: usar la versión `*-opt.webp` (generada en el servidor con `cwebp -q 82`, a ~2x su
+  tamaño en pantalla; el original queda junto a ella en uploads). Toda `<img>` lleva `width`/`height`;
+  `loading="lazy" decoding="async"` bajo el pliegue, `fetchpriority="high"` en la imagen principal.
+- `twentytwenty-*.min.css` lo genera SG Optimizer (Minify CSS) desde `style.css`: no se versiona ni se edita.
+- Bootstrap: el tema carga `assets/css/bootstrap-gwf.min.css` (solo clases usadas). Si una plantilla nueva
+  usa clases de Bootstrap que no estén ahí, regenerarlo desde `bootstrap.min.css`.
+- Fuentes locales en `assets/fonts` (Open Sans variable + Cal Sans, subconjunto latin), declaradas en
+  `gwf_self_hosted_fonts()`. No volver a enlazar Google Fonts ni Font Awesome.
+
 ## Reglas
 - Backup antes de tocar cualquier archivo del servidor fuera del script; confirmar antes de borrar o sobrescribir.
 - Nunca commitear ni mostrar secretos (`wp-config.php`, claves, Application Passwords).
