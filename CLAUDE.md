@@ -44,6 +44,9 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   si una plantilla nueva lo necesita, encolarlo explícitamente (`wp_enqueue_script( 'jquery' )`).
   Si se añade un formulario CF7 en otra página, añadirla a la condición de `is_page( 'contacto-y-soporte' )`.
 
+- Analítica: solo Google Analytics (gtag G-VDD509FKDM escrito en header.php). Jetpack Stats y Cloudflare
+  Web Analytics están desactivados a propósito; Site Kit solo añade su meta tag. No duplicar la etiqueta.
+
 ## Reglas
 - Backup antes de tocar cualquier archivo del servidor fuera del script; confirmar antes de borrar o sobrescribir.
 - Nunca commitear ni mostrar secretos (`wp-config.php`, claves, Application Passwords).
