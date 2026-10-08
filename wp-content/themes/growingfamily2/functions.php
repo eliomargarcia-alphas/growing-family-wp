@@ -47,6 +47,74 @@ function remove_every_style_webheroe(){
 }
 add_action("wp_print_styles", "remove_every_style_webheroe");
 
+/*
+ * No cargar CSS/JS de plugins en las páginas que no los usan (las páginas usan plantillas propias
+ * con el contenido escrito en el tema). Los artículos del blog y archivos no se tocan.
+ */
+function gwf_page_uses_ulike() {
+	// Plantillas de página que imprimen el botón de WP ULike
+	return is_page_template( array( 'templates/template-ancho-completo.php', 'templates/template-cientifico.php', 'templates/template-tipo-carta.php' ) );
+}
+
+function gwf_trim_plugin_assets() {
+	if ( is_admin() ) {
+		return;
+	}
+
+	if ( is_page() ) {
+		// WP ULike (+ Pro): solo lo usan las plantillas de artículo
+		if ( ! gwf_page_uses_ulike() ) {
+			foreach ( array( 'wp-ulike', 'wp-ulike-custom', 'wp-ulike-pro' ) as $handle ) {
+				wp_dequeue_style( $handle );
+			}
+			wp_dequeue_script( 'wp-ulike-pro' );
+			wp_dequeue_script( 'wp_ulike' );
+		}
+
+		// Easy Table of Contents: ninguna página muestra el índice
+		wp_dequeue_style( 'ez-toc' );
+		wp_dequeue_style( 'eztoc' );
+		foreach ( array( 'eztoc-scroll-scriptjs', 'eztoc-js-cookie', 'eztoc-jquery-sticky-kit', 'eztoc-js' ) as $handle ) {
+			wp_dequeue_script( $handle );
+		}
+
+		// Contact Form 7: el único formulario está en Contacto y soporte
+		if ( ! is_page( 'contacto-y-soporte' ) ) {
+			wp_dequeue_style( 'contact-form-7' );
+			wp_dequeue_script( 'contact-form-7' );
+			wp_dequeue_script( 'swv' );
+		}
+	}
+
+	// Ajax Search Lite: el sitio no muestra ningún buscador en el frontend
+	wp_dequeue_style( 'wpdreams-asl-basic' );
+	wp_dequeue_style( 'wpdreams-asl-instance' );
+	wp_dequeue_script( 'wd-asl-ajaxsearchlite' );
+
+	// Me gusta en comentarios (Jetpack) y la fuente Open Sans de Google que arrastra: solo con comentarios abiertos
+	if ( ! ( is_singular() && comments_open() ) ) {
+		wp_dequeue_style( 'jetpack_likes' );
+		wp_dequeue_script( 'jetpack_likes_queuehandler' );
+	}
+	wp_dequeue_style( 'open-sans' ); // Open Sans ya se sirve desde el tema (gwf_self_hosted_fonts)
+}
+add_action( 'wp_enqueue_scripts', 'gwf_trim_plugin_assets', 100 );
+
+/* Emojis de WordPress: los navegadores actuales ya los muestran sin el script ni el CSS */
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+remove_action( 'wp_enqueue_scripts', 'wp_enqueue_emoji_styles' );
+remove_action( 'wp_print_footer_scripts', 'print_emoji_detection_script' );
+add_filter( 'emoji_svg_url', '__return_false' );
+
+/* jquery-migrate en el frontend: ningún script del sitio usa APIs antiguas de jQuery */
+function gwf_remove_jquery_migrate( $scripts ) {
+	if ( ! is_admin() && isset( $scripts->registered['jquery'] ) ) {
+		$scripts->registered['jquery']->deps = array_diff( $scripts->registered['jquery']->deps, array( 'jquery-migrate' ) );
+	}
+}
+add_action( 'wp_default_scripts', 'gwf_remove_jquery_migrate' );
+
 
 // Remove dashicons in frontend for unauthenticated users
 add_action( 'wp_enqueue_scripts', 'bs_dequeue_dashicons' );
