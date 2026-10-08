@@ -1,0 +1,18 @@
+# Dependencias y builds
+node_modules/
+vendor/
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+
+# Nunca versionar secretos ni copias
+wp-config.php
+.env
+*.zip
+*.sql
+*.tar.gz
+.deploy-tmp/
