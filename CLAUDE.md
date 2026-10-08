@@ -39,6 +39,11 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
 - Fuentes locales en `assets/fonts` (Open Sans variable + Cal Sans, subconjunto latin), declaradas en
   `gwf_self_hosted_fonts()`. No volver a enlazar Google Fonts ni Font Awesome.
 
+- Plugins por página: `gwf_trim_plugin_assets()` en functions.php quita CSS/JS de plugins donde no se usan
+  (ULike, Easy TOC, AddToAny, CF7 fuera de Contacto, Ajax Search Lite). Las páginas ya **no cargan jQuery**:
+  si una plantilla nueva lo necesita, encolarlo explícitamente (`wp_enqueue_script( 'jquery' )`).
+  Si se añade un formulario CF7 en otra página, añadirla a la condición de `is_page( 'contacto-y-soporte' )`.
+
 ## Reglas
 - Backup antes de tocar cualquier archivo del servidor fuera del script; confirmar antes de borrar o sobrescribir.
 - Nunca commitear ni mostrar secretos (`wp-config.php`, claves, Application Passwords).
