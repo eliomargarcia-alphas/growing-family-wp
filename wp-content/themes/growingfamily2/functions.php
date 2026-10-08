@@ -105,6 +105,16 @@ function gwf_trim_plugin_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'gwf_trim_plugin_assets', 100 );
 
+/*
+ * TC Custom JavaScript: su único script maneja un menú antiguo (.openmenumovil, .subchild1/2) que ya no existe
+ * en ninguna página y necesita jQuery, que ya no se carga en las páginas. No imprimirlo en el frontend
+ * (el código sigue guardado en Ajustes del plugin por si se quiere recuperar).
+ */
+function gwf_disable_legacy_custom_js() {
+	remove_action( 'wp_print_footer_scripts', array( 'TCCJ_Core_Frontend', 'print_script_in_footer' ) );
+}
+add_action( 'init', 'gwf_disable_legacy_custom_js' );
+
 /* Emojis de WordPress: los navegadores actuales ya los muestran sin el script ni el CSS */
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
