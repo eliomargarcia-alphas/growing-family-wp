@@ -27,7 +27,7 @@ get_header();
                 <h2 class="hero-title">Estamos aquí, contigo</h2>
                 <p class="section-subtitle">Detrás de Growing Family hay personas —madres y padres como tú— listas para ayudarte con lo que necesites. Escríbenos y te respondemos.</p>
                 <div class="focus-image-wrapper reveal-item reveal-visible">
-                    <img src="https://growing.family/wp-content/uploads/2026/09/imagen-contacto-2.jpg" alt="Madres y padres listos para ayudarte" class="border-radius-16 transition-smooth">
+                    <img src="https://growing.family/wp-content/uploads/2026/09/imagen-contacto-2-opt.webp" alt="Madres y padres listos para ayudarte" class="border-radius-16 transition-smooth" width="1024" height="490" fetchpriority="high">
                 </div>
             </div>
         </div>
@@ -267,7 +267,7 @@ get_header();
                 </div>
                 <div class="focus-content reveal-item reveal-visible">
                     <div class="benefit-icon-box">
-                       <img src="https://growing.family/wp-content/uploads/2026/09/icono-atencion.svg" alt="Icono atencion">
+                       <img src="https://growing.family/wp-content/uploads/2026/09/icono-atencion.svg" alt="Icono atencion" loading="lazy" decoding="async">
                     </div>
                     <p class="section-subtitle">Te respondemos en español. Las consultas generales, en un máximo de uno a dos días hábiles. Y los casos de cobro, o de no poder entrar después de pagar, los atendemos con prioridad: recibirás un acuse de inmediato y una respuesta en menos de 24 horas.</p>
                     <p class="section-subtitle">¿Prefieres tu correo? También puedes escribirnos a <a href="mailto:support@growing.family" class="color-barium fw-semibold">support@growing.family</a>.</p>

@@ -38,7 +38,7 @@ get_header();
                 <div class="benefit-card reveal-item reveal-visible">
                     <div class="card-header-icon">
                         <div class="benefit-icon-box">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-question.svg" alt="Icono pregunta">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-question.svg" alt="Icono pregunta" loading="lazy" decoding="async">
                         </div>
                         <h3 class="benefit-card-title">¿Por qué una lista de espera?</h3>
                     </div>
@@ -47,7 +47,7 @@ get_header();
                 <div class="benefit-card reveal-item reveal-visible">
                     <div class="card-header-icon">
                         <div class="benefit-icon-box">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-tiempo.svg" alt="Icono tiempo">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-tiempo.svg" alt="Icono tiempo" loading="lazy" decoding="async">
                         </div>
                         <h3 class="benefit-card-title">Esto te pide algo. Y por eso funciona.</h3>
                     </div>

@@ -39,7 +39,7 @@
 	    <header class="header">
 	        <div class="container header-container">
 	            <a href="https://growing.family/" class="logo">
-	                <img src="https://growing.family/wp-content/uploads/2026/08/logo.png" alt="Growing Family Logo" class="logo-img">
+	                <img src="https://growing.family/wp-content/uploads/2026/08/logo.png" alt="Growing Family Logo" class="logo-img" width="562" height="160">
 	            </a>
 	            
 	            <nav class="nav">
@@ -59,7 +59,7 @@
 	                        </a>
 	                    </li>
 	                    <li><a href="#descargar" class="btn btn-primary btn-sm">Descargar App</a></li>
-	                    <li><a href="#popupsearch"><img src="https://growing.family/wp-content/uploads/2025/09/search-1.svg" alt="buscar"></a></li>-->
+	                    <li><a href="#popupsearch"><img src="https://growing.family/wp-content/uploads/2025/09/search-1.svg" alt="buscar" loading="lazy" decoding="async"></a></li>-->
 	                </ul>
 	            </nav>
 

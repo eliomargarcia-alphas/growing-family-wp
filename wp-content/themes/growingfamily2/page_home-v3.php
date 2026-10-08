@@ -39,31 +39,31 @@ get_header();
                 <div class="trust-container">
                     <div class="trust-item">
                         <div class="trust-icon">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/Family.svg" alt="Familia">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/Family.svg" alt="Familia" loading="lazy" decoding="async">
                         </div>
                         <span class="trust-text">Probado con familias reales</span>
                     </div>
                     <div class="trust-item">
                         <div class="trust-icon">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/toga.svg" alt="Bases cientificas">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/toga.svg" alt="Bases cientificas" loading="lazy" decoding="async">
                         </div>
                         <span class="trust-text">Creado por expertos en primera infancia</span>
                     </div>
                     <div class="trust-item">
                         <div class="trust-icon">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/brain.svg" alt="Conocimiento">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/brain.svg" alt="Conocimiento" loading="lazy" decoding="async">
                         </div>
                         <span class="trust-text">Basado en neurociencia y pedagogía</span>
                     </div>
                     <div class="trust-item">
                         <div class="trust-icon">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/corazon.svg" alt="Corazon familiar">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/corazon.svg" alt="Corazon familiar" loading="lazy" decoding="async">
                         </div>
                         <span class="trust-text">Para hijas e hijos de 4 a 6 años</span>
                     </div>
                     <div class="trust-item">
                         <div class="trust-icon">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/phone.png" alt="Uso ceuluar">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/phone-opt.webp" alt="Uso ceuluar" width="32" height="32" loading="lazy" decoding="async">
                         </div>
                         <span class="trust-text">El celular lo usas tú, no ellos</span>
                     </div>
@@ -77,7 +77,7 @@ get_header();
                 <div class="section-header reveal-item reveal-visible">
                     <h2 class="section-title">Entre pantallas y prisas, los días se nos escapan</h2>
                     <p class="text-center">
-                        <img class="border-radius-16 b-1-gray box-shadow-sm transition-smooth w-100" data-alt="Familia en casa" src="https://growing.family/wp-content/uploads/2026/09/familia-en-casa-7.jpg"/>
+                        <img class="border-radius-16 b-1-gray box-shadow-sm transition-smooth w-100" alt="Familia en casa" src="https://growing.family/wp-content/uploads/2026/09/familia-en-casa-7-opt.webp" width="1024" height="416" loading="lazy" decoding="async" />
                     </p>
                     <p class="section-desc mt-4">El día a día, las notificaciones y el cansancio. Sin darnos cuenta pasan las semanas, <b>y ese ratito de estar juntos se nos queda siempre para "mañana". No es falta de amor: es un mundo que no se detiene.</b></p>
                     <p class="section-desc">Growing Family te ayuda a pelear por ese ratito sin que se vuelva una carga más. Se amolda a tus días los buenos y los difíciles. Y en los difíciles, tu esfuerzo por estar presente es el mejor ejemplo para ellos.</p>
@@ -98,7 +98,7 @@ get_header();
                 <div class="grid-2-how reveal-item">
                     <!-- Selector de Pasos (Izquierda) -->
                     <div class="how-steps" id="steps-container">
-                        <div class="step-item active" data-step="1" data-img="https://growing.family/wp-content/uploads/2026/09/3_Func_P1.png">
+                        <div class="step-item active" data-step="1" data-img="https://growing.family/wp-content/uploads/2026/09/3_Func_P1-opt.webp">
                             <div class="step-header">
                                 <span class="step-num">1</span>
                                 <h3 class="step-title">Apagar el ruido del mundo</h3>
@@ -112,13 +112,13 @@ get_header();
                                 </p>
                                 <div class="step-mobile-card">
                                     <div class="how-card-img-wrapper">
-                                        <img src="https://growing.family/wp-content/uploads/2026/09/3_Func_P1.png" alt="Mockup paso 1" class="how-card-img">
+                                        <img src="https://growing.family/wp-content/uploads/2026/09/3_Func_P1-opt.webp" alt="Mockup paso 1" class="how-card-img" width="488" height="608" loading="lazy" decoding="async">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="step-item" data-step="2" data-img="https://growing.family/wp-content/uploads/2026/09/3_Func_P2.png">
+                        <div class="step-item" data-step="2" data-img="https://growing.family/wp-content/uploads/2026/09/3_Func_P2-opt.webp">
                             <div class="step-header">
                                 <span class="step-num">2</span>
                                 <h3 class="step-title">Contar la historia</h3>
@@ -132,13 +132,13 @@ get_header();
                                 </p>
                                 <div class="step-mobile-card">
                                     <div class="how-card-img-wrapper">
-                                        <img src="https://growing.family/wp-content/uploads/2026/09/3_Func_P2.png" alt="Mockup paso 2" class="how-card-img">
+                                        <img src="https://growing.family/wp-content/uploads/2026/09/3_Func_P2-opt.webp" alt="Mockup paso 2" class="how-card-img" width="488" height="608" loading="lazy" decoding="async">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="step-item" data-step="3" data-img="https://growing.family/wp-content/uploads/2026/09/3_Func_P3.png">
+                        <div class="step-item" data-step="3" data-img="https://growing.family/wp-content/uploads/2026/09/3_Func_P3-opt.webp">
                             <div class="step-header">
                                 <span class="step-num">3</span>
                                 <h3 class="step-title">Sellar el momento</h3>
@@ -152,13 +152,13 @@ get_header();
                                 </p>
                                 <div class="step-mobile-card">
                                     <div class="how-card-img-wrapper">
-                                        <img src="https://growing.family/wp-content/uploads/2026/09/3_Func_P3.png" alt="Mockup paso 3" class="how-card-img">
+                                        <img src="https://growing.family/wp-content/uploads/2026/09/3_Func_P3-opt.webp" alt="Mockup paso 3" class="how-card-img" width="488" height="608" loading="lazy" decoding="async">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="step-item" data-step="5" data-img="https://growing.family/wp-content/uploads/2026/09/3_Func_P5.png">
+                        <div class="step-item" data-step="5" data-img="https://growing.family/wp-content/uploads/2026/09/3_Func_P5-opt.webp">
                             <div class="step-header">
                                 <span class="step-num">4</span>
                                 <h3 class="step-title">Mirar cómo crece</h3>
@@ -172,7 +172,7 @@ get_header();
                                 </p>
                                 <div class="step-mobile-card">
                                     <div class="how-card-img-wrapper">
-                                        <img src="https://growing.family/wp-content/uploads/2026/09/3_Func_P5.png" alt="Mockup paso 5" class="how-card-img">
+                                        <img src="https://growing.family/wp-content/uploads/2026/09/3_Func_P5-opt.webp" alt="Mockup paso 5" class="how-card-img" width="488" height="608" loading="lazy" decoding="async">
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +191,7 @@ get_header();
                                 Juntos realizan un <b>Ritual de Inicio</b> para soltar la prisa y las distracciones del día, lo que les permite reencontrarse y llegar presentes a la historia.
                             </p>
                             <div class="how-card-img-wrapper">
-                                <img id="how-desktop-mockup" src="https://growing.family/wp-content/uploads/2026/09/3_Func_P1.png" alt="Mockup de la aplicación" class="how-card-img">
+                                <img id="how-desktop-mockup" src="https://growing.family/wp-content/uploads/2026/09/3_Func_P1-opt.webp" alt="Mockup de la aplicación" class="how-card-img" width="488" height="608" loading="lazy" decoding="async">
                             </div>
                         </div>
                     </div>
@@ -277,11 +277,11 @@ get_header();
             <div class="hills-container">
                 <!-- Parallax Characters -->
                 <div class="parallax-scene" id="parallax-scene">
-                    <img src="https://growing.family/wp-content/uploads/2026/08/max.png" alt="Personaje Max" class="parallax-char char-max" data-speed="-1.4">
-                    <img src="https://growing.family/wp-content/uploads/2026/08/coco.png" alt="Personaje Coco" class="parallax-char char-coco" data-speed="1.5">
-                    <img src="https://growing.family/wp-content/uploads/2026/08/milo.png" alt="Personaje Milo" class="parallax-char char-milo" data-speed="-0.8">
-                    <img src="https://growing.family/wp-content/uploads/2026/08/alex.png" alt="Personaje Alex" class="parallax-char char-alex" data-speed="1.2">
-                    <img src="https://growing.family/wp-content/uploads/2026/08/ana.png" alt="Personaje Ana" class="parallax-char char-ana" data-speed="0.9">
+                    <img src="https://growing.family/wp-content/uploads/2026/08/max-opt.webp" alt="Personaje Max" class="parallax-char char-max" data-speed="-1.4" width="240" height="421" loading="lazy" decoding="async">
+                    <img src="https://growing.family/wp-content/uploads/2026/08/coco-opt.webp" alt="Personaje Coco" class="parallax-char char-coco" data-speed="1.5" width="240" height="421" loading="lazy" decoding="async">
+                    <img src="https://growing.family/wp-content/uploads/2026/08/milo-opt.webp" alt="Personaje Milo" class="parallax-char char-milo" data-speed="-0.8" width="240" height="421" loading="lazy" decoding="async">
+                    <img src="https://growing.family/wp-content/uploads/2026/08/alex-opt.webp" alt="Personaje Alex" class="parallax-char char-alex" data-speed="1.2" width="240" height="421" loading="lazy" decoding="async">
+                    <img src="https://growing.family/wp-content/uploads/2026/08/ana-opt.webp" alt="Personaje Ana" class="parallax-char char-ana" data-speed="0.9" width="240" height="421" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
@@ -355,7 +355,7 @@ get_header();
                     </div>
                 </div>
                 <div class="focus-image-wrapper reveal-item order-1 order-md-2">
-                    <img class="transition-smooth w-100" src="https://growing.family/wp-content/uploads/2026/09/imagen-felicidad-5.jpg" alt="Momentos que definen el crecimiento del hijo">
+                    <img class="transition-smooth w-100" src="https://growing.family/wp-content/uploads/2026/09/imagen-felicidad-5-opt.webp" alt="Momentos que definen el crecimiento del hijo" width="678" height="820" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
@@ -405,7 +405,7 @@ get_header();
                     </div>
                 </div>
                 <div class="focus-image-wrapper reveal-item order-1 order-md-2">
-                    <img class="transition-smooth" src="https://growing.family/wp-content/uploads/2026/09/imagen-screens.jpg" alt="Screens de app">
+                    <img class="transition-smooth" src="https://growing.family/wp-content/uploads/2026/09/imagen-screens-opt.webp" alt="Screens de app" width="588" height="581" loading="lazy" decoding="async">
                 </div>
             </div>
         </section> 
@@ -433,7 +433,7 @@ get_header();
                             <div class="slide-item">
                                 <div class="testimonial-card">
                                     <div class="testimonial-avatar-wrapper">
-                                        <img src="https://growing.family/wp-content/uploads/2026/09/jorge.png" alt="Avatar Jorge" class="testimonial-avatar">
+                                        <img src="https://growing.family/wp-content/uploads/2026/09/jorge-opt.webp" alt="Avatar Jorge" class="testimonial-avatar" width="80" height="80" loading="lazy" decoding="async">
                                     </div>
                                     <h3 class="testimonial-name">Jorge</h3>
                                     <p class="testimonial-role">Papá de Pablo, 4 años</p>
@@ -447,7 +447,7 @@ get_header();
                             <div class="slide-item">
                                 <div class="testimonial-card">
                                     <div class="testimonial-avatar-wrapper">
-                                        <img src="https://growing.family/wp-content/uploads/2026/09/carmen.png" alt="Avatar Carmen" class="testimonial-avatar">
+                                        <img src="https://growing.family/wp-content/uploads/2026/09/carmen-opt.webp" alt="Avatar Carmen" class="testimonial-avatar" width="80" height="77" loading="lazy" decoding="async">
                                     </div>
                                     <h3 class="testimonial-name">Carmen</h3>
                                     <p class="testimonial-role">Mamá de Mariana, 5 años</p>
@@ -459,7 +459,7 @@ get_header();
                             <div class="slide-item">
                                 <div class="testimonial-card">
                                     <div class="testimonial-avatar-wrapper">
-                                        <img src="https://growing.family/wp-content/uploads/2026/09/daniela.png" alt="Avatar Daniela" class="testimonial-avatar">
+                                        <img src="https://growing.family/wp-content/uploads/2026/09/daniela-opt.webp" alt="Avatar Daniela" class="testimonial-avatar" width="80" height="82" loading="lazy" decoding="async">
                                     </div>
                                     <h3 class="testimonial-name">Daniela</h3>
                                     <p class="testimonial-role">Mamá de Sebastián, 6 años</p>
@@ -471,7 +471,7 @@ get_header();
                             <div class="slide-item">
                                 <div class="testimonial-card">
                                     <div class="testimonial-avatar-wrapper">
-                                        <img src="https://growing.family/wp-content/uploads/2026/09/paula.jpg" alt="Avatar Paula" class="testimonial-avatar">
+                                        <img src="https://growing.family/wp-content/uploads/2026/09/paula-opt.webp" alt="Avatar Paula" class="testimonial-avatar" width="80" height="77" loading="lazy" decoding="async">
                                     </div>
                                     <h3 class="testimonial-name">Paula</h3>
                                     <p class="testimonial-role">Mamá de Sarita, 6 años</p>
@@ -483,7 +483,7 @@ get_header();
                             <div class="slide-item">
                                 <div class="testimonial-card">
                                     <div class="testimonial-avatar-wrapper">
-                                        <img src="https://growing.family/wp-content/uploads/2026/09/alejandro.jpg" alt="Avatar Alejandro" class="testimonial-avatar">
+                                        <img src="https://growing.family/wp-content/uploads/2026/09/alejandro-opt.webp" alt="Avatar Alejandro" class="testimonial-avatar" width="80" height="77" loading="lazy" decoding="async">
                                     </div>
                                     <h3 class="testimonial-name">Alejandro</h3>
                                     <p class="testimonial-role">Papá de Santi, 5 años</p>
@@ -495,7 +495,7 @@ get_header();
                             <div class="slide-item">
                                 <div class="testimonial-card">
                                     <div class="testimonial-avatar-wrapper">
-                                        <img src="https://growing.family/wp-content/uploads/2026/09/paola.jpg" alt="Avatar Paola" class="testimonial-avatar">
+                                        <img src="https://growing.family/wp-content/uploads/2026/09/paola-opt.webp" alt="Avatar Paola" class="testimonial-avatar" width="80" height="77" loading="lazy" decoding="async">
                                     </div>
                                     <h3 class="testimonial-name">Paola</h3>
                                     <p class="testimonial-role">Mamá de Carol, 4 años</p>
@@ -536,7 +536,7 @@ get_header();
                     </div>
                 </div>
                 <div class="focus-image-wrapper reveal-item order-1 order-md-2">
-                    <img class="transition-smooth" src="https://growing.family/wp-content/uploads/2026/09/padres-hogar-2.jpg" alt="Familia en la sala del hogar">
+                    <img class="transition-smooth" src="https://growing.family/wp-content/uploads/2026/09/padres-hogar-2-opt.webp" alt="Familia en la sala del hogar" width="449" height="406" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
@@ -673,7 +673,7 @@ get_header();
                                     <?php if (has_post_thumbnail()) : ?>
                                         <?php the_post_thumbnail('medium_large', array('class' => 'blog-image', 'alt' => get_the_title())); ?>
                                     <?php else : ?>
-                                        <img src="https://growing.family/wp-content/uploads/2026/08/article-1.jpg" alt="<?php the_title_attribute(); ?>" class="blog-image">
+                                        <img src="https://growing.family/wp-content/uploads/2026/08/article-1-opt.webp" alt="<?php the_title_attribute(); ?>" class="blog-image" width="374" height="200" loading="lazy" decoding="async">
                                     <?php endif; ?>
                                 </div>
                                 <div class="blog-card-body">

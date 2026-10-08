@@ -16,7 +16,7 @@
 				<footer class="footer">
 			        <div class="container footer-grid reveal-item">
 			            <div class="footer-brand">
-			                <img src="https://growing.family/wp-content/uploads/2026/08/Logo-blanco.png" alt="Growing Family Logo" class="footer-logo">
+			                <img src="https://growing.family/wp-content/uploads/2026/08/Logo-blanco-opt.webp" alt="Growing Family Logo" class="footer-logo" width="197" height="56" loading="lazy" decoding="async">
 			                <p class="footer-tagline">¡Tu tiempo hoy guiará su camino!</p>
 			                <p class="footer-desc">
 			                    Acompañamos el crecimiento de tu familia con ciencia y humanidad. Convertimos la intención en momentos que se quedan para siempre.

@@ -16,3 +16,6 @@ wp-config.php
 *.sql
 *.tar.gz
 .deploy-tmp/
+
+# Generados por SiteGround Optimizer (Minify CSS) a partir de style.css / print.css
+wp-content/themes/growingfamily2/twentytwenty-*.min.css

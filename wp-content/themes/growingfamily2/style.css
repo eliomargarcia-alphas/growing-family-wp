@@ -1713,7 +1713,7 @@ body {
    HERO SECTION
    ========================================================================== */
 .hero {
-    background-image: url('https://growing.family/wp-content/uploads/2026/09/hero-6.jpg');
+    background-image: url('https://growing.family/wp-content/uploads/2026/09/hero-6-opt.webp');
     background-size: cover;
     background-position: center right;
     background-repeat: no-repeat;
@@ -2277,7 +2277,7 @@ body {
 /* Hills container */
 .hills-container {
     height: 520px;
-    background: url(https://growing.family/wp-content/uploads/2026/08/fondo-bosque.jpg);
+    background: url(https://growing.family/wp-content/uploads/2026/08/fondo-bosque-opt.webp);
     background-size: cover;
     background-position: bottom;
     position: relative;
@@ -2373,7 +2373,7 @@ body {
 .section-neurobiology-ondas {
     padding-bottom: 6rem;
     padding-top: 10rem;
-    background: url(https://growing.family/wp-content/uploads/2026/08/fondoondulado.jpg) center top no-repeat #006E59;
+    background: url(https://growing.family/wp-content/uploads/2026/08/fondoondulado-opt.webp) center top no-repeat #006E59;
     background-size: contain;
 }
 
@@ -2521,7 +2521,7 @@ body {
 }
 
 .section-filtro{
-    background-image: url('https://growing.family/wp-content/uploads/2026/09/4_Filtro_Ban.jpg');
+    background-image: url('https://growing.family/wp-content/uploads/2026/09/4_Filtro_Ban-opt.webp');
     background-size: cover;
     background-position: center;
 }
@@ -2544,7 +2544,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('https://growing.family/wp-content/uploads/2026/08/bg-seccion-testimonial.jpg');
+    background-image: url('https://growing.family/wp-content/uploads/2026/08/bg-seccion-testimonial-opt.webp');
     background-size: cover;
     background-position: center;
     z-index: 1;
@@ -2892,7 +2892,7 @@ body {
    SECTION 13: CTA BLOCK (BG-2)
    ========================================================================== */
 .section-cta {
-    background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-bg-1.jpg');
+    background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-bg-1-opt.webp');
     background-size: cover;
     background-position: center right;
     background-repeat: no-repeat;
@@ -2904,16 +2904,16 @@ body {
     overflow: hidden;
 }
 .acerca-de-bg-img{
-    background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-acerca-de-6.jpg');
+    background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-acerca-de-6-opt.webp');
 }
 .elmetodo-bg-img{
-    background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-el-metodo-1.jpg');
+    background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-el-metodo-1-opt.webp');
 }
 .laedad-bg-img{
-    background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-la-edad-2.jpg');
+    background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-la-edad-2-opt.webp');
 }
 .lista-bg-img{
-    background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-lista-espera-5.jpg');
+    background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-lista-espera-5-opt.webp');
 }
 .bg-position-0-100{
    background-position: 0 100%; 
@@ -2922,7 +2922,7 @@ body {
 
 
 .section-padres {
-    background-image: url('https://growing.family/wp-content/uploads/2026/09/padres-conversan.jpg');
+    background-image: url('https://growing.family/wp-content/uploads/2026/09/padres-conversan-opt.webp');
     background-size: cover;
     background-position: center right;
     background-repeat: no-repeat;
@@ -3305,7 +3305,7 @@ body {
     .hero-bg-mobile {
         width: 100%;
         height: 260px;
-        background-image: url('https://growing.family/wp-content/uploads/2026/09/hero-6.jpg');
+        background-image: url('https://growing.family/wp-content/uploads/2026/09/hero-6-opt.webp');
         background-size: cover;
         background-position: 95%;
         margin-bottom: 1.5rem;
@@ -3384,7 +3384,7 @@ body {
         padding: 0 1rem 1rem 3rem;
     }
     .section-filtro {
-        background-image: url(https://growing.family/wp-content/uploads/2026/09/4_Filtro_Ban_M.jpg);
+        background-image: url(https://growing.family/wp-content/uploads/2026/09/4_Filtro_Ban_M-opt.webp);
     }
     .icon-gwf {
         max-width: 50px;
@@ -3442,28 +3442,28 @@ body {
     .cta-bg-mobile {
         width: 100%;
         height: 280px;
-        background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-bg-movil.jpg');
+        background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-bg-movil-opt.webp');
         background-size: cover;
         background-position: 85%;
         margin-bottom: 2rem;
     }
     .acerca-de-bg-img .cta-bg-mobile{
-        background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-acerca-de-movil-3.jpg');
+        background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-acerca-de-movil-3-opt.webp');
     }
     .elmetodo-bg-img .cta-bg-mobile{
-        background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-el-metodo.png');
+        background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-el-metodo-opt.webp');
     }
     .laedad-bg-img .cta-bg-mobile{
-        background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-la-edad-movil-1.jpg');
+        background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-la-edad-movil-1-opt.webp');
     }
     .lista-bg-img .cta-bg-mobile{
-        background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-lista-espera-movil-1.jpg');
+        background-image: url('https://growing.family/wp-content/uploads/2026/09/cta-lista-espera-movil-1-opt.webp');
     }
     
     .padres-bg-mobile {
         width: 100%;
         height: 280px;
-        background-image: url('https://growing.family/wp-content/uploads/2026/09/padres-conversan.jpg');
+        background-image: url('https://growing.family/wp-content/uploads/2026/09/padres-conversan-opt.webp');
         background-size: cover;
         background-position: 85%;
         margin-bottom: 2rem;

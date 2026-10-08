@@ -27,7 +27,7 @@ get_header();
                 Ahora mismo, dentro de esa cabecita, está pasando algo irrepetible
             </h1>
             <div class="focus-image-wrapper-2 reveal-item reveal-visible">
-                <img src="https://growing.family/wp-content/uploads/2026/09/la-edad-2.jpg" alt="Imagenes de niños jugando" class="border-radius-16 transition-smooth">
+                <img src="https://growing.family/wp-content/uploads/2026/09/la-edad-2-opt.webp" alt="Imagenes de niños jugando" class="border-radius-16 transition-smooth" width="678" height="820" fetchpriority="high">
             </div>
             <div class="focus-text-body-2 reveal-item reveal-visible">
                 <p class="section-subtitle">Entre los 4 y los 6 años, tu hija o hijo vive la etapa más asombrosa de todo su desarrollo. Todo es pregunta —"¿por qué el cielo es azul?", "¿los peces duermen?"—, todo es posible, y la imaginación no tiene techo: una caja es una nave, el piso es lava, un peluche tiene sentimientos de verdad.</p>
@@ -39,7 +39,7 @@ get_header();
     <section class="section-focus white-bg gradient-light-bg">
         <div class="container grid-2-40-60">
             <div class="focus-image-wrapper reveal-item reveal-visible">
-                <img src="https://growing.family/wp-content/uploads/2026/09/nino-llora-1.png" alt="Una niña consuela a un niño que llora en la escuela" class="border-radius-16 transition-smooth">
+                <img src="https://growing.family/wp-content/uploads/2026/09/nino-llora-1-opt.webp" alt="Una niña consuela a un niño que llora en la escuela" class="border-radius-16 transition-smooth" width="678" height="820" loading="lazy" decoding="async">
             </div>
             <div class="focus-content reveal-item reveal-visible">
                 <h2 class="section-title">A los cuatro descubre algo que lo cambia todo: los demás también sienten</h2>
@@ -54,7 +54,7 @@ get_header();
         <div class="decorative-ement-2"></div>
         <div class="container grid-2-40-60">
             <div class="focus-image-wrapper reveal-item reveal-visible">
-                <img src="https://growing.family/wp-content/uploads/2026/09/nina-enojada.png" alt="Unos padres hablan con sus hijos" class="border-radius-16 transition-smooth">
+                <img src="https://growing.family/wp-content/uploads/2026/09/nina-enojada-opt.webp" alt="Unos padres hablan con sus hijos" class="border-radius-16 transition-smooth" width="678" height="820" loading="lazy" decoding="async">
             </div>
             <div class="focus-content reveal-item reveal-visible">
                 <h2 class="section-title">A los cinco aprende a ponerle nombre a la tormenta que lleva dentro</h2>
@@ -67,7 +67,7 @@ get_header();
     <section class="section-focus white-bg gradient-light-bg">
         <div class="container grid-2-40-60">
             <div class="focus-image-wrapper reveal-item reveal-visible">
-                <img src="https://growing.family/wp-content/uploads/2026/09/ninos-parque-2.png" alt="Niños juegan felices en el parque" class="border-radius-16 transition-smooth">
+                <img src="https://growing.family/wp-content/uploads/2026/09/ninos-parque-2-opt.webp" alt="Niños juegan felices en el parque" class="border-radius-16 transition-smooth" width="678" height="820" loading="lazy" decoding="async">
             </div>
             <div class="focus-content reveal-item reveal-visible">
                 <h2 class="section-title">A los seis, todo lo que sembraste sale a la calle</h2>

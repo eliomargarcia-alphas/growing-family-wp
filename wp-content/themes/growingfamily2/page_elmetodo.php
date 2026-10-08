@@ -27,7 +27,7 @@ get_header();
                 Mil cuentos no son un método. Un método sabe a dónde va cada noche
             </h1>
             <div class="focus-image-wrapper-2 reveal-item reveal-visible">
-                <img src="https://growing.family/wp-content/uploads/2026/09/el-metodo-2.jpg" alt="Un padre y una madre le cuentan una historia a su hija" class="border-radius-16 transition-smooth">
+                <img src="https://growing.family/wp-content/uploads/2026/09/el-metodo-2-opt.webp" alt="Un padre y una madre le cuentan una historia a su hija" class="border-radius-16 transition-smooth" width="678" height="820" fetchpriority="high">
             </div>
             <div class="focus-text-body-2 reveal-item reveal-visible">
                 <p class="section-subtitle">Hoy es facilísimo conseguir historias: hay miles, gratis, infinitas. Lo que un catálogo no te da es dirección —que lo de esta noche prepare lo de la siguiente, y que en diez meses todo junto haya construido algo—. Un método no se mide por cuánto contenido tiene, sino por hacia dónde lleva.</p>
@@ -46,7 +46,7 @@ get_header();
                 <div class="benefit-card reveal-item reveal-visible">
                     <div class="card-header-icon">
                         <div class="benefit-icon-box">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-empatia.svg" alt="Icono empatia">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-empatia.svg" alt="Icono empatia" loading="lazy" decoding="async">
                         </div>
                         <h3 class="benefit-card-title">Un valor como la empatía no se enseña una vez y ya está.</h3>
                     </div>
@@ -55,7 +55,7 @@ get_header();
                 <div class="benefit-card reveal-item reveal-visible gradient-light-bg">
                     <div class="card-header-icon">
                         <div class="benefit-icon-box">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-espiral.svg" alt="Icono espiral">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-espiral.svg" alt="Icono espiral" loading="lazy" decoding="async">
                         </div>
                         <h3 class="benefit-card-title">Eso es una espiral</h3>
                     </div>
@@ -64,7 +64,7 @@ get_header();
                 <div class="benefit-card reveal-item reveal-visible">
                     <div class="card-header-icon">
                         <div class="benefit-icon-box">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-crecer.svg" alt="Icono crecimiento">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-crecer.svg" alt="Icono crecimiento" loading="lazy" decoding="async">
                         </div>
                         <h3 class="benefit-card-title">Y elegimos la palabra espiral, no ciclo, a propósito.</h3>
                     </div>
@@ -77,7 +77,7 @@ get_header();
     <section class="section-focus white-bg gradient-light-bg">
         <div class="container grid-2">
             <div class="focus-image-wrapper reveal-item reveal-visible">
-                <img src="https://growing.family/wp-content/uploads/2026/09/maxyana-1.png" alt="Max y Ana nuestros personajes" class=" transition-smooth">
+                <img src="https://growing.family/wp-content/uploads/2026/09/maxyana-1-opt.webp" alt="Max y Ana nuestros personajes" class=" transition-smooth" width="592" height="540" loading="lazy" decoding="async">
             </div>
             <div class="focus-content reveal-item reveal-visible">
                 <h2 class="section-title">Aprende más de quien se le parece</h2>
@@ -106,7 +106,7 @@ get_header();
                 <p class="section-desc">Y que sea corto es una decisión, no un límite. Una idea pequeña cada día se asienta mejor que una lección larga que nadie sostiene en el tiempo. Es la diferencia entre regar un poco cada día y ahogar la planta de golpe una vez al mes. Poco, pero cada día: así es como de verdad queda.</p>
             </div>
             <div class="focus-image-wrapper reveal-item reveal-visible">
-                <img src="https://growing.family/wp-content/uploads/2026/09/piezas-3.jpg" alt="Piezas de un plan estructurado" class="transition-smooth">
+                <img src="https://growing.family/wp-content/uploads/2026/09/piezas-3-opt.webp" alt="Piezas de un plan estructurado" class="transition-smooth" width="562" height="540" loading="lazy" decoding="async">
             </div>
         </div>
     </section>
@@ -121,7 +121,7 @@ get_header();
                 <div class="benefit-card reveal-item reveal-visible">
                     <div class="card-header-icon">
                         <div class="benefit-icon-box">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-arco.svg" alt="Icono arco">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-arco.svg" alt="Icono arco" loading="lazy" decoding="async">
                         </div>
                         <h3 class="benefit-card-title">El programa tiene forma de arco</h3>
                     </div>
@@ -130,7 +130,7 @@ get_header();
                 <div class="benefit-card reveal-item reveal-visible">
                     <div class="card-header-icon">
                         <div class="benefit-icon-box">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-vinculo.svg" alt="Icono vinculo">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-vinculo.svg" alt="Icono vinculo" loading="lazy" decoding="async">
                         </div>
                         <h3 class="benefit-card-title">Mes a mes crecen dos cosas a la vez</h3>
                     </div>
@@ -139,7 +139,7 @@ get_header();
                 <div class="benefit-card reveal-item reveal-visible">
                     <div class="card-header-icon">
                         <div class="benefit-icon-box">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-pasos.svg" alt="Icono pasos">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-pasos.svg" alt="Icono pasos" loading="lazy" decoding="async">
                         </div>
                         <h3 class="benefit-card-title">No hay que correr para llegar a ningún lado</h3>
                     </div>
@@ -159,11 +159,11 @@ get_header();
             <div class="grid-3">
                 <div class="benefit-card reveal-item reveal-visible p-0">
                     <div class="icard-header-image" style=" border-radius: 16px 16px 0 0; overflow: hidden;">
-                        <img src="https://growing.family/wp-content/uploads/2026/10/inicio-1.jpg" alt="Ritual de inicio">
+                        <img src="https://growing.family/wp-content/uploads/2026/10/inicio-1-opt.webp" alt="Ritual de inicio" width="722" height="370" loading="lazy" decoding="async">
                     </div>
                     <div class="card-header-icon px-4 pt-4">
                         <div class="benefit-icon-box p-2">
-                            <img src="https://growing.family/wp-content/uploads/2026/10/circles.svg" alt="Icono enfoque">
+                            <img src="https://growing.family/wp-content/uploads/2026/10/circles.svg" alt="Icono enfoque" loading="lazy" decoding="async">
                         </div>
                         <h3 class="benefit-card-title ">Ritual de inicio</h3>
                     </div>
@@ -172,11 +172,11 @@ get_header();
                 </div>
                 <div class="benefit-card reveal-item reveal-visible p-0">
                     <div class="icard-header-image" style=" border-radius: 16px 16px 0 0; overflow: hidden;">
-                        <img src="https://growing.family/wp-content/uploads/2026/10/medio-1.jpg" alt="Narración">
+                        <img src="https://growing.family/wp-content/uploads/2026/10/medio-1-opt.webp" alt="Narración" width="722" height="370" loading="lazy" decoding="async">
                     </div>
                     <div class="card-header-icon px-4 pt-4">
                         <div class="benefit-icon-box p-1">
-                            <img src="https://growing.family/wp-content/uploads/2026/10/hug.svg" alt="Icono vinculo">
+                            <img src="https://growing.family/wp-content/uploads/2026/10/hug.svg" alt="Icono vinculo" loading="lazy" decoding="async">
                         </div>
                         <h3 class="benefit-card-title">Narración</h3>
                     </div>
@@ -185,11 +185,11 @@ get_header();
                 </div>
                 <div class="benefit-card reveal-item reveal-visible p-0">
                     <div class="icard-header-image" style=" border-radius: 16px 16px 0 0; overflow: hidden;">
-                        <img src="https://growing.family/wp-content/uploads/2026/10/cierre-2.jpg" alt="Ritual de cierre">
+                        <img src="https://growing.family/wp-content/uploads/2026/10/cierre-2-opt.webp" alt="Ritual de cierre" width="722" height="370" loading="lazy" decoding="async">
                     </div>
                     <div class="card-header-icon px-4 pt-4">
                         <div class="benefit-icon-box p-2">
-                            <img src="https://growing.family/wp-content/uploads/2026/10/moon.svg" alt="Icono luna">
+                            <img src="https://growing.family/wp-content/uploads/2026/10/moon.svg" alt="Icono luna" loading="lazy" decoding="async">
                         </div>
                         <h3 class="benefit-card-title">Ritual de cierre</h3>
                     </div>
@@ -226,7 +226,7 @@ get_header();
                     <div class="benefit-card reveal-item reveal-visible">
                         <div class="card-header-icon">
                             <div class="benefit-icon-box">
-                                <img src="https://growing.family/wp-content/uploads/2026/09/icono-vinculo.svg" alt="Icono sentimiento">
+                                <img src="https://growing.family/wp-content/uploads/2026/09/icono-vinculo.svg" alt="Icono sentimiento" loading="lazy" decoding="async">
                             </div>
                             <h4 class="benefit-card-title">Herramientas para lo que siente</h4>
                         </div>
@@ -235,7 +235,7 @@ get_header();
                     <div class="benefit-card reveal-item reveal-visible">
                         <div class="card-header-icon">
                             <div class="benefit-icon-box">
-                                <img src="https://growing.family/wp-content/uploads/2026/09/icono-hands.svg" alt="Icono visibilidad">
+                                <img src="https://growing.family/wp-content/uploads/2026/09/icono-hands.svg" alt="Icono visibilidad" loading="lazy" decoding="async">
                             </div>
                             <h4 class="benefit-card-title">La certeza de sentirse visto</h4>
                         </div>
@@ -247,7 +247,7 @@ get_header();
                     <div class="benefit-card reveal-item reveal-visible">
                         <div class="card-header-icon">
                             <div class="benefit-icon-box">
-                                <img src="https://growing.family/wp-content/uploads/2026/09/icono-guia.svg" alt="Icono direccion">
+                                <img src="https://growing.family/wp-content/uploads/2026/09/icono-guia.svg" alt="Icono direccion" loading="lazy" decoding="async">
                             </div>
                             <h4 class="benefit-card-title">Dirección, en vez de improvisar</h4>
                         </div>
@@ -256,7 +256,7 @@ get_header();
                     <div class="benefit-card reveal-item reveal-visible">
                         <div class="card-header-icon">
                             <div class="benefit-icon-box">
-                                <img src="https://growing.family/wp-content/uploads/2026/09/icono-empatia.svg" alt="Icono vinculo">
+                                <img src="https://growing.family/wp-content/uploads/2026/09/icono-empatia.svg" alt="Icono vinculo" loading="lazy" decoding="async">
                             </div>
                             <h4 class="benefit-card-title">Un vínculo que se hace más hondo</h4>
                         </div>

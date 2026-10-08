@@ -99,6 +99,14 @@ function gwf_enqueue_main_script() {
 }
 add_action( 'wp_enqueue_scripts', 'gwf_enqueue_main_script' );
 
+/* La imagen del hero de la portada es un fondo CSS (el LCP): precargarla para que se descubra antes */
+function gwf_preload_hero_image() {
+	if ( is_front_page() ) {
+		echo '<link rel="preload" as="image" href="https://growing.family/wp-content/uploads/2026/09/hero-6-opt.webp" type="image/webp" fetchpriority="high">' . "\n";
+	}
+}
+add_action( 'wp_head', 'gwf_preload_hero_image', 1 );
+
 /* Disable Jetpack CSS */
 add_filter( 'jetpack_sharing_counts', '__return_false', 99 );
 add_filter( 'jetpack_implode_frontend_css', '__return_false', 99 );

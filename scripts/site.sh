@@ -32,7 +32,7 @@ cmd_diff() {
   trap 'rm -rf "$tmp_remote" "$tmp_head"' RETURN
   fetch_remote "$tmp_remote"
   git archive HEAD "${PATHS[@]}" | tar xf - -C "$tmp_head"
-  if diff -rq -x node_modules "$tmp_head" "$tmp_remote"; then
+  if diff -rq -x node_modules -x "twentytwenty-*.min.css" "$tmp_head" "$tmp_remote"; then
     echo "OK: producción coincide con HEAD."
   else
     echo
@@ -69,7 +69,7 @@ cmd_deploy() {
     tmp_remote="$(mktemp -d)"; tmp_last="$(mktemp -d)"
     fetch_remote "$tmp_remote"
     git archive "$last_deployed" "${PATHS[@]}" | tar xf - -C "$tmp_last"
-    if ! diff -rq -x node_modules "$tmp_last" "$tmp_remote"; then
+    if ! diff -rq -x node_modules -x "twentytwenty-*.min.css" "$tmp_last" "$tmp_remote"; then
       rm -rf "$tmp_remote" "$tmp_last"
       echo "ERROR: alguien cambió archivos en producción desde el último deploy ($last_deployed)." >&2
       echo "Ejecuta 'scripts/site.sh pull', revisa y commitea esos cambios antes de desplegar." >&2

@@ -28,8 +28,8 @@ get_header();
                 <p class="section-subtitle">Sabemos lo que es amar tan profundamente que duele y, a la vez, sentirse abrumado por la responsabilidad de estar formando a una persona. Lo que es mirar a otras familias y preguntarse si a ellas les dieron un manual que a uno nunca le llegó.</p>
                 <div class="text-center">
                   <picture>
-                    <source media="(min-width: 768px)" srcset="https://growing.family/wp-content/uploads/2026/09/imagen-elcambio-2.jpg">
-                    <img class="transition-smooth img-fluid d-inline" src="https://growing.family/wp-content/uploads/2026/09/elcambio-movil-2.jpg" alt="Padres que luego de un proceso llegan a un cambio" />
+                    <source media="(min-width: 768px)" srcset="https://growing.family/wp-content/uploads/2026/09/imagen-elcambio-2-opt.webp" width="1024" height="502">
+                    <img class="transition-smooth img-fluid d-inline" src="https://growing.family/wp-content/uploads/2026/09/elcambio-movil-2-opt.webp" alt="Padres que luego de un proceso llegan a un cambio" width="500" height="681" fetchpriority="high" />
                   </picture>
                 </div>
                 <p class="section-subtitle mt-4">Y un día nos dimos cuenta de algo que nos cambió la mirada: nos preparamos años para una carrera, nos capacitamos hasta para manejar un auto… pero llegamos a la crianza como si el instinto y las buenas intenciones bastaran. El instinto importa, pero solo no alcanza. Y aprender solo a fuerza de errores, en lo más importante que haremos, a veces cuesta caro —a nosotros, y a quienes más queremos.</p>
@@ -48,7 +48,7 @@ get_header();
                 <div class="benefit-card reveal-item reveal-visible">
                     <div class="card-header-icon">
                         <div class="benefit-icon-box">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-estar-1.svg" alt="Icono estar">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-estar-1.svg" alt="Icono estar" loading="lazy" decoding="async">
                         </div>
                         <h3 class="section-desc">Es estar.</h3>
                     </div>
@@ -59,7 +59,7 @@ get_header();
                 <div class="benefit-card reveal-item reveal-visible">
                     <div class="card-header-icon">
                         <div class="benefit-icon-box">
-                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-guia.svg" alt="Icono método">
+                            <img src="https://growing.family/wp-content/uploads/2026/09/icono-guia.svg" alt="Icono método" loading="lazy" decoding="async">
                             
                         </div>
                         <h3 class="section-desc">Por eso Growing Family no es un manual milagroso</h3>
@@ -133,7 +133,7 @@ get_header();
                 <p class="section-desc">Lo que resulta de esos filtros no son cuentos sueltos: es <b>un camino diseñado con método —espirales por edad para 4, 5 y 6 años, una malla de aprendizaje y un programa de diez meses—</b>, donde cada noche construye sobre la anterior. Y no lo diseñamos en un escritorio: lo pensamos para casas de verdad, no para la teoría.</p>
             </div>
             <div class="focus-image-wrapper reveal-item reveal-visible order-1 order-md-2">
-                <img src="https://growing.family/wp-content/uploads/2026/09/detras-de-cada-noche-3.jpg" alt="Madre y padre cuentan un cuento a su hijo" class="border-radius-16 transition-smooth">
+                <img src="https://growing.family/wp-content/uploads/2026/09/detras-de-cada-noche-3-opt.webp" alt="Madre y padre cuentan un cuento a su hijo" class="border-radius-16 transition-smooth" width="678" height="820" loading="lazy" decoding="async">
             </div>
         </div>
     </section>
@@ -153,7 +153,7 @@ get_header();
     <section class="section-focus white-bg">
         <div class="container grid-2">
             <div class="focus-image-wrapper reveal-item reveal-visible">
-                <img src="https://growing.family/wp-content/uploads/2026/09/familia-3.jpg" alt="Familia feliz en la sala" class="border-radius-16 transition-smooth">
+                <img src="https://growing.family/wp-content/uploads/2026/09/familia-3-opt.webp" alt="Familia feliz en la sala" class="border-radius-16 transition-smooth" width="1024" height="1024" loading="lazy" decoding="async">
             </div>
             <div class="focus-content reveal-item reveal-visible">
                 <h2 class="section-title">No es un salto al vacío</h2>
