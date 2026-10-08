@@ -79,9 +79,30 @@ add_filter('excerpt_length', 'my_excerpt_length');
 /* Enqueue Styles Correctly */
 function add_theme_scripts() {
 	//wp_enqueue_style( 'all', get_template_directory_uri() . '/assets/css/all.min.css', array(), '1.1', 'all' );
-	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.min.css', array(), '1.1', 'all' );
+	// Bootstrap reducido a las clases que usa el sitio (el completo sigue en assets/css/bootstrap.min.css)
+	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/assets/css/bootstrap-gwf.min.css', array(), (string) filemtime( get_template_directory() . '/assets/css/bootstrap-gwf.min.css' ), 'all' );
 }
 add_action( 'wp_enqueue_scripts', 'add_theme_scripts' );
+
+/*
+ * Fuentes alojadas en el propio servidor (antes: 3 peticiones a Google Fonts + Playfair Display sin usar).
+ * Open Sans y su cursiva son variables (cubren 300–800); Cal Sans solo existe en 400.
+ * Solo el subconjunto latin: cubre español (á, ñ, ¿, ¡, comillas y guiones tipográficos).
+ */
+function gwf_self_hosted_fonts() {
+	$dir = get_template_directory_uri() . '/assets/fonts/';
+	$latin = 'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD';
+	?>
+<link rel="preload" href="<?php echo esc_url( $dir . 'open-sans-latin.woff2' ); ?>" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="<?php echo esc_url( $dir . 'cal-sans-latin.woff2' ); ?>" as="font" type="font/woff2" crossorigin>
+<style id="gwf-fonts">
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:300 800;font-stretch:100%;font-display:swap;src:url(<?php echo esc_url( $dir . 'open-sans-latin.woff2' ); ?>) format('woff2');unicode-range:<?php echo $latin; ?>}
+@font-face{font-family:'Open Sans';font-style:italic;font-weight:300 800;font-stretch:100%;font-display:swap;src:url(<?php echo esc_url( $dir . 'open-sans-italic-latin.woff2' ); ?>) format('woff2');unicode-range:<?php echo $latin; ?>}
+@font-face{font-family:'Cal Sans';font-style:normal;font-weight:400;font-display:swap;src:url(<?php echo esc_url( $dir . 'cal-sans-latin.woff2' ); ?>) format('woff2');unicode-range:<?php echo $latin; ?>}
+</style>
+	<?php
+}
+add_action( 'wp_head', 'gwf_self_hosted_fonts', 2 );
 
 /* JS interactivo del tema (menú móvil, animaciones, pasos, slider, FAQ, scroll). Antes en línea en footer.php */
 function gwf_enqueue_main_script() {
@@ -279,7 +300,8 @@ function twentytwenty_register_styles() {
 
 	$theme_version = wp_get_theme()->get( 'Version' );
 
-	wp_enqueue_style( 'twentytwenty-style', get_stylesheet_uri(), array(), $theme_version );
+	// La versión cambia con cada edición de style.css para que navegadores y Cloudflare no sirvan una copia vieja
+	wp_enqueue_style( 'twentytwenty-style', get_stylesheet_uri(), array(), (string) filemtime( get_stylesheet_directory() . '/style.css' ) );
 	wp_style_add_data( 'twentytwenty-style', 'rtl', 'replace' );
 
 	// Add output of Customizer settings as inline style.
