@@ -48,10 +48,11 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   Web Analytics están desactivados a propósito; Site Kit solo añade su meta tag. No duplicar la etiqueta.
 
 - Caché (`.htaccess` raíz, **fuera del repo**; backups en `~/backups/htaccess-*.bak`): el bloque "Disable Cache"
-  pone `Cache-Control: private` a todo (HTML incluido, decisión del usuario). El bloque "GWF static cache" lo
-  anula para estáticos: CSS/JS/fuentes 1 año `immutable` (siempre con `?ver=`), imágenes/SVG 30 días.
-  Cloudflare cachea esos estáticos: si se **reemplaza una imagen con el mismo nombre**, purgarla en Cloudflare
-  o subirla con otro nombre.
+  pone `Cache-Control: private` a todo. **No poner `Cache-Control: public` desde .htaccess**: lo probamos el
+  2026-10-08 y la caché nginx de SiteGround (X-Proxy-Cache) guardó respuestas `304 Not Modified` y se las sirvió a
+  todos los visitantes → imágenes rotas en todo el sitio. Se revirtió. Si se quiere caché de estáticos, hacerlo
+  desde Cloudflare (Cache Rules) o con la opción de SG Optimizer, y probar con una petición condicional
+  (If-None-Match) seguida de una normal: la normal debe devolver 200 con cuerpo.
 - Google Analytics se carga en la primera interacción o 5 s tras `load` (snippet en header.php).
 
 ## Reglas
