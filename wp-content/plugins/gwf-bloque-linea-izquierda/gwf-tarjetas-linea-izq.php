@@ -11,12 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function gwf_tarjetas_linea_izq_init() {
-    // 1. Encolar el script de JavaScript
-    wp_enqueue_script(
+    // 1. Registrar (no encolar) el script: editor_script lo carga solo en el editor de bloques
+    wp_register_script(
         'gwf-tarjetas-linea-izq-script',
         plugins_url( 'block.js', __FILE__ ),
         // Dependencias esenciales: wp-blocks, wp-element (para createElement) y wp-editor (para MediaUpload)
-        array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components' ) 
+        array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n' )
     );
 
     // 2. Registrar el bloque

@@ -83,6 +83,22 @@ function add_theme_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'add_theme_scripts' );
 
+/* JS interactivo del tema (menú móvil, animaciones, pasos, slider, FAQ, scroll). Antes en línea en footer.php */
+function gwf_enqueue_main_script() {
+	$path = get_template_directory() . '/assets/js/gwf-main.js';
+	wp_enqueue_script(
+		'gwf-main',
+		get_template_directory_uri() . '/assets/js/gwf-main.js',
+		array(),
+		file_exists( $path ) ? (string) filemtime( $path ) : '1.0',
+		array(
+			'in_footer' => true,
+			'strategy'  => 'defer',
+		)
+	);
+}
+add_action( 'wp_enqueue_scripts', 'gwf_enqueue_main_script' );
+
 /* Disable Jetpack CSS */
 add_filter( 'jetpack_sharing_counts', '__return_false', 99 );
 add_filter( 'jetpack_implode_frontend_css', '__return_false', 99 );

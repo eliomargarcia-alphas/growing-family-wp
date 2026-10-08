@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function gwf_tarjetas_imagen_texto_init() {
-    // 1. Encolar el script de JavaScript
-    wp_enqueue_script(
+    // 1. Registrar (no encolar) el script: editor_script lo carga solo en el editor de bloques
+    wp_register_script(
         'gwf-tarjetas-imagen-texto-script',
         plugins_url( 'block.js', __FILE__ ),
         array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n' ) 
