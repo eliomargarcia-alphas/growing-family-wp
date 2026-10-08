@@ -20,14 +20,29 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" >
 		<meta name="color-scheme" content="light">
 		<link rel="profile" href="https://gmpg.org/xfn/11">
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-VDD509FKDM"></script>
+		<!-- Google tag (gtag.js): la cola dataLayer se crea al instante; la librería se descarga en la primera
+		     interacción (scroll, toque, clic, tecla) o a los 5 s de cargar la página, para no competir con el renderizado. -->
 		<script>
 		  window.dataLayer = window.dataLayer || [];
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
 
 		  gtag('config', 'G-VDD509FKDM');
+
+		  (function () {
+		    var loaded = false, events = ['scroll', 'pointerdown', 'keydown', 'touchstart', 'mousemove'];
+		    function loadGtag() {
+		      if (loaded) return;
+		      loaded = true;
+		      events.forEach(function (e) { window.removeEventListener(e, loadGtag, { passive: true }); });
+		      var s = document.createElement('script');
+		      s.async = true;
+		      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-VDD509FKDM';
+		      document.head.appendChild(s);
+		    }
+		    events.forEach(function (e) { window.addEventListener(e, loadGtag, { passive: true, once: true }); });
+		    window.addEventListener('load', function () { setTimeout(loadGtag, 5000); });
+		  })();
 		</script>
 
 		<?php wp_head(); ?>
