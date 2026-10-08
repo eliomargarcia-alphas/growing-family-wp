@@ -162,8 +162,12 @@ add_filter('excerpt_length', 'my_excerpt_length');
 /* Enqueue Styles Correctly */
 function add_theme_scripts() {
 	//wp_enqueue_style( 'all', get_template_directory_uri() . '/assets/css/all.min.css', array(), '1.1', 'all' );
-	// Bootstrap reducido a las clases que usa el sitio (el completo sigue en assets/css/bootstrap.min.css)
-	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/assets/css/bootstrap-gwf.min.css', array(), (string) filemtime( get_template_directory() . '/assets/css/bootstrap-gwf.min.css' ), 'all' );
+	// Bootstrap reducido a las clases que usa el sitio (el completo sigue en assets/css/bootstrap.min.css).
+	// Va en línea en el <head> (~14 KB, 4 KB comprimido): una petición bloqueante menos. Se mantiene el
+	// handle 'bootstrap' y su posición en la cola para no alterar el orden de la cascada.
+	wp_register_style( 'bootstrap', false, array(), null );
+	wp_enqueue_style( 'bootstrap' );
+	wp_add_inline_style( 'bootstrap', file_get_contents( get_template_directory() . '/assets/css/bootstrap-gwf.min.css' ) );
 }
 add_action( 'wp_enqueue_scripts', 'add_theme_scripts' );
 
