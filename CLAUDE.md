@@ -34,7 +34,7 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   tamaño en pantalla; el original queda junto a ella en uploads). Toda `<img>` lleva `width`/`height`;
   `loading="lazy" decoding="async"` bajo el pliegue, `fetchpriority="high"` en la imagen principal.
 - `twentytwenty-*.min.css` lo genera SG Optimizer (Minify CSS) desde `style.css`: no se versiona ni se edita.
-- Bootstrap: el tema carga `assets/css/bootstrap-gwf.min.css` (solo clases usadas). Si una plantilla nueva
+- Bootstrap: el tema imprime `assets/css/bootstrap-gwf.min.css` (solo clases usadas) **en línea** en el `<head>`. Si una plantilla nueva
   usa clases de Bootstrap que no estén ahí, regenerarlo desde `bootstrap.min.css`.
 - Fuentes locales en `assets/fonts` (Open Sans variable + Cal Sans, subconjunto latin), declaradas en
   `gwf_self_hosted_fonts()`. No volver a enlazar Google Fonts ni Font Awesome.
