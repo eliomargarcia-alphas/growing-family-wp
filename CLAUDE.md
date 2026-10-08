@@ -47,6 +47,13 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
 - Analítica: solo Google Analytics (gtag G-VDD509FKDM escrito en header.php). Jetpack Stats y Cloudflare
   Web Analytics están desactivados a propósito; Site Kit solo añade su meta tag. No duplicar la etiqueta.
 
+- Caché (`.htaccess` raíz, **fuera del repo**; backups en `~/backups/htaccess-*.bak`): el bloque "Disable Cache"
+  pone `Cache-Control: private` a todo (HTML incluido, decisión del usuario). El bloque "GWF static cache" lo
+  anula para estáticos: CSS/JS/fuentes 1 año `immutable` (siempre con `?ver=`), imágenes/SVG 30 días.
+  Cloudflare cachea esos estáticos: si se **reemplaza una imagen con el mismo nombre**, purgarla en Cloudflare
+  o subirla con otro nombre.
+- Google Analytics se carga en la primera interacción o 5 s tras `load` (snippet en header.php).
+
 ## Reglas
 - Backup antes de tocar cualquier archivo del servidor fuera del script; confirmar antes de borrar o sobrescribir.
 - Nunca commitear ni mostrar secretos (`wp-config.php`, claves, Application Passwords).
