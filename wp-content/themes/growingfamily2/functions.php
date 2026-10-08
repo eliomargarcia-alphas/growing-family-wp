@@ -169,19 +169,29 @@ add_action( 'wp_enqueue_scripts', 'add_theme_scripts' );
 
 /*
  * Fuentes alojadas en el propio servidor (antes: 3 peticiones a Google Fonts + Playfair Display sin usar).
- * Open Sans y su cursiva son variables (cubren 300–800); Cal Sans solo existe en 400.
- * Solo el subconjunto latin: cubre español (á, ñ, ¿, ¡, comillas y guiones tipográficos).
+ * Open Sans y su cursiva son variables, recortadas con fontTools al rango 400–700 y a los caracteres
+ * latinos que usa el español (á, ñ, ¿, ¡, €, comillas y guiones tipográficos). Cal Sans solo existe en 400.
+ * La cursiva aparece en el hero de la portada: allí también se precarga.
  */
 function gwf_self_hosted_fonts() {
-	$dir = get_template_directory_uri() . '/assets/fonts/';
-	$latin = 'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD';
+	$dir   = get_template_directory_uri() . '/assets/fonts/';
+	$path  = get_template_directory() . '/assets/fonts/';
+	$range = 'U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2010-2027, U+2030, U+2039-203A, U+20AC, U+2122, U+2212';
+	$url   = function ( $file ) use ( $dir, $path ) {
+		return esc_url( $dir . $file . '?ver=' . filemtime( $path . $file ) );
+	};
+	$preload = array( 'open-sans-latin.woff2', 'cal-sans-latin.woff2' );
+	if ( is_front_page() ) {
+		$preload[] = 'open-sans-italic-latin.woff2';
+	}
+	foreach ( $preload as $file ) {
+		echo '<link rel="preload" href="' . $url( $file ) . '" as="font" type="font/woff2" crossorigin>' . "\n";
+	}
 	?>
-<link rel="preload" href="<?php echo esc_url( $dir . 'open-sans-latin.woff2' ); ?>" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="<?php echo esc_url( $dir . 'cal-sans-latin.woff2' ); ?>" as="font" type="font/woff2" crossorigin>
 <style id="gwf-fonts">
-@font-face{font-family:'Open Sans';font-style:normal;font-weight:300 800;font-stretch:100%;font-display:swap;src:url(<?php echo esc_url( $dir . 'open-sans-latin.woff2' ); ?>) format('woff2');unicode-range:<?php echo $latin; ?>}
-@font-face{font-family:'Open Sans';font-style:italic;font-weight:300 800;font-stretch:100%;font-display:swap;src:url(<?php echo esc_url( $dir . 'open-sans-italic-latin.woff2' ); ?>) format('woff2');unicode-range:<?php echo $latin; ?>}
-@font-face{font-family:'Cal Sans';font-style:normal;font-weight:400;font-display:swap;src:url(<?php echo esc_url( $dir . 'cal-sans-latin.woff2' ); ?>) format('woff2');unicode-range:<?php echo $latin; ?>}
+@font-face{font-family:'Open Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(<?php echo $url( 'open-sans-latin.woff2' ); ?>) format('woff2');unicode-range:<?php echo $range; ?>}
+@font-face{font-family:'Open Sans';font-style:italic;font-weight:400 700;font-display:swap;src:url(<?php echo $url( 'open-sans-italic-latin.woff2' ); ?>) format('woff2');unicode-range:<?php echo $range; ?>}
+@font-face{font-family:'Cal Sans';font-style:normal;font-weight:400;font-display:swap;src:url(<?php echo $url( 'cal-sans-latin.woff2' ); ?>) format('woff2');unicode-range:<?php echo $range; ?>}
 </style>
 	<?php
 }
