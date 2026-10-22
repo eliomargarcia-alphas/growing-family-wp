@@ -35,14 +35,44 @@ function gwf_public_author_name( $name ) {
 }
 add_filter( 'get_the_author_display_name', 'gwf_public_author_name' );
 add_filter( 'the_author', 'gwf_public_author_name' );
+add_filter( 'wpseo_meta_author', 'gwf_public_author_name' );
+
+/** Lo mismo en el schema de Yoast (Person y su imagen). */
+function gwf_schema_person_name( $data ) {
+	if ( isset( $data['name'] ) ) {
+		$data['name'] = gwf_public_author_name( $data['name'] );
+	}
+	if ( isset( $data['image']['caption'] ) ) {
+		$data['image']['caption'] = gwf_public_author_name( $data['image']['caption'] );
+	}
+	if ( isset( $data['sameAs'] ) && is_array( $data['sameAs'] ) ) {
+		$data['sameAs'] = array_values( array_filter( $data['sameAs'], 'gwf_is_own_url' ) );
+	}
+	if ( isset( $data['url'] ) && ! gwf_is_own_url( $data['url'] ) ) {
+		$data['url'] = gwf_blog_url();
+	}
+	return $data;
+}
+add_filter( 'wpseo_schema_person', 'gwf_schema_person_name' );
+
+/** Solo URLs de este sitio cuentan como página de autoría (el perfil técnico apunta al dominio antiguo). */
+function gwf_is_own_url( $url ) {
+	return $url && wp_parse_url( $url, PHP_URL_HOST ) === wp_parse_url( home_url(), PHP_URL_HOST );
+}
+
+/** URL de la página de autoría del autor actual o del indicado, si es de este sitio. */
+function gwf_author_page_url( $author_id = null ) {
+	$url = get_the_author_meta( 'user_url', $author_id );
+	return gwf_is_own_url( $url ) ? $url : '';
+}
 
 /**
- * Firma del autor. Enlaza a su página de autoría si el perfil tiene "Sitio web" (user_url):
+ * Firma del autor. Enlaza a su página de autoría si el perfil tiene "Sitio web" (user_url) en growing.family:
  * cuando exista la página del comité/autor, basta con poner su URL en el perfil del usuario.
  */
 function gwf_author_byline() {
 	$name = esc_html( gwf_public_author_name( get_the_author() ) );
-	$url  = get_the_author_meta( 'user_url' );
+	$url  = gwf_author_page_url();
 	if ( $url ) {
 		return '<a href="' . esc_url( $url ) . '" rel="author" class="color-barium fw-semibold">' . $name . '</a>';
 	}
@@ -51,7 +81,7 @@ function gwf_author_byline() {
 
 /** Archivos de autor cerrados: exponían el login del administrador. El enlace de autor va a su página de autoría o al blog. */
 function gwf_author_link( $link, $author_id ) {
-	$url = get_the_author_meta( 'user_url', $author_id );
+	$url = gwf_author_page_url( $author_id );
 	return $url ? $url : gwf_blog_url();
 }
 add_filter( 'author_link', 'gwf_author_link', 10, 2 );
