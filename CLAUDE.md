@@ -55,6 +55,16 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   (If-None-Match) seguida de una normal: la normal debe devolver 200 con cuerpo.
 - Google Analytics se carga en la primera interacción o 5 s tras `load` (snippet en header.php).
 
+## Blog (capa 5) — preparado, sin publicar
+- Página "Blog" (ID 133) y las 52 entradas siguen en **borrador**; el Blog no está en el menú (se publica cuando haya contenido).
+- `inc/gwf-blog.php`: firma pública sin email (fallback "Equipo Growing Family"; también en Yoast meta author y schema),
+  enlace de autoría = campo "Sitio web" del usuario **solo si es una URL de growing.family**, archivos de autor
+  redirigidos a la portada, noindex en etiquetas y categorías vacías, campos ACF del puente (guía relacionada y
+  método) y WebP: sirve `<imagen>.jpg.webp` en el HTML si existe junto al original (Open Graph sigue en JPG).
+- WebP de las imágenes de los borradores generados el 2026-10-22 (lista en `~/backups/blog-webp-lista.txt`).
+  Para imágenes nuevas: `cwebp -q 80 -m 6 -metadata none archivo.jpg -o archivo.jpg.webp` (todos sus tamaños).
+- Backups previos: `~/backups/db-antes-blog-20261022-*.sql.gz`, `borradores-categorias-antes-20261022.csv`.
+
 ## Reglas
 - Backup antes de tocar cualquier archivo del servidor fuera del script; confirmar antes de borrar o sobrescribir.
 - Nunca commitear ni mostrar secretos (`wp-config.php`, claves, Application Passwords).
