@@ -20,8 +20,11 @@ get_header();
 					<div class="col-xl-9 pe-4">
 						<div class="col-xl-12 migas mb-4">
 							<p class="font-size-16 color-barium">
-								<a href="https://growing.family/blog/" class="color-barium text-decoration-none">Blog
-								</a> > <span class="color-iron"><?php the_title(); ?></span>
+								<a href="<?php echo esc_url( gwf_blog_url() ); ?>" class="color-barium text-decoration-none">Blog</a> >
+								<?php $gwf_cats = get_the_category(); if ( is_singular( 'post' ) && ! empty( $gwf_cats ) ) : ?>
+									<a href="<?php echo esc_url( get_category_link( $gwf_cats[0]->term_id ) ); ?>" class="color-barium text-decoration-none"><?php echo esc_html( $gwf_cats[0]->name ); ?></a> >
+								<?php endif; ?>
+								<span class="color-iron"><?php the_title(); ?></span>
 							</p>
 						</div>
 						<div class="categories col-xl-12 mb-4 d-none d-sm-block">
@@ -41,8 +44,12 @@ get_header();
 						<div class="row">
 							<div class="col-12 col-md-10">
 								<p class="entry-date font-size-18 color-iron">
-									<?php echo get_the_date('j M Y'); ?> - 
-									Escrito por <b class="fw-semibold"><?php the_author(); ?></b>
+									<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo get_the_date( 'j M Y' ); ?></time>
+									<?php if ( get_the_modified_time( 'U' ) - get_the_time( 'U' ) > DAY_IN_SECONDS ) : ?>
+										· Actualizado el <time datetime="<?php echo esc_attr( get_the_modified_date( 'c' ) ); ?>"><?php echo get_the_modified_date( 'j M Y' ); ?></time>
+									<?php endif; ?>
+									· Escrito por <?php echo gwf_author_byline(); ?>
+									· <?php echo gwf_reading_time(); ?> min de lectura
 								</p>
 							</div>
 							<div class="col-12 col-md-2">
@@ -59,6 +66,7 @@ get_header();
 										</div>
 									<?php endif; ?>
 									<?php the_content( __( 'Continue reading', 'twentytwenty' ) ); ?>
+									<?php if ( is_singular( 'post' ) ) { gwf_post_bridge(); } ?>
 								</div>
 							</div>
 						</article>
@@ -74,25 +82,23 @@ get_header();
 							    'posts_per_page' => 2,
 							    'category__not_in' => 11,
 							    'post__not_in' => array($current_post_id) 
-							)); if ( have_posts() ) { while ( $my_query->have_posts() ) { 	$my_query->the_post(); ?>
+							)); if ( $my_query->have_posts() ) { while ( $my_query->have_posts() ) { 	$my_query->the_post(); ?>
 								<div class="col-xl-12 bg-white article mb-5">
 									<div class="p-0 border-radius-8 box-shadow-30">
 										<a href="<?php the_permalink(); ?>">
-											<?php if ( has_post_thumbnail() ) { the_post_thumbnail( 'full', array( 'class' => 'border-radius-8-top' ) ); } ?>
+											<?php if ( has_post_thumbnail() ) { the_post_thumbnail( 'medium_large', array( 'class' => 'border-radius-8-top', 'sizes' => '(min-width: 1200px) 280px, 100vw' ) ); } ?>
 										</a>
 										<div class="article-content p-4">
 											<a href="<?php the_permalink(); ?>" class="color-barium text-decoration-none">
 												<?php the_title( '<p class="font-size-18 color-barium">', '</p>' ); ?>
 											</a>
-											<?php if( get_field('mostrar_tiempo_de_lectura') ): ?>
-												<p class="time font-size-14 color-iron"><img src="https://growing.family/wp-content/uploads/2024/07/clock.svg" alt="clock">
-													<?php the_field('tiempo_de_lectura'); ?>
-												</p>
-											<?php endif; ?>
+											<p class="time font-size-14 color-iron"><img src="https://growing.family/wp-content/uploads/2024/07/clock.svg" alt="" width="16" height="16">
+												<?php echo gwf_reading_time(); ?> min de lectura
+											</p>
 										</div>
 									</div>
 								</div>
-							<?php } } elseif ( is_search() ) { } ?>
+							<?php } wp_reset_postdata(); } ?>
 						</div>
 						<div class="socials mb-5 mb-xl-0 text-center text-xl-start">
 							<p class="font-size-24 color-barium pb-3">Únete a nuestras Redes Sociales</p>

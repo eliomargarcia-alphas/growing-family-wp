@@ -388,6 +388,9 @@ require get_template_directory() . '/inc/custom-css.php';
 // Block Patterns.
 require get_template_directory() . '/inc/block-patterns.php';
 
+// Blog (capa 5): autoría, puente, índice e imágenes WebP de las entradas.
+require get_template_directory() . '/inc/gwf-blog.php';
+
 /**
  * Register and Enqueue Styles.
  *
