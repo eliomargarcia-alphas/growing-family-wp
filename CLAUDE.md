@@ -56,6 +56,10 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
 - Google Analytics se carga en la primera interacción o 5 s tras `load` (snippet en header.php).
 
 ## Blog (capa 5) — preparado, sin publicar
+- URLs: entradas en `/blog/<slug>/`, categorías en `/blog/tema/<slug>/`, etiquetas en `/blog/etiqueta/<slug>/` (2026-10-22).
+- Categorías = temas del mapa de preguntas (anexo A de la estrategia): 11 de las capas 2 y 3 + "Vivencias de crianza"
+  (capa 5, ID 1, por defecto). Las 44 antiguas se borraron; qué tenía cada borrador está en
+  `~/backups/borradores-categorias-antes-20261022.csv`. Yoast `company_name` = "Growing Family".
 - Página "Blog" (ID 133) y las 52 entradas siguen en **borrador**; el Blog no está en el menú (se publica cuando haya contenido).
 - `inc/gwf-blog.php`: firma pública sin email (fallback "Equipo Growing Family"; también en Yoast meta author y schema),
   enlace de autoría = campo "Sitio web" del usuario **solo si es una URL de growing.family**, archivos de autor
