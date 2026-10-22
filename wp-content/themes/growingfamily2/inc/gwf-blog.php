@@ -193,26 +193,12 @@ function gwf_webp_url( $url ) {
 	return $new;
 }
 
-function gwf_webp_attachment_src( $image ) {
-	if ( is_array( $image ) && ! empty( $image[0] ) && ! is_admin() ) {
-		$image[0] = gwf_webp_url( $image[0] );
-	}
-	return $image;
-}
-add_filter( 'wp_get_attachment_image_src', 'gwf_webp_attachment_src' );
-
-function gwf_webp_srcset( $sources ) {
-	if ( is_admin() || ! is_array( $sources ) ) {
-		return $sources;
-	}
-	foreach ( $sources as $w => $source ) {
-		$sources[ $w ]['url'] = gwf_webp_url( $source['url'] );
-	}
-	return $sources;
-}
-add_filter( 'wp_calculate_image_srcset', 'gwf_webp_srcset' );
-
+// Solo en el HTML de la página (imágenes del contenido y destacadas). Open Graph y schema siguen en JPG/PNG,
+// que todas las redes sociales aceptan.
 function gwf_webp_content_img( $tag ) {
+	if ( is_admin() ) {
+		return $tag;
+	}
 	return preg_replace_callback(
 		'/(?<=src=["\']|srcset=["\']|, |,)(https?:[^"\'\s,]+\.(?:jpe?g|png))(?=[\s"\',])/i',
 		function ( $m ) {
@@ -222,3 +208,4 @@ function gwf_webp_content_img( $tag ) {
 	);
 }
 add_filter( 'wp_content_img_tag', 'gwf_webp_content_img' );
+add_filter( 'wp_get_attachment_image', 'gwf_webp_content_img' );
