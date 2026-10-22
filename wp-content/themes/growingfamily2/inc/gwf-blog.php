@@ -55,6 +55,14 @@ function gwf_schema_person_name( $data ) {
 }
 add_filter( 'wpseo_schema_person', 'gwf_schema_person_name' );
 
+function gwf_schema_article_author( $data ) {
+	if ( isset( $data['author']['name'] ) ) {
+		$data['author']['name'] = gwf_public_author_name( $data['author']['name'] );
+	}
+	return $data;
+}
+add_filter( 'wpseo_schema_article', 'gwf_schema_article_author' );
+
 /** Solo URLs de este sitio cuentan como página de autoría (el perfil técnico apunta al dominio antiguo). */
 function gwf_is_own_url( $url ) {
 	return $url && wp_parse_url( $url, PHP_URL_HOST ) === wp_parse_url( home_url(), PHP_URL_HOST );
