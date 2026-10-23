@@ -3659,3 +3659,11 @@ body {
     font-size: 0.95rem;
     color: var(--color-gray-text);
 }
+
+@media (max-width: 767px) {
+    .gwf-404 .btn {
+        display: flex;
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+}
