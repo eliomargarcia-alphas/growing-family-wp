@@ -22,6 +22,7 @@ PATHS=(
   wp-content/plugins/gwf-bloque-azul
   wp-content/plugins/gwf-bloque-imagen-texto
   wp-content/plugins/gwf-bloque-linea-izquierda
+  wp-content/plugins/gwf-guias
 )
 
 ROOT="$(git -C "$(dirname "$0")" rev-parse --show-toplevel)"
@@ -29,7 +30,7 @@ cd "$ROOT"
 
 fetch_remote() { # $1 = directorio destino
   mkdir -p "$1"
-  ssh "$SSH_HOST" "cd ~/$REMOTE_WP && tar czf - ${PATHS[*]}" | tar xzf - -C "$1"
+  ssh "$SSH_HOST" "cd ~/$REMOTE_WP && tar czf - --ignore-failed-read ${PATHS[*]} 2>/dev/null" | tar xzf - -C "$1"
 }
 
 cmd_diff() {
@@ -56,7 +57,7 @@ cmd_pull() {
   for p in "${PATHS[@]}"; do
     rm -rf "$p"
     mkdir -p "$(dirname "$p")"
-    cp -r "$tmp/$p" "$p"
+    [ -e "$tmp/$p" ] && cp -r "$tmp/$p" "$p"
   done
   git status --short
 }
@@ -74,7 +75,7 @@ cmd_deploy() {
     local tmp_remote tmp_last
     tmp_remote="$(mktemp -d)"; tmp_last="$(mktemp -d)"
     fetch_remote "$tmp_remote"
-    git archive "$last_deployed" "${PATHS[@]}" | tar xf - -C "$tmp_last"
+    git archive "$last_deployed" $(git ls-tree --name-only "$last_deployed" -- "${PATHS[@]}") | tar xf - -C "$tmp_last"
     if ! diff -rq -x node_modules -x "twentytwenty-*.min.css" "$tmp_last" "$tmp_remote"; then
       rm -rf "$tmp_remote" "$tmp_last"
       echo "ERROR: alguien cambió archivos en producción desde el último deploy ($last_deployed)." >&2
@@ -89,7 +90,7 @@ cmd_deploy() {
   ts="$(date +%Y%m%d-%H%M%S)"
 
   echo "Backup remoto -> ~/$REMOTE_BACKUPS/$ts-before-$sha.tar.gz"
-  ssh "$SSH_HOST" "mkdir -p ~/$REMOTE_BACKUPS && cd ~/$REMOTE_WP && tar czf ~/$REMOTE_BACKUPS/$ts-before-$sha.tar.gz ${PATHS[*]}"
+  ssh "$SSH_HOST" "mkdir -p ~/$REMOTE_BACKUPS && cd ~/$REMOTE_WP && tar czf ~/$REMOTE_BACKUPS/$ts-before-$sha.tar.gz --ignore-failed-read ${PATHS[*]} 2>/dev/null"
 
   echo "Subiendo $sha a producción..."
   # Sustituye cada carpeta completa: los archivos borrados en git también desaparecen del servidor.
