@@ -217,6 +217,18 @@ function gwf_enqueue_main_script() {
 }
 add_action( 'wp_enqueue_scripts', 'gwf_enqueue_main_script' );
 
+/* Guías (plugin gwf-guias): CSS y JS propios, solo en sus plantillas */
+function gwf_enqueue_guias_assets() {
+	if ( ! is_singular( 'guia' ) ) {
+		return;
+	}
+	$dir = get_template_directory();
+	$uri = get_template_directory_uri();
+	wp_enqueue_style( 'gwf-guias', $uri . '/assets/css/gwf-guias.css', array( 'twentytwenty-style' ), (string) filemtime( $dir . '/assets/css/gwf-guias.css' ) );
+	wp_enqueue_script( 'gwf-guias', $uri . '/assets/js/gwf-guias.js', array(), (string) filemtime( $dir . '/assets/js/gwf-guias.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
+}
+add_action( 'wp_enqueue_scripts', 'gwf_enqueue_guias_assets' );
+
 /* La imagen del hero de la portada es un fondo CSS (el LCP): precargarla para que se descubra antes */
 function gwf_preload_hero_image() {
 	if ( is_front_page() ) {

@@ -74,6 +74,7 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   guarda el usuario, no se usan ni se copian aquí). DNS en Cloudflare con proxy.
 - Sin indexar: `blog_public=0` + cabecera `X-Robots-Tag: noindex, nofollow, noarchive` en su `.htaccess`
   (bloque "GWF staging noindex"). Google Analytics solo se imprime si `home_url()` es growing.family (header.php).
+- Plugins desactivados a propósito en staging3 (2026-10-23, para no dar errores en el admin): Jetpack, Site Kit y Coming Soon Page.
 - Desplegar ahí: `TARGET=staging3 scripts/site.sh deploy` (backups en `~/backups/deploys-staging3/`).
   Ojo: la base de datos de staging3 es independiente; los cambios por WP-CLI hay que repetirlos o probarlos primero ahí.
 

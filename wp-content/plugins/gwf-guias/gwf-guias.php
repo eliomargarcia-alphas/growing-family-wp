@@ -23,6 +23,7 @@ require GWF_GUIAS_DIR . 'includes/types.php';
 require GWF_GUIAS_DIR . 'includes/fields.php';
 require GWF_GUIAS_DIR . 'includes/items.php';
 require GWF_GUIAS_DIR . 'includes/publish-rule.php';
+require GWF_GUIAS_DIR . 'includes/template-tags.php';
 
 /** Al activar: rol, permisos, términos iniciales y reglas de URL. */
 function gwf_guias_activate() {
