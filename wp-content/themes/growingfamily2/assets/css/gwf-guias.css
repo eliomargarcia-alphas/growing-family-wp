@@ -44,7 +44,7 @@
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) 300px;
 	gap: 2rem;
-	align-items: start;
+	/* Sin align-items:start: la columna lateral debe medir lo que la principal para que el panel sticky tenga recorrido */
 }
 
 .gwf-g-header { margin-bottom: 1.5rem; }
@@ -138,7 +138,7 @@
 .gwf-g-steps span { display: block; line-height: 1.6; }
 
 /* 7. Qué evitar */
-.gwf-g-avoid { padding-left: 1.25rem; margin: 0; }
+.gwf-guia .gwf-g-avoid { list-style: disc; padding-left: 1.25rem; margin: 0; }
 .gwf-g-avoid li { margin-bottom: 0.5rem; line-height: 1.6; }
 
 /* Panel lateral */
@@ -324,6 +324,10 @@
 .gwf-g-related a:hover { box-shadow: var(--shadow-md); color: var(--g-blue); }
 
 .gwf-g-bar { display: none; }
+
+/* La barra flotante de AddToAny no forma parte de la guía (en las páginas ya la oculta el CSS personalizado) */
+.single-guia .a2a_floating_style,
+.single-desarrollo .a2a_floating_style { display: none !important; }
 
 /* ==========================================================================
    Móvil y tableta (≤ 1024px, el corte del tema)
