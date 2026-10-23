@@ -98,6 +98,10 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
 - Usuarios de prueba en staging3: `prueba-revisora` (rol Revisor experto) y `equipo-editorial` (editor), sin contraseña conocida.
 - El deploy a producción copia el plugin, pero allí **no está activado**: no activarlo hasta aprobar el plan.
 
+## Diseño
+- Paleta: solo los azules de la marca (`--color-navy`, azul claro `#eaf2fd`, `--color-sky*`). **Nada de naranja ni beige**: en los
+  wireframes el naranja solo resaltaba cosas del boceto.
+
 ## Reglas
 - Backup antes de tocar cualquier archivo del servidor fuera del script; confirmar antes de borrar o sobrescribir.
 - Nunca commitear ni mostrar secretos (`wp-config.php`, claves, Application Passwords).

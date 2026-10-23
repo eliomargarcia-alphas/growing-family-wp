@@ -246,6 +246,13 @@ while ( have_posts() ) :
 				</div>
 			</section>
 
+			<?php if ( shortcode_exists( 'wp_ulike' ) ) : // Valoración: los «me gusta» ordenan los listados de guías. ?>
+				<section class="gwf-g-block gwf-g-like">
+					<h2>¿Te ha gustado este contenido?</h2>
+					<?php echo do_shortcode( '[wp_ulike]' ); ?>
+				</section>
+			<?php endif; ?>
+
 			<?php // 13. Relacionados: pilar, guías hermanas, nota de padre a padre y método. ?>
 			<nav class="gwf-g-block gwf-g-related" aria-label="Relacionados">
 				<h2>Relacionados</h2>

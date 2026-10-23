@@ -7,12 +7,11 @@
 	--g-text: #37425f;
 	--g-muted: #5b6478;
 	--g-line: var(--color-gray-border, #e2e8f0);
-	--g-soft: #f7f6f3;
-	--g-orange: #f2a33a;
-	--g-orange-bg: #fdf1e1;
-	--g-orange-soft: #fffaf0;
+	/* Solo la paleta azul de la marca: el naranja de los wireframes era resaltado del boceto, no un color del sitio */
 	--g-blue: var(--color-navy, #0049db);
 	--g-blue-bg: #eaf2fd;
+	--g-blue-line: #c9dcf8;
+	--g-soft: #f5f9fe;
 	--g-radius: 14px;
 	color: var(--g-text);
 	/* La cabecera del tema es fija (80px) y los estilos globales de WP anulan el padding-top del body */
@@ -89,20 +88,20 @@ body.single-desarrollo {
 .gwf-g-block p { font-size: 1.0625rem; line-height: 1.65; }
 
 .gwf-g-respuesta {
-	background: var(--g-soft);
-	border-color: #d9d6cf;
+	background: var(--g-blue-bg);
+	border-color: var(--g-blue-line);
 }
 .gwf-g-respuesta p { font-size: 1.1875rem; line-height: 1.6; color: var(--color-dark, #0a0e16); }
 
 .gwf-g-consultar {
-	background: var(--g-orange-bg);
-	border: 2px solid var(--g-orange);
+	background: var(--g-blue-bg);
+	border: 2px solid var(--g-blue);
 }
-.gwf-g-consultar h2 { color: #7a4300; }
+.gwf-guia .gwf-g-consultar h2 { color: var(--color-navy-dark, #07192b); }
 
 .gwf-g-optional {
-	background: var(--g-orange-soft);
-	border: 2px dashed var(--g-orange);
+	background: #fff;
+	border: 2px dashed var(--g-blue-line);
 }
 
 .gwf-g-kicker {
@@ -175,7 +174,7 @@ body.single-desarrollo {
 	margin: 0 0 0.75rem;
 }
 .gwf-g-facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
-.gwf-g-facts li { background: var(--g-soft); border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.9375rem; }
+.gwf-g-facts li { background: var(--g-blue-bg); border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.9375rem; }
 
 .gwf-g-reviewer { display: flex; gap: 0.75rem; align-items: center; }
 .gwf-g-reviewer img,
@@ -291,7 +290,7 @@ body.single-desarrollo {
 /* 12. Autoría y fuentes */
 .gwf-g-credits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .gwf-g-credits-who,
-.gwf-g-sources { background: var(--g-soft); border-radius: 10px; padding: 1rem; margin: 0; }
+.gwf-g-sources { background: var(--g-blue-bg); border-radius: 10px; padding: 1rem; margin: 0; }
 .gwf-g-credits-who div { margin-bottom: 0.35rem; }
 .gwf-g-credits-who dt { display: inline; font-weight: 700; }
 .gwf-g-credits-who dt::after { content: " "; }
@@ -302,6 +301,17 @@ body.single-desarrollo {
 .gwf-g-sources ol { margin: 0; padding-left: 1.25rem; }
 .gwf-g-sources li { margin-bottom: 0.35rem; }
 .gwf-g-sources a::after { content: " ↗"; }
+
+/* Valoración (WP ULike), bajo autoría y fuentes */
+.gwf-g-like {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+}
+.gwf-guia .gwf-g-like h2 { margin: 0; font-size: 1.15rem; }
+.gwf-g-like .wpulike { margin: 0; }
 
 /* 13. Relacionados */
 .gwf-g-related { background: var(--g-blue-bg); border: 1px dashed #9cc0f2; }
@@ -376,7 +386,7 @@ body.single-desarrollo {
 		display: block;
 		margin: 1rem 0 0;
 		padding: 0.6rem 0.9rem;
-		background: var(--g-soft);
+		background: var(--g-blue-bg);
 		border: 1px solid var(--g-line);
 		border-radius: 10px;
 		font-size: 0.875rem;
