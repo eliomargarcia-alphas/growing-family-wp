@@ -19,6 +19,16 @@
 	padding: calc(80px + 1.5rem) 0 4rem;
 }
 
+/* El tema pone overflow-x:hidden en html y body: eso convierte el body en contenedor de scroll y rompe el
+   panel sticky. clip corta igual el desbordamiento horizontal sin crear ese contenedor. */
+html:has(body.single-guia),
+body.single-guia,
+html:has(body.single-desarrollo),
+body.single-desarrollo {
+	overflow-x: clip;
+	overflow-y: visible;
+}
+
 .gwf-guia .screen-reader-text {
 	position: absolute !important;
 	width: 1px;
@@ -336,6 +346,31 @@
 	.gwf-guia { padding: calc(80px + 0.75rem) 0 5.5rem; }
 	.gwf-g-layout { grid-template-columns: 1fr; gap: 0; }
 	.gwf-g-side { display: none; }
+
+	/* «Cuándo consultar» sube a la primera pantalla: justo después de la respuesta directa */
+	.gwf-g-main { display: flex; flex-direction: column; }
+	.gwf-g-main > * { order: 5; }
+	.gwf-g-main > .gwf-g-header { order: 0; }
+	.gwf-g-main > #respuesta { order: 1; }
+	.gwf-g-main > #cuando-consultar { order: 2; }
+	.gwf-g-main > .gwf-g-toc-mobile { order: 3; }
+	.gwf-g-main > #lo-que-intentaste { order: 4; }
+
+	/* Migas en una línea: el último eslabón repite el título y se recorta */
+	.gwf-g-migas { font-size: 0.8125rem; margin-bottom: 0.75rem; }
+	.gwf-g-migas .breadcrumb_last {
+		display: inline-block;
+		max-width: 9rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		vertical-align: bottom;
+	}
+	.gwf-g-title { font-size: 1.6rem; }
+	.gwf-g-byline { font-size: 0.875rem; }
+	.gwf-g-header { margin-bottom: 1rem; }
+	.gwf-g-block p { font-size: 1rem; }
+	.gwf-g-respuesta p { font-size: 1.0625rem; }
 
 	.gwf-g-strip {
 		display: block;
