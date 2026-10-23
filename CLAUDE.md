@@ -77,6 +77,18 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
 - Desplegar ahí: `TARGET=staging3 scripts/site.sh deploy` (backups en `~/backups/deploys-staging3/`).
   Ojo: la base de datos de staging3 es independiente; los cambios por WP-CLI hay que repetirlos o probarlos primero ahí.
 
+## Guías (plugin gwf-guias) — en construcción, activo solo en staging3
+- Plan: «Plan de implementación de guías en WordPress». Hechas las etapas 1 y 2 (2026-10-23).
+- Tipos `guia` (/guias/) y `desarrollo` (/desarrollo/); taxonomías `edad` (/edad/), `tema` (/guias/tema/, temas de la
+  capa 2 del mapa) y `gran_tema` (/desarrollo/tema/). Permisos propios `*_guias`; rol `gwf_revisor` (no publica).
+- Editor clásico a propósito: los campos ACF y la regla de publicación viajan en el mismo envío.
+- Sin ACF PRO: las listas (`gwf_pasos`, `gwf_evitar`, `gwf_fuentes`, `gwf_hitos`) son texto «a | b» por líneas.
+  Leerlas siempre con `gwf_guias_items()`; con PRO pasan a repetidores con el mismo nombre (falta migrar y crear subcampos).
+- Regla: `gwf_guias_check()` (revisor, fecha, 2 fuentes y bloques obligatorios). Sin cumplirla → «Pendiente de revisión»
+  (o 400 por REST). Aprobación del revisor guarda nombre, fecha y `_gwf_hash_revisado`.
+- Usuarios de prueba en staging3: `prueba-revisora` (rol Revisor experto) y `equipo-editorial` (editor), sin contraseña conocida.
+- El deploy a producción copia el plugin, pero allí **no está activado**: no activarlo hasta aprobar el plan.
+
 ## Reglas
 - Backup antes de tocar cualquier archivo del servidor fuera del script; confirmar antes de borrar o sobrescribir.
 - Nunca commitear ni mostrar secretos (`wp-config.php`, claves, Application Passwords).
