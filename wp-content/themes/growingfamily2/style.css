@@ -3603,10 +3603,12 @@ body {
 /* ==========================================================================
    404 — página no encontrada (404.php)
    ========================================================================== */
-.gwf-404__img {
-    width: 240px;
-    height: auto;
+.gwf-404__icon {
+    display: block;
+    width: 120px;
+    height: 120px;
     margin: 0 auto;
+    color: var(--color-navy);
 }
 
 .gwf-404__lead {
@@ -3617,6 +3619,7 @@ body {
 
 .gwf-404 .btn {
     margin: 0.375rem;
+    font-size: 1rem;
 }
 
 .gwf-404__links {
