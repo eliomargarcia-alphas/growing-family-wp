@@ -68,7 +68,8 @@ while ( have_posts() ) :
 		<?php if ( function_exists( 'yoast_breadcrumb' ) ) { yoast_breadcrumb( '<nav class="gwf-g-migas" aria-label="Migas de pan">', '</nav>' ); } ?>
 
 		<div class="gwf-g-layout">
-			<article <?php post_class( 'gwf-g-main' ); ?> id="post-<?php the_ID(); ?>">
+			<?php // div y no article: las reglas antiguas del blog (.single article h2/p, con !important) no deben aplicarse a la guía. ?>
+			<div <?php post_class( 'gwf-g-main' ); ?> id="post-<?php the_ID(); ?>">
 
 				<header class="gwf-g-header">
 					<?php // 1. Pregunta de la familia con la edad + línea de autoría. ?>
@@ -152,7 +153,7 @@ while ( have_posts() ) :
 
 				<?php // 9. Un cuento para esta noche: se añade cuando exista el tipo Cuento (plugin gwf-cuentos). ?>
 
-			</article>
+			</div>
 
 			<aside class="gwf-g-side" aria-label="Sobre esta guía">
 				<div class="gwf-g-side-inner">
@@ -172,7 +173,7 @@ while ( have_posts() ) :
 								<?php if ( $gwf_reviewer['foto'] ) : ?>
 									<img src="<?php echo esc_url( $gwf_reviewer['foto'] ); ?>" alt="" width="48" height="48" loading="lazy" decoding="async">
 								<?php else : ?>
-									<span class="gwf-g-avatar" aria-hidden="true"><?php echo esc_html( mb_substr( wp_strip_all_tags( $gwf_reviewer['nombre'] ), 0, 1 ) ); ?></span>
+									<span class="gwf-g-avatar" aria-hidden="true"><?php echo esc_html( mb_substr( preg_replace( '/[^\p{L}]/u', '', preg_replace( '/\[[^\]]*\]/', '', $gwf_reviewer['nombre'] ) ), 0, 1 ) ); ?></span>
 								<?php endif; ?>
 								<div>
 									<p class="gwf-g-reviewer-name"><?php echo esc_html( $gwf_reviewer['nombre'] ); ?></p>
