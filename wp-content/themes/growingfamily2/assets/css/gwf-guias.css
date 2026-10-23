@@ -312,6 +312,17 @@ body.single-desarrollo {
 }
 .gwf-guia .gwf-g-like h2 { margin: 0; font-size: 1.15rem; }
 .gwf-g-like .wpulike { margin: 0; }
+/* Botón de WP ULike con la paleta de la marca (por defecto es gris) */
+.gwf-guia .gwf-g-like .wp_ulike_btn {
+	background-color: var(--g-blue-bg);
+	border: 1px solid var(--g-blue-line);
+	border-radius: 10px;
+	min-width: 48px;
+	min-height: 40px;
+}
+.gwf-guia .gwf-g-like .wp_ulike_btn:hover,
+.gwf-guia .gwf-g-like .wp_ulike_is_liked .wp_ulike_btn { background-color: #d6e6fb; border-color: var(--g-blue); }
+.gwf-guia .gwf-g-like .count-box { color: var(--g-blue); font-weight: 600; }
 
 /* 13. Relacionados */
 .gwf-g-related { background: var(--g-blue-bg); border: 1px dashed #9cc0f2; }
