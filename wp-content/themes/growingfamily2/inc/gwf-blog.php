@@ -102,14 +102,30 @@ function gwf_close_author_archives() {
 }
 add_action( 'template_redirect', 'gwf_close_author_archives' );
 
-/** Índice: etiquetas fuera (no se usan) y archivos de categoría vacíos fuera; las categorías con notas sí se indexan. */
+/** ¿Estamos en /blog/ mientras la página de entradas sigue en borrador? */
+function gwf_is_unpublished_blog_index() {
+	$page_id = (int) get_option( 'page_for_posts' );
+	return is_home() && $page_id && 'publish' !== get_post_status( $page_id );
+}
+
+/**
+ * Índice: etiquetas fuera (no se usan), archivos de categoría vacíos fuera y /blog/ fuera mientras
+ * la página Blog esté en borrador. Las categorías con notas sí se indexan.
+ */
 function gwf_blog_robots( $robots ) {
-	if ( is_tag() || ( is_category() && ! have_posts() ) ) {
+	if ( is_tag() || ( is_category() && ! have_posts() ) || gwf_is_unpublished_blog_index() ) {
 		return 'noindex, follow';
 	}
 	return $robots;
 }
 add_filter( 'wpseo_robots', 'gwf_blog_robots' );
+
+/** Con la página en borrador Yoast usaría ?page_id=133; la URL real es /blog/. Al publicarla, Yoast ya la pone sola. */
+function gwf_blog_index_url( $url ) {
+	return gwf_is_unpublished_blog_index() ? home_url( '/blog/' ) : $url;
+}
+add_filter( 'wpseo_canonical', 'gwf_blog_index_url' );
+add_filter( 'wpseo_opengraph_url', 'gwf_blog_index_url' );
 
 /**
  * Campos por entrada para el puente (la estrategia: "el puente al método es un enlace al final,
