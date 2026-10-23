@@ -16,7 +16,7 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
 ## Acceso al servidor
 - SSH: alias `siteground` en `~/.ssh/config` → IP `34.174.211.179`, puerto `18765`, clave `~/.ssh/siteground_ed25519`.
   No usar `ssh.growing.family`: pasa por el proxy de Cloudflare y SSH hace timeout.
-- WordPress: `~/www/growing.family/public_html`. Staging: `~/www/staging2.growing.family`. WP-CLI disponible (`wp`).
+- WordPress: `~/www/growing.family/public_html`. Staging: `~/www/staging3.growing.family/public_html` (https://staging3.growing.family, copia de producción creada con la herramienta de SiteGround el 2026-10-23). WP-CLI disponible (`wp`).
 - Backups: `~/backups/` (zips antiguos) y `~/backups/deploys/` (backups automáticos de cada deploy + `LAST_DEPLOYED`).
 - WPVibe (conector MCP, plugin `vibe-ai`): para contenido (entradas, páginas, medios, REST). El sitio usa SeedProd:
   cargar `load_skill({ name: "seedprod" })` antes de editar páginas hechas con él.
@@ -68,6 +68,14 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
 - WebP de las imágenes de los borradores generados el 2026-10-22 (lista en `~/backups/blog-webp-lista.txt`).
   Para imágenes nuevas: `cwebp -q 80 -m 6 -metadata none archivo.jpg -o archivo.jpg.webp` (todos sus tamaños).
 - Backups previos: `~/backups/db-antes-blog-20261022-*.sql.gz`, `borradores-categorias-antes-20261022.csv`.
+
+## Staging3
+- Protegido con contraseña (URLs protegidas de SiteGround: todo responde 401 sin credenciales; las credenciales las
+  guarda el usuario, no se usan ni se copian aquí). DNS en Cloudflare con proxy.
+- Sin indexar: `blog_public=0` + cabecera `X-Robots-Tag: noindex, nofollow, noarchive` en su `.htaccess`
+  (bloque "GWF staging noindex"). Google Analytics solo se imprime si `home_url()` es growing.family (header.php).
+- Desplegar ahí: `TARGET=staging3 scripts/site.sh deploy` (backups en `~/backups/deploys-staging3/`).
+  Ojo: la base de datos de staging3 es independiente; los cambios por WP-CLI hay que repetirlos o probarlos primero ahí.
 
 ## Reglas
 - Backup antes de tocar cualquier archivo del servidor fuera del script; confirmar antes de borrar o sobrescribir.
