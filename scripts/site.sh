@@ -5,12 +5,18 @@
 #   scripts/site.sh pull     Trae los archivos de producción al working tree (luego revisar con git diff)
 #   scripts/site.sh deploy   Backup remoto + sube HEAD a producción + purga la caché de SiteGround
 #
+#   TARGET=staging3 scripts/site.sh deploy   Lo mismo contra https://staging3.growing.family
+#
 # Requiere el alias SSH "siteground" en ~/.ssh/config.
 set -euo pipefail
 
 SSH_HOST="siteground"
-REMOTE_WP="www/growing.family/public_html"
-REMOTE_BACKUPS="backups/deploys"
+case "${TARGET:-production}" in
+  production) REMOTE_WP="www/growing.family/public_html";          REMOTE_BACKUPS="backups/deploys" ;;
+  staging3)   REMOTE_WP="www/staging3.growing.family/public_html"; REMOTE_BACKUPS="backups/deploys-staging3" ;;
+  *) echo "TARGET desconocido: $TARGET (production | staging3)" >&2; exit 1 ;;
+esac
+echo "Destino: ${TARGET:-production} (~/$REMOTE_WP)"
 PATHS=(
   wp-content/themes/growingfamily2
   wp-content/plugins/gwf-bloque-azul

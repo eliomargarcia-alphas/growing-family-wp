@@ -20,6 +20,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" >
 		<meta name="color-scheme" content="light">
 		<link rel="profile" href="https://gmpg.org/xfn/11">
+		<?php if ( 'growing.family' === wp_parse_url( home_url(), PHP_URL_HOST ) ) : // Analytics solo en producción, nunca en staging ?>
 		<!-- Google tag (gtag.js): la cola dataLayer se crea al instante; la librería se descarga en la primera
 		     interacción (scroll, toque, clic, tecla) o a los 5 s de cargar la página, para no competir con el renderizado. -->
 		<script>
@@ -44,6 +45,7 @@
 		    window.addEventListener('load', function () { setTimeout(loadGtag, 5000); });
 		  })();
 		</script>
+		<?php endif; ?>
 
 		<?php wp_head(); ?>
 
