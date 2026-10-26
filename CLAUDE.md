@@ -3,6 +3,11 @@
 Código propio del WordPress de https://growing.family (SiteGround, detrás de Cloudflare).
 Producción en vivo: actuar con cuidado. Responder al usuario en español.
 
+## Pendientes
+- Lista viva de pendientes en el Claude Doc «Pendientes — Growing Family web»: https://claude.ai/artifact/FksnbLCZWARHyN82seUQtF
+  (doc `778038ac-1872-4a33-b3b9-04e612dafd60`, cuerpo `d304cabf-885e`; se edita con el conector de Docs, no por web).
+  Al terminar algo, marcarlo hecho ahí; si surge un pendiente nuevo, añadirlo como tarea en su sección.
+
 ## Qué hay en el repo
 - `wp-content/themes/growingfamily2` — tema activo "Growing Family 2.0" (basado en Twenty Twenty).
 - `wp-content/plugins/gwf-*` — 3 bloques propios.

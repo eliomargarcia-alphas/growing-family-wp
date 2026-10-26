@@ -2,6 +2,11 @@
 
 Repositorio del código a medida de https://growing.family (alojado en SiteGround).
 
+## Pendientes
+
+La lista de pendientes del sitio está en el documento [Pendientes — Growing Family web](https://claude.ai/artifact/FksnbLCZWARHyN82seUQtF).
+Se actualiza al terminar cada tarea o cuando aparece una nueva.
+
 ## Qué contiene
 
 | Ruta | Qué es |
