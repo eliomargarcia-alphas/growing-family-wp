@@ -415,7 +415,7 @@ body.single-desarrollo {
    Listados: /guias/, /desarrollo/ y sus filtros por tema y edad (template-parts/gwf-listado.php)
    ========================================================================== */
 /* Mismo esquema que el blog (index.php): migas justo bajo la cabecera, título centrado, filtros a la izquierda */
-.gwf-guia.gwf-listado { padding-top: 80px; }
+.gwf-guia.gwf-listado { padding-top: 0px; }
 .gwf-l-migas { padding: 1rem 0; font-size: 12px; color: #000; }
 .gwf-l-migas a { color: #000; text-decoration: none; }
 .gwf-l-migas a:hover { text-decoration: underline; }
