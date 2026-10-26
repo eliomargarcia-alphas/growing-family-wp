@@ -316,7 +316,7 @@ body.single-desarrollo {
 /* 12. Autoría y fuentes */
 .gwf-g-credits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .gwf-g-credits-who,
-.gwf-g-sources { background: var(--g-blue-bg); border-radius: 10px; padding: 1rem; margin: 0; }
+.gwf-g-sources { background: #fff; border-radius: 10px; margin: 0; }
 .gwf-g-credits-who div { margin-bottom: 0.35rem; }
 .gwf-g-credits-who dt { display: inline; font-weight: 700; }
 .gwf-g-credits-who dt::after { content: " "; }
