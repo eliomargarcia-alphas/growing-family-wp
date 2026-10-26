@@ -549,7 +549,8 @@ body.single-desarrollo {
 	.gwf-g-credits-grid { grid-template-columns: 1fr; }
 	.gwf-g-milestones li { grid-template-columns: 1fr; gap: 0.4rem; }
 	.gwf-l-filter { align-items: flex-start; flex-direction: column; }
-	.gwf-l-filter ul { flex-wrap: nowrap; overflow-x: auto; max-width: 100%; padding-bottom: 0.25rem; }
+	.gwf-l-filter { min-width: 0; }
+	.gwf-l-filter ul { flex-wrap: nowrap; overflow-x: auto; width: 100%; max-width: 100%; padding-bottom: 0.25rem; -webkit-overflow-scrolling: touch; }
 	.gwf-l-filter a { white-space: nowrap; }
 	.gwf-g-sources:not([open]) { padding-bottom: 0.5rem; }
 	.gwf-g-video-caption { font-size: 0.875rem; }
