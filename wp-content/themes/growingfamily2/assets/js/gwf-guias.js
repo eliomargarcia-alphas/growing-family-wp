@@ -50,7 +50,7 @@
 	   En producción gtag existe (header.php) y lo envía; donde no hay etiqueta (staging) queda en dataLayer.
 	   Con ?gwf_debug=1 en la URL, cada evento se escribe también en la consola. */
 	var main = document.querySelector('main[data-gwf-origen]');
-	var debug = /[?&]gwf_debug=1/.test(window.location.search);
+	var debug = /[?&]gwf_debug=1(&|$)/.test(window.location.search);
 
 	function track(name, params) {
 		var data = { guia_origen: main ? main.getAttribute('data-gwf-origen') : '', tipo_contenido: main ? main.getAttribute('data-gwf-tipo') : '' };
