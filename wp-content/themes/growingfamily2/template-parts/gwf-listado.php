@@ -73,8 +73,15 @@ $gwf_chip = function ( $label, $url, $active ) {
 				while ( have_posts() ) :
 					the_post();
 					$gwf_pid     = get_the_ID();
+					// Tema de la tarjeta: el principal de Yoast si está marcado; si no, hasta dos temas.
+					$gwf_primary = function_exists( 'yoast_get_primary_term_id' ) ? (int) yoast_get_primary_term_id( $gwf_topic, $gwf_pid ) : 0;
 					$gwf_terms   = get_the_terms( $gwf_pid, $gwf_topic );
-					$gwf_topic_n = ( $gwf_terms && ! is_wp_error( $gwf_terms ) ) ? $gwf_terms[0]->name : '';
+					$gwf_terms   = ( $gwf_terms && ! is_wp_error( $gwf_terms ) ) ? $gwf_terms : array();
+					if ( $gwf_primary && term_exists( $gwf_primary, $gwf_topic ) ) {
+						$gwf_topic_n = get_term( $gwf_primary, $gwf_topic )->name;
+					} else {
+						$gwf_topic_n = implode( ' · ', wp_list_pluck( array_slice( $gwf_terms, 0, 2 ), 'name' ) );
+					}
 					$gwf_summary = get_post_meta( $gwf_pid, 'desarrollo' === $gwf_type ? 'gwf_definicion' : 'gwf_respuesta', true );
 					$gwf_summary = $gwf_summary ? $gwf_summary : get_the_excerpt();
 					?>
