@@ -79,7 +79,11 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   Ojo: la base de datos de staging3 es independiente; los cambios por WP-CLI hay que repetirlos o probarlos primero ahí.
 
 ## Guías (plugin gwf-guias) — en construcción, activo solo en staging3
-- Plan: «Plan de implementación de guías en WordPress». Hechas las etapas 1 a 6 (2026-10-26): base, regla de publicación, plantilla de guía de problema, vídeo con `VideoObject` (includes/schema.php) y plantilla del pilar (`single-desarrollo.php`).
+- Plan: «Plan de implementación de guías en WordPress». Hechas las etapas 1 a 7 (2026-10-26): base, regla de publicación, plantilla de guía de problema, vídeo con `VideoObject` (includes/schema.php), plantilla del pilar (`single-desarrollo.php`), listados y SEO.
+- Etapa 7: `includes/schema.php` añade Article (autor «Equipo editorial Growing Family» como organización), la persona revisora (Person) y
+  `reviewedBy` + `lastReviewed` en el WebPage (en schema.org son de WebPage, no de Article); fechas modificadas = fecha de revisión.
+  `includes/seo.php`: title «<pregunta> | Growing Family» (solo la pregunta si pasa de 60) y description desde respuesta/definición (155), salvo valores propios en Yoast.
+  `includes/admin.php`: columna «Enlazado», aviso de guías sin pilar y filtro `?gwf_huerfanas=1`. El pilar lista también las guías que lo eligieron (`gwf_guias_pillar_guides()`).
 - Plantilla `single-guia.php` + `assets/css/gwf-guias.css` + `assets/js/gwf-guias.js` (solo en guías). La columna
   principal es un `<div>`, no `<article>`: las reglas antiguas del blog `.single article h2/p` (con !important) la romperían.
   En guías `overflow-x: clip` en html/body (el `hidden` del tema rompe el panel sticky). SG Optimizer genera
