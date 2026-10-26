@@ -99,8 +99,8 @@ function gwf_guias_register_taxonomies() {
 	}
 	// Tema: los temas de la capa 2 del mapa de preguntas (anexo A de la estrategia), los mismos que las categorías del blog.
 	register_taxonomy( 'tema', array( 'guia' ), gwf_guias_tax_args( 'Tema', 'Temas', 'guias/tema' ) );
-	// Gran tema: los pilares por tema de la capa 3.
-	register_taxonomy( 'gran_tema', array( 'desarrollo' ), gwf_guias_tax_args( 'Gran tema', 'Grandes temas', 'desarrollo/tema' ) );
+	// Gran tema: los pilares por tema de la capa 3. También en las guías de problema, para que el pilar de un tema las liste.
+	register_taxonomy( 'gran_tema', array( 'desarrollo', 'guia' ), gwf_guias_tax_args( 'Gran tema', 'Grandes temas', 'desarrollo/tema' ) );
 }
 add_action( 'init', 'gwf_guias_register_taxonomies', 5 );
 

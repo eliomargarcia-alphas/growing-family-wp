@@ -220,7 +220,7 @@ add_action( 'wp_enqueue_scripts', 'gwf_enqueue_main_script' );
 
 /* Guías (plugin gwf-guias): CSS y JS propios, solo en sus plantillas */
 function gwf_enqueue_guias_assets() {
-	if ( ! is_singular( 'guia' ) ) {
+	if ( ! is_singular( array( 'guia', 'desarrollo' ) ) ) {
 		return;
 	}
 	$dir = get_template_directory();
@@ -403,6 +403,9 @@ require get_template_directory() . '/inc/block-patterns.php';
 
 // Blog (capa 5): autoría, puente, índice e imágenes WebP de las entradas.
 require get_template_directory() . '/inc/gwf-blog.php';
+
+// Guías (plugin gwf-guias): piezas de presentación compartidas por sus plantillas.
+require get_template_directory() . '/inc/gwf-guias-view.php';
 
 /**
  * Register and Enqueue Styles.

@@ -151,6 +151,31 @@ body.single-desarrollo {
 .gwf-guia .gwf-g-avoid { list-style: disc; padding-left: 1.25rem; margin: 0; }
 .gwf-g-avoid li { margin-bottom: 0.5rem; line-height: 1.6; }
 
+/* Pilar: hitos con su rango de edad (chip azul) y nota de variabilidad */
+.gwf-g-milestones { list-style: none; margin: 0; padding: 0; }
+.gwf-g-milestones li {
+	display: grid;
+	grid-template-columns: 8rem minmax(0, 1fr);
+	gap: 1rem;
+	align-items: start;
+	padding: 0.85rem 0;
+	border-top: 1px solid var(--g-line);
+}
+.gwf-g-milestones li:first-child { border-top: 0; padding-top: 0; }
+.gwf-g-range {
+	display: inline-block;
+	justify-self: start;
+	padding: 0.25rem 0.75rem;
+	border-radius: 999px;
+	background: var(--g-blue-bg);
+	color: var(--g-blue);
+	font-size: 0.875rem;
+	font-weight: 600;
+	white-space: nowrap;
+}
+.gwf-g-milestones strong { display: block; color: var(--color-dark, #0a0e16); }
+.gwf-g-milestones span:not(.gwf-g-range) { display: block; font-size: 0.9375rem; color: var(--g-muted); }
+
 /* Panel lateral */
 .gwf-g-side-inner {
 	position: sticky;
@@ -327,6 +352,21 @@ body.single-desarrollo {
 .gwf-guia .gwf-g-like .wp_ulike_is_liked .wp_ulike_btn { background-color: #d6e6fb; border-color: var(--g-blue); }
 .gwf-guia .gwf-g-like .count-box { color: var(--g-blue); font-weight: 600; }
 
+/* Pilar: enlaces hacia abajo (todas las guías y cuentos de su edad o tema) */
+.gwf-g-down { background: var(--g-soft); border-color: var(--g-blue-line); }
+.gwf-g-down-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+.gwf-guia .gwf-g-down h3 { font-size: 1rem; margin: 0 0 0.6rem; color: var(--color-navy-dark, #07192b); }
+.gwf-g-down ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.gwf-g-down a {
+	display: block;
+	background: #fff;
+	border-radius: 10px;
+	padding: 0.7rem 1rem;
+	color: var(--g-text);
+	text-decoration: none;
+}
+.gwf-g-down a:hover { color: var(--g-blue); box-shadow: var(--shadow-sm); }
+
 /* 13. Relacionados */
 .gwf-g-related { background: var(--g-blue-bg); border: 1px dashed #9cc0f2; }
 .gwf-guia .gwf-g-related h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--g-blue); }
@@ -384,6 +424,7 @@ body.single-desarrollo {
 	.gwf-g-main > * { order: 5; }
 	.gwf-g-main > .gwf-g-header { order: 0; }
 	.gwf-g-main > #respuesta { order: 1; }
+	.gwf-g-main > #definicion { order: 1; }
 	.gwf-g-main > #cuando-consultar { order: 2; }
 	.gwf-g-main > .gwf-g-toc-mobile { order: 3; }
 	.gwf-g-main > #lo-que-intentaste { order: 4; }
@@ -429,6 +470,7 @@ body.single-desarrollo {
 	.gwf-g-toc-mobile a { display: block; padding: 0.45rem 0; color: var(--g-text); text-decoration: none; }
 
 	.gwf-g-credits-grid { grid-template-columns: 1fr; }
+	.gwf-g-milestones li { grid-template-columns: 1fr; gap: 0.4rem; }
 	.gwf-g-sources:not([open]) { padding-bottom: 0.5rem; }
 	.gwf-g-video-caption { font-size: 0.875rem; }
 

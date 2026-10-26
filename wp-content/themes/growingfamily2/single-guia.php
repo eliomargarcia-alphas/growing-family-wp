@@ -35,28 +35,10 @@ while ( have_posts() ) :
 	$gwf_notes     = gwf_guias_notes( $gwf_id );
 	$gwf_has_body  = '' !== trim( wp_strip_all_tags( get_the_content() ) );
 
-	// Tiempo de lectura con icono de reloj (SVG en línea, color del texto: var(--g-blue) en el CSS).
-	$gwf_read_html = '<span class="gwf-g-read"><svg class="gwf-g-clock" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">'
-		. '<circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/>'
-		. '<path d="M12 6.5V12l3.5 3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-		. (int) $gwf_minutes . ' min de lectura</span>';
-
-	// Tarjeta de «Relacionados»: imagen destacada (si la hay), tipo y título.
-	$gwf_card = function ( $post_id, $label ) {
-		$img = has_post_thumbnail( $post_id )
-			? get_the_post_thumbnail( $post_id, 'medium_large', array( 'loading' => 'lazy', 'decoding' => 'async', 'alt' => '', 'sizes' => '(min-width: 1025px) 280px, 100vw' ) )
-			: '';
-		return '<li><a href="' . esc_url( get_permalink( $post_id ) ) . '">'
-			. ( $img ? '<span class="gwf-g-related-img">' . $img . '</span>' : '' )
-			. '<span class="gwf-g-related-text"><span class="gwf-g-related-type">' . esc_html( $label ) . '</span>' . esc_html( get_the_title( $post_id ) ) . '</span></a></li>';
-	};
-
-	$gwf_reviewer_html = '';
-	if ( $gwf_reviewer ) {
-		$gwf_label         = esc_html( $gwf_reviewer['nombre'] . ( $gwf_reviewer['cargo'] ? ', ' . $gwf_reviewer['cargo'] : '' ) );
-		$gwf_reviewer_html = $gwf_reviewer['ficha'] ? '<a href="' . esc_url( $gwf_reviewer['ficha'] ) . '">' . $gwf_label . '</a>' : $gwf_label;
-	}
-	$gwf_date_html = $gwf_reviewed ? '<time datetime="' . esc_attr( gmdate( 'Y-m-d', $gwf_reviewed ) ) . '">' . esc_html( date_i18n( 'j M Y', $gwf_reviewed ) ) . '</time>' : '';
+	// Piezas compartidas con el pilar (inc/gwf-guias-view.php).
+	$gwf_read_html     = gwf_g_read_html( $gwf_minutes );
+	$gwf_reviewer_html = gwf_g_reviewer_html( $gwf_reviewer );
+	$gwf_date_html     = gwf_g_date_html( $gwf_reviewed );
 
 	// Secciones presentes, en orden: alimentan el índice lateral, el desplegable de móvil y la barra fija.
 	$gwf_toc = array_filter(
@@ -71,10 +53,7 @@ while ( have_posts() ) :
 			'video'            => $gwf_video_id ? 'Vídeo' : '',
 		)
 	);
-	$gwf_toc_html = '';
-	foreach ( $gwf_toc as $gwf_anchor => $gwf_text ) {
-		$gwf_toc_html .= '<li><a href="#' . esc_attr( $gwf_anchor ) . '">' . esc_html( $gwf_text ) . '</a></li>';
-	}
+	$gwf_toc_html = gwf_g_toc_html( $gwf_toc );
 	?>
 
 <main id="site-content" class="gwf-guia">
@@ -184,25 +163,7 @@ while ( have_posts() ) :
 						</ul>
 					</div>
 
-					<?php if ( $gwf_reviewer ) : ?>
-						<div class="gwf-g-card">
-							<p class="gwf-g-card-title">Revisado por</p>
-							<div class="gwf-g-reviewer">
-								<?php if ( $gwf_reviewer['foto'] ) : ?>
-									<img src="<?php echo esc_url( $gwf_reviewer['foto'] ); ?>" alt="" width="48" height="48" loading="lazy" decoding="async">
-								<?php else : ?>
-									<span class="gwf-g-avatar" aria-hidden="true"><?php echo esc_html( mb_substr( preg_replace( '/[^\p{L}]/u', '', preg_replace( '/\[[^\]]*\]/', '', $gwf_reviewer['nombre'] ) ), 0, 1 ) ); ?></span>
-								<?php endif; ?>
-								<div>
-									<p class="gwf-g-reviewer-name"><?php echo esc_html( $gwf_reviewer['nombre'] ); ?></p>
-									<p class="gwf-g-reviewer-role">
-										<?php echo esc_html( $gwf_reviewer['cargo'] ); ?>
-										<?php if ( $gwf_reviewer['ficha'] ) : ?> · <a href="<?php echo esc_url( $gwf_reviewer['ficha'] ); ?>">Ver ficha</a><?php endif; ?>
-									</p>
-								</div>
-							</div>
-						</div>
-					<?php endif; ?>
+					<?php gwf_g_reviewer_card( $gwf_reviewer ); ?>
 
 					<?php if ( $gwf_toc_html ) : ?>
 						<nav class="gwf-g-card gwf-g-toc" aria-label="En esta guía">
@@ -228,77 +189,30 @@ while ( have_posts() ) :
 				</section>
 			<?php endif; ?>
 
-			<?php // 11. Sostenerlo en el tiempo: puente al método (texto global). ?>
-			<section class="gwf-g-block gwf-g-bridge">
-				<h2>Sostenerlo en el tiempo</h2>
-				<p><?php echo esc_html( gwf_guias_bridge_text( 'guia' ) ); ?></p>
-				<a class="gwf-g-button" href="<?php echo esc_url( home_url( '/acerca-de/el-metodo/' ) ); ?>">Conoce el método</a>
-			</section>
+			<?php gwf_g_bridge( 'guia' ); // 11. Sostenerlo en el tiempo: puente al método (texto global). ?>
 
-			<?php // 12. Autoría, revisión, fuentes y fecha. ?>
-			<section id="fuentes" class="gwf-g-block gwf-g-credits">
-				<h2>Autoría, revisión y fuentes</h2>
-				<div class="gwf-g-credits-grid">
-					<dl class="gwf-g-credits-who">
-						<div><dt>Escrito por</dt><dd><?php echo esc_html( get_the_author() ); ?></dd></div>
-						<?php if ( $gwf_reviewer_html ) : ?><div><dt>Revisado por</dt><dd><?php echo $gwf_reviewer_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></dd></div><?php endif; ?>
-						<?php if ( $gwf_date_html ) : ?><div><dt>Actualizado</dt><dd><?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></dd></div><?php endif; ?>
-					</dl>
-					<?php if ( $gwf_fuentes ) : ?>
-						<details class="gwf-g-sources" open>
-							<summary>Fuentes (<?php echo count( $gwf_fuentes ); ?>)</summary>
-							<ol>
-								<?php foreach ( $gwf_fuentes as $gwf_f ) : ?>
-									<li>
-										<?php if ( $gwf_f['url'] ) : ?>
-											<a href="<?php echo esc_url( $gwf_f['url'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $gwf_f['titulo'] ); ?></a>
-										<?php else : ?>
-											<?php echo esc_html( $gwf_f['titulo'] ); ?>
-										<?php endif; ?>
-										<?php if ( $gwf_f['organismo'] ) : ?><span> · <?php echo esc_html( $gwf_f['organismo'] ); ?></span><?php endif; ?>
-									</li>
-								<?php endforeach; ?>
-							</ol>
-						</details>
-					<?php endif; ?>
-				</div>
-			</section>
+			<?php gwf_g_credits( get_the_author(), $gwf_reviewer_html, $gwf_date_html, $gwf_fuentes ); // 12. Autoría, revisión, fuentes y fecha. ?>
 
-			<?php if ( shortcode_exists( 'wp_ulike' ) ) : // Valoración: los «me gusta» ordenan los listados de guías. ?>
-				<section class="gwf-g-block gwf-g-like">
-					<h2>¿Te ha gustado este contenido?</h2>
-					<?php echo do_shortcode( '[wp_ulike]' ); ?>
-				</section>
-			<?php endif; ?>
+			<?php gwf_g_like(); ?>
 
 			<?php // 13. Relacionados: pilar, guías hermanas, nota de padre a padre y método. ?>
 			<nav class="gwf-g-block gwf-g-related" aria-label="Relacionados">
 				<h2>Relacionados</h2>
 				<ul>
 					<?php
-					// phpcs:disable WordPress.Security.EscapeOutput -- $gwf_card escapa cada valor.
+					// phpcs:disable WordPress.Security.EscapeOutput -- gwf_g_card escapa cada valor.
 					if ( $gwf_pilar ) {
-						echo $gwf_card( $gwf_pilar, 'Pilar' );
+						echo gwf_g_card( $gwf_pilar, 'Pilar' );
 					}
 					foreach ( $gwf_siblings as $gwf_s ) {
-						echo $gwf_card( $gwf_s, 'Guía' );
+						echo gwf_g_card( $gwf_s, 'Guía' );
 					}
 					foreach ( array_slice( $gwf_notes, 0, 1 ) as $gwf_n ) {
-						echo $gwf_card( $gwf_n, 'Nota de padre a padre' );
+						echo gwf_g_card( $gwf_n, 'Nota de padre a padre' );
 					}
 					// phpcs:enable
 					?>
-					<?php
-					// El método: la imagen destacada de su página, como el resto de tarjetas (sin imagen, solo texto).
-					$gwf_metodo     = get_page_by_path( 'acerca-de/el-metodo' );
-					$gwf_metodo_img = ( $gwf_metodo && has_post_thumbnail( $gwf_metodo ) )
-						? get_the_post_thumbnail( $gwf_metodo, 'medium_large', array( 'loading' => 'lazy', 'decoding' => 'async', 'alt' => '', 'sizes' => '(min-width: 1025px) 280px, 100vw' ) )
-						: '';
-					?>
-					<li><a href="<?php echo esc_url( home_url( '/acerca-de/el-metodo/' ) ); ?>">
-						<?php if ( $gwf_metodo_img ) : ?><span class="gwf-g-related-img"><?php echo $gwf_metodo_img; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML de WordPress. ?></span><?php endif; ?>
-						<span class="gwf-g-related-text"><span class="gwf-g-related-type">El método</span>10 minutos cada noche</span>
-					</a></li>
+					<?php echo gwf_g_method_card(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				</ul>
 			</nav>
 		</div>

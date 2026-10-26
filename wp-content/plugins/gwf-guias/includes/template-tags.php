@@ -133,3 +133,49 @@ function gwf_guias_bridge_text( $type = 'guia' ) {
 	$saved = get_option( 'gwf_guias_puente_' . $type );
 	return $saved ? $saved : $defaults[ $type ];
 }
+
+/**
+ * Enlaces hacia abajo de un pilar (bloque 8): todas las guías de problema publicadas de su gran tema o, si es
+ * un pilar por edad, de su edad. Se actualiza solo al publicar contenido nuevo. Los cuentos se añaden con gwf-cuentos.
+ *
+ * @return array{label:string, guias:int[], cuentos:int[]}
+ */
+function gwf_guias_down_links( $pilar_id ) {
+	$taxonomy = 'gran_tema';
+	$terms    = wp_get_post_terms( $pilar_id, 'gran_tema' );
+	if ( ! $terms || is_wp_error( $terms ) ) {
+		$taxonomy = 'edad';
+		$terms    = wp_get_post_terms( $pilar_id, 'edad' );
+	}
+	if ( ! $terms || is_wp_error( $terms ) ) {
+		return array( 'label' => '', 'guias' => array(), 'cuentos' => array() );
+	}
+	$label = 'edad' === $taxonomy ? gwf_guias_ages_label( $pilar_id ) : implode( ', ', wp_list_pluck( $terms, 'name' ) );
+	$guias = get_posts(
+		array(
+			'post_type'      => 'guia',
+			'post_status'    => 'publish',
+			'posts_per_page' => 50,
+			'fields'         => 'ids',
+			'orderby'        => 'title',
+			'order'          => 'ASC',
+			'tax_query'      => array( array( 'taxonomy' => $taxonomy, 'terms' => wp_list_pluck( $terms, 'term_id' ) ) ), // phpcs:ignore WordPress.DB.SlowDBQuery
+		)
+	);
+	return array( 'label' => $label, 'guias' => $guias, 'cuentos' => array() );
+}
+
+/** Otros pilares publicados (para «Relacionados»): primero los de edad, luego los de tema. */
+function gwf_guias_other_pillars( $pilar_id, $limit = 2 ) {
+	return get_posts(
+		array(
+			'post_type'      => 'desarrollo',
+			'post_status'    => 'publish',
+			'posts_per_page' => $limit,
+			'post__not_in'   => array( $pilar_id ),
+			'fields'         => 'ids',
+			'orderby'        => 'menu_order title',
+			'order'          => 'ASC',
+		)
+	);
+}
