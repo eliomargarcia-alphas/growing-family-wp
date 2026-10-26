@@ -45,7 +45,9 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   Si se añade un formulario CF7 en otra página, añadirla a la condición de `is_page( 'contacto-y-soporte' )`.
 
 - Analítica: solo Google Analytics (gtag G-VDD509FKDM escrito en header.php). Jetpack Stats y Cloudflare
-  Web Analytics están desactivados a propósito; Site Kit solo añade su meta tag. No duplicar la etiqueta.
+  Web Analytics están desactivados a propósito. Site Kit tiene Analytics conectado (informes en el escritorio) pero con
+  «colocar el código» desactivado (`useSnippet: false` en `googlesitekit_analytics-4_settings`, 2026-10-26): su etiqueta GT-MR4NGBKC
+  envía a la misma G-VDD509FKDM y con las dos se contaban las visitas doble. Copia del ajuste en `~/backups/sitekit-analytics-settings-*.json`. No duplicar la etiqueta.
 
 - Caché (`.htaccess` raíz, **fuera del repo**; backups en `~/backups/htaccess-*.bak`): el bloque "Disable Cache"
   pone `Cache-Control: private` a todo. **No poner `Cache-Control: public` desde .htaccess**: lo probamos el
