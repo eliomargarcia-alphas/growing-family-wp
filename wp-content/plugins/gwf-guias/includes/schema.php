@@ -168,6 +168,7 @@ function gwf_guias_schema_graph( $graph, $context ) {
 		}
 		if ( $review ) {
 			$graph[ $i ]['lastReviewed'] = substr( $review, 0, 10 );
+			$graph[ $i ]['dateModified'] = $review; // Igual que el Article y que la fecha visible.
 		}
 		if ( $video ) {
 			$graph[ $i ]['video'] = array( '@id' => $video['@id'] );
