@@ -86,7 +86,7 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   `gwf-guias.min.css` (ignorado en git y en el control de cambios de site.sh).
 - Listados (etapa 6, `includes/listings.php` + `template-parts/gwf-listado.php`): /guias/, /guias/tema/x/, /guias/edad/x/,
   /desarrollo/, /desarrollo/tema/x/, /desarrollo/edad/x/. Orden Destacado (`gwf_destacado`) → «me gusta» (tabla `{prefix}ulike_meta`,
-  `count_distinct_like`) → fecha; 12 por página; noindex con < 3 guías y en /edad/x/ a secas. Sin JS ni plugins.
+  `count_distinct_like`) → fecha; 12 por página; noindex con < 3 guías y en /edad/x/ a secas. Diseño del listado del blog (`.blog-card`: tema principal y «me gusta» de WP ULike sobre la foto, «Leer más»; filtros en columna izquierda ≥ 1200px y chips debajo).
 - Piezas comunes de las dos plantillas en `inc/gwf-guias-view.php` (reloj, tarjetas con imagen destacada, revisor, autoría, fuentes, «me gusta», puente). Gran tema se asigna también a guías: el pilar de un tema lista sus guías; el de edad, las de su edad (`gwf_guias_down_links()`).
 - Contenido de prueba en staging3 (todo «[PRUEBA]»): guías 2307 (berrinches, con vídeo y desacuerdo) y 2309
   (no me hace caso, sin opcionales) y pilar 2305 (desarrollo, 4 años). Fuentes en example.org.

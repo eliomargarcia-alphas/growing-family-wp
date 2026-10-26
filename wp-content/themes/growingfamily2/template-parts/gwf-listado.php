@@ -47,7 +47,7 @@ $gwf_filter_list = function ( $group ) use ( $gwf_type, $gwf_term, $gwf_filter_l
 ?>
 
 <main id="site-content" class="gwf-guia gwf-listado">
-	<section class="gwf-l-head">
+	<section class="gwf-l-head pt-0 pb-5 title-section">
 		<div class="container">
 			<?php if ( function_exists( 'yoast_breadcrumb' ) ) { yoast_breadcrumb( '<nav class="gwf-l-migas" aria-label="Migas de pan">', '</nav>' ); } ?>
 			<h1 class="font-size-44 text-center mb-4 color-navy mt-5"><?php echo esc_html( $gwf_h['title'] ); ?></h1>
