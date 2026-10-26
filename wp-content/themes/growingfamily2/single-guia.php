@@ -35,6 +35,22 @@ while ( have_posts() ) :
 	$gwf_notes     = gwf_guias_notes( $gwf_id );
 	$gwf_has_body  = '' !== trim( wp_strip_all_tags( get_the_content() ) );
 
+	// Tiempo de lectura con icono de reloj (SVG en línea, color del texto: var(--g-blue) en el CSS).
+	$gwf_read_html = '<span class="gwf-g-read"><svg class="gwf-g-clock" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">'
+		. '<circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/>'
+		. '<path d="M12 6.5V12l3.5 3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+		. (int) $gwf_minutes . ' min de lectura</span>';
+
+	// Tarjeta de «Relacionados»: imagen destacada (si la hay), tipo y título.
+	$gwf_card = function ( $post_id, $label ) {
+		$img = has_post_thumbnail( $post_id )
+			? get_the_post_thumbnail( $post_id, 'medium_large', array( 'loading' => 'lazy', 'decoding' => 'async', 'alt' => '', 'sizes' => '(min-width: 1025px) 280px, 100vw' ) )
+			: '';
+		return '<li><a href="' . esc_url( get_permalink( $post_id ) ) . '">'
+			. ( $img ? '<span class="gwf-g-related-img">' . $img . '</span>' : '' )
+			. '<span class="gwf-g-related-text"><span class="gwf-g-related-type">' . esc_html( $label ) . '</span>' . esc_html( get_the_title( $post_id ) ) . '</span></a></li>';
+	};
+
 	$gwf_reviewer_html = '';
 	if ( $gwf_reviewer ) {
 		$gwf_label         = esc_html( $gwf_reviewer['nombre'] . ( $gwf_reviewer['cargo'] ? ', ' . $gwf_reviewer['cargo'] : '' ) );
@@ -78,10 +94,12 @@ while ( have_posts() ) :
 						<?php echo esc_html( get_the_author() ); ?>
 						<?php if ( $gwf_reviewer_html ) : ?> · Revisado por <?php echo $gwf_reviewer_html; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado arriba. ?><?php endif; ?>
 						<?php if ( $gwf_date_html ) : ?> · Actualizado el <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?><?php endif; ?>
+						· <?php echo $gwf_read_html; // phpcs:ignore WordPress.Security.EscapeOutput -- construido arriba. ?>
 					</p>
 					<?php // Franja compacta con la ficha (solo móvil). ?>
 					<p class="gwf-g-strip">
-						<?php echo esc_html( implode( ' · ', array_filter( array( $gwf_ages, $gwf_tema ? $gwf_tema->name : '', $gwf_minutes . ' min de lectura' ) ) ) ); ?>
+						<?php echo esc_html( implode( ' · ', array_filter( array( $gwf_ages, $gwf_tema ? $gwf_tema->name : '' ) ) ) ); ?>
+						· <?php echo $gwf_read_html; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</p>
 				</header>
 
@@ -162,7 +180,7 @@ while ( have_posts() ) :
 						<ul class="gwf-g-facts">
 							<?php if ( $gwf_ages ) : ?><li>Edad · <?php echo esc_html( $gwf_ages ); ?></li><?php endif; ?>
 							<?php if ( $gwf_tema ) : ?><li>Tema · <?php echo esc_html( $gwf_tema->name ); ?></li><?php endif; ?>
-							<li><?php echo (int) $gwf_minutes; ?> min de lectura</li>
+							<li><?php echo $gwf_read_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></li>
 						</ul>
 					</div>
 
@@ -257,16 +275,23 @@ while ( have_posts() ) :
 			<nav class="gwf-g-block gwf-g-related" aria-label="Relacionados">
 				<h2>Relacionados</h2>
 				<ul>
-					<?php if ( $gwf_pilar ) : ?>
-						<li><a href="<?php echo esc_url( get_permalink( $gwf_pilar ) ); ?>"><span>Pilar</span><?php echo esc_html( get_the_title( $gwf_pilar ) ); ?></a></li>
-					<?php endif; ?>
-					<?php foreach ( $gwf_siblings as $gwf_s ) : ?>
-						<li><a href="<?php echo esc_url( get_permalink( $gwf_s ) ); ?>"><span>Guía</span><?php echo esc_html( get_the_title( $gwf_s ) ); ?></a></li>
-					<?php endforeach; ?>
-					<?php foreach ( array_slice( $gwf_notes, 0, 1 ) as $gwf_n ) : ?>
-						<li><a href="<?php echo esc_url( get_permalink( $gwf_n ) ); ?>"><span>Nota de padre a padre</span><?php echo esc_html( get_the_title( $gwf_n ) ); ?></a></li>
-					<?php endforeach; ?>
-					<li><a href="<?php echo esc_url( home_url( '/acerca-de/el-metodo/' ) ); ?>"><span>El método</span>10 minutos cada noche</a></li>
+					<?php
+					// phpcs:disable WordPress.Security.EscapeOutput -- $gwf_card escapa cada valor.
+					if ( $gwf_pilar ) {
+						echo $gwf_card( $gwf_pilar, 'Pilar' );
+					}
+					foreach ( $gwf_siblings as $gwf_s ) {
+						echo $gwf_card( $gwf_s, 'Guía' );
+					}
+					foreach ( array_slice( $gwf_notes, 0, 1 ) as $gwf_n ) {
+						echo $gwf_card( $gwf_n, 'Nota de padre a padre' );
+					}
+					// phpcs:enable
+					?>
+					<li><a href="<?php echo esc_url( home_url( '/acerca-de/el-metodo/' ) ); ?>">
+						<span class="gwf-g-related-img"><img src="<?php echo esc_url( content_url( '/uploads/2026/09/el-metodo-2-opt.webp' ) ); ?>" alt="" width="678" height="820" loading="lazy" decoding="async"></span>
+						<span class="gwf-g-related-text"><span class="gwf-g-related-type">El método</span>10 minutos cada noche</span>
+					</a></li>
 				</ul>
 			</nav>
 		</div>

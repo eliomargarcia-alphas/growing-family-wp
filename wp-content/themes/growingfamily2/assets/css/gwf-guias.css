@@ -94,8 +94,9 @@ body.single-desarrollo {
 .gwf-g-respuesta p { font-size: 1.1875rem; line-height: 1.6; color: var(--color-dark, #0a0e16); }
 
 .gwf-g-consultar {
+	/* Mismo modelo que la respuesta directa: azul claro y borde suave */
 	background: var(--g-blue-bg);
-	border: 2px solid var(--g-blue);
+	border-color: var(--g-blue-line);
 }
 .gwf-guia .gwf-g-consultar h2 { color: var(--color-navy-dark, #07192b); }
 
@@ -270,7 +271,7 @@ body.single-desarrollo {
 .gwf-g-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 /* 11. Puente */
-.gwf-g-bridge { background: var(--g-blue-bg); border-color: #9cc0f2; }
+.gwf-g-bridge { background: var(--g-blue-bg); border-color: var(--g-blue-line); }
 .gwf-guia .gwf-g-bridge h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--g-blue); }
 .gwf-g-bridge p { color: var(--color-navy-dark, #07192b); font-size: 1.125rem; }
 .gwf-g-button {
@@ -304,11 +305,13 @@ body.single-desarrollo {
 
 /* Valoración (WP ULike), bajo autoría y fuentes */
 .gwf-g-like {
+	/* Frase centrada y el botón justo al lado, en una sola línea */
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: space-between;
-	gap: 1rem;
+	justify-content: center;
+	gap: 0.75rem;
+	text-align: center;
 }
 .gwf-guia .gwf-g-like h2 { margin: 0; font-size: 1.15rem; }
 .gwf-g-like .wpulike { margin: 0; }
@@ -336,16 +339,20 @@ body.single-desarrollo {
 	gap: 0.75rem;
 }
 .gwf-g-related a {
-	display: block;
+	display: flex;
+	flex-direction: column;
 	height: 100%;
 	background: #fff;
 	border-radius: 10px;
-	padding: 0.75rem 1rem;
+	overflow: hidden;
 	color: var(--g-text);
 	text-decoration: none;
 	line-height: 1.4;
 }
-.gwf-g-related a span {
+.gwf-g-related-img { display: block; aspect-ratio: 16 / 9; background: var(--g-blue-bg); }
+.gwf-g-related-img img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.gwf-g-related-text { display: block; padding: 0.75rem 1rem; }
+.gwf-g-related-type {
 	display: block;
 	font-size: 0.75rem;
 	text-transform: uppercase;
@@ -355,6 +362,10 @@ body.single-desarrollo {
 .gwf-g-related a:hover { box-shadow: var(--shadow-md); color: var(--g-blue); }
 
 .gwf-g-bar { display: none; }
+
+/* Tiempo de lectura con icono de reloj */
+.gwf-g-read { display: inline-flex; align-items: center; gap: 0.35rem; white-space: nowrap; }
+.gwf-g-clock { flex: 0 0 auto; color: var(--g-blue); }
 
 /* La barra flotante de AddToAny no forma parte de la guía (en las páginas ya la oculta el CSS personalizado) */
 .single-guia .a2a_floating_style,
