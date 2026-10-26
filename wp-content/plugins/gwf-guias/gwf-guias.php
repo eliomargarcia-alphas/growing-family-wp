@@ -26,6 +26,8 @@ require GWF_GUIAS_DIR . 'includes/publish-rule.php';
 require GWF_GUIAS_DIR . 'includes/template-tags.php';
 require GWF_GUIAS_DIR . 'includes/schema.php';
 require GWF_GUIAS_DIR . 'includes/listings.php';
+require GWF_GUIAS_DIR . 'includes/seo.php';
+require GWF_GUIAS_DIR . 'includes/admin.php';
 
 /** Al activar: rol, permisos, términos iniciales y reglas de URL. */
 function gwf_guias_activate() {
