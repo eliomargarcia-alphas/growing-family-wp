@@ -79,11 +79,14 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   Ojo: la base de datos de staging3 es independiente; los cambios por WP-CLI hay que repetirlos o probarlos primero ahí.
 
 ## Guías (plugin gwf-guias) — en construcción, activo solo en staging3
-- Plan: «Plan de implementación de guías en WordPress». Hechas las etapas 1 a 5 (2026-10-26): base, regla de publicación, plantilla de guía de problema, vídeo con `VideoObject` (includes/schema.php) y plantilla del pilar (`single-desarrollo.php`).
+- Plan: «Plan de implementación de guías en WordPress». Hechas las etapas 1 a 6 (2026-10-26): base, regla de publicación, plantilla de guía de problema, vídeo con `VideoObject` (includes/schema.php) y plantilla del pilar (`single-desarrollo.php`).
 - Plantilla `single-guia.php` + `assets/css/gwf-guias.css` + `assets/js/gwf-guias.js` (solo en guías). La columna
   principal es un `<div>`, no `<article>`: las reglas antiguas del blog `.single article h2/p` (con !important) la romperían.
   En guías `overflow-x: clip` en html/body (el `hidden` del tema rompe el panel sticky). SG Optimizer genera
   `gwf-guias.min.css` (ignorado en git y en el control de cambios de site.sh).
+- Listados (etapa 6, `includes/listings.php` + `template-parts/gwf-listado.php`): /guias/, /guias/tema/x/, /guias/edad/x/,
+  /desarrollo/, /desarrollo/tema/x/, /desarrollo/edad/x/. Orden Destacado (`gwf_destacado`) → «me gusta» (tabla `{prefix}ulike_meta`,
+  `count_distinct_like`) → fecha; 12 por página; noindex con < 3 guías y en /edad/x/ a secas. Sin JS ni plugins.
 - Piezas comunes de las dos plantillas en `inc/gwf-guias-view.php` (reloj, tarjetas con imagen destacada, revisor, autoría, fuentes, «me gusta», puente). Gran tema se asigna también a guías: el pilar de un tema lista sus guías; el de edad, las de su edad (`gwf_guias_down_links()`).
 - Contenido de prueba en staging3 (todo «[PRUEBA]»): guías 2307 (berrinches, con vídeo y desacuerdo) y 2309
   (no me hace caso, sin opcionales) y pilar 2305 (desarrollo, 4 años). Fuentes en example.org.
