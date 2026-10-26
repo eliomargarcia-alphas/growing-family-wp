@@ -64,7 +64,7 @@ while ( have_posts() ) :
 						<?php echo esc_html( get_the_author() ); ?>
 						<?php if ( $gwf_reviewer_html ) : ?> · Revisado por <?php echo $gwf_reviewer_html; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado en la función. ?><?php endif; ?>
 						<?php if ( $gwf_date_html ) : ?> · Actualizado el <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?><?php endif; ?>
-						· <?php echo $gwf_read_html; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						<span class="gwf-g-byline-read">· <?php echo $gwf_read_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 					</p>
 					<p class="gwf-g-strip">
 						<?php echo esc_html( implode( ' · ', array_filter( array( $gwf_ages, $gwf_tema ? $gwf_tema->name : '' ) ) ) ); ?>

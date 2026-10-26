@@ -73,7 +73,7 @@ while ( have_posts() ) :
 						<?php echo esc_html( get_the_author() ); ?>
 						<?php if ( $gwf_reviewer_html ) : ?> · Revisado por <?php echo $gwf_reviewer_html; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado arriba. ?><?php endif; ?>
 						<?php if ( $gwf_date_html ) : ?> · Actualizado el <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?><?php endif; ?>
-						· <?php echo $gwf_read_html; // phpcs:ignore WordPress.Security.EscapeOutput -- construido arriba. ?>
+						<span class="gwf-g-byline-read">· <?php echo $gwf_read_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 					</p>
 					<?php // Franja compacta con la ficha (solo móvil). ?>
 					<p class="gwf-g-strip">

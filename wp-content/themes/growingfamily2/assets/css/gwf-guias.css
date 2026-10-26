@@ -441,7 +441,7 @@ body.single-desarrollo {
 	}
 	.gwf-g-title { font-size: 1.6rem; }
 	.gwf-g-byline { font-size: 0.875rem; }
-	.gwf-g-byline .gwf-g-read { display: none; } /* en móvil va en la franja de la ficha */
+	.gwf-g-byline-read { display: none; } /* en móvil el tiempo de lectura va en la franja de la ficha */
 	.gwf-g-header { margin-bottom: 1rem; }
 	.gwf-g-block p { font-size: 1rem; }
 	.gwf-g-respuesta p { font-size: 1.0625rem; }
