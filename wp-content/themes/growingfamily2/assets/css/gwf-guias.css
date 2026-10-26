@@ -419,6 +419,8 @@ body.single-desarrollo {
 .gwf-l-migas { padding: 1rem 0; font-size: 12px; color: #000; }
 .gwf-l-migas a { color: #000; text-decoration: none; }
 .gwf-l-migas a:hover { text-decoration: underline; }
+/* Como en el blog: «Inicio» en negrita */
+.gwf-l-migas > span > span:first-child a { font-weight: 700; }
 .gwf-l-intro { max-width: 760px; margin-left: auto; margin-right: auto; }
 
 /* Columna de filtros (escritorio): la caja de «Categorías» del blog */

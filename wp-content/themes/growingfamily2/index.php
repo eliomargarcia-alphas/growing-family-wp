@@ -7,6 +7,9 @@
  * It is used to display a page when nothing more specific matches a query.
  * E.g., it puts together the home page when no home.php file exists.
  *
+ * En Growing Family es el listado del blog (/blog/, /blog/tema/x/, etiquetas y búsqueda). Usa las mismas piezas
+ * que los listados de guías: cabecera (gwf-listado-cabecera), filtros (gwf-filtros) y tarjetas (gwf-tarjeta).
+ *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
  * @package WordPress
@@ -22,267 +25,151 @@ function gf_get_reading_time() {
     $reading_time = ceil( $word_count / 200 );
     return ( $reading_time < 1 ) ? 1 : $reading_time;
 }
+
+// Cabecera
+if ( is_search() ) {
+	$gwf_title = 'Resultados de la búsqueda para: ' . get_search_query();
+	$gwf_intro = '';
+} elseif ( is_home() ) {
+	$gwf_title = 'Recursos para padres';
+	$gwf_intro = 'Acompañándote en la etapa más importante de la vida de tus hijos con artículos basados en neurociencia y pedagogía.';
+} else {
+	$gwf_title = single_term_title( '', false );
+	$gwf_intro = wp_strip_all_tags( term_description() );
+}
+
+// Filtros: los temas (categorías) con entradas publicadas
+$gwf_blog_url = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
+$gwf_items    = array(
+	array(
+		'label'  => 'Todos',
+		'url'    => $gwf_blog_url,
+		'active' => is_home(),
+	),
+);
+foreach ( get_categories( array( 'hide_empty' => true, 'exclude' => array( 41, 32, 6, 42 ) ) ) as $gwf_cat ) {
+	$gwf_items[] = array(
+		'label'  => $gwf_cat->name,
+		'url'    => get_category_link( $gwf_cat ),
+		'active' => is_category( $gwf_cat->term_id ),
+	);
+}
+$gwf_groups = array( array( 'label' => 'Temas', 'items' => $gwf_items ) );
+
+/** Tarjeta de la entrada actual del loop, con su tema principal (Yoast) sobre la foto. */
+$gwf_blog_card = function () {
+	$pid     = get_the_ID();
+	$primary = function_exists( 'yoast_get_primary_term_id' ) ? (int) yoast_get_primary_term_id( 'category', $pid ) : 0;
+	$badge   = $primary ? get_term( $primary, 'category' ) : null;
+	if ( ! $badge || is_wp_error( $badge ) ) {
+		$badge = null;
+		foreach ( get_the_category( $pid ) as $cat ) {
+			if ( 'blog' !== strtolower( $cat->name ) ) {
+				$badge = $cat;
+				break;
+			}
+		}
+	}
+	get_template_part(
+		'template-parts/gwf-tarjeta',
+		null,
+		array(
+			'badge'     => $badge,
+			'badge_url' => $badge ? get_category_link( $badge ) : '',
+			'summary'   => get_the_excerpt(),
+			'minutes'   => gf_get_reading_time(),
+		)
+	);
+};
 ?>
 
-<main id="site-content grey blog">
-
-	<section class="pt-0 pb-5 title-section">
-		<div class="container">
-			<div class="migas pb-3 pt-3">
-				<p class="font-size-12 text-black">
-					<a href="https://growing.family/" class="text-decoration-none text-black"><b>Inicio</b>
-					</a> > <a href="https://growing.family/blog/" class="text-decoration-none text-black">Blog
-					</a></span>
-				</p>
-			</div>
-			<?php if ( is_search() ) { // Mostrar el título de búsqueda si es una página de resultados de búsqueda ?>
-				<h1 class="font-size-32 color-navy text-center mt-5">
-					Resultados de la búsqueda para: <?php echo esc_html( get_search_query() ); ?>
-				</h1>
-				<?php if ( isset( $archive_subtitle ) && $archive_subtitle ) { ?>
-					<p class="font-size-32 color-navy mt-5 text-center"><?php echo wp_kses_post( wpautop( $archive_subtitle ) ); ?></p>
-				<?php } ?>
-			<?php } elseif ( is_home() ) { // Mostrar el título de la página si es una página estática ?>
-				<h1 class="font-size-44 text-center mb-4 color-navy mt-5">Recursos para padres</h1>
-				<p class="font-size-16 text-center mb-0 text-black mb-0">Acompañándote en la etapa más importante de la vida de tus hijos con artículos basados en neurociencia y pedagogía.</p>
-			<?php } else { // De lo contrario, mostrar el título de la categoría u otros títulos de archivo ?>
-				<h1 class="font-size-44 color-navy text-center"><?php single_cat_title( __( '', 'textdomain' ) ); ?></h1>
-				<?php if ( isset( $archive_subtitle ) && $archive_subtitle ) { // Mostrar subtítulo de archivo si está disponible ?>
-					<p class="font-size-32 color-navy mt-5"><?php echo wp_kses_post( wpautop( $archive_subtitle ) ); ?></p>
-				<?php } ?>
-			<?php } ?>
-		</div>
-	</section>
+<main id="site-content" class="gwf-guia gwf-listado gwf-blog">
+	<?php get_template_part( 'template-parts/gwf-listado-cabecera', null, array( 'title' => $gwf_title, 'intro' => $gwf_intro ) ); ?>
 
 	<div class="container-fluid mt-5">
 		<div class="row">
 
-			<?php if ( is_category( '6' ) ) { ?><div class="d-none"><?php } else { ?><div class="d-none d-xl-block col-md-2 mb-5"><?php } ?>
-				<?php get_template_part( 'template-parts/footer-menus-widgets' ); ?>
+			<div class="d-none d-xl-block col-md-2 mb-5">
+				<?php get_template_part( 'template-parts/gwf-filtros', null, array( 'mode' => 'side', 'groups' => $gwf_groups ) ); ?>
 			</div>
 
-			<?php if ( is_category( '6' ) ) { ?><div class="col-md-12 entradas-resultados" id="resultados"><?php } else { ?><div class="col-md-10 entradas-resultados" id="resultados"><?php } ?>
+			<div class="col-md-10 entradas-resultados" id="resultados">
+				<?php get_template_part( 'template-parts/gwf-filtros', null, array( 'mode' => 'chips', 'groups' => $gwf_groups ) ); ?>
+
 				<?php if ( is_home() ) { ?>
-					<section class="pb-5 pt-0">
-						<div class="container-fluid">
-							<div>
+					<?php
+					// Paso 1: Obtiene los IDs de los posts con likes, ordenados de mayor a menor.
+					$popular_post_ids = (array) wp_ulike_get_popular_items_ids(array(
+						'type'   => 'post',
+						'status' => 'like',
+						'period' => 'all'
+					));
+
+					// Paso 2: Obtiene los IDs de todos los posts, excluyendo los ya obtenidos.
+					$all_posts_query = new WP_Query(array(
+						'posts_per_page'   => -1, // Obtiene todos los posts
+						'fields'           => 'ids', // Solo devuelve los IDs
+						'post__not_in'     => $popular_post_ids,
+						'category__not_in' => array(41, 32, 6, 42)
+					));
+					$other_post_ids = $all_posts_query->posts;
+
+					// Paso 3: Populares primero, sin repetir, hasta 60.
+					$ordered_ids = array_slice( array_values( array_unique( array_merge( $popular_post_ids, $other_post_ids ) ) ), 0, 60 );
+
+					// Paso 4: Consulta principal con la lista ordenada.
+					$my_query = new WP_Query(array(
+						'post__in'         => $ordered_ids ? $ordered_ids : array( 0 ),
+						'orderby'          => 'post__in',
+						'posts_per_page'   => 60,
+						'category__not_in' => array(41, 32, 6)
+					));
+
+					if ( $my_query->have_posts() ) {
+					?>
+						<div class="row">
 							<?php
-							// Paso 1: Obtiene los IDs de los posts con likes, ordenados de mayor a menor.
-							$popular_post_ids = wp_ulike_get_popular_items_ids(array(
-								'type'   => 'post',
-								'status' => 'like',
-								'period' => 'all'
-							));
-
-							// Paso 2: Obtiene los IDs de todos los posts, excluyendo los ya obtenidos.
-							$all_posts_query = new WP_Query(array(
-								'posts_per_page'   => -1, // Obtiene todos los posts
-								'fields'           => 'ids', // Solo devuelve los IDs
-								'post__not_in'     => $popular_post_ids,
-								'category__not_in' => array(41, 32, 6, 42)
-							));
-							$other_post_ids = $all_posts_query->posts;
-
-							// Paso 3: Combina las listas para tener todos los IDs, con los populares al principio.
-							$all_post_ids_ordered = array_merge($popular_post_ids, $other_post_ids);
-
-							// Helper: unique preservando el orden
-							if ( ! function_exists( 'unique_preserve_order' ) ) {
-								function unique_preserve_order($array) {
-									$seen = [];
-									$out  = [];
-									foreach ($array as $id) {
-										if (!isset($seen[$id])) {
-											$seen[$id] = true;
-											$out[] = $id;
-										}
-									}
-									return $out;
-								}
+							while ( $my_query->have_posts() ) {
+								$my_query->the_post();
+								$gwf_blog_card();
 							}
-
-							// --- NUEVO ORDEN: Cat. 7 primero --- //
-							$cat7_popular = array_filter($popular_post_ids, function($pid){
-								return has_term(7, 'category', $pid);
-							});
-
-							$popular_other = array_values(array_diff($popular_post_ids, $cat7_popular));
-
-							$cat7_other = array_filter($other_post_ids, function($pid){
-								return has_term(7, 'category', $pid);
-							});
-							$other_rest = array_values(array_diff($other_post_ids, $cat7_other));
-
-							$ordered_ids = array_merge(
-								array_values($cat7_popular),
-								array_values($cat7_other),
-								array_values($popular_other),
-								array_values($other_rest)
-							);
-
-							$ordered_ids = unique_preserve_order($ordered_ids);
-							$ordered_ids = array_slice($ordered_ids, 0, 60);
-
-							// Paso 4: Consulta principal con la lista ordenada.
-							$my_query = new WP_Query(array(
-								'post__in'         => $ordered_ids,
-								'orderby'          => 'post__in',
-								'posts_per_page'   => 60,
-								'category__not_in' => array(41, 32, 6)
-							));
-
-							if ( $my_query->have_posts() ) {
 							?>
-								<div class="row">
-									<?php while ( $my_query->have_posts() ) {
-										$my_query->the_post();
-										$is_cat7 = has_category(7);
-										$reading_time = gf_get_reading_time();
-									?>
-									<?php if ( $is_cat7 ) : ?>
-										<article <?php post_class( 'row mb-5 bg-turquoise border-radius-16 p-0 align-items-center' ); ?> id="post-<?php the_ID(); ?>">
-											<div class="col-xl-5 border-radius-6 p-0">
-												<a href="<?php the_permalink(); ?>">
-													<?php if ( has_post_thumbnail() ) {
-														the_post_thumbnail('full', array(
-															'class' => 'border-radius-8',
-														));
-													} ?>
-												</a>
-											</div>
-											<div class="col-xl-7 mt-md-5 mt-xl-0 p-4 p-md-5">
-												<p class="cat font-size-12 text-uppercase">
-													<?php $categories = get_the_category();  if ( ! empty( $categories ) ) {
-													    $category_to_show = null; 
-													    foreach ( $categories as $category ) {
-													        if ( $category->term_id != 44 && $category->term_id != 7 && strtolower( $category->name ) != 'blog' ) {
-													            $category_to_show = $category;
-													            break;
-													        } 
-													    }
-													    if ( ! is_null( $category_to_show ) ) {
-													        echo '<a href="' . esc_url( get_category_link( $category_to_show->term_id ) ) . '" alt="' . esc_attr( sprintf( __( 'Ver todos los posts en %s', 'textdomain' ), $category_to_show->name ) ) . '" class="text-white font-size-12 text-decoration-none bg-navy px-3 py-2 border-radius-24" style=" display: inline-block; ">' . esc_html( $category_to_show->name ) . '</a>';
-													    } 
-													} 
-													?>
-												</p>
-												<a href="<?php the_permalink(); ?>" class="text-black text-decoration-none">
-													<?php the_title( '<h2 class="font-size-32 text-black pb-4">', '</h2>' ); ?>
-												</a>
-												<p class="font-size-20 text-gray"><?php $excerpt = get_the_excerpt(); $striped_excerpt = strip_tags($excerpt); echo $striped_excerpt; ?></p>
-
-												<div class="row align-items-center mb-4">
-													<div class="col-12 col-md-6 text-aling-right">
-														<?php echo do_shortcode('[wp_ulike]'); ?>
-													</div>
-													<div class="col-12 col-md-6">
-														<p class="time font-size-16 text-black mb-0">
-															<img src="https://growing.family/wp-content/uploads/2024/07/clock.svg" alt="clock"> <?php echo $reading_time; ?> min de lectura
-														</p>
-													</div>
-												</div>
-
-												<a href="<?php the_permalink(); ?>" class="btn btn-outline btn-sm">Leer más</a>
-											</div>
-										</article>
-									<?php else : ?>
-										<div class="col-xl-4 article mb-5 resultado">
-											<article class="blog-card">
-								                <div class="blog-image-wrapper">
-								                	<p class="cat font-size-12 text-uppercase">
-														<?php $categories = get_the_category();  if ( ! empty( $categories ) ) {
-														    $category_to_show = null; 
-														    foreach ( $categories as $category ) {
-														        if ( $category->term_id != 44 && $category->term_id != 7 && strtolower( $category->name ) != 'blog' ) {
-														            $category_to_show = $category;
-														            break; 
-														        } 
-														    }
-														    if ( ! is_null( $category_to_show ) ) {
-														        echo '<a href="' . esc_url( get_category_link( $category_to_show->term_id ) ) . '" alt="' . esc_attr( sprintf( __( 'Ver todos los posts en %s', 'textdomain' ), $category_to_show->name ) ) . '" class="text-white font-size-12 text-decoration-none bg-navy px-3 py-2 border-radius-24" style=" display: inline-block; ">' . esc_html( $category_to_show->name ) . '</a>';
-														    } 
-														} 
-														?>
-													</p>
-								                    <?php if (has_post_thumbnail()) : ?>
-								                        <?php the_post_thumbnail('medium_large', array('class' => 'blog-image', 'alt' => get_the_title())); ?>
-								                    <?php else : ?>
-								                        <img src="https://growing.family/wp-content/uploads/2026/08/article-1.jpg" alt="<?php the_title_attribute(); ?>" class="blog-image">
-								                    <?php endif; ?>
-								                    <?php echo do_shortcode('[wp_ulike]'); ?>
-								                </div>
-								                <div class="blog-card-body">
-								                    <h3 class="blog-card-title"><?php the_title(); ?></h3>
-								                    <div class="blog-meta"><?php echo $reading_time; ?> min de lectura</div>
-								                    <a href="<?php the_permalink(); ?>" class="btn btn-outline btn-sm">Leer más</a>
-								                </div>
-								            </article>
-										</div>
-
-									<?php endif; ?>
-									<?php } ?>
-								</div>
-							<?php
-								wp_reset_postdata();
-							} elseif ( is_search() ) { ?>
-								<div class="no-search-results-form section-inner thin">
-									<?php get_search_form( array(
-										'aria_label' => __( 'search again', 'twentytwenty' ),
-									) ); ?>
-								</div>
-							<?php } ?>
 						</div>
-					</section>
-				<?php } else { ?>
-					<?php if ( have_posts() ) { ?>
+					<?php
+						wp_reset_postdata();
+					}
+					?>
+				<?php } elseif ( have_posts() ) { ?>
 					<div class="row">
-						<?php while ( have_posts() ) { the_post(); 
-							$reading_time = gf_get_reading_time();
+						<?php
+						while ( have_posts() ) {
+							the_post();
+							$gwf_blog_card();
+						}
 						?>
-							<div class="col-xl-4 article mb-5 resultado">
-											<article class="blog-card">
-								                <div class="blog-image-wrapper">
-								                	<p class="cat font-size-12 text-uppercase">
-														<?php $categories = get_the_category();  if ( ! empty( $categories ) ) {
-														    $category_to_show = null; 
-														    foreach ( $categories as $category ) {
-														        if ( $category->term_id != 44 && $category->term_id != 7 && strtolower( $category->name ) != 'blog' ) {
-														            $category_to_show = $category;
-														            break; 
-														        } 
-														    }
-														    if ( ! is_null( $category_to_show ) ) {
-														        echo '<a href="' . esc_url( get_category_link( $category_to_show->term_id ) ) . '" alt="' . esc_attr( sprintf( __( 'Ver todos los posts en %s', 'textdomain' ), $category_to_show->name ) ) . '" class="text-white font-size-12 text-decoration-none bg-navy px-3 py-2 border-radius-24" style=" display: inline-block; ">' . esc_html( $category_to_show->name ) . '</a>';
-														    } 
-														} 
-														?>
-													</p>
-								                    <?php if (has_post_thumbnail()) : ?>
-								                        <?php the_post_thumbnail('medium_large', array('class' => 'blog-image', 'alt' => get_the_title())); ?>
-								                    <?php else : ?>
-								                        <img src="https://growing.family/wp-content/uploads/2026/08/article-1.jpg" alt="<?php the_title_attribute(); ?>" class="blog-image">
-								                    <?php endif; ?>
-								                    <?php echo do_shortcode('[wp_ulike]'); ?>
-								                </div>
-								                <div class="blog-card-body">
-								                    <h3 class="blog-card-title"><?php the_title(); ?></h3>
-								                    <div class="blog-meta"><?php echo $reading_time; ?> min de lectura</div>
-								                    <a href="<?php the_permalink(); ?>" class="btn btn-outline btn-sm">Leer más</a>
-								                </div>
-								            </article>
-										</div>
-						<?php } ?>
 					</div>
-					<?php } else { ?>
-						
-						<div class="container" style=" min-height: 50vh; ">
-							<div class="col-xl-12 color-barium font-size-20">
-								<h1 class="font-size-32 color-barium fw-semibold mb-4">Sin resultados</h1>
-								<p class="font-size-24 color-barium fw-semibold">¿Desea intentar con otro término de búsqueda?</p>
-								<?php echo do_shortcode('[wpdreams_ajaxsearchlite]'); ?>
-							</div>
+					<?php
+					$gwf_pages = paginate_links(
+						array(
+							'type'      => 'list',
+							'prev_text' => '‹ Anteriores',
+							'next_text' => 'Siguientes ›',
+							'mid_size'  => 1,
+						)
+					);
+					if ( $gwf_pages ) {
+						echo '<nav class="gwf-l-pages" aria-label="Páginas">' . $gwf_pages . '</nav>'; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML de WordPress.
+					}
+					?>
+				<?php } else { ?>
+					<div class="container" style=" min-height: 50vh; ">
+						<div class="col-xl-12 color-barium font-size-20">
+							<h2 class="font-size-32 color-barium fw-semibold mb-4">Sin resultados</h2>
+							<p class="font-size-24 color-barium fw-semibold">¿Desea intentar con otro término de búsqueda?</p>
+							<?php echo do_shortcode('[wpdreams_ajaxsearchlite]'); ?>
 						</div>
-				<?php } } ?>
+					</div>
+				<?php } ?>
 			</div>
 		</div>
 	</div>

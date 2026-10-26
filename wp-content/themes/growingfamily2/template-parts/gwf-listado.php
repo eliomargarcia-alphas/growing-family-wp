@@ -3,84 +3,68 @@
  * Listado de guías de problema o de pilares (etapa 6). Lo usan archive-guia.php, archive-desarrollo.php,
  * taxonomy-tema.php, taxonomy-gran_tema.php y taxonomy-edad.php.
  *
- * Mismo esquema que el listado del blog (index.php): migas arriba, título centrado, filtros en una columna a la
- * izquierda y tarjetas .blog-card (tema sobre la foto, «me gusta» abajo sobre la foto, «Leer más»).
+ * Mismo esquema que el listado del blog (index.php), con las mismas piezas: cabecera (gwf-listado-cabecera),
+ * filtros a la izquierda o en chips (gwf-filtros) y tarjetas .blog-card (gwf-tarjeta).
  * El orden (Destacado, «me gusta», fecha) y los 12 por página los pone el plugin gwf-guias (includes/listings.php).
  *
  * @package WordPress
  * @subpackage growingfamily2
  */
 
-$gwf_h      = gwf_guias_listing_heading();
-$gwf_type   = $gwf_h['type'];
-$gwf_term   = $gwf_h['term'];
-$gwf_topic  = 'desarrollo' === $gwf_type ? 'gran_tema' : 'tema';
-$gwf_topics = gwf_guias_filter_terms( $gwf_topic, $gwf_type );
-$gwf_ages   = gwf_guias_filter_terms( 'edad', $gwf_type );
-$gwf_groups = array_filter(
+$gwf_h     = gwf_guias_listing_heading();
+$gwf_type  = $gwf_h['type'];
+$gwf_term  = $gwf_h['term'];
+$gwf_topic = 'desarrollo' === $gwf_type ? 'gran_tema' : 'tema';
+
+// Grupos de filtros: «Todos/Todas» activo si no hay término de esa taxonomía.
+$gwf_groups = array();
+foreach (
 	array(
-		array( 'label' => 'desarrollo' === $gwf_type ? 'Por tema' : 'Tema', 'all' => 'Todos', 'terms' => $gwf_topics, 'tax' => $gwf_topic ),
-		array( 'label' => 'desarrollo' === $gwf_type ? 'Por edad' : 'Edad', 'all' => 'Todas', 'terms' => $gwf_ages, 'tax' => 'edad' ),
-	),
-	function ( $g ) {
-		return (bool) $g['terms'];
+		array( $gwf_topic, 'desarrollo' === $gwf_type ? 'Por tema' : 'Tema', 'Todos' ),
+		array( 'edad', 'desarrollo' === $gwf_type ? 'Por edad' : 'Edad', 'Todas' ),
+	) as list( $gwf_tax, $gwf_label, $gwf_all )
+) {
+	$gwf_terms = gwf_guias_filter_terms( $gwf_tax, $gwf_type );
+	if ( ! $gwf_terms ) {
+		continue;
 	}
-);
-
-/** Enlace de filtro; el activo va marcado. */
-$gwf_filter_link = function ( $label, $url, $active ) {
-	return '<li><a href="' . esc_url( $url ) . '"' . ( $active ? ' class="is-active" aria-current="page"' : '' ) . '>' . esc_html( $label ) . '</a></li>';
-};
-/** ¿«Todos/Todas» activo en el grupo? (sin término, o el término es de otra taxonomía). */
-$gwf_all_active = function ( $tax ) use ( $gwf_term ) {
-	return ! $gwf_term || $gwf_term->taxonomy !== $tax;
-};
-
-/** Lista de filtros de un grupo (la misma para la columna izquierda y para los chips de móvil). */
-$gwf_filter_list = function ( $group ) use ( $gwf_type, $gwf_term, $gwf_filter_link, $gwf_all_active ) {
-	$html = $gwf_filter_link( $group['all'], gwf_guias_filter_url( $gwf_type ), $gwf_all_active( $group['tax'] ) );
-	foreach ( $group['terms'] as $t ) {
-		$html .= $gwf_filter_link( $t->name, gwf_guias_filter_url( $gwf_type, $t ), $gwf_term && $gwf_term->term_id === $t->term_id );
+	$gwf_items = array(
+		array(
+			'label'  => $gwf_all,
+			'url'    => gwf_guias_filter_url( $gwf_type ),
+			'active' => ! $gwf_term || $gwf_term->taxonomy !== $gwf_tax,
+		),
+	);
+	foreach ( $gwf_terms as $gwf_t ) {
+		$gwf_items[] = array(
+			'label'  => $gwf_t->name,
+			'url'    => gwf_guias_filter_url( $gwf_type, $gwf_t ),
+			'active' => $gwf_term && $gwf_term->term_id === $gwf_t->term_id,
+		);
 	}
-	return $html;
-};
+	$gwf_groups[] = array( 'label' => $gwf_label, 'items' => $gwf_items );
+}
 ?>
 
 <main id="site-content" class="gwf-guia gwf-listado">
-	<section class="gwf-l-head pt-0 pb-5 title-section">
-		<div class="container">
-			<?php if ( function_exists( 'yoast_breadcrumb' ) ) { yoast_breadcrumb( '<nav class="gwf-l-migas" aria-label="Migas de pan">', '</nav>' ); } ?>
-			<h1 class="font-size-44 text-center mb-4 color-navy mt-5"><?php echo esc_html( $gwf_h['title'] ); ?></h1>
-			<p class="font-size-16 text-center text-black mb-0 gwf-l-intro"><?php echo esc_html( $gwf_h['intro'] ); ?></p>
-		</div>
-	</section>
+	<?php get_template_part( 'template-parts/gwf-listado-cabecera', null, array( 'title' => $gwf_h['title'], 'intro' => $gwf_h['intro'] ) ); ?>
 
 	<div class="container-fluid mt-5">
 		<div class="row">
 
 			<?php if ( $gwf_groups ) : // Filtros en una columna a la izquierda (escritorio), como «Categorías» en el blog. ?>
 				<div class="d-none d-xl-block col-md-2 mb-5">
-					<nav class="gwf-l-side" aria-label="Filtrar">
-						<?php foreach ( $gwf_groups as $gwf_group ) : ?>
-							<p class="gwf-l-side-title"><?php echo esc_html( $gwf_group['label'] ); ?></p>
-							<ul><?php echo $gwf_filter_list( $gwf_group ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado en las funciones. ?></ul>
-						<?php endforeach; ?>
-					</nav>
+					<?php get_template_part( 'template-parts/gwf-filtros', null, array( 'mode' => 'side', 'groups' => $gwf_groups ) ); ?>
 				</div>
 			<?php endif; ?>
 
 			<div class="<?php echo $gwf_groups ? 'col-md-10' : 'col-md-12'; ?> entradas-resultados" id="resultados">
 
-				<?php if ( $gwf_groups ) : // En móvil y tableta la columna se oculta: filtros como chips. ?>
-					<nav class="gwf-l-filters d-xl-none" aria-label="Filtrar">
-						<?php foreach ( $gwf_groups as $gwf_group ) : ?>
-							<div class="gwf-l-filter">
-								<p class="gwf-l-filter-label"><?php echo esc_html( $gwf_group['label'] ); ?></p>
-								<ul><?php echo $gwf_filter_list( $gwf_group ); // phpcs:ignore WordPress.Security.EscapeOutput ?></ul>
-							</div>
-						<?php endforeach; ?>
-					</nav>
-				<?php endif; ?>
+				<?php
+				if ( $gwf_groups ) { // En móvil y tableta la columna se oculta: filtros como chips.
+					get_template_part( 'template-parts/gwf-filtros', null, array( 'mode' => 'chips', 'groups' => $gwf_groups ) );
+				}
+				?>
 
 				<?php if ( have_posts() ) : ?>
 					<div class="row">
@@ -102,34 +86,19 @@ $gwf_filter_list = function ( $group ) use ( $gwf_type, $gwf_term, $gwf_filter_l
 							}
 
 							$gwf_summary = get_post_meta( $gwf_pid, 'desarrollo' === $gwf_type ? 'gwf_definicion' : 'gwf_respuesta', true );
-							$gwf_summary = $gwf_summary ? $gwf_summary : get_the_excerpt();
-							?>
-							<div class="col-xl-4 article mb-5 resultado">
-								<article class="blog-card">
-									<div class="blog-image-wrapper">
-										<?php if ( $gwf_badge ) : ?>
-											<p class="cat font-size-12 text-uppercase">
-												<a href="<?php echo esc_url( gwf_guias_filter_url( $gwf_type, $gwf_badge ) ); ?>" class="text-white font-size-12 text-decoration-none bg-navy px-3 py-2 border-radius-24 d-inline-block"><?php echo esc_html( $gwf_badge->name ); ?></a>
-											</p>
-										<?php endif; ?>
-										<a href="<?php the_permalink(); ?>" tabindex="-1" aria-hidden="true">
-											<?php if ( has_post_thumbnail() ) : ?>
-												<?php the_post_thumbnail( 'medium_large', array( 'class' => 'blog-image', 'alt' => '', 'loading' => 'lazy', 'decoding' => 'async', 'sizes' => '(min-width: 1200px) 30vw, 100vw' ) ); ?>
-											<?php else : ?>
-												<img src="<?php echo esc_url( content_url( '/uploads/2026/08/article-1-opt.webp' ) ); ?>" alt="" class="blog-image" width="374" height="200" loading="lazy" decoding="async">
-											<?php endif; ?>
-										</a>
-										<?php echo do_shortcode( '[wp_ulike]' ); ?>
-									</div>
-									<div class="blog-card-body">
-										<h2 class="blog-card-title"><a href="<?php the_permalink(); ?>" class="gwf-l-title-link"><?php the_title(); ?></a></h2>
-										<?php if ( $gwf_summary ) : ?><p class="gwf-l-summary"><?php echo esc_html( wp_trim_words( wp_strip_all_tags( $gwf_summary ), 24, '…' ) ); ?></p><?php endif; ?>
-										<div class="blog-meta"><?php echo gwf_g_read_html( gwf_guias_reading_time( $gwf_pid ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
-										<a href="<?php the_permalink(); ?>" class="btn btn-outline btn-sm">Leer más<span class="screen-reader-text">: <?php the_title(); ?></span></a>
-									</div>
-								</article>
-							</div>
-						<?php endwhile; ?>
+
+							get_template_part(
+								'template-parts/gwf-tarjeta',
+								null,
+								array(
+									'badge'     => $gwf_badge,
+									'badge_url' => $gwf_badge ? gwf_guias_filter_url( $gwf_type, $gwf_badge ) : '',
+									'summary'   => $gwf_summary ? $gwf_summary : get_the_excerpt(),
+									'minutes'   => gwf_guias_reading_time( $gwf_pid ),
+								)
+							);
+						endwhile;
+						?>
 					</div>
 
 					<?php

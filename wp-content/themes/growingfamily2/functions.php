@@ -221,7 +221,8 @@ add_action( 'wp_enqueue_scripts', 'gwf_enqueue_main_script' );
 
 /* Guías (plugin gwf-guias): CSS y JS propios, solo en sus plantillas */
 function gwf_enqueue_guias_assets() {
-	$is_listing = function_exists( 'gwf_guias_listing_type' ) && gwf_guias_listing_type();
+	// Listados de guías y del blog (index.php: /blog/, temas, etiquetas y búsqueda) comparten cabecera, filtros y tarjetas
+	$is_listing = ( function_exists( 'gwf_guias_listing_type' ) && gwf_guias_listing_type() ) || is_home() || is_category() || is_tag() || is_search();
 	if ( ! is_singular( array( 'guia', 'desarrollo' ) ) && ! $is_listing ) {
 		return;
 	}
