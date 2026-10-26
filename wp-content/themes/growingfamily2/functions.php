@@ -62,9 +62,10 @@ function gwf_trim_plugin_assets() {
 	}
 
 	// Páginas y guías (plugin gwf-guias): ninguna usa índice de Easy TOC, AddToAny ni formularios fuera de Contacto
-	if ( is_page() || is_singular( array( 'guia', 'desarrollo' ) ) ) {
-		// WP ULike (+ Pro): solo lo usan las plantillas de artículo (en las guías se decide con los listados, etapa 6)
-		if ( is_page() && ! gwf_page_uses_ulike() ) {
+	$gwf_listing = function_exists( 'gwf_guias_listing_type' ) && gwf_guias_listing_type();
+	if ( is_page() || is_singular( array( 'guia', 'desarrollo' ) ) || $gwf_listing ) {
+		// WP ULike (+ Pro): solo lo usan las plantillas de artículo y el botón «me gusta» de cada guía (no los listados)
+		if ( ( is_page() && ! gwf_page_uses_ulike() ) || $gwf_listing ) {
 			foreach ( array( 'wp-ulike', 'wp-ulike-custom', 'wp-ulike-pro' ) as $handle ) {
 				wp_dequeue_style( $handle );
 			}
@@ -220,12 +221,16 @@ add_action( 'wp_enqueue_scripts', 'gwf_enqueue_main_script' );
 
 /* Guías (plugin gwf-guias): CSS y JS propios, solo en sus plantillas */
 function gwf_enqueue_guias_assets() {
-	if ( ! is_singular( array( 'guia', 'desarrollo' ) ) ) {
+	$is_listing = function_exists( 'gwf_guias_listing_type' ) && gwf_guias_listing_type();
+	if ( ! is_singular( array( 'guia', 'desarrollo' ) ) && ! $is_listing ) {
 		return;
 	}
 	$dir = get_template_directory();
 	$uri = get_template_directory_uri();
 	wp_enqueue_style( 'gwf-guias', $uri . '/assets/css/gwf-guias.css', array( 'twentytwenty-style' ), (string) filemtime( $dir . '/assets/css/gwf-guias.css' ) );
+	if ( $is_listing ) {
+		return; // Los listados no necesitan el JS (índice, barra fija, vídeo).
+	}
 	wp_enqueue_script( 'gwf-guias', $uri . '/assets/js/gwf-guias.js', array(), (string) filemtime( $dir . '/assets/js/gwf-guias.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
 }
 add_action( 'wp_enqueue_scripts', 'gwf_enqueue_guias_assets' );
