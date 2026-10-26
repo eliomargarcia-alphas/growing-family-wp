@@ -349,7 +349,7 @@ body.single-desarrollo {
 	text-decoration: none;
 	line-height: 1.4;
 }
-.gwf-g-related-img { display: block; aspect-ratio: 16 / 9; background: var(--g-blue-bg); }
+.gwf-g-related-img { display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--g-blue-bg); }
 .gwf-g-related-img img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .gwf-g-related-text { display: block; padding: 0.75rem 1rem; }
 .gwf-g-related-type {
