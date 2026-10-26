@@ -288,8 +288,15 @@ while ( have_posts() ) :
 					}
 					// phpcs:enable
 					?>
+					<?php
+					// El método: la imagen destacada de su página, como el resto de tarjetas (sin imagen, solo texto).
+					$gwf_metodo     = get_page_by_path( 'acerca-de/el-metodo' );
+					$gwf_metodo_img = ( $gwf_metodo && has_post_thumbnail( $gwf_metodo ) )
+						? get_the_post_thumbnail( $gwf_metodo, 'medium_large', array( 'loading' => 'lazy', 'decoding' => 'async', 'alt' => '', 'sizes' => '(min-width: 1025px) 280px, 100vw' ) )
+						: '';
+					?>
 					<li><a href="<?php echo esc_url( home_url( '/acerca-de/el-metodo/' ) ); ?>">
-						<span class="gwf-g-related-img"><img src="<?php echo esc_url( content_url( '/uploads/2026/09/el-metodo-2-opt.webp' ) ); ?>" alt="" width="678" height="820" loading="lazy" decoding="async"></span>
+						<?php if ( $gwf_metodo_img ) : ?><span class="gwf-g-related-img"><?php echo $gwf_metodo_img; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML de WordPress. ?></span><?php endif; ?>
 						<span class="gwf-g-related-text"><span class="gwf-g-related-type">El método</span>10 minutos cada noche</span>
 					</a></li>
 				</ul>
