@@ -64,8 +64,8 @@ function gwf_trim_plugin_assets() {
 	// Páginas y guías (plugin gwf-guias): ninguna usa índice de Easy TOC, AddToAny ni formularios fuera de Contacto
 	$gwf_listing = function_exists( 'gwf_guias_listing_type' ) && gwf_guias_listing_type();
 	if ( is_page() || is_singular( array( 'guia', 'desarrollo' ) ) || $gwf_listing ) {
-		// WP ULike (+ Pro): solo lo usan las plantillas de artículo y el botón «me gusta» de cada guía (no los listados)
-		if ( ( is_page() && ! gwf_page_uses_ulike() ) || $gwf_listing ) {
+		// WP ULike (+ Pro): solo lo usan las plantillas de artículo, el «me gusta» de cada guía y las tarjetas de los listados
+		if ( is_page() && ! gwf_page_uses_ulike() ) {
 			foreach ( array( 'wp-ulike', 'wp-ulike-custom', 'wp-ulike-pro' ) as $handle ) {
 				wp_dequeue_style( $handle );
 			}

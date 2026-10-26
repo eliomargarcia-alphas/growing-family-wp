@@ -414,9 +414,37 @@ body.single-desarrollo {
 /* ==========================================================================
    Listados: /guias/, /desarrollo/ y sus filtros por tema y edad (template-parts/gwf-listado.php)
    ========================================================================== */
-.gwf-l-header { max-width: 760px; margin-bottom: 1.5rem; }
-.gwf-l-intro { font-size: 1.0625rem; line-height: 1.6; color: var(--g-muted); margin: 0; }
+/* Mismo esquema que el blog (index.php): migas justo bajo la cabecera, título centrado, filtros a la izquierda */
+.gwf-guia.gwf-listado { padding-top: 80px; }
+.gwf-l-migas { padding: 1rem 0; font-size: 12px; color: #000; }
+.gwf-l-migas a { color: #000; text-decoration: none; }
+.gwf-l-migas a:hover { text-decoration: underline; }
+.gwf-l-intro { max-width: 760px; margin-left: auto; margin-right: auto; }
 
+/* Columna de filtros (escritorio): la caja de «Categorías» del blog */
+.gwf-l-side {
+	border: 1px solid #006590;
+	box-shadow: var(--shadow-sm);
+	background: var(--color-sky-light, var(--g-soft));
+	padding: 10px;
+	border-radius: 14px;
+	color: #37425f;
+	font-size: 14px;
+}
+.gwf-l-side-title { margin: 0.25rem 0 0.4rem; font-weight: 600; }
+.gwf-l-side ul { list-style: none; margin: 0 0 0.75rem; padding: 0; }
+.gwf-l-side ul:last-child { margin-bottom: 0.25rem; }
+.gwf-l-side a { display: block; padding: 0.3rem 0.5rem; border-radius: 8px; color: #37425f; text-decoration: none; }
+.gwf-l-side a:hover { color: var(--g-blue); background: #fff; }
+.gwf-l-side a.is-active { color: #fff; background: var(--g-blue); }
+
+/* Sin la columna (< 1200px) los resultados ocupan todo el ancho y los filtros van como chips */
+@media (max-width: 1199.98px) {
+	.gwf-listado .entradas-resultados { flex: 0 0 100%; max-width: 100%; }
+}
+@media (min-width: 1200px) {
+	.gwf-listado .d-xl-none { display: none !important; }
+}
 .gwf-l-filters { display: grid; gap: 0.75rem; margin-bottom: 1.75rem; }
 .gwf-l-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; }
 .gwf-l-filter-label {
@@ -441,33 +469,17 @@ body.single-desarrollo {
 .gwf-l-filter a:hover { border-color: var(--g-blue); color: var(--g-blue); }
 .gwf-l-filter a.is-active { background: var(--g-blue); border-color: var(--g-blue); color: #fff; }
 
-.gwf-l-grid {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-	gap: 1.25rem;
-}
-.gwf-l-card a {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	background: #fff;
-	border: 1px solid var(--g-line);
-	border-radius: var(--g-radius);
-	overflow: hidden;
-	color: var(--g-text);
-	text-decoration: none;
-	transition: var(--transition-fast, all 0.2s ease);
-}
-.gwf-l-card a:hover { box-shadow: var(--shadow-md); border-color: var(--g-blue-line); }
-.gwf-l-body { display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem 1.25rem 1.25rem; flex: 1; }
-.gwf-l-meta { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--g-blue); }
-.gwf-guia .gwf-l-title { font-size: 1.15rem; line-height: 1.3; margin: 0; color: var(--color-dark, #0a0e16); }
-.gwf-l-card a:hover .gwf-l-title { color: var(--g-blue); }
-.gwf-l-summary { font-size: 0.9375rem; line-height: 1.55; color: var(--g-muted); }
-.gwf-l-foot { margin-top: auto; padding-top: 0.25rem; font-size: 0.875rem; color: var(--g-muted); }
+/* Tarjetas: .blog-card del tema (style.css) con tema sobre la foto y «me gusta» abajo sobre la foto */
+.gwf-listado .blog-card { height: 100%; }
+.gwf-listado .blog-image-wrapper > a { display: block; height: 100%; }
+.gwf-listado .blog-image-wrapper .cat a:hover { background: #003aaf !important; }
+.gwf-listado .blog-image-wrapper .wpulike { position: relative; z-index: 1; }
+.gwf-guia .blog-card-title { flex-grow: 0; margin: 0 0 0.6rem; font-size: 1.25rem; line-height: 1.35; }
+.gwf-l-title-link { color: var(--color-dark, #0a0e16); text-decoration: none; }
+.gwf-l-title-link:hover { color: var(--g-blue); }
+.gwf-guia .gwf-l-summary { flex-grow: 1; margin: 0 0 1rem; font-size: 0.9375rem; line-height: 1.55; color: var(--g-muted); }
+.gwf-listado .blog-meta { font-size: 0.875rem; color: var(--g-muted); margin-bottom: 1rem; }
+.gwf-listado .blog-card-body .btn { align-self: flex-start; border-radius: 999px; text-decoration: none; }
 
 .gwf-l-pages { margin-top: 2rem; }
 .gwf-l-pages ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
@@ -548,8 +560,7 @@ body.single-desarrollo {
 
 	.gwf-g-credits-grid { grid-template-columns: 1fr; }
 	.gwf-g-milestones li { grid-template-columns: 1fr; gap: 0.4rem; }
-	.gwf-l-filter { align-items: flex-start; flex-direction: column; }
-	.gwf-l-filter { min-width: 0; }
+	.gwf-l-filter { align-items: flex-start; flex-direction: column; min-width: 0; }
 	.gwf-l-filter ul { flex-wrap: nowrap; overflow-x: auto; width: 100%; max-width: 100%; padding-bottom: 0.25rem; -webkit-overflow-scrolling: touch; }
 	.gwf-l-filter a { white-space: nowrap; }
 	.gwf-g-sources:not([open]) { padding-bottom: 0.5rem; }
