@@ -56,7 +56,7 @@ while ( have_posts() ) :
 	$gwf_toc_html = gwf_g_toc_html( $gwf_toc );
 	?>
 
-<main id="site-content" class="gwf-guia">
+<main id="site-content" class="gwf-guia" data-gwf-origen="<?php echo esc_attr( get_post_field( 'post_name' ) ); ?>" data-gwf-tipo="guia">
 	<div class="container">
 
 		<?php // 0. Migas de pan (Yoast: Inicio › Guías › guía). ?>

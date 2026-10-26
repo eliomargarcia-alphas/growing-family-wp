@@ -49,7 +49,7 @@ while ( have_posts() ) :
 	$gwf_portal = get_page_by_path( 'acerca-de/la-edad-extraordinaria' );
 	?>
 
-<main id="site-content" class="gwf-guia gwf-pilar">
+<main id="site-content" class="gwf-guia gwf-pilar" data-gwf-origen="<?php echo esc_attr( get_post_field( 'post_name' ) ); ?>" data-gwf-tipo="desarrollo">
 	<div class="container">
 
 		<?php if ( function_exists( 'yoast_breadcrumb' ) ) { yoast_breadcrumb( '<nav class="gwf-g-migas" aria-label="Migas de pan">', '</nav>' ); } ?>
