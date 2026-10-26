@@ -79,7 +79,10 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   Ojo: la base de datos de staging3 es independiente; los cambios por WP-CLI hay que repetirlos o probarlos primero ahí.
 
 ## Guías (plugin gwf-guias) — en construcción, activo solo en staging3
-- Plan: «Plan de implementación de guías en WordPress». Hechas las etapas 1 a 7 (2026-10-26): base, regla de publicación, plantilla de guía de problema, vídeo con `VideoObject` (includes/schema.php), plantilla del pilar (`single-desarrollo.php`), listados y SEO.
+- Plan: «Plan de implementación de guías en WordPress». Hechas las etapas 1 a 8 (2026-10-26): base, regla de publicación, plantilla de guía de problema, vídeo con `VideoObject` (includes/schema.php), plantilla del pilar (`single-desarrollo.php`), listados y SEO.
+- Etapa 8 (GA4, en `assets/js/gwf-guias.js`): `gwf_puente_click`, `gwf_cuando_consultar_click` (`ubicacion`), `gwf_video_inicio`, `gwf_video_75`
+  (API de YouTube solo tras pulsar) y `gwf_cuento_click` (espera `data-gwf-cuento`). Todos con `guia_origen` y `tipo_contenido` (data-* del `<main>`).
+  Sin gtag (staging) van a `dataLayer`; `?gwf_debug=1` los escribe en la consola.
 - Etapa 7: `includes/schema.php` añade Article (autor «Equipo editorial Growing Family» como organización), la persona revisora (Person) y
   `reviewedBy` + `lastReviewed` en el WebPage (en schema.org son de WebPage, no de Article); fechas modificadas = fecha de revisión.
   `includes/seo.php`: title «<pregunta> | Growing Family» (solo la pregunta si pasa de 60) y description desde respuesta/definición (155), salvo valores propios en Yoast.
