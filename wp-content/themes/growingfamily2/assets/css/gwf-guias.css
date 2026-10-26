@@ -375,7 +375,7 @@ body.single-desarrollo {
 	margin: 0;
 	padding: 0;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* auto-fill: con pocas tarjetas no se estiran */
 	gap: 0.75rem;
 }
 .gwf-g-related a {
@@ -441,6 +441,7 @@ body.single-desarrollo {
 	}
 	.gwf-g-title { font-size: 1.6rem; }
 	.gwf-g-byline { font-size: 0.875rem; }
+	.gwf-g-byline .gwf-g-read { display: none; } /* en móvil va en la franja de la ficha */
 	.gwf-g-header { margin-bottom: 1rem; }
 	.gwf-g-block p { font-size: 1rem; }
 	.gwf-g-respuesta p { font-size: 1.0625rem; }

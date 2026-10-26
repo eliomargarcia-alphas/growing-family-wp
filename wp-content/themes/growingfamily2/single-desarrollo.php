@@ -186,7 +186,7 @@ while ( have_posts() ) :
 
 	<div class="gwf-g-bar" aria-label="Accesos de la guía">
 		<?php if ( $gwf_toc_html ) : ?><a href="#indice" class="gwf-g-bar-toc">Índice</a><?php endif; ?>
-		<?php if ( isset( $gwf_toc['enlaces'] ) ) : ?><a href="#enlaces"><?php echo esc_html( $gwf_down_title ); ?></a><?php endif; ?>
+		<?php if ( isset( $gwf_toc['enlaces'] ) ) : ?><a href="#enlaces">Guías y cuentos</a><?php endif; ?>
 	</div>
 </main>
 
