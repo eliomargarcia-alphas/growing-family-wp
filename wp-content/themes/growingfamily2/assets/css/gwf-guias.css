@@ -633,7 +633,15 @@ body.single-desarrollo {
 @media (max-width: 767.98px) {
 	.gwf-c-head { padding: 1.25rem; }
 	.gwf-c-grid { grid-template-columns: 1fr; }
-	.gwf-c-card { flex-direction: row; align-items: flex-start; gap: 1rem; }
+	/* Foto y nombre en dos columnas; cargo, texto y botón debajo, a todo el ancho */
+	.gwf-c-card,
+	.gwf-c-card-wide { display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 0.75rem 1rem; }
+	.gwf-c-body { display: contents; }
+	.gwf-guia .gwf-c-name { grid-column: 2; margin: 0; }
+	.gwf-c-role,
+	.gwf-c-desc,
+	.gwf-c-profile { grid-column: 1 / -1; margin: 0; }
+	.gwf-c-profile { justify-self: start; }
 	.gwf-c-photo,
 	.gwf-c-card-wide .gwf-c-photo { width: 64px; height: 64px; flex-basis: 64px; }
 	.gwf-c-foot { grid-template-columns: 1fr; gap: 1.25rem; padding: 1.25rem; }
