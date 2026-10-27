@@ -521,6 +521,13 @@ get_header();
                     <span class="dot" data-index="4"></span>
                     <span class="dot" data-index="5"></span>
                 </div>
+                <?php
+                // Enlace a «De dónde salen estos testimonios» solo si la página existe y está publicada (en producción aún no).
+                $gwf_testimonios = get_page_by_path( 'acerca-de/testimonios' );
+                if ( $gwf_testimonios && 'publish' === $gwf_testimonios->post_status ) :
+                    ?>
+                    <p class="testimonials-source"><a href="<?php echo esc_url( get_permalink( $gwf_testimonios ) ); ?>">¿De dónde salen estos testimonios?</a></p>
+                <?php endif; ?>
             </div>
         </section> 
 

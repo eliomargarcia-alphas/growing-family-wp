@@ -2709,6 +2709,22 @@ body {
     background-color: #FFF;
     transform: scale(1.25);
 }
+.testimonials-source {
+    margin: 1.25rem 0 0;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.testimonials-source a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.testimonials-source a:hover,
+.testimonials-source a:focus {
+    color: #FFF;
+}
 
 /* ==========================================================================
    SECTION 11: BLOG / RESOURCES
