@@ -118,7 +118,12 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   formación («Título | Institución | Año»), experiencia, temas, enlaces («Texto | URL»). Sin ficha pública el archivo de autor redirige a la portada.
   La consulta lista lo que revisa (`gwf_revisado_por`) y/o firma (autor). Firma: guías y pilares muestran el autor (enlazado si es redactor con ficha);
   el blog solo muestra «Escrito por» si lo firma un redactor con ficha. Schema: Person `#/schema/person/equipo-<id>` + ProfilePage y migas propias
-  (Yoast no las genera para quien no tiene entradas). Comité y política editorial: se enlazan solas cuando existan `/comite-editorial/` y `/politica-editorial/`.
+  (Yoast no las genera para quien no tiene entradas). Comité y política editorial se enlazan solos porque esas páginas existen.
+- Comité editorial (2026-10-27): página `/comite-editorial/` (ID 2326 en staging3) con la plantilla `templates/template-comite.php`
+  (Template Name «Comité editorial») + `includes/committee.php`. Miembros = usuarios con «Miembro del comité», agrupados por el campo
+  «Área del comité» (Revisión clínica, Pedagogía, Redacción y producción, Fundador); textos de los bloques = campos de la página.
+  Schema AboutPage + Organization `#/schema/comite-editorial` con `member`. Botones de empresa (`/acerca-de/empresa/`, ID 2324),
+  política editorial (`/politica-editorial/`, ID 2325) y método solo si la página existe. Las tres páginas son de staging3, con textos borrador.
 - Usuarios de prueba en staging3: `prueba-revisora` (rol Revisor experto, ficha pública, comité), `prueba-redactor` (autor, ficha pública, redacta;
   autor de la guía 2309, antes era `equipo-editorial`) y `equipo-editorial` (editor), sin contraseña conocida.
 - El deploy a producción copia el plugin, pero allí **no está activado**: no activarlo hasta aprobar el plan.
