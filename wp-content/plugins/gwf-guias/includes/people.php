@@ -42,7 +42,7 @@ function gwf_guias_register_person_fields() {
 				gwf_guias_field( 'gwf_experiencia', 'Experiencia', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop' ) ),
 				gwf_guias_field( 'gwf_temas', 'Temas que domina (guías de problema)', 'taxonomy', array( 'taxonomy' => 'tema', 'field_type' => 'multi_select', 'return_format' => 'id', 'add_term' => 0, 'save_terms' => 0, 'load_terms' => 0, 'allow_null' => 1 ) ),
 				gwf_guias_field( 'gwf_grandes_temas', 'Temas que domina (desarrollo)', 'taxonomy', array( 'taxonomy' => 'gran_tema', 'field_type' => 'multi_select', 'return_format' => 'id', 'add_term' => 0, 'save_terms' => 0, 'load_terms' => 0, 'allow_null' => 1 ) ),
-				gwf_guias_field( 'gwf_enlaces', 'Enlaces verificables', 'textarea', array( 'rows' => 3, 'new_lines' => '', 'instructions' => 'Una línea por enlace: Texto | URL (LinkedIn, colegio profesional con n.º de registro…)' ) ),
+				gwf_guias_field( 'gwf_enlaces', 'Enlaces verificables', 'textarea', array( 'rows' => 3, 'new_lines' => '', 'instructions' => 'Una línea por enlace: Texto | URL (colegio profesional con n.º de registro, publicaciones…). LinkedIn y demás redes van en los campos de redes del perfil (arriba), que se muestran como iconos.' ) ),
 			),
 		)
 	);
@@ -86,6 +86,35 @@ function gwf_guias_person_terms( $user_id, $field, $taxonomy ) {
 	return is_wp_error( $terms ) ? array() : $terms;
 }
 
+/** Redes del perfil del usuario (campos de contacto de Yoast) que se muestran como iconos, en este orden. */
+const GWF_GUIAS_PERSON_NETWORKS = array(
+	'linkedin'   => 'LinkedIn',
+	'instagram'  => 'Instagram',
+	'facebook'   => 'Facebook',
+	'youtube'    => 'YouTube',
+	'twitter'    => 'X',
+	'pinterest'  => 'Pinterest',
+	'tumblr'     => 'Tumblr',
+	'soundcloud' => 'SoundCloud',
+	'myspace'    => 'MySpace',
+	'wikipedia'  => 'Wikipedia',
+);
+
+/** Redes con URL válida: [red, nombre, url]. El campo de X guarda el usuario, no la URL. */
+function gwf_guias_person_networks( $user_id ) {
+	$out = array();
+	foreach ( GWF_GUIAS_PERSON_NETWORKS as $key => $label ) {
+		$value = trim( (string) get_user_meta( (int) $user_id, $key, true ) );
+		if ( 'twitter' === $key && $value && ! wp_http_validate_url( $value ) ) {
+			$value = 'https://x.com/' . ltrim( $value, '@' );
+		}
+		if ( $value && wp_http_validate_url( $value ) ) {
+			$out[] = array( 'red' => $key, 'nombre' => $label, 'url' => $value );
+		}
+	}
+	return $out;
+}
+
 /** Todo lo que pinta la ficha. */
 function gwf_guias_person( $user_id ) {
 	$user = get_userdata( (int) $user_id );
@@ -114,6 +143,7 @@ function gwf_guias_person( $user_id ) {
 		'formacion'   => gwf_guias_parse_lines( $meta( 'gwf_formacion' ), array( 'titulo', 'institucion', 'anio' ) ),
 		'experiencia' => $meta( 'gwf_experiencia' ),
 		'temas'       => array_merge( gwf_guias_person_terms( $user_id, 'gwf_temas', 'tema' ), gwf_guias_person_terms( $user_id, 'gwf_grandes_temas', 'gran_tema' ) ),
+		'redes'       => gwf_guias_person_networks( $user_id ),
 		'enlaces'     => $enlaces,
 		'url'         => gwf_guias_person_url( $user_id ),
 	);

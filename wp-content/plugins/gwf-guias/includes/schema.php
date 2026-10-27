@@ -104,8 +104,8 @@ function gwf_guias_person_piece( $user_id ) {
 	if ( $p['url'] ) {
 		$piece['url'] = $p['url'];
 	}
-	if ( $p['enlaces'] ) {
-		$piece['sameAs'] = wp_list_pluck( $p['enlaces'], 'url' );
+	if ( $p['redes'] || $p['enlaces'] ) {
+		$piece['sameAs'] = array_merge( wp_list_pluck( $p['redes'], 'url' ), wp_list_pluck( $p['enlaces'], 'url' ) );
 	}
 	if ( $p['temas'] ) {
 		$piece['knowsAbout'] = wp_list_pluck( $p['temas'], 'name' );

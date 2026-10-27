@@ -462,6 +462,8 @@ body.single-desarrollo {
 }
 .gwf-p-links a:hover,
 .gwf-p-button:hover { background: var(--g-blue); color: #fff; }
+/* Redes: botón cuadrado solo con el icono */
+.gwf-p-links .gwf-p-social { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; }
 
 .gwf-p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
 .gwf-p-grid > :only-child { grid-column: 1 / -1; } /* Solo formación o solo experiencia: ocupa todo el ancho */

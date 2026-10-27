@@ -52,8 +52,11 @@ $gwf_politica = ( $gwf_politica && 'publish' === $gwf_politica->post_status ) ? 
 				<span class="gwf-p-badge"><?php echo esc_html( GWF_GUIAS_PERSON_ROLES[ $gwf_p['rol'] ] ); ?></span>
 				<h1 class="gwf-p-name"><?php echo esc_html( $gwf_p['nombre'] ); ?></h1>
 				<?php if ( $gwf_p['cargo'] ) : ?><p class="gwf-p-role"><?php echo esc_html( $gwf_p['cargo'] ); ?></p><?php endif; ?>
-				<?php if ( $gwf_p['enlaces'] ) : ?>
+				<?php if ( $gwf_p['redes'] || $gwf_p['enlaces'] ) : ?>
 					<ul class="gwf-p-links">
+						<?php foreach ( $gwf_p['redes'] as $gwf_red ) : // Redes del perfil: botón con su icono. ?>
+							<li><a class="gwf-p-social" href="<?php echo esc_url( $gwf_red['url'] ); ?>" target="_blank" rel="noopener me" aria-label="<?php echo esc_attr( $gwf_red['nombre'] . ' de ' . $gwf_p['nombre'] ); ?>" title="<?php echo esc_attr( $gwf_red['nombre'] ); ?>"><?php echo gwf_g_social_icon( $gwf_red['red'] ); // phpcs:ignore WordPress.Security.EscapeOutput -- SVG fijo. ?></a></li>
+						<?php endforeach; ?>
 						<?php foreach ( $gwf_p['enlaces'] as $gwf_link ) : ?>
 							<li><a href="<?php echo esc_url( $gwf_link['url'] ); ?>" target="_blank" rel="noopener me"><?php echo esc_html( $gwf_link['texto'] ? $gwf_link['texto'] : wp_parse_url( $gwf_link['url'], PHP_URL_HOST ) ); ?> <span aria-hidden="true">↗</span></a></li>
 						<?php endforeach; ?>
