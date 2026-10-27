@@ -37,14 +37,14 @@ function gwf_act_register_type() {
 			'show_in_rest'  => true,
 		)
 	);
+	// Edad registrada por gwf-guias: se une aquí, con el tipo ya registrado (antes WordPress no lo permite).
+	register_taxonomy_for_object_type( 'edad', 'actividad' );
 }
 add_action( 'init', 'gwf_act_register_type' );
 
 function gwf_act_register_taxonomies() {
-	// Edad: si gwf-guias (o gwf-cuentos) ya la registró, solo se añade a las actividades.
-	if ( taxonomy_exists( 'edad' ) ) {
-		register_taxonomy_for_object_type( 'edad', 'actividad' );
-	} else {
+	// Edad: si gwf-guias (o gwf-cuentos) ya la registró, se une al tipo en gwf_act_register_type().
+	if ( ! taxonomy_exists( 'edad' ) ) {
 		register_taxonomy( 'edad', array( 'actividad' ), gwf_act_tax_args( 'Edad', 'Edades', 'edad' ) );
 	}
 	register_taxonomy( 'trabaja', array( 'actividad' ), gwf_act_tax_args( 'Qué trabaja', 'Qué trabaja', 'actividades/trabaja' ) );
