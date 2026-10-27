@@ -128,6 +128,19 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   autor de la guía 2309, antes era `equipo-editorial`) y `equipo-editorial` (editor), sin contraseña conocida.
 - El deploy a producción copia el plugin, pero allí **no está activado**: no activarlo hasta aprobar el plan.
 
+## Actividades (plugin gwf-actividades) — activo solo en staging3 (2026-10-27)
+- Plugin propio, independiente de gwf-guias (si está activo comparte la Edad, el pilar y la ficha del revisor). `site.sh` lo despliega;
+  en producción no está activado.
+- Tipo `actividad` en `/actividades/<slug>/`; taxonomías Edad y «Qué trabaja» (`trabaja`, `/actividades/trabaja/x/`); listados
+  `/actividades/`, `/actividades/edad/x/` con las mismas piezas que guías y blog. Plantillas `single-actividad.php`,
+  `archive-actividad.php`, `taxonomy-trabaja.php`, `template-parts/gwf-listado-actividades.php`; `taxonomy-edad.php` elige según el tipo.
+- Campos sin ACF PRO: pasos «Título | Texto | Para ti» por líneas + 8 imágenes de paso, materiales por líneas, imprimible (PDF), por qué + fuente.
+- Imprimible: formulario → `admin-post.php?action=gwf_act_imprimible` → alta en la lista de Mailchimp de la lista de espera (`13fb45b1fa`)
+  con la etiqueta `actividad-<slug>` y el interés de compromiso `2ca320de4b`, vía el plugin Mailchimp for WP. **Solo escribe en Mailchimp
+  si `home_url` es growing.family** (en staging se registra en el log; forzar con la constante `GWF_ACT_MAILCHIMP_LIVE`).
+  WordPress envía el correo con el enlace firmado `?gwf_imprimible=<id>&k=<firma>`, que sirve el PDF con `X-Robots-Tag: noindex`.
+- GA4: `gwf_imprimible_envio` (con `compromiso`). Schema: Article sin HowTo. Prueba en staging3: actividad 2328 y PDF 2327, todo «[PRUEBA]».
+
 ## Diseño
 - Paleta: solo los azules de la marca (`--color-navy`, azul claro `#eaf2fd`, `--color-sky*`). **Nada de naranja ni beige**: en los
   wireframes el naranja solo resaltaba cosas del boceto.
