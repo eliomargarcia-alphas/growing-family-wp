@@ -26,7 +26,7 @@ $gwf_page = function ( $page ) {
 	return ( $page && 'publish' === $page->post_status ) ? $page : null;
 };
 
-/** Tarjeta de un miembro (las del fundador van anchas). */
+/** Tarjeta de un miembro: foto, nombre, cargo y botón a su ficha (las del fundador van anchas, con su texto). */
 $gwf_member_card = function ( $p, $wide = false ) {
 	$initial = mb_substr( preg_replace( '/[^\p{L}]/u', '', preg_replace( '/\[[^\]]*\]/', '', $p['nombre'] ) ), 0, 1 );
 	?>
@@ -39,25 +39,10 @@ $gwf_member_card = function ( $p, $wide = false ) {
 		<div class="gwf-c-body">
 			<h4 class="gwf-c-name"><?php echo esc_html( $p['nombre'] ); ?></h4>
 			<?php if ( $p['cargo'] ) : ?><p class="gwf-c-role"><?php echo esc_html( $p['cargo'] ); ?></p><?php endif; ?>
-			<?php if ( ! $wide ) : ?><span class="gwf-p-badge"><?php echo esc_html( GWF_GUIAS_PERSON_ROLES[ $p['rol'] ] ); ?></span><?php endif; ?>
 			<?php if ( $wide && $p['experiencia'] ) : ?><div class="gwf-c-desc"><?php echo wp_kses_post( wpautop( $p['experiencia'] ) ); ?></div><?php endif; ?>
-			<?php if ( $p['temas'] ) : ?>
-				<ul class="gwf-c-chips">
-					<?php foreach ( $p['temas'] as $t ) : ?><li><?php echo esc_html( $t->name ); ?></li><?php endforeach; ?>
-				</ul>
+			<?php if ( $p['url'] ) : // Solo el botón de su ficha: rol, temas y enlaces están en ella. ?>
+				<a href="<?php echo esc_url( $p['url'] ); ?>" class="gwf-p-button gwf-c-profile">Ver perfil<span class="screen-reader-text"> de <?php echo esc_html( $p['nombre'] ); ?></span></a>
 			<?php endif; ?>
-			<p class="gwf-c-links">
-				<?php foreach ( $p['redes'] as $red ) : ?>
-					<a class="gwf-c-social" href="<?php echo esc_url( $red['url'] ); ?>" target="_blank" rel="noopener" aria-label="<?php echo esc_attr( $red['nombre'] . ' de ' . $p['nombre'] ); ?>" title="<?php echo esc_attr( $red['nombre'] ); ?>"><?php echo gwf_g_social_icon( $red['red'] ); // phpcs:ignore WordPress.Security.EscapeOutput -- SVG fijo. ?></a>
-				<?php endforeach; ?>
-				<?php foreach ( $p['enlaces'] as $link ) : ?>
-					<a href="<?php echo esc_url( $link['url'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $link['texto'] ? $link['texto'] : wp_parse_url( $link['url'], PHP_URL_HOST ) ); ?> <span aria-hidden="true">↗</span></a>
-				<?php endforeach; ?>
-				<?php if ( $wide ) : // El fundador firma las notas de padre a padre (de momento, el blog). ?>
-					<a href="<?php echo esc_url( function_exists( 'gwf_blog_url' ) ? gwf_blog_url() : home_url( '/blog/' ) ); ?>" class="gwf-c-more">Notas de padre a padre ›</a>
-				<?php endif; ?>
-				<?php if ( $p['url'] ) : ?><a href="<?php echo esc_url( $p['url'] ); ?>" class="gwf-c-more">Ver perfil ›</a><?php endif; ?>
-			</p>
 		</div>
 	</article>
 	<?php

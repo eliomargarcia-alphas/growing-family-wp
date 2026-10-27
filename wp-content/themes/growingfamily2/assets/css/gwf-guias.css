@@ -532,6 +532,7 @@ body.single-desarrollo {
 .gwf-c-intro p:last-child { margin-bottom: 0; }
 .gwf-c-intro a { color: #000; text-decoration: underline; }
 .gwf-c-promise {
+	text-align: center;
 	margin: 0 0 1.25rem;
 	padding: 1.25rem 1.5rem;
 	background: var(--g-blue-bg);
@@ -563,17 +564,9 @@ body.single-desarrollo {
 .gwf-c-card-wide .gwf-c-photo { width: 110px; height: 110px; flex-basis: 110px; }
 .gwf-guia .gwf-c-name { font-size: 1.1rem; margin: 0 0 0.2rem; color: var(--color-dark, #0a0e16); }
 .gwf-c-role { margin: 0 0 0.5rem; color: var(--g-muted); font-size: 0.9375rem; }
-.gwf-c-card .gwf-p-badge { margin-bottom: 0.5rem; }
 .gwf-c-desc { font-size: 0.9375rem; margin-bottom: 0.5rem; }
 .gwf-c-desc p { margin: 0; }
-.gwf-c-chips { list-style: none; margin: 0 0 0.5rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
-.gwf-c-chips li { padding: 0.15rem 0.6rem; border-radius: 999px; background: var(--g-soft); border: 1px solid var(--g-blue-line); font-size: 0.8125rem; }
-.gwf-c-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.9rem; margin: 0; font-size: 0.9375rem; }
-.gwf-c-links a { color: var(--g-blue); text-decoration: none; }
-.gwf-c-links a:hover { text-decoration: underline; }
-.gwf-c-social { display: inline-flex; width: 32px; height: 32px; align-items: center; justify-content: center; border: 1px solid var(--g-blue-line); border-radius: 8px; }
-.gwf-c-social svg { width: 16px; height: 16px; }
-.gwf-c-links .gwf-c-more { font-weight: 600; }
+.gwf-c-profile { padding: 0.4rem 0.9rem; font-size: 0.875rem; }
 
 /* 4. Cómo creamos el contenido */
 .gwf-c-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; }
@@ -626,7 +619,9 @@ body.single-desarrollo {
 }
 .gwf-guia .gwf-c-foot h2 { font-size: 1.1rem; margin: 0 0 0.5rem; }
 .gwf-c-foot p { margin: 0 0 0.75rem; }
-.gwf-c-foot .gwf-p-back { margin: 0; }
+/* Cada columna en flex: los botones quedan abajo y alineados aunque el texto de una ocupe más líneas */
+.gwf-c-foot > div { display: flex; flex-direction: column; }
+.gwf-c-foot .gwf-p-back { margin: auto 0 0; }
 
 @media (max-width: 991.98px) {
 	.gwf-c-grid { grid-template-columns: 1fr 1fr; }
@@ -642,6 +637,7 @@ body.single-desarrollo {
 	.gwf-c-photo,
 	.gwf-c-card-wide .gwf-c-photo { width: 64px; height: 64px; flex-basis: 64px; }
 	.gwf-c-foot { grid-template-columns: 1fr; gap: 1.25rem; padding: 1.25rem; }
+	.gwf-c-promise { text-align: left; }
 }
 
 /* ==========================================================================
