@@ -52,6 +52,13 @@ function gwf_g_reviewer_html( $reviewer ) {
 	return $reviewer['ficha'] ? '<a href="' . esc_url( $reviewer['ficha'] ) . '">' . $label . '</a>' : $label;
 }
 
+/** Autor de la guía o el pilar: el equipo editorial o, si firma un redactor con ficha pública, su nombre enlazado a ella. */
+function gwf_g_author_html() {
+	$name = esc_html( get_the_author() );
+	$url  = gwf_guias_person_signs( get_the_author_meta( 'ID' ) ) ? gwf_guias_person_url( get_the_author_meta( 'ID' ) ) : '';
+	return $url ? '<a href="' . esc_url( $url ) . '" rel="author">' . $name . '</a>' : $name;
+}
+
 /** <time> de la fecha de revisión. */
 function gwf_g_date_html( $timestamp ) {
 	return $timestamp ? '<time datetime="' . esc_attr( gmdate( 'Y-m-d', $timestamp ) ) . '">' . esc_html( date_i18n( 'j M Y', $timestamp ) ) . '</time>' : '';
@@ -94,13 +101,13 @@ function gwf_g_reviewer_card( $reviewer ) {
 }
 
 /** Bloque de autoría, revisión y fuentes. */
-function gwf_g_credits( $author, $reviewer_html, $date_html, $fuentes, $sources_label = 'Fuentes' ) {
+function gwf_g_credits( $author_html, $reviewer_html, $date_html, $fuentes, $sources_label = 'Fuentes' ) {
 	?>
 	<section id="fuentes" class="gwf-g-block gwf-g-credits">
 		<h2>Autoría, revisión y fuentes</h2>
 		<div class="gwf-g-credits-grid">
 			<dl class="gwf-g-credits-who">
-				<div><dt>Escrito por</dt><dd><?php echo esc_html( $author ); ?></dd></div>
+				<div><dt>Escrito por</dt><dd><?php echo $author_html; // phpcs:ignore WordPress.Security.EscapeOutput -- gwf_g_author_html escapa. ?></dd></div>
 				<?php if ( $reviewer_html ) : ?><div><dt>Revisado por</dt><dd><?php echo $reviewer_html; // phpcs:ignore WordPress.Security.EscapeOutput -- gwf_g_reviewer_html escapa. ?></dd></div><?php endif; ?>
 				<?php if ( $date_html ) : ?><div><dt>Actualizado</dt><dd><?php echo $date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></dd></div><?php endif; ?>
 			</dl>

@@ -68,39 +68,62 @@ function gwf_guias_video_piece( $post_id, $canonical ) {
 	}
 	if ( $reviewer ) {
 		// Quien sale en el vídeo es quien firma la revisión (Estrategia v1.6): coherente con el pie del vídeo.
-		$piece['actor'] = array( '@id' => gwf_guias_reviewer_schema_id( $reviewer ) );
+		$piece['actor'] = array( '@id' => gwf_guias_person_schema_id( $reviewer['id'] ) );
 	}
 	return $piece;
 }
 
-/** @id de la persona revisora (el mismo en todas las guías que revisa). */
-function gwf_guias_reviewer_schema_id( $reviewer ) {
-	return home_url( '/#/schema/person/revisor-' . $reviewer['id'] );
+/** @id de una persona del equipo (el mismo en su ficha y en todo lo que revisa o firma). */
+function gwf_guias_person_schema_id( $user_id ) {
+	return home_url( '/#/schema/person/equipo-' . (int) $user_id );
 }
 
-/** Pieza Person de la persona revisora: nombre, cargo, formación, foto y su ficha en el panel de autoría. */
-function gwf_guias_reviewer_piece( $reviewer ) {
+/**
+ * Pieza Person de una persona del equipo: nombre, cargo, foto, experiencia, formación, temas, enlaces
+ * verificables (sameAs), su ficha y, si lo es, que forma parte del comité editorial.
+ */
+function gwf_guias_person_piece( $user_id ) {
+	$p = gwf_guias_person( $user_id );
+	if ( ! $p ) {
+		return null;
+	}
 	$piece = array(
 		'@type' => 'Person',
-		'@id'   => gwf_guias_reviewer_schema_id( $reviewer ),
-		'name'  => $reviewer['nombre'],
+		'@id'   => gwf_guias_person_schema_id( $user_id ),
+		'name'  => $p['nombre'],
 	);
-	if ( $reviewer['cargo'] ) {
-		$piece['jobTitle'] = $reviewer['cargo'];
+	if ( $p['cargo'] ) {
+		$piece['jobTitle'] = $p['cargo'];
 	}
-	if ( $reviewer['formacion'] ) {
-		$piece['description'] = wp_strip_all_tags( $reviewer['formacion'] );
+	if ( $p['experiencia'] ) {
+		$piece['description'] = wp_strip_all_tags( $p['experiencia'] );
 	}
-	if ( $reviewer['foto'] ) {
-		$piece['image'] = $reviewer['foto'];
+	if ( $p['foto'] ) {
+		$piece['image'] = $p['foto'];
 	}
-	if ( $reviewer['ficha'] ) {
-		$piece['url'] = $reviewer['ficha'];
+	if ( $p['url'] ) {
+		$piece['url'] = $p['url'];
+	}
+	if ( $p['enlaces'] ) {
+		$piece['sameAs'] = wp_list_pluck( $p['enlaces'], 'url' );
+	}
+	if ( $p['temas'] ) {
+		$piece['knowsAbout'] = wp_list_pluck( $p['temas'], 'name' );
+	}
+	foreach ( $p['formacion'] as $f ) {
+		$credential = array( '@type' => 'EducationalOccupationalCredential', 'name' => $f['titulo'] );
+		if ( $f['institucion'] ) {
+			$credential['recognizedBy'] = array( '@type' => 'Organization', 'name' => $f['institucion'] );
+		}
+		$piece['hasCredential'][] = $credential;
+	}
+	if ( $p['comite'] ) {
+		$piece['memberOf'] = array( '@type' => 'Organization', 'name' => 'Comité editorial de Growing Family', 'parentOrganization' => array( '@id' => home_url( '/#organization' ) ) );
 	}
 	return $piece;
 }
 
-/** Pieza Article de una guía o un pilar: titular, fechas, imagen, autor (equipo editorial) y editor. */
+/** Pieza Article de una guía o un pilar: titular, fechas, imagen, autor (equipo editorial, o la persona si firma) y editor. */
 function gwf_guias_article_piece( $post_id, $canonical, $has_image ) {
 	$org   = array( '@id' => home_url( '/#organization' ) );
 	$piece = array(
@@ -164,7 +187,7 @@ function gwf_guias_schema_graph( $graph, $context ) {
 		}
 		$graph[ $i ]['mainEntity'] = array( '@id' => $article['@id'] );
 		if ( $reviewer ) {
-			$graph[ $i ]['reviewedBy'] = array( '@id' => gwf_guias_reviewer_schema_id( $reviewer ) );
+			$graph[ $i ]['reviewedBy'] = array( '@id' => gwf_guias_person_schema_id( $reviewer['id'] ) );
 		}
 		if ( $review ) {
 			$graph[ $i ]['lastReviewed'] = substr( $review, 0, 10 );
@@ -174,9 +197,15 @@ function gwf_guias_schema_graph( $graph, $context ) {
 			$graph[ $i ]['video'] = array( '@id' => $video['@id'] );
 		}
 	}
+	$author_id = (int) get_post_field( 'post_author', $post_id );
+	$people    = $reviewer ? array( $reviewer['id'] ) : array();
+	if ( gwf_guias_person_signs( $author_id ) ) {
+		$article['author'] = array( '@id' => gwf_guias_person_schema_id( $author_id ) ); // Redactor único: firma la persona.
+		$people[]          = $author_id;
+	}
 	$graph[] = $article;
-	if ( $reviewer ) {
-		$graph[] = gwf_guias_reviewer_piece( $reviewer );
+	foreach ( array_unique( $people ) as $person_id ) {
+		$graph[] = gwf_guias_person_piece( $person_id );
 	}
 	if ( $video ) {
 		$graph[] = $video;
@@ -184,3 +213,41 @@ function gwf_guias_schema_graph( $graph, $context ) {
 	return $graph;
 }
 add_filter( 'wpseo_schema_graph', 'gwf_guias_schema_graph', 10, 2 );
+
+/**
+ * Ficha /equipo/<persona>/: la ProfilePage de Yoast pasa a describir a la persona con la pieza propia.
+ * Entradas del blog: firma la persona si es redactora con ficha pública; si no, la organización.
+ */
+function gwf_guias_people_schema_graph( $graph ) {
+	if ( ! is_array( $graph ) ) {
+		return $graph;
+	}
+	$person_id = gwf_guias_current_person();
+	if ( ! $person_id && is_singular( 'post' ) ) {
+		$author_id = (int) get_post_field( 'post_author', get_queried_object_id() );
+		$person_id = gwf_guias_person_signs( $author_id ) ? $author_id : 0;
+		$author    = $person_id ? array( '@id' => gwf_guias_person_schema_id( $person_id ) ) : array( '@id' => home_url( '/#organization' ) );
+	} elseif ( ! $person_id ) {
+		return $graph;
+	}
+	$out = array();
+	foreach ( $graph as $piece ) {
+		$types = (array) ( $piece['@type'] ?? array() );
+		if ( in_array( 'Person', $types, true ) ) {
+			continue; // La persona de Yoast (el usuario técnico) se sustituye por la nuestra.
+		}
+		if ( isset( $author ) && in_array( 'Article', $types, true ) ) {
+			$piece['author'] = $author;
+		}
+		if ( ! isset( $author ) && in_array( 'ProfilePage', $types, true ) ) {
+			$piece['mainEntity'] = array( '@id' => gwf_guias_person_schema_id( $person_id ) );
+			unset( $piece['about'] );
+		}
+		$out[] = $piece;
+	}
+	if ( $person_id ) {
+		$out[] = gwf_guias_person_piece( $person_id );
+	}
+	return $out;
+}
+add_filter( 'wpseo_schema_graph', 'gwf_guias_people_schema_graph', 11 );

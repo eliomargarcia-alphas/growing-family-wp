@@ -68,17 +68,27 @@ function gwf_is_own_url( $url ) {
 	return $url && wp_parse_url( $url, PHP_URL_HOST ) === wp_parse_url( home_url(), PHP_URL_HOST );
 }
 
-/** URL de la página de autoría del autor actual o del indicado, si es de este sitio. */
+/** URL de la página de autoría del autor actual o del indicado: su ficha en /equipo/ (plugin gwf-guias) o, si no, su «Sitio web» de este sitio. */
 function gwf_author_page_url( $author_id = null ) {
+	$author_id = $author_id ? $author_id : get_the_author_meta( 'ID' );
+	if ( function_exists( 'gwf_guias_person_url' ) && gwf_guias_person_url( $author_id ) ) {
+		return gwf_guias_person_url( $author_id );
+	}
 	$url = get_the_author_meta( 'user_url', $author_id );
 	return gwf_is_own_url( $url ) ? $url : '';
 }
 
-/**
- * Firma del autor. Enlaza a su página de autoría si el perfil tiene "Sitio web" (user_url) en growing.family:
- * cuando exista la página del comité/autor, basta con poner su URL en el perfil del usuario.
- */
+/** ¿La entrada está firmada? Solo si su autor es un redactor con ficha pública (plugin gwf-guias); si no, no se muestra firma. */
+function gwf_author_signs( $author_id = null ) {
+	$author_id = $author_id ? $author_id : get_the_author_meta( 'ID' );
+	return function_exists( 'gwf_guias_person_signs' ) && gwf_guias_person_signs( $author_id );
+}
+
+/** Firma del autor, enlazada a su ficha. Vacía si la entrada no la firma un redactor con ficha pública. */
 function gwf_author_byline() {
+	if ( ! gwf_author_signs() ) {
+		return '';
+	}
 	$name = esc_html( gwf_public_author_name( get_the_author() ) );
 	$url  = gwf_author_page_url();
 	if ( $url ) {
@@ -87,7 +97,7 @@ function gwf_author_byline() {
 	return '<b class="fw-semibold">' . $name . '</b>';
 }
 
-/** Archivos de autor cerrados: exponían el login del administrador. El enlace de autor va a su página de autoría o al blog. */
+/** Archivos de autor cerrados salvo fichas públicas: exponían el login del administrador. El enlace de autor va a su ficha o al blog. */
 function gwf_author_link( $link, $author_id ) {
 	$url = gwf_author_page_url( $author_id );
 	return $url ? $url : gwf_blog_url();
@@ -95,7 +105,8 @@ function gwf_author_link( $link, $author_id ) {
 add_filter( 'author_link', 'gwf_author_link', 10, 2 );
 
 function gwf_close_author_archives() {
-	if ( is_author() ) {
+	// Las fichas públicas del equipo (/equipo/<persona>/, plugin gwf-guias) sí se ven.
+	if ( is_author() && ! ( function_exists( 'gwf_guias_current_person' ) && gwf_guias_current_person() ) ) {
 		wp_safe_redirect( home_url( '/' ), 301 );
 		exit;
 	}

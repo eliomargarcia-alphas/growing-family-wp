@@ -2,7 +2,7 @@
 /**
  * Plugin Name: GWF Guías
  * Description: Guías de problema (capa 2) y guías de desarrollo (capa 3) de Growing Family: tipos de contenido, taxonomías, rol Revisor, campos y regla de publicación con revisión experta.
- * Version: 0.2.0
+ * Version: 0.3.0
  * Author: Elio
  * Text Domain: gwf-guias
  *
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'GWF_GUIAS_VERSION', '0.2.0' );
+define( 'GWF_GUIAS_VERSION', '0.3.0' );
 define( 'GWF_GUIAS_DIR', plugin_dir_path( __FILE__ ) );
 
 /** Tipos de contenido que gestiona el plugin. */
@@ -24,6 +24,7 @@ require GWF_GUIAS_DIR . 'includes/fields.php';
 require GWF_GUIAS_DIR . 'includes/items.php';
 require GWF_GUIAS_DIR . 'includes/publish-rule.php';
 require GWF_GUIAS_DIR . 'includes/template-tags.php';
+require GWF_GUIAS_DIR . 'includes/people.php';
 require GWF_GUIAS_DIR . 'includes/schema.php';
 require GWF_GUIAS_DIR . 'includes/listings.php';
 require GWF_GUIAS_DIR . 'includes/seo.php';

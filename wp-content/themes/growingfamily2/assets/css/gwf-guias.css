@@ -412,6 +412,112 @@ body.single-desarrollo {
 .single-desarrollo .a2a_floating_style { display: none !important; }
 
 /* ==========================================================================
+   Ficha del equipo: /equipo/<persona>/ (template-parts/gwf-persona.php, wireframe «plantilla-revisor»)
+   ========================================================================== */
+.gwf-p-wrap { max-width: 1040px; }
+.gwf-p-hero {
+	display: grid;
+	grid-template-columns: 220px 1fr;
+	gap: 2.5rem;
+	align-items: center;
+	padding: 2rem;
+	margin-bottom: 1.25rem;
+	background: var(--g-blue-bg);
+	border: 1px solid var(--g-blue-line);
+	border-radius: var(--g-radius);
+}
+.gwf-p-photo { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; background: #fff; }
+.gwf-p-initial {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 5rem;
+	font-weight: 600;
+	color: var(--g-blue);
+	border: 1px solid var(--g-blue-line);
+}
+.gwf-guia .gwf-p-name { margin: 0 0 0.5rem; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.15; color: var(--color-dark, #0a0e16); }
+.gwf-p-role { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin: 0 0 1.25rem; font-size: 1.125rem; }
+.gwf-p-badge {
+	display: inline-block;
+	padding: 0.2rem 0.75rem;
+	border-radius: 999px;
+	background: var(--g-blue);
+	color: #fff;
+	font-size: 0.8125rem;
+	font-weight: 600;
+}
+.gwf-p-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.gwf-p-links a,
+.gwf-p-button {
+	display: inline-block;
+	padding: 0.55rem 1.1rem;
+	border: 1px solid var(--g-blue);
+	border-radius: 10px;
+	background: #fff;
+	color: var(--g-blue);
+	text-decoration: none;
+	font-weight: 500;
+}
+.gwf-p-links a:hover,
+.gwf-p-button:hover { background: var(--g-blue); color: #fff; }
+
+.gwf-p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.gwf-p-block { margin-bottom: 1.25rem; }
+.gwf-guia .gwf-p-block h2 { font-size: 1.25rem; margin: 0 0 1rem; }
+.gwf-p-block p:last-child { margin-bottom: 0; }
+.gwf-p-formacion { list-style: none; margin: 0; padding: 0; }
+.gwf-p-formacion li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--g-line); }
+.gwf-p-formacion li:first-child { padding-top: 0; }
+.gwf-p-formacion li:last-child { border-bottom: 0; padding-bottom: 0; }
+.gwf-p-year { color: var(--g-muted); white-space: nowrap; }
+
+.gwf-p-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.gwf-p-chips a {
+	display: inline-block;
+	padding: 0.4rem 0.9rem;
+	border-radius: 999px;
+	border: 1px solid var(--g-blue-line);
+	background: var(--g-soft);
+	color: var(--g-text);
+	text-decoration: none;
+}
+.gwf-p-chips a:hover { border-color: var(--g-blue); color: var(--g-blue); }
+
+.gwf-p-table { width: 100%; border-collapse: collapse; }
+.gwf-p-table th { text-align: left; font-weight: 600; color: var(--g-muted); font-size: 0.875rem; padding: 0 0.75rem 0.75rem 0; border-bottom: 1px solid var(--g-line); }
+.gwf-p-table td { padding: 0.9rem 0.75rem 0.9rem 0; border-bottom: 1px solid var(--g-line); vertical-align: middle; }
+.gwf-p-table tr:last-child td { border-bottom: 0; }
+.gwf-p-table td:first-child { width: 7.5rem; }
+.gwf-p-table td:last-child { width: 8rem; white-space: nowrap; color: var(--g-muted); }
+.gwf-p-table a { color: var(--g-text); text-decoration: none; }
+.gwf-p-table a:hover { color: var(--g-blue); text-decoration: underline; }
+/* Tipos en tonos de la paleta azul (en el wireframe cada tipo tenía un color; aquí sin naranja ni beige) */
+.gwf-p-type { display: inline-block; padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; }
+.gwf-p-type-guia { background: var(--g-blue-bg); color: var(--g-blue); }
+.gwf-p-type-desarrollo { background: var(--g-blue); color: #fff; }
+.gwf-p-type-post { background: #fff; color: var(--g-blue); border: 1px solid var(--g-blue-line); }
+
+.gwf-p-back { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; }
+
+@media (max-width: 767.98px) {
+	.gwf-p-hero { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 1.25rem; padding: 1.5rem 1.25rem; }
+	.gwf-p-photo { width: 160px; height: 160px; }
+	.gwf-p-initial { font-size: 3.5rem; }
+	.gwf-p-role,
+	.gwf-p-links { justify-content: center; }
+	.gwf-p-grid { grid-template-columns: 1fr; gap: 0; }
+	.gwf-p-formacion li { flex-direction: column; gap: 0.15rem; }
+	/* Contenido: cada fila en dos líneas (tipo + título, y la fecha debajo), como en el wireframe móvil */
+	.gwf-p-table thead { display: none; }
+	.gwf-p-table tr { display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 0.9rem; padding: 0.9rem 0; border-bottom: 1px solid var(--g-line); }
+	.gwf-p-table tr:last-child { border-bottom: 0; }
+	.gwf-p-table td { padding: 0; border: 0; width: auto !important; }
+	.gwf-p-table td:first-child { grid-row: span 2; }
+	.gwf-p-table td:last-child { font-size: 0.875rem; }
+}
+
+/* ==========================================================================
    Listados: /guias/, /desarrollo/ y sus filtros por tema y edad (template-parts/gwf-listado.php)
    ========================================================================== */
 /* Mismo esquema que el blog (index.php): migas justo bajo la cabecera, título centrado, filtros a la izquierda */

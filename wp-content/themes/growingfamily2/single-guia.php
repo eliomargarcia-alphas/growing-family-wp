@@ -70,7 +70,7 @@ while ( have_posts() ) :
 					<?php // 1. Pregunta de la familia con la edad + línea de autoría. ?>
 					<?php the_title( '<h1 class="gwf-g-title">', '</h1>' ); ?>
 					<p class="gwf-g-byline">
-						<?php echo esc_html( get_the_author() ); ?>
+						<?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 						<?php if ( $gwf_reviewer_html ) : ?> · Revisado por <?php echo $gwf_reviewer_html; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado arriba. ?><?php endif; ?>
 						<?php if ( $gwf_date_html ) : ?> · Actualizado el <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?><?php endif; ?>
 						<span class="gwf-g-byline-read">· <?php echo $gwf_read_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
@@ -191,7 +191,7 @@ while ( have_posts() ) :
 
 			<?php gwf_g_bridge( 'guia' ); // 11. Sostenerlo en el tiempo: puente al método (texto global). ?>
 
-			<?php gwf_g_credits( get_the_author(), $gwf_reviewer_html, $gwf_date_html, $gwf_fuentes ); // 12. Autoría, revisión, fuentes y fecha. ?>
+			<?php gwf_g_credits( gwf_g_author_html(), $gwf_reviewer_html, $gwf_date_html, $gwf_fuentes ); // 12. Autoría, revisión, fuentes y fecha. ?>
 
 			<?php gwf_g_like(); ?>
 

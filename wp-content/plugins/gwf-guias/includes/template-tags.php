@@ -8,26 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/** Campos del perfil del revisor: lo que aparece en «Revisado por» y en su ficha del panel de autoría. */
-function gwf_guias_register_reviewer_fields() {
-	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
-		return;
-	}
-	acf_add_local_field_group(
-		array(
-			'key'      => 'group_gwf_revisor',
-			'title'    => 'Ficha del revisor experto',
-			'location' => array( array( array( 'param' => 'user_role', 'operator' => '==', 'value' => 'gwf_revisor' ) ) ),
-			'fields'   => array(
-				gwf_guias_field( 'gwf_cargo', 'Cargo visible', 'text', array( 'instructions' => 'Lo que se lee junto al nombre, p. ej. «psicóloga infantil».' ) ),
-				gwf_guias_field( 'gwf_formacion', 'Formación y credenciales', 'textarea', array( 'rows' => 3, 'new_lines' => '' ) ),
-				gwf_guias_field( 'gwf_foto', 'Foto', 'image', array( 'return_format' => 'id', 'preview_size' => 'thumbnail', 'mime_types' => 'jpg,jpeg,png,webp' ) ),
-				gwf_guias_field( 'gwf_ficha_url', 'Ficha en el panel de autoría (URL)', 'url', array( 'instructions' => 'Página del comité con el ancla de esta persona. Vacío hasta que exista.' ) ),
-			),
-		)
-	);
-}
-add_action( 'acf/init', 'gwf_guias_register_reviewer_fields' );
+// Los campos de la persona revisora (y de cualquier ficha del equipo) están en includes/people.php.
 
 /**
  * Revisor de una guía, listo para pintar.
@@ -47,7 +28,7 @@ function gwf_guias_reviewer( $post_id ) {
 		'cargo'     => (string) get_user_meta( $user_id, 'gwf_cargo', true ),
 		'foto'      => $foto_id ? (string) wp_get_attachment_image_url( $foto_id, 'thumbnail' ) : '',
 		'formacion' => (string) get_user_meta( $user_id, 'gwf_formacion', true ),
-		'ficha'     => (string) get_user_meta( $user_id, 'gwf_ficha_url', true ),
+		'ficha'     => gwf_guias_person_url( $user_id ), // Su página en /equipo/ si la ficha es pública.
 	);
 }
 

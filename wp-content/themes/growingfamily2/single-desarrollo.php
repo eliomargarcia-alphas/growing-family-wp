@@ -61,7 +61,7 @@ while ( have_posts() ) :
 				<header class="gwf-g-header">
 					<?php the_title( '<h1 class="gwf-g-title">', '</h1>' ); ?>
 					<p class="gwf-g-byline">
-						<?php echo esc_html( get_the_author() ); ?>
+						<?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 						<?php if ( $gwf_reviewer_html ) : ?> · Revisado por <?php echo $gwf_reviewer_html; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado en la función. ?><?php endif; ?>
 						<?php if ( $gwf_date_html ) : ?> · Actualizado el <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?><?php endif; ?>
 						<span class="gwf-g-byline-read">· <?php echo $gwf_read_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
@@ -142,7 +142,7 @@ while ( have_posts() ) :
 		<div class="gwf-g-bottom">
 			<?php gwf_g_bridge( 'desarrollo', 'Puente al método' ); // 6. ?>
 
-			<?php gwf_g_credits( get_the_author(), $gwf_reviewer_html, $gwf_date_html, $gwf_fuentes, 'Fuentes primarias' ); // 7. ?>
+			<?php gwf_g_credits( gwf_g_author_html(), $gwf_reviewer_html, $gwf_date_html, $gwf_fuentes, 'Fuentes primarias' ); // 7. ?>
 
 			<?php gwf_g_like(); ?>
 

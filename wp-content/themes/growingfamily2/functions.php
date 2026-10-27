@@ -223,14 +223,15 @@ add_action( 'wp_enqueue_scripts', 'gwf_enqueue_main_script' );
 function gwf_enqueue_guias_assets() {
 	// Listados de guías y del blog (index.php: /blog/, temas, etiquetas y búsqueda) comparten cabecera, filtros y tarjetas
 	$is_listing = ( function_exists( 'gwf_guias_listing_type' ) && gwf_guias_listing_type() ) || is_home() || is_category() || is_tag() || is_search();
-	if ( ! is_singular( array( 'guia', 'desarrollo' ) ) && ! $is_listing ) {
+	$is_person  = function_exists( 'gwf_guias_current_person' ) && gwf_guias_current_person(); // Ficha /equipo/<persona>/
+	if ( ! is_singular( array( 'guia', 'desarrollo' ) ) && ! $is_listing && ! $is_person ) {
 		return;
 	}
 	$dir = get_template_directory();
 	$uri = get_template_directory_uri();
 	wp_enqueue_style( 'gwf-guias', $uri . '/assets/css/gwf-guias.css', array( 'twentytwenty-style' ), (string) filemtime( $dir . '/assets/css/gwf-guias.css' ) );
-	if ( $is_listing ) {
-		return; // Los listados no necesitan el JS (índice, barra fija, vídeo).
+	if ( $is_listing || $is_person ) {
+		return; // Los listados y las fichas no necesitan el JS (índice, barra fija, vídeo).
 	}
 	wp_enqueue_script( 'gwf-guias', $uri . '/assets/js/gwf-guias.js', array(), (string) filemtime( $dir . '/assets/js/gwf-guias.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
 }
