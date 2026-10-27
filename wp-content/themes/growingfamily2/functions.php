@@ -223,7 +223,7 @@ add_action( 'wp_enqueue_scripts', 'gwf_enqueue_main_script' );
 function gwf_enqueue_guias_assets() {
 	// Listados de guías y del blog (index.php: /blog/, temas, etiquetas y búsqueda) comparten cabecera, filtros y tarjetas
 	$is_listing = ( function_exists( 'gwf_guias_listing_type' ) && gwf_guias_listing_type() ) || is_home() || is_category() || is_tag() || is_search();
-	$is_person  = function_exists( 'gwf_guias_current_person' ) && gwf_guias_current_person(); // Ficha /equipo/<persona>/
+	$is_person  = ( function_exists( 'gwf_guias_current_person' ) && gwf_guias_current_person() ) || is_page_template( 'templates/template-comite.php' ); // Ficha /equipo/<persona>/ y comité
 	if ( ! is_singular( array( 'guia', 'desarrollo' ) ) && ! $is_listing && ! $is_person ) {
 		return;
 	}

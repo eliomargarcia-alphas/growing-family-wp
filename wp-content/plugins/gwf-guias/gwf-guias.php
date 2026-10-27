@@ -25,6 +25,7 @@ require GWF_GUIAS_DIR . 'includes/items.php';
 require GWF_GUIAS_DIR . 'includes/publish-rule.php';
 require GWF_GUIAS_DIR . 'includes/template-tags.php';
 require GWF_GUIAS_DIR . 'includes/people.php';
+require GWF_GUIAS_DIR . 'includes/committee.php';
 require GWF_GUIAS_DIR . 'includes/schema.php';
 require GWF_GUIAS_DIR . 'includes/listings.php';
 require GWF_GUIAS_DIR . 'includes/seo.php';

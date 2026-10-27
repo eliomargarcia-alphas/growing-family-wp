@@ -118,7 +118,12 @@ function gwf_guias_person_piece( $user_id ) {
 		$piece['hasCredential'][] = $credential;
 	}
 	if ( $p['comite'] ) {
-		$piece['memberOf'] = array( '@type' => 'Organization', 'name' => 'Comité editorial de Growing Family', 'parentOrganization' => array( '@id' => home_url( '/#organization' ) ) );
+		$piece['memberOf'] = array(
+			'@type'              => 'Organization',
+			'@id'                => gwf_guias_committee_schema_id(),
+			'name'               => 'Comité editorial de Growing Family',
+			'parentOrganization' => array( '@id' => home_url( '/#organization' ) ),
+		);
 	}
 	return $piece;
 }
