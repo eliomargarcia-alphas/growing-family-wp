@@ -591,8 +591,8 @@ body.single-desarrollo {
 }
 .gwf-c-steps li.is-key { background: var(--g-blue-bg); border-color: var(--g-blue); }
 .gwf-c-step-n { font-size: 1.5rem; font-weight: 700; color: var(--g-blue); line-height: 1; }
-.gwf-c-list { margin: 0; padding-left: 1.2rem; }
-.gwf-c-list li { margin-bottom: 0.35rem; }
+.gwf-c-list { margin: 0; padding-left: 1.2rem; list-style: disc outside; }
+.gwf-c-list li { margin-bottom: 0.35rem; list-style: inherit; }
 .gwf-p-block .gwf-p-button { margin-top: 1rem; }
 
 /* 9. Contenido revisado */
