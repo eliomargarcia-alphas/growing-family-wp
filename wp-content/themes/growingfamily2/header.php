@@ -55,7 +55,7 @@
 		<!-- Header Navigation -->
 	    <header class="header">
 	        <div class="container header-container">
-	            <a href="https://growing.family/" class="logo">
+	            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo">
 	                <img src="https://growing.family/wp-content/uploads/2026/08/logo.png" alt="Growing Family Logo" class="logo-img" width="562" height="160">
 	            </a>
 	            
