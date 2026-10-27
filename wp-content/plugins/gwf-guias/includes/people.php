@@ -15,11 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 const GWF_GUIAS_TEAM_BASE     = 'equipo';
 const GWF_GUIAS_TEAM_PER_PAGE = 10;
 
-/** Roles de la ficha: lo que hace la persona. */
+/** Roles de la ficha: lo que hace la persona (la etiqueta es la que se ve sobre su nombre). */
 const GWF_GUIAS_PERSON_ROLES = array(
-	'revisa'  => 'Revisa',
-	'redacta' => 'Redacta',
-	'ambos'   => 'Revisa y redacta',
+	'revisa'  => 'Revisor',
+	'redacta' => 'Redactor',
+	'ambos'   => 'Revisor y redactor',
 );
 
 /** Campos de la ficha, en el perfil de cualquier usuario. */
@@ -34,7 +34,7 @@ function gwf_guias_register_person_fields() {
 			'location' => array( array( array( 'param' => 'user_form', 'operator' => '==', 'value' => 'all' ) ) ),
 			'fields'   => array(
 				gwf_guias_field( 'gwf_ficha_publica', 'Ficha pública', 'true_false', array( 'ui' => 1, 'instructions' => 'Con la ficha pública, la persona tiene página en /equipo/ y su nombre enlaza a ella desde lo que revisa o firma.' ) ),
-				gwf_guias_field( 'gwf_rol', 'Rol', 'select', array( 'choices' => GWF_GUIAS_PERSON_ROLES, 'default_value' => 'revisa', 'instructions' => '«Redacta» firma con su nombre las guías o entradas en las que figure como autor.' ) ),
+				gwf_guias_field( 'gwf_rol', 'Rol', 'select', array( 'choices' => GWF_GUIAS_PERSON_ROLES, 'default_value' => 'revisa', 'instructions' => '«Redactor» firma con su nombre las guías o entradas en las que figure como autor.' ) ),
 				gwf_guias_field( 'gwf_comite', 'Miembro del comité editorial', 'true_false', array( 'ui' => 1 ) ),
 				gwf_guias_field( 'gwf_cargo', 'Cargo visible', 'text', array( 'instructions' => 'Lo que se lee junto al nombre, p. ej. «Revisora clínica del comité editorial · Psicóloga infantil».' ) ),
 				gwf_guias_field( 'gwf_foto', 'Foto', 'image', array( 'return_format' => 'id', 'preview_size' => 'thumbnail', 'mime_types' => 'jpg,jpeg,png,webp' ) ),

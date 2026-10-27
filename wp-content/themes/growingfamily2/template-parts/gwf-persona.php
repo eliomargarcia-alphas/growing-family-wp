@@ -49,11 +49,9 @@ $gwf_politica = ( $gwf_politica && 'publish' === $gwf_politica->post_status ) ? 
 				<span class="gwf-p-photo gwf-p-initial" aria-hidden="true"><?php echo esc_html( $gwf_initial ); ?></span>
 			<?php endif; ?>
 			<div class="gwf-p-id">
+				<span class="gwf-p-badge"><?php echo esc_html( GWF_GUIAS_PERSON_ROLES[ $gwf_p['rol'] ] ); ?></span>
 				<h1 class="gwf-p-name"><?php echo esc_html( $gwf_p['nombre'] ); ?></h1>
-				<p class="gwf-p-role">
-					<?php if ( $gwf_p['cargo'] ) : ?><span><?php echo esc_html( $gwf_p['cargo'] ); ?></span><?php endif; ?>
-					<span class="gwf-p-badge"><?php echo esc_html( GWF_GUIAS_PERSON_ROLES[ $gwf_p['rol'] ] ); ?></span>
-				</p>
+				<?php if ( $gwf_p['cargo'] ) : ?><p class="gwf-p-role"><?php echo esc_html( $gwf_p['cargo'] ); ?></p><?php endif; ?>
 				<?php if ( $gwf_p['enlaces'] ) : ?>
 					<ul class="gwf-p-links">
 						<?php foreach ( $gwf_p['enlaces'] as $gwf_link ) : ?>

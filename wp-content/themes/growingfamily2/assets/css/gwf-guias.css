@@ -437,9 +437,10 @@ body.single-desarrollo {
 	border: 1px solid var(--g-blue-line);
 }
 .gwf-guia .gwf-p-name { margin: 0 0 0.5rem; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.15; color: var(--color-dark, #0a0e16); }
-.gwf-p-role { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin: 0 0 1.25rem; font-size: 1.125rem; }
+.gwf-p-role { margin: 0 0 1.25rem; font-size: 1.125rem; }
 .gwf-p-badge {
 	display: inline-block;
+	margin-bottom: 0.6rem;
 	padding: 0.2rem 0.75rem;
 	border-radius: 999px;
 	background: var(--g-blue);
@@ -463,6 +464,7 @@ body.single-desarrollo {
 .gwf-p-button:hover { background: var(--g-blue); color: #fff; }
 
 .gwf-p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.gwf-p-grid > :only-child { grid-column: 1 / -1; } /* Solo formación o solo experiencia: ocupa todo el ancho */
 .gwf-p-block { margin-bottom: 1.25rem; }
 .gwf-guia .gwf-p-block h2 { font-size: 1.25rem; margin: 0 0 1rem; }
 .gwf-p-block p:last-child { margin-bottom: 0; }
@@ -492,11 +494,8 @@ body.single-desarrollo {
 .gwf-p-table td:last-child { width: 8rem; white-space: nowrap; color: var(--g-muted); }
 .gwf-p-table a { color: var(--g-text); text-decoration: none; }
 .gwf-p-table a:hover { color: var(--g-blue); text-decoration: underline; }
-/* Tipos en tonos de la paleta azul (en el wireframe cada tipo tenía un color; aquí sin naranja ni beige) */
-.gwf-p-type { display: inline-block; padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; }
-.gwf-p-type-guia { background: var(--g-blue-bg); color: var(--g-blue); }
-.gwf-p-type-desarrollo { background: var(--g-blue); color: #fff; }
-.gwf-p-type-post { background: #fff; color: var(--g-blue); border: 1px solid var(--g-blue-line); }
+/* Todos los tipos con el mismo fondo azul claro */
+.gwf-p-type { display: inline-block; padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; background: var(--g-blue-bg); color: var(--g-blue); }
 
 .gwf-p-back { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; }
 
@@ -504,7 +503,6 @@ body.single-desarrollo {
 	.gwf-p-hero { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 1.25rem; padding: 1.5rem 1.25rem; }
 	.gwf-p-photo { width: 160px; height: 160px; }
 	.gwf-p-initial { font-size: 3.5rem; }
-	.gwf-p-role,
 	.gwf-p-links { justify-content: center; }
 	.gwf-p-grid { grid-template-columns: 1fr; gap: 0; }
 	.gwf-p-formacion li { flex-direction: column; gap: 0.15rem; }
