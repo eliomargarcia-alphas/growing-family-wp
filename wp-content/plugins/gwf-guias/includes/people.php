@@ -49,9 +49,10 @@ function gwf_guias_register_person_fields() {
 }
 add_action( 'acf/init', 'gwf_guias_register_person_fields' );
 
-/** /equipo/<persona>/ en lugar de /author/<login>/. */
+/** /equipo/<persona>/ en lugar de /author/<login>/ (sin el /blog/ de las entradas delante). */
 function gwf_guias_team_base() {
-	$GLOBALS['wp_rewrite']->author_base = GWF_GUIAS_TEAM_BASE;
+	$GLOBALS['wp_rewrite']->author_base      = GWF_GUIAS_TEAM_BASE;
+	$GLOBALS['wp_rewrite']->author_structure = '/' . GWF_GUIAS_TEAM_BASE . '/%author%';
 }
 add_action( 'init', 'gwf_guias_team_base' );
 
