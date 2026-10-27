@@ -267,12 +267,11 @@ function gwf_guias_profile_page_pieces( $graph, $person_id ) {
 	$url    = gwf_guias_person_url( $person_id );
 	$name   = get_userdata( $person_id )->display_name;
 	$crumbs = array();
-	foreach ( gwf_guias_person_breadcrumbs( array( array( 'text' => 'Inicio', 'url' => home_url( '/' ) ) ) ) as $i => $crumb ) {
-		$item = array( '@type' => 'ListItem', 'position' => $i + 1, 'name' => $crumb['text'] );
+	// Google pide URL en cada miga: «Comité editorial» entra cuando tenga página.
+	foreach ( gwf_guias_person_breadcrumbs( array( array( 'text' => 'Inicio', 'url' => home_url( '/' ) ) ) ) as $crumb ) {
 		if ( ! empty( $crumb['url'] ) ) {
-			$item['item'] = $crumb['url'];
+			$crumbs[] = array( '@type' => 'ListItem', 'position' => count( $crumbs ) + 1, 'name' => $crumb['text'], 'item' => $crumb['url'] );
 		}
-		$crumbs[] = $item;
 	}
 	$graph[] = array(
 		'@type'      => 'ProfilePage',
