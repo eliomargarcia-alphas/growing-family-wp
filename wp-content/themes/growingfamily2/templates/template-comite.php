@@ -40,6 +40,9 @@ $gwf_member_card = function ( $p, $wide = false ) {
 			<h4 class="gwf-c-name"><?php echo esc_html( $p['nombre'] ); ?></h4>
 			<?php if ( $p['cargo'] ) : ?><p class="gwf-c-role"><?php echo esc_html( $p['cargo'] ); ?></p><?php endif; ?>
 			<?php if ( $wide && $p['experiencia'] ) : ?><div class="gwf-c-desc"><?php echo wp_kses_post( wpautop( $p['experiencia'] ) ); ?></div><?php endif; ?>
+			<?php if ( $wide ) : // El fundador firma las notas de padre a padre (de momento, el blog). ?>
+				<a href="<?php echo esc_url( function_exists( 'gwf_blog_url' ) ? gwf_blog_url() : home_url( '/blog/' ) ); ?>" class="gwf-p-button gwf-c-profile">Notas de padre a padre ›</a>
+			<?php endif; ?>
 			<?php if ( $p['url'] ) : // Solo el botón de su ficha: rol, temas y enlaces están en ella. ?>
 				<a href="<?php echo esc_url( $p['url'] ); ?>" class="gwf-p-button gwf-c-profile">Ver perfil<span class="screen-reader-text"> de <?php echo esc_html( $p['nombre'] ); ?></span></a>
 			<?php endif; ?>
