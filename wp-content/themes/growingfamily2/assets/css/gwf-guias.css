@@ -15,7 +15,7 @@
 	--g-radius: 14px;
 	color: var(--g-text);
 	/* La cabecera del tema es fija (80px) y los estilos globales de WP anulan el padding-top del body */
-	padding: calc(80px + 1.5rem) 0 4rem;
+	padding: calc(80px + 1.5rem) 0;
 }
 
 /* El tema pone overflow-x:hidden en html y body: eso convierte el body en contenedor de scroll y rompe el
