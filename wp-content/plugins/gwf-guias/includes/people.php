@@ -181,6 +181,32 @@ function gwf_guias_person_breadcrumbs( $links ) {
 }
 add_filter( 'wpseo_breadcrumb_links', 'gwf_guias_person_breadcrumbs' );
 
+/**
+ * Title y canonical de la ficha. Yoast los saca del autor de la consulta, que aquí se vacía para listar
+ * también lo que la persona revisa (sin esto el título salía con el autor de la primera fila).
+ */
+function gwf_guias_person_title( $title ) {
+	$user_id = gwf_guias_current_person();
+	if ( ! $user_id ) {
+		return $title;
+	}
+	$paged = (int) get_query_var( 'paged' );
+	return get_userdata( $user_id )->display_name . ( $paged > 1 ? ' (página ' . $paged . ')' : '' ) . ' | Growing Family';
+}
+add_filter( 'wpseo_title', 'gwf_guias_person_title', 20 );
+add_filter( 'wpseo_opengraph_title', 'gwf_guias_person_title', 20 );
+
+function gwf_guias_person_canonical( $url ) {
+	$user_id = gwf_guias_current_person();
+	if ( ! $user_id ) {
+		return $url;
+	}
+	$paged = (int) get_query_var( 'paged' );
+	return gwf_guias_person_url( $user_id ) . ( $paged > 1 ? 'page/' . $paged . '/' : '' );
+}
+add_filter( 'wpseo_canonical', 'gwf_guias_person_canonical', 20 );
+add_filter( 'wpseo_opengraph_url', 'gwf_guias_person_canonical', 20 );
+
 /** Descripción para buscadores: cargo y experiencia. */
 function gwf_guias_person_description( $desc ) {
 	$user_id = gwf_guias_current_person();
