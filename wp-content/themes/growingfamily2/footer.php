@@ -26,9 +26,9 @@
 			            <div class="footer-links">
 			                <h3 class="footer-title">Enlaces</h3>
 			                <ul class="footer-list">
-			                    <li><a href="https://growing.family/acerca-de/" class="footer-link">Acerca de</a></li>
-			                    <li><a href="https://growing.family/lista-de-espera/" class="footer-link">Lista de espera</a></li>
-			                    <li><a href="https://growing.family/contacto-y-soporte/" class="footer-link">Contacto</a></li>
+			                    <li><a href="<?php echo esc_url( home_url( '/acerca-de/' ) ); ?>" class="footer-link">Acerca de</a></li>
+			                    <li><a href="<?php echo esc_url( home_url( '/lista-de-espera/' ) ); ?>" class="footer-link">Lista de espera</a></li>
+			                    <li><a href="<?php echo esc_url( home_url( '/contacto-y-soporte/' ) ); ?>" class="footer-link">Contacto</a></li>
 			                </ul>
 			            </div>
 			        </div>
@@ -36,7 +36,7 @@
 			        <div class="container footer-bottom reveal-item">
 			            <p class="copyright">Copyright © 2026 Growing Family. Todos los derechos reservados.</p>
 			            <p class="medical-disclaimer">
-			                Growing Family es un ecosistema informativo diseñado para orientar a las familias en la crianza. El contenido de este sitio, la app y sus recursos no sustituye el consejo, diagnóstico o tratamiento de profesionales de la salud o especialistas médicos. El uso de esta plataforma implica la aceptación de nuestros <a href="https://growing.family/terminos-y-condiciones/">Términos y condiciones</a> y <a href="https://growing.family/poltica-de-privacidad/">Política de privacidad</a>.
+			                Growing Family es un ecosistema informativo diseñado para orientar a las familias en la crianza. El contenido de este sitio, la app y sus recursos no sustituye el consejo, diagnóstico o tratamiento de profesionales de la salud o especialistas médicos. El uso de esta plataforma implica la aceptación de nuestros <a href="<?php echo esc_url( home_url( '/terminos-y-condiciones/' ) ); ?>">Términos y condiciones</a> y <a href="<?php echo esc_url( home_url( '/poltica-de-privacidad/' ) ); ?>">Política de privacidad</a>.
 			            </p>
 			        </div>
 			    </footer>
