@@ -12,11 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /** «🕒 N min de lectura» con el reloj en SVG (color del texto: var(--g-blue) en el CSS). */
-function gwf_g_read_html( $minutes ) {
+function gwf_g_read_html( $minutes, $label = 'min de lectura' ) {
 	return '<span class="gwf-g-read"><svg class="gwf-g-clock" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">'
 		. '<circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/>'
 		. '<path d="M12 6.5V12l3.5 3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-		. (int) $minutes . ' min de lectura</span>';
+		. (int) $minutes . ' ' . esc_html( $label ) . '</span>';
 }
 
 /** Imagen destacada de una entrada para las tarjetas (vacío si no tiene). */

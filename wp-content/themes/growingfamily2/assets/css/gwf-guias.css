@@ -23,7 +23,9 @@
 html:has(body.single-guia),
 body.single-guia,
 html:has(body.single-desarrollo),
-body.single-desarrollo {
+body.single-desarrollo,
+html:has(body.single-actividad),
+body.single-actividad {
 	overflow-x: clip;
 	overflow-y: visible;
 }
@@ -409,7 +411,8 @@ body.single-desarrollo {
 
 /* La barra flotante de AddToAny no forma parte de la guía (en las páginas ya la oculta el CSS personalizado) */
 .single-guia .a2a_floating_style,
-.single-desarrollo .a2a_floating_style { display: none !important; }
+.single-desarrollo .a2a_floating_style,
+.single-actividad .a2a_floating_style { display: none !important; }
 
 /* ==========================================================================
    Ficha del equipo: /equipo/<persona>/ (template-parts/gwf-persona.php, wireframe «plantilla-revisor»)
@@ -646,6 +649,110 @@ body.single-desarrollo {
 	.gwf-c-card-wide .gwf-c-photo { width: 64px; height: 64px; flex-basis: 64px; }
 	.gwf-c-foot { grid-template-columns: 1fr; gap: 1.25rem; padding: 1.25rem; }
 	.gwf-c-promise { text-align: left; }
+}
+
+/* ==========================================================================
+   Actividad para hacer juntos (single-actividad.php, plugin gwf-actividades, wireframe «plantilla-actividad»).
+   Usa la rejilla, el panel lateral y la barra de móvil de las guías (.gwf-g-*).
+   ========================================================================== */
+.gwf-a-byline { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; }
+.gwf-a-byline .wpulike { margin: 0; }
+.gwf-a-strip { display: none; }
+.gwf-a-cover { margin: 0 0 1.5rem; border-radius: var(--g-radius); overflow: hidden; background: var(--g-blue-bg); }
+.gwf-a-cover img { display: block; width: 100%; height: auto; max-height: 460px; object-fit: cover; }
+
+/* 4. Pasos: número, texto y «Para ti»; la imagen del paso a la derecha */
+.gwf-a-steps { list-style: none; margin: 0; padding: 0; }
+.gwf-a-steps > li {
+	display: grid;
+	grid-template-columns: 2.25rem minmax(0, 1fr);
+	gap: 0 1rem;
+	padding: 1.25rem 0;
+	border-bottom: 1px solid var(--g-line);
+}
+.gwf-a-steps > li:first-child { padding-top: 0; }
+.gwf-a-steps > li:last-child { border-bottom: 0; padding-bottom: 0; }
+.gwf-a-steps > li.has-image { grid-template-columns: 2.25rem minmax(0, 1fr) 240px; }
+.gwf-a-step-n {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	border-radius: 50%;
+	background: var(--g-blue);
+	color: #fff;
+	font-weight: 700;
+}
+.gwf-guia .gwf-a-step-text h3 { margin: 0.35rem 0 0.4rem; font-size: 1.125rem; color: var(--color-dark, #0a0e16); }
+.gwf-a-step-text p { margin: 0 0 0.6rem; line-height: 1.6; }
+.gwf-a-tip {
+	padding: 0.75rem 1rem;
+	border-left: 4px solid var(--g-blue);
+	border-radius: 0 10px 10px 0;
+	background: var(--g-blue-bg);
+}
+.gwf-a-tip strong { display: block; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--g-blue); margin-bottom: 0.2rem; }
+.gwf-a-step-img { margin: 0; border-radius: 10px; overflow: hidden; background: var(--g-blue-bg); }
+.gwf-a-step-img img { display: block; width: 100%; height: auto; }
+
+/* 5. Imprimible */
+.gwf-a-print { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 1.5rem; background: var(--g-blue-bg); border-color: var(--g-blue-line); scroll-margin-top: 100px; }
+.gwf-a-print:not(:has(.gwf-a-print-preview)) { grid-template-columns: 1fr; }
+.gwf-a-print-preview { margin: 0; border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid var(--g-blue-line); align-self: start; }
+.gwf-a-print-preview img { display: block; width: 100%; height: auto; }
+.gwf-guia .gwf-a-print h2 { color: var(--g-blue); }
+.gwf-a-print-form { display: grid; gap: 0.75rem; margin-top: 0.75rem; }
+.gwf-a-print-form input[type="email"] { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--g-blue-line); border-radius: 10px; background: #fff; font-size: 1rem; }
+.gwf-a-check { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.9375rem; line-height: 1.45; cursor: pointer; }
+.gwf-a-check input { margin-top: 0.2rem; flex: 0 0 auto; }
+.gwf-a-print-form .gwf-g-button { justify-self: start; border: 0; cursor: pointer; }
+.gwf-a-hp { position: absolute; left: -9999px; }
+.gwf-a-privacy { font-size: 0.8125rem; color: var(--g-muted); margin: 0; }
+.gwf-a-privacy a { color: var(--g-muted); }
+.gwf-a-print-msg { padding: 0.75rem 1rem; border-radius: 10px; background: #fff; border: 1px solid var(--g-blue-line); font-weight: 600; color: var(--g-blue); }
+.gwf-a-print-msg.is-error { color: #b32d2e; border-color: #f0c4c4; }
+
+/* 6, 8 y panel */
+.gwf-a-source { font-size: 0.9375rem; }
+.gwf-a-source a { color: var(--g-blue); }
+.gwf-a-credits p { margin: 0; font-size: 0.9375rem; }
+.gwf-a-more-title { font-weight: 600; margin: 0 0 0.4rem; }
+.gwf-a-materials { margin: 0 0 0.75rem; padding-left: 1.2rem; list-style: disc outside; }
+.gwf-a-materials li { list-style: inherit; margin-bottom: 0.2rem; }
+.gwf-a-quick { display: grid; gap: 0.5rem; }
+.gwf-a-quick a {
+	display: block;
+	padding: 0.6rem 0.9rem;
+	border: 1px solid var(--g-blue-line);
+	border-radius: 10px;
+	background: #fff;
+	color: var(--g-text);
+	text-decoration: none;
+	font-weight: 600;
+}
+.gwf-a-quick a:hover { border-color: var(--g-blue); color: var(--g-blue); }
+#pasos,
+#que-trabaja { scroll-margin-top: 100px; }
+
+@media (max-width: 1024px) {
+	.gwf-a-strip {
+		display: block;
+		margin: 1rem 0 0;
+		padding: 0.6rem 0.9rem;
+		background: var(--g-blue-bg);
+		border: 1px solid var(--g-line);
+		border-radius: 10px;
+		font-size: 0.875rem;
+	}
+	.gwf-a-strip p { margin: 0; }
+	.gwf-a-strip summary { margin-top: 0.35rem; color: var(--g-blue); cursor: pointer; }
+	.gwf-a-strip details[open] summary { margin-bottom: 0.5rem; }
+	.gwf-a-steps > li.has-image { grid-template-columns: 2.25rem minmax(0, 1fr); }
+	.gwf-a-step-img { grid-column: 2; margin-top: 0.5rem; }
+	.gwf-a-print { grid-template-columns: 1fr; gap: 1rem; }
+	.gwf-a-print-preview { max-width: 120px; }
+	.gwf-a-print-form .gwf-g-button { justify-self: stretch; text-align: center; }
 }
 
 /* ==========================================================================

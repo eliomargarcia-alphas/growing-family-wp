@@ -54,6 +54,9 @@ function gwf_guias_listing_type( $query = null ) {
 	if ( is_string( $pt ) && in_array( $pt, GWF_GUIAS_TYPES, true ) && ( $query->is_post_type_archive() || $query->is_tax() ) ) {
 		return $pt;
 	}
+	if ( is_string( $pt ) && '' !== $pt ) {
+		return ''; // Listado de otro tipo, p. ej. /actividades/edad/<edad>/ (plugin gwf-actividades).
+	}
 	if ( $query->is_tax( 'tema' ) ) {
 		return 'guia';
 	}

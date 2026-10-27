@@ -7,7 +7,8 @@
  *     @type WP_Term|null $badge     Término de la etiqueta sobre la foto.
  *     @type string       $badge_url Enlace de la etiqueta.
  *     @type string       $summary   Resumen (se recorta a 24 palabras).
- *     @type int          $minutes   Minutos de lectura.
+ *     @type int          $minutes    Minutos (de lectura o, en actividades, de la actividad).
+ *     @type string       $time_label Texto tras los minutos (por defecto «min de lectura»).
  * }
  * @package WordPress
  * @subpackage growingfamily2
@@ -36,7 +37,7 @@ $gwf_summary = $args['summary'] ?? '';
 		<div class="blog-card-body">
 			<h2 class="blog-card-title"><a href="<?php the_permalink(); ?>" class="gwf-l-title-link"><?php the_title(); ?></a></h2>
 			<?php if ( $gwf_summary ) : ?><p class="gwf-l-summary"><?php echo esc_html( wp_trim_words( wp_strip_all_tags( $gwf_summary ), 24, '…' ) ); ?></p><?php endif; ?>
-			<div class="blog-meta"><?php echo gwf_g_read_html( $args['minutes'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+			<?php if ( ! empty( $args['minutes'] ) ) : ?><div class="blog-meta"><?php echo gwf_g_read_html( $args['minutes'], $args['time_label'] ?? 'min de lectura' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div><?php endif; ?>
 			<a href="<?php the_permalink(); ?>" class="btn btn-outline btn-sm">Leer más<span class="screen-reader-text">: <?php the_title(); ?></span></a>
 		</div>
 	</article>

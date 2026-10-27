@@ -1,7 +1,7 @@
 /* ==========================================================================
    Guías: índice que marca la sección en lectura, barra fija de móvil, vídeo
    que solo carga YouTube al pulsar y eventos de GA4 (etapa 8). Se carga con
-   defer solo en las guías y los pilares.
+   defer en las guías, los pilares y las actividades.
    ========================================================================== */
 
 (function () {
@@ -66,6 +66,14 @@
 
 	// Clics: puente al método, «Cuándo consultar» (índice lateral, índice de móvil o barra fija) y cuento.
 	function initTracking() {
+		// Imprimible de una actividad: envío del formulario, con la casilla de compromiso (la página navega a admin-post).
+		document.querySelectorAll('.gwf-a-print-form').forEach(function (form) {
+			form.addEventListener('submit', function () {
+				var box = form.querySelector('input[name="compromiso"]');
+				track('gwf_imprimible_envio', { compromiso: box && box.checked ? 'si' : 'no', transport_type: 'beacon' });
+			});
+		});
+
 		document.addEventListener('click', function (e) {
 			var a = e.target.closest ? e.target.closest('a') : null;
 			if (!a) return;
