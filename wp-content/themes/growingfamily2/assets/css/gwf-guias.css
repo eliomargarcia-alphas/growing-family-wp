@@ -748,10 +748,15 @@ body.single-actividad {
 	.gwf-a-strip p { margin: 0; }
 	.gwf-a-strip summary { margin-top: 0.35rem; color: var(--g-blue); cursor: pointer; }
 	.gwf-a-strip details[open] summary { margin-bottom: 0.5rem; }
-	.gwf-a-steps > li.has-image { grid-template-columns: 2.25rem minmax(0, 1fr); }
-	.gwf-a-step-img { grid-column: 2; margin-top: 0.5rem; }
+	/* Pasos: número y título en dos columnas; texto, «Para ti» e imagen debajo, a todo el ancho */
+	.gwf-a-steps > li,
+	.gwf-a-steps > li.has-image { grid-template-columns: 2.25rem minmax(0, 1fr); align-items: center; gap: 0.6rem 0.75rem; }
+	.gwf-a-step-text { display: contents; }
+	.gwf-guia .gwf-a-step-text h3 { grid-column: 2; margin: 0; }
+	.gwf-a-step-text p,
+	.gwf-a-step-img { grid-column: 1 / -1; margin: 0; }
 	.gwf-a-print { grid-template-columns: 1fr; gap: 1rem; }
-	.gwf-a-print-preview { max-width: 120px; }
+	.gwf-a-print-preview { max-width: none; }
 	.gwf-a-print-form .gwf-g-button { justify-self: stretch; text-align: center; }
 }
 
@@ -849,7 +854,7 @@ body.single-actividad {
    Móvil y tableta (≤ 1024px, el corte del tema)
    ========================================================================== */
 @media (max-width: 1024px) {
-	.gwf-guia { padding: calc(80px + 0.75rem) 0 5.5rem; }
+	.gwf-guia { padding: calc(20px + 0.75rem) 0 5.5rem; }
 	.gwf-g-layout { grid-template-columns: 1fr; gap: 0; }
 	.gwf-g-side { display: none; }
 
