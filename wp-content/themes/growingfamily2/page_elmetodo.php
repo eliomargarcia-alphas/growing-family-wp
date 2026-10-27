@@ -15,8 +15,8 @@ get_header();
     <div class="container">
         <div class="col-xl-12 migas mt-3">
             <p class="font-size-12 color-barium mb-0">
-                <a href="https://growing.family/" class="color-barium text-decoration-none">Inicio
-                </a> > <a href="https://growing.family/acerca-de/" class="color-barium text-decoration-none">Acerca de</a> > <span class="color-iron"><?php the_title(); ?></span>
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="color-barium text-decoration-none">Inicio
+                </a> > <a href="<?php echo esc_url( home_url( '/acerca-de/' ) ); ?>" class="color-barium text-decoration-none">Acerca de</a> > <span class="color-iron"><?php the_title(); ?></span>
             </p>
         </div>
     </div>

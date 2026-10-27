@@ -15,7 +15,7 @@ get_header();
     <div class="container">
         <div class="col-xl-12 migas mt-3">
             <p class="font-size-12 color-barium mb-0">
-                <a href="https://growing.family/" class="color-barium text-decoration-none">Inicio
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="color-barium text-decoration-none">Inicio
                 </a> > <span class="color-iron"><?php the_title(); ?></span>
             </p>
         </div>

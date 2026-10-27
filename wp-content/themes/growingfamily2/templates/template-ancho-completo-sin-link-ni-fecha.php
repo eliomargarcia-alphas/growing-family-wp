@@ -19,7 +19,7 @@ get_header();
 					<div class="col-xl-12 pe-4">
 						<div class="col-xl-12 migas mb-4">
 							<p class="font-size-16 color-barium">
-								<a href="https://growing.family/" class="color-barium text-decoration-none">Home
+								<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="color-barium text-decoration-none">Home
 								</a> > <span class="color-iron"><?php the_title(); ?></span>
 							</p>
 						</div>

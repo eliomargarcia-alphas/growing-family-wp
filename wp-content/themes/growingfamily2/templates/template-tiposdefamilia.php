@@ -21,8 +21,8 @@ get_header();
 						<div class="col-xl-12">
 							<div class="migas mb-5">
 								<p class="font-size-14 text-white">
-									<a href="https://growing.family/" class="text-white text-decoration-none"><b>Inicio</b>
-									</a> > <a href="https://growing.family/tipos-de-familia/" class="text-white text-decoration-none"><b>Tipos de familia</b></a> > <span class="text-white"><?php the_title(); ?></span>
+									<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-white text-decoration-none"><b>Inicio</b>
+									</a> > <a href="<?php echo esc_url( home_url( '/tipos-de-familia/' ) ); ?>" class="text-white text-decoration-none"><b>Tipos de familia</b></a> > <span class="text-white"><?php the_title(); ?></span>
 								</p>
 							</div>
 							<div class="text-center pt-5 px-xl-5">
