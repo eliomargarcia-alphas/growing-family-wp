@@ -113,7 +113,14 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   Leerlas siempre con `gwf_guias_items()`; con PRO pasan a repetidores con el mismo nombre (falta migrar y crear subcampos).
 - Regla: `gwf_guias_check()` (revisor, fecha, 2 fuentes y bloques obligatorios). Sin cumplirla → «Pendiente de revisión»
   (o 400 por REST). Aprobación del revisor guarda nombre, fecha y `_gwf_hash_revisado`.
-- Usuarios de prueba en staging3: `prueba-revisora` (rol Revisor experto) y `equipo-editorial` (editor), sin contraseña conocida.
+- Fichas del equipo (2026-10-27, `includes/people.php` + `author.php` + `template-parts/gwf-persona.php`): `/equipo/<user_nicename>/` para
+  revisores y redactores únicos. Campos en el perfil de cualquier usuario: Ficha pública, Rol (revisa / redacta / ambos), Comité, cargo, foto,
+  formación («Título | Institución | Año»), experiencia, temas, enlaces («Texto | URL»). Sin ficha pública el archivo de autor redirige a la portada.
+  La consulta lista lo que revisa (`gwf_revisado_por`) y/o firma (autor). Firma: guías y pilares muestran el autor (enlazado si es redactor con ficha);
+  el blog solo muestra «Escrito por» si lo firma un redactor con ficha. Schema: Person `#/schema/person/equipo-<id>` + ProfilePage y migas propias
+  (Yoast no las genera para quien no tiene entradas). Comité y política editorial: se enlazan solas cuando existan `/comite-editorial/` y `/politica-editorial/`.
+- Usuarios de prueba en staging3: `prueba-revisora` (rol Revisor experto, ficha pública, comité), `prueba-redactor` (autor, ficha pública, redacta;
+  autor de la guía 2309, antes era `equipo-editorial`) y `equipo-editorial` (editor), sin contraseña conocida.
 - El deploy a producción copia el plugin, pero allí **no está activado**: no activarlo hasta aprobar el plan.
 
 ## Diseño
