@@ -3687,3 +3687,10 @@ body {
         margin: 0.5rem 0;
     }
 }
+
+/* Enlaces dentro del texto de páginas y entradas: negros y subrayados (el tema ponía el rojo #cd2653 de Twenty Twenty).
+   Los botones del contenido conservan su estilo. */
+.entry-content a:not(.btn):not(.wp-block-button__link):not(.gwf-g-button) {
+    color: #000000;
+    text-decoration: underline;
+}
