@@ -248,6 +248,47 @@ function gwf_guias_people_schema_graph( $graph ) {
 	if ( $person_id ) {
 		$out[] = gwf_guias_person_piece( $person_id );
 	}
+	if ( ! isset( $author ) ) {
+		$out = gwf_guias_profile_page_pieces( $out, $person_id );
+	}
 	return $out;
+}
+
+/**
+ * ProfilePage y migas de la ficha. Yoast no las genera para quien no tiene entradas del blog (una revisora,
+ * por ejemplo), así que se añaden aquí si faltan.
+ */
+function gwf_guias_profile_page_pieces( $graph, $person_id ) {
+	foreach ( $graph as $piece ) {
+		if ( in_array( 'ProfilePage', (array) ( $piece['@type'] ?? array() ), true ) ) {
+			return $graph;
+		}
+	}
+	$url    = gwf_guias_person_url( $person_id );
+	$name   = get_userdata( $person_id )->display_name;
+	$crumbs = array();
+	foreach ( gwf_guias_person_breadcrumbs( array( array( 'text' => 'Inicio', 'url' => home_url( '/' ) ) ) ) as $i => $crumb ) {
+		$item = array( '@type' => 'ListItem', 'position' => $i + 1, 'name' => $crumb['text'] );
+		if ( ! empty( $crumb['url'] ) ) {
+			$item['item'] = $crumb['url'];
+		}
+		$crumbs[] = $item;
+	}
+	$graph[] = array(
+		'@type'      => 'ProfilePage',
+		'@id'        => $url,
+		'url'        => $url,
+		'name'       => $name . ' | Growing Family',
+		'isPartOf'   => array( '@id' => home_url( '/#website' ) ),
+		'mainEntity' => array( '@id' => gwf_guias_person_schema_id( $person_id ) ),
+		'breadcrumb' => array( '@id' => $url . '#breadcrumb' ),
+		'inLanguage' => str_replace( '_', '-', get_locale() ),
+	);
+	$graph[] = array(
+		'@type'           => 'BreadcrumbList',
+		'@id'             => $url . '#breadcrumb',
+		'itemListElement' => $crumbs,
+	);
+	return $graph;
 }
 add_filter( 'wpseo_schema_graph', 'gwf_guias_people_schema_graph', 11 );
