@@ -67,7 +67,9 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
 - Categorías = temas del mapa de preguntas (anexo A de la estrategia): 11 de las capas 2 y 3 + "Vivencias de crianza"
   (capa 5, ID 1, por defecto). Las 44 antiguas se borraron; qué tenía cada borrador está en
   `~/backups/borradores-categorias-antes-20261022.csv`. Yoast `company_name` = "Growing Family".
-- Página "Blog" (ID 133) y las 52 entradas siguen en **borrador**; el Blog no está en el menú (se publica cuando haya contenido).
+- Producción: página "Blog" (ID 133) y las 52 entradas en **borrador**, sin Blog en el menú. Staging3 (2026-10-28): página Blog publicada y en los dos menús.
+- Single de entrada: `single-post.php` (diseño de guías: ficha lateral, puente `.gwf-g-bridge`, «¿Te ha gustado…?» y relacionados) para **todas** las entradas,
+  aunque tengan una plantilla antigua asignada (`gwf_post_single_template()` en `inc/gwf-blog.php`). Firma: redactor con ficha o «Equipo editorial Growing Family» enlazado al comité.
 - `inc/gwf-blog.php`: firma pública sin email (fallback "Equipo Growing Family"; también en Yoast meta author y schema),
   enlace de autoría = campo "Sitio web" del usuario **solo si es una URL de growing.family**, archivos de autor
   redirigidos a la portada, noindex en etiquetas y categorías vacías, campos ACF del puente (guía relacionada y
