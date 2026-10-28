@@ -40,8 +40,9 @@ get_header();
 						<div class="row">
 							<div class="col-12 col-md-10">
 								<p class="entry-date font-size-18 color-iron">
-									<?php echo get_the_date('j M Y'); ?> - 
-									Escrito por <b class="fw-semibold"><?php the_author(); ?></b>
+									<?php echo get_the_date('j M Y'); ?>
+									<?php $gwf_byline = gwf_author_byline(); // Como singular.php: solo las entradas firmadas por un redactor con ficha, enlazadas a ella. ?>
+									<?php if ( $gwf_byline ) : ?> - Escrito por <?php echo $gwf_byline; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado en gwf_author_byline. ?><?php endif; ?>
 								</p>
 							</div>
 							<div class="col-12 col-md-2">

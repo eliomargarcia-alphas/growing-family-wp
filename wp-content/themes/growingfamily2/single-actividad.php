@@ -79,7 +79,7 @@ while ( have_posts() ) :
 					<?php the_title( '<h1 class="gwf-g-title">', '</h1>' ); ?>
 					<div class="gwf-a-byline">
 						<p class="gwf-g-byline">
-							Equipo editorial Growing Family
+							<?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							<?php if ( $gwf_reviewer_html ) : ?> · Revisado por <?php echo $gwf_reviewer_html; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado arriba. ?><?php endif; ?>
 							· Actualizado el <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 						</p>
@@ -198,7 +198,7 @@ while ( have_posts() ) :
 
 			<?php // 8. Autoría y fecha. ?>
 			<section class="gwf-g-block gwf-a-credits">
-				<p><strong>Escrito por</strong> Equipo editorial Growing Family
+				<p><strong>Escrito por</strong> <?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					<?php if ( $gwf_reviewer_html ) : ?> · <strong>Revisado por</strong> <?php echo $gwf_reviewer_html; // phpcs:ignore WordPress.Security.EscapeOutput ?><?php endif; ?>
 					· <strong>Actualizado</strong> <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
 			</section>

@@ -62,11 +62,21 @@ function gwf_g_reviewer_html( $reviewer ) {
 	return $reviewer['ficha'] ? '<a href="' . esc_url( $reviewer['ficha'] ) . '">' . $label . '</a>' : $label;
 }
 
-/** Autor de la guía o el pilar: el equipo editorial o, si firma un redactor con ficha pública, su nombre enlazado a ella. */
+/** Autor de la guía, el pilar o la actividad, enlazado: al comité editorial si firma el equipo, o a la ficha del redactor con ficha pública. */
 function gwf_g_author_html() {
-	$name = esc_html( get_the_author() );
-	$url  = gwf_guias_person_signs( get_the_author_meta( 'ID' ) ) ? gwf_guias_person_url( get_the_author_meta( 'ID' ) ) : '';
-	return $url ? '<a href="' . esc_url( $url ) . '" rel="author">' . $name . '</a>' : $name;
+	$name    = esc_html( get_the_author() );
+	$user_id = get_the_author_meta( 'ID' );
+	if ( function_exists( 'gwf_guias_person_signs' ) && gwf_guias_person_signs( $user_id ) ) {
+		return '<a href="' . esc_url( gwf_guias_person_url( $user_id ) ) . '" rel="author">' . $name . '</a>';
+	}
+	$url = gwf_g_committee_url(); // El equipo editorial enlaza a la página del comité.
+	return $url ? '<a href="' . esc_url( $url ) . '">' . $name . '</a>' : $name;
+}
+
+/** URL de la página del Comité editorial, si está publicada. */
+function gwf_g_committee_url() {
+	$page = get_page_by_path( 'comite-editorial' );
+	return ( $page && 'publish' === $page->post_status ) ? get_permalink( $page ) : '';
 }
 
 /** Icono SVG de una red social (ficha del equipo). Las que no tienen icono propio usan uno de enlace. */
