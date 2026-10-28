@@ -68,6 +68,11 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   (capa 5, ID 1, por defecto). Las 44 antiguas se borraron; qué tenía cada borrador está en
   `~/backups/borradores-categorias-antes-20261022.csv`. Yoast `company_name` = "Growing Family".
 - Producción: página "Blog" (ID 133) y las 52 entradas en **borrador**, sin Blog en el menú. Staging3 (2026-10-28): página Blog publicada y en los dos menús.
+- Vídeos del blog (staging3, 2026-10-28): página `/videos/` (ID 2339, plantilla «Vídeos» `templates/template-videos.php`) con el feed del
+  plugin Feeds for YouTube Pro: `[youtube-feed feed=3]`. El feed 3 es una **muestra temporal** (canal UNICEF en español,
+  `UCt6zKuXhnBMfJKjLYTz-UmA`) porque el canal propio (@growingfamilyacademy, feed 2) está vacío: cuando tenga vídeos, cambiar el
+  shortcode de la página a `feed=2` (o editar el feed). Copia de la tabla de feeds en `~/backups/staging3-sby-feeds-*.sql`.
+  Menú: Blog → Entradas (/blog/) y Vídeos; migas Inicio › Blog › Vídeos (`gwf_videos_breadcrumb()`).
 - Single de entrada: `single-post.php` (diseño de guías: ficha lateral, puente `.gwf-g-bridge`, «¿Te ha gustado…?» y relacionados) para **todas** las entradas,
   aunque tengan una plantilla antigua asignada (`gwf_post_single_template()` en `inc/gwf-blog.php`). Firma: redactor con ficha o «Equipo editorial Growing Family» enlazado al comité.
 - `inc/gwf-blog.php`: firma pública sin email (fallback "Equipo Growing Family"; también en Yoast meta author y schema),
