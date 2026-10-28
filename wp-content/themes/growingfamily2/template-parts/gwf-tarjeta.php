@@ -22,7 +22,7 @@ $gwf_summary = $args['summary'] ?? '';
 		<div class="blog-image-wrapper">
 			<?php if ( $gwf_badge ) : ?>
 				<p class="cat font-size-12 text-uppercase">
-					<a href="<?php echo esc_url( $args['badge_url'] ); ?>" class="text-white font-size-12 text-decoration-none bg-navy px-3 py-2 border-radius-24 d-inline-block"><?php echo esc_html( $gwf_badge->name ); ?></a>
+					<a href="<?php echo esc_url( $args['badge_url'] ); ?>" class="text-white font-size-12 text-decoration-none gwf-l-badge px-3 py-2 border-radius-24 d-inline-block"><?php echo esc_html( $gwf_badge->name ); ?></a>
 				</p>
 			<?php endif; ?>
 			<a href="<?php the_permalink(); ?>" tabindex="-1" aria-hidden="true">

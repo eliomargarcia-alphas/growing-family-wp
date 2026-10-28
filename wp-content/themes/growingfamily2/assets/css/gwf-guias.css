@@ -798,7 +798,7 @@ body.single-post {
 .gwf-l-side ul:last-child { margin-bottom: 0.25rem; }
 .gwf-l-side a { display: block; padding: 0.3rem 0.5rem; border-radius: 8px; color: #37425f; text-decoration: none; }
 .gwf-l-side a:hover { color: var(--g-blue); background: #fff; }
-.gwf-l-side a.is-active { color: #fff; background: var(--g-blue); }
+.gwf-l-side a.is-active { color: #fff; background: #006590; }
 
 /* Sin la columna (< 1200px) los resultados ocupan todo el ancho y los filtros van como chips */
 @media (max-width: 1199.98px) {
@@ -829,12 +829,14 @@ body.single-post {
 	text-decoration: none;
 }
 .gwf-l-filter a:hover { border-color: var(--g-blue); color: var(--g-blue); }
-.gwf-l-filter a.is-active { background: var(--g-blue); border-color: var(--g-blue); color: #fff; }
+.gwf-l-filter a.is-active { background: #006590; border-color: #006590; color: #fff; }
 
 /* Tarjetas: .blog-card del tema (style.css) con tema sobre la foto y «me gusta» abajo sobre la foto */
 .gwf-listado .blog-card { height: 100%; }
 .gwf-listado .blog-image-wrapper > a { display: block; height: 100%; }
-.gwf-listado .blog-image-wrapper .cat a:hover { background: #003aaf !important; }
+.gwf-l-h1 { color: #000000; } /* Título de los listados (guías, actividades, blog, vídeos) */
+.gwf-l-badge { background: #006590; } /* Tema sobre la foto de la tarjeta */
+.gwf-listado .blog-image-wrapper .cat a:hover { background: #004b6b !important; }
 .gwf-listado .blog-image-wrapper .wpulike { position: relative; z-index: 1; }
 .gwf-guia .blog-card-title { flex-grow: 0; margin: 0 0 0.6rem; font-size: 1.25rem; line-height: 1.35; }
 .gwf-l-title-link { color: var(--color-dark, #0a0e16); text-decoration: none; }
