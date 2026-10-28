@@ -438,7 +438,6 @@ img{
     padding-left: 0;
     margin-bottom: 5px;
     padding-bottom: 5px;
-    border-bottom: 1px solid #ebebeb;
 }
 .menu-item-has-children .sub-menu li:last-child {
     border-bottom: 0px;
