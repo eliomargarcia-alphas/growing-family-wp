@@ -31,6 +31,10 @@ while ( have_posts() ) :
 	$gwf_date    = gwf_g_date_html( $gwf_updated - (int) get_the_time( 'U' ) > DAY_IN_SECONDS ? $gwf_updated : (int) get_the_time( 'U' ) );
 	$gwf_summary = get_post_meta( $gwf_id, 'mostrar_resumen_del_post', true ) ? trim( (string) get_post_meta( $gwf_id, 'resumen_del_post', true ) ) : '';
 
+	// Contenido con ancla en cada H2 e índice «En este artículo» (gwf_post_content_with_toc en inc/gwf-blog.php).
+	list( $gwf_content, $gwf_toc ) = gwf_post_content_with_toc();
+	$gwf_toc_html                  = gwf_g_toc_html( $gwf_toc );
+
 	// Relacionados: otras entradas del mismo tema y, si no llegan a 3, las más recientes.
 	$gwf_related = $gwf_cats ? get_posts( array( 'post_type' => 'post', 'posts_per_page' => 3, 'post__not_in' => array( $gwf_id ), 'category__in' => wp_list_pluck( $gwf_cats, 'term_id' ), 'fields' => 'ids' ) ) : array();
 	if ( count( $gwf_related ) < 3 ) {
@@ -70,8 +74,15 @@ while ( have_posts() ) :
 					</section>
 				<?php endif; ?>
 
+				<?php if ( $gwf_toc_html ) : // Índice desplegable (solo móvil). ?>
+					<details class="gwf-g-toc-mobile" id="indice">
+						<summary>En este artículo</summary>
+						<ol><?php echo $gwf_toc_html; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado en gwf_g_toc_html. ?></ol>
+					</details>
+				<?php endif; ?>
+
 				<section class="gwf-g-block gwf-g-body entry-content">
-					<?php the_content(); ?>
+					<?php echo $gwf_content; // phpcs:ignore WordPress.Security.EscapeOutput -- salida de the_content. ?>
 				</section>
 
 				<?php gwf_post_bridge(); // Enlace a su guía y puente al método, solo si la entrada los pide. ?>
@@ -88,6 +99,13 @@ while ( have_posts() ) :
 							<li><?php echo gwf_g_read_html( $gwf_minutes ); // phpcs:ignore WordPress.Security.EscapeOutput ?></li>
 						</ul>
 					</div>
+
+					<?php if ( $gwf_toc_html ) : ?>
+						<nav class="gwf-g-card gwf-g-toc" aria-label="En este artículo">
+							<p class="gwf-g-card-title">En este artículo</p>
+							<ol><?php echo $gwf_toc_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></ol>
+						</nav>
+					<?php endif; ?>
 				</div>
 			</aside>
 		</div>

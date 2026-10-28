@@ -90,15 +90,15 @@ function gwf_author_byline() {
 		// Sin redactor con ficha: firma el equipo editorial, enlazado a la página del comité (si existe).
 		$committee = function_exists( 'gwf_g_committee_url' ) ? gwf_g_committee_url() : '';
 		return $committee
-			? '<a href="' . esc_url( $committee ) . '" class="color-barium fw-semibold">Equipo editorial Growing Family</a>'
-			: '<b class="fw-semibold">Equipo editorial Growing Family</b>';
+			? '<a href="' . esc_url( $committee ) . '">Equipo editorial Growing Family</a>'
+			: 'Equipo editorial Growing Family';
 	}
 	$name = esc_html( gwf_public_author_name( get_the_author() ) );
 	$url  = gwf_author_page_url();
 	if ( $url ) {
-		return '<a href="' . esc_url( $url ) . '" rel="author" class="color-barium fw-semibold">' . $name . '</a>';
+		return '<a href="' . esc_url( $url ) . '" rel="author">' . $name . '</a>';
 	}
-	return '<b class="fw-semibold">' . $name . '</b>';
+	return $name;
 }
 
 /** Archivos de autor cerrados salvo fichas públicas: exponían el login del administrador. El enlace de autor va a su ficha o al blog. */
@@ -195,6 +195,41 @@ function gwf_register_post_bridge_fields() {
 	);
 }
 add_action( 'acf/init', 'gwf_register_post_bridge_fields' );
+
+/**
+ * Contenido de la entrada con un id en cada H2 (si no lo tiene) y la lista [ancla => texto] para el índice
+ * «En este artículo» (panel lateral y desplegable de móvil), como «En esta guía» en las guías.
+ *
+ * @return array{0:string,1:array}
+ */
+function gwf_post_content_with_toc() {
+	$html = apply_filters( 'the_content', get_the_content() );
+	$toc  = array();
+	$html = preg_replace_callback(
+		'#<h2([^>]*)>(.*?)</h2>#is',
+		function ( $m ) use ( &$toc ) {
+			$text = trim( wp_strip_all_tags( $m[2] ) );
+			if ( '' === $text ) {
+				return $m[0];
+			}
+			if ( preg_match( '/\sid=["\']([^"\']+)["\']/', $m[1], $id ) ) {
+				$anchor = $id[1];
+				$attrs  = $m[1];
+			} else {
+				$anchor = sanitize_title( $text );
+				$base   = $anchor;
+				for ( $n = 2; isset( $toc[ $anchor ] ); $n++ ) {
+					$anchor = $base . '-' . $n;
+				}
+				$attrs = $m[1] . ' id="' . esc_attr( $anchor ) . '"';
+			}
+			$toc[ $anchor ] = $text;
+			return '<h2' . $attrs . '>' . $m[2] . '</h2>';
+		},
+		$html
+	);
+	return array( $html, $toc );
+}
 
 /** Imprime el puente al final del contenido de una nota (nada si la entrada no lo pide). */
 function gwf_post_bridge() {
