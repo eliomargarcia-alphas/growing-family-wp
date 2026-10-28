@@ -142,6 +142,18 @@ function gwf_blog_index_url( $url ) {
 add_filter( 'wpseo_canonical', 'gwf_blog_index_url' );
 add_filter( 'wpseo_opengraph_url', 'gwf_blog_index_url' );
 
+/** En las migas, «Blog» va a /blog/ aunque la página siga en borrador (Yoast pondría ?page_id=133). */
+function gwf_blog_breadcrumb_url( $links ) {
+	$page_id = (int) get_option( 'page_for_posts' );
+	foreach ( $links as $i => $link ) {
+		if ( $page_id && isset( $link['id'] ) && (int) $link['id'] === $page_id ) {
+			$links[ $i ]['url'] = gwf_blog_url();
+		}
+	}
+	return $links;
+}
+add_filter( 'wpseo_breadcrumb_links', 'gwf_blog_breadcrumb_url' );
+
 /**
  * Campos por entrada para el puente (la estrategia: "el puente al método es un enlace al final,
  * y solo cuando la nota toca algo que el ritual trabaja"; "cada nota enlaza a su guía en cuanto exista").
