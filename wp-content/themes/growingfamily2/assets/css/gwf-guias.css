@@ -963,3 +963,6 @@ body.single-post {
 @media (prefers-reduced-motion: reduce) {
 	.gwf-g-play { transition: none; }
 }
+
+/* Vídeos del blog (templates/template-videos.php): el feed de YouTube bajo la cabecera del listado */
+.gwf-videos-feed { margin-top: 2.5rem; }

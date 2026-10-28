@@ -154,6 +154,15 @@ function gwf_blog_breadcrumb_url( $links ) {
 }
 add_filter( 'wpseo_breadcrumb_links', 'gwf_blog_breadcrumb_url' );
 
+/** Los vídeos son parte del blog: Inicio › Blog › Vídeos (la página vive en /videos/ porque /blog/<slug>/ son entradas). */
+function gwf_videos_breadcrumb( $links ) {
+	if ( is_page_template( 'templates/template-videos.php' ) && count( $links ) >= 2 ) {
+		array_splice( $links, 1, 0, array( array( 'text' => 'Blog', 'url' => gwf_blog_url() ) ) );
+	}
+	return $links;
+}
+add_filter( 'wpseo_breadcrumb_links', 'gwf_videos_breadcrumb', 11 );
+
 /**
  * Campos por entrada para el puente (la estrategia: "el puente al método es un enlace al final,
  * y solo cuando la nota toca algo que el ritual trabaja"; "cada nota enlaza a su guía en cuanto exista").
