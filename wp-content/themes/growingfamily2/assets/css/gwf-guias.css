@@ -918,6 +918,8 @@ body.single-post {
 	.gwf-g-toc-mobile summary { padding: 0.85rem 1rem; font-weight: 600; cursor: pointer; }
 	.gwf-g-toc-mobile ol { padding: 0 1rem 0.75rem; }
 	.gwf-g-toc-mobile a { display: block; padding: 0.45rem 0; color: var(--g-text); text-decoration: none; }
+	/* Entradas: el desplegable no se ve bajo el título; solo aparece abierto al pulsar «Índice del artículo» en la barra */
+	.gwf-post .gwf-g-toc-mobile:not([open]) { display: none; }
 
 	.gwf-g-credits-grid { grid-template-columns: 1fr; }
 	.gwf-g-milestones li { grid-template-columns: 1fr; gap: 0.4rem; }
