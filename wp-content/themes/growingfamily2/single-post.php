@@ -132,6 +132,12 @@ while ( have_posts() ) :
 			<?php endif; ?>
 		</div>
 	</div>
+
+	<?php if ( $gwf_toc_html ) : // Barra fija de móvil, como en las guías: abre el índice «En este artículo». ?>
+		<div class="gwf-g-bar" aria-label="Accesos del artículo">
+			<a href="#indice" class="gwf-g-bar-toc"><?php echo gwf_g_svg( 'indice', 'gwf-g-btn-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Índice del artículo</a>
+		</div>
+	<?php endif; ?>
 </main>
 
 	<?php
