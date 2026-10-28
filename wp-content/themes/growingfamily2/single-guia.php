@@ -220,8 +220,8 @@ while ( have_posts() ) :
 
 	<?php // Barra fija de móvil: índice y acceso directo a «Cuándo consultar». ?>
 	<div class="gwf-g-bar" aria-label="Accesos de la guía">
-		<?php if ( $gwf_toc_html ) : ?><a href="#indice" class="gwf-g-bar-toc">Índice de la guía</a><?php endif; ?>
-		<?php if ( isset( $gwf_toc['cuando-consultar'] ) ) : ?><a href="#cuando-consultar">Cuándo consultar</a><?php endif; ?>
+		<?php if ( $gwf_toc_html ) : ?><a href="#indice" class="gwf-g-bar-toc"><?php echo gwf_g_svg( 'indice', 'gwf-g-btn-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Índice de la guía</a><?php endif; ?>
+		<?php if ( isset( $gwf_toc['cuando-consultar'] ) ) : ?><a href="#cuando-consultar"><?php echo gwf_g_svg( 'consultar', 'gwf-g-btn-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Cuándo consultar</a><?php endif; ?>
 	</div>
 </main>
 

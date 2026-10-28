@@ -48,7 +48,7 @@ get_header();
 									<?php if ( get_the_modified_time( 'U' ) - get_the_time( 'U' ) > DAY_IN_SECONDS ) : ?>
 										· Actualizado el <time datetime="<?php echo esc_attr( get_the_modified_date( 'c' ) ); ?>"><?php echo get_the_modified_date( 'j M Y' ); ?></time>
 									<?php endif; ?>
-									<?php $gwf_byline = gwf_author_byline(); // Solo las entradas firmadas por un redactor con ficha. ?>
+									<?php $gwf_byline = gwf_author_byline(); // Redactor con ficha o equipo editorial, enlazados. ?>
 									<?php if ( $gwf_byline ) : ?>· Escrito por <?php echo $gwf_byline; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado en gwf_author_byline. ?><?php endif; ?>
 									· <?php echo gwf_reading_time(); ?> min de lectura
 								</p>

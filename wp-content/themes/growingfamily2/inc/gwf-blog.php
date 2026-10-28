@@ -84,10 +84,14 @@ function gwf_author_signs( $author_id = null ) {
 	return function_exists( 'gwf_guias_person_signs' ) && gwf_guias_person_signs( $author_id );
 }
 
-/** Firma del autor, enlazada a su ficha. Vacía si la entrada no la firma un redactor con ficha pública. */
+/** Firma: el redactor con ficha pública, enlazado a ella; si no, el equipo editorial, enlazado al comité. */
 function gwf_author_byline() {
 	if ( ! gwf_author_signs() ) {
-		return '';
+		// Sin redactor con ficha: firma el equipo editorial, enlazado a la página del comité (si existe).
+		$committee = function_exists( 'gwf_g_committee_url' ) ? gwf_g_committee_url() : '';
+		return $committee
+			? '<a href="' . esc_url( $committee ) . '" class="color-barium fw-semibold">Equipo editorial Growing Family</a>'
+			: '<b class="fw-semibold">Equipo editorial Growing Family</b>';
 	}
 	$name = esc_html( gwf_public_author_name( get_the_author() ) );
 	$url  = gwf_author_page_url();

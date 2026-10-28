@@ -408,6 +408,8 @@ body.single-actividad {
 /* Tiempo de lectura con icono de reloj */
 .gwf-g-read { display: inline-flex; align-items: center; gap: 0.35rem; white-space: nowrap; }
 .gwf-g-clock { flex: 0 0 auto; color: var(--g-blue); }
+/* Icono de los botones de acceso rápido (panel lateral y barra fija de móvil) */
+.gwf-g-btn-icon { flex: 0 0 auto; color: var(--g-blue); }
 /* Participantes y lugar: el texto puede ocupar dos líneas; el icono queda arriba */
 .gwf-g-icon { white-space: normal; align-items: flex-start; }
 .gwf-g-icon .gwf-g-clock { margin-top: 0.2em; }
@@ -720,12 +722,15 @@ body.single-actividad {
 .gwf-a-source { font-size: 0.9375rem; }
 .gwf-a-source a { color: var(--g-blue); }
 .gwf-a-credits p { margin: 0; font-size: 0.9375rem; }
+.gwf-a-credits a { color: #0d6efd; }
 .gwf-a-more-title { font-weight: 600; margin: 0 0 0.4rem; }
 .gwf-a-materials { margin: 0 0 0.75rem; padding-left: 1.2rem; list-style: disc outside; }
 .gwf-a-materials li { list-style: inherit; margin-bottom: 0.2rem; }
 .gwf-a-quick { display: grid; gap: 0.5rem; }
 .gwf-a-quick a {
-	display: block;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
 	padding: 0.6rem 0.9rem;
 	border: 1px solid var(--g-blue-line);
 	border-radius: 10px;
@@ -935,6 +940,10 @@ body.single-actividad {
 	}
 	.gwf-g-bar a {
 		flex: 1;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.4rem;
 		text-align: center;
 		padding: 0.65rem 0.5rem;
 		border: 1px solid #c9ccd3;

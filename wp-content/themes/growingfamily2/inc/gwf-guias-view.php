@@ -19,14 +19,25 @@ function gwf_g_read_html( $minutes, $label = 'min de lectura' ) {
 		. (int) $minutes . ' ' . esc_html( $label ) . '</span>';
 }
 
-/** Texto con icono SVG delante (participantes o lugar), con el mismo estilo que el reloj. */
-function gwf_g_icon_html( $icon, $text ) {
+/** Icono SVG de trazo (24×24, en azul por el CSS) para la ficha y los botones de acceso rápido. */
+function gwf_g_svg( $icon, $class = 'gwf-g-clock' ) {
+	$s     = 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
 	$paths = array(
-		'participantes' => '<circle cx="9" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="17" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.5 14.1c2.6.3 4.5 2.6 4.5 5.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
-		'lugar'         => '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/>',
+		'participantes' => '<circle cx="9" cy="8" r="3.2" ' . $s . '/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" ' . $s . '/><circle cx="17" cy="9" r="2.4" ' . $s . '/><path d="M16.5 14.1c2.6.3 4.5 2.6 4.5 5.4" ' . $s . '/>',
+		'lugar'         => '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" ' . $s . '/><circle cx="12" cy="10" r="2.4" ' . $s . '/>',
+		'pasos'         => '<path d="M10 6h11M10 12h11M10 18h11M4 5l1.5-1v5M3.5 14.5a1.5 1.5 0 1 1 2.6 1L3.5 19H6" ' . $s . '/>',
+		'imprimible'    => '<path d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" ' . $s . '/><rect x="7" y="14" width="10" height="7" rx="1" ' . $s . '/>',
+		'trabaja'       => '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z" ' . $s . '/>',
+		'indice'        => '<path d="M8 6h13M8 12h13M8 18h13" ' . $s . '/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/>',
+		'consultar'     => '<path d="M6 3v6a4 4 0 0 0 8 0V3M6 3H4M14 3h2M10 13v2a5 5 0 0 0 10 0v-2" ' . $s . '/><circle cx="20" cy="11" r="2" ' . $s . '/>',
+		'enlaces'       => '<path d="M4 19.5V5a2 2 0 0 1 2-2h14v15H6a2 2 0 0 0-2 2zM4 19.5A2 2 0 0 0 6 21h14M9 7h7" ' . $s . '/>',
 	);
-	return '<span class="gwf-g-read gwf-g-icon"><svg class="gwf-g-clock" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">'
-		. ( $paths[ $icon ] ?? '' ) . '</svg>' . esc_html( $text ) . '</span>';
+	return '<svg class="' . esc_attr( $class ) . '" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">' . ( $paths[ $icon ] ?? '' ) . '</svg>';
+}
+
+/** Texto con icono delante (participantes o lugar), con el mismo estilo que el reloj. */
+function gwf_g_icon_html( $icon, $text ) {
+	return '<span class="gwf-g-read gwf-g-icon">' . gwf_g_svg( $icon ) . esc_html( $text ) . '</span>';
 }
 
 /** Imagen destacada de una entrada para las tarjetas (vacío si no tiene). */

@@ -180,9 +180,9 @@ while ( have_posts() ) :
 					<?php endif; ?>
 					<div class="gwf-g-card"><?php $gwf_more(); // 2a. Ficha ampliada. ?></div>
 					<nav class="gwf-g-card gwf-a-quick" aria-label="Ir a"><?php // 3. Botones rápidos. ?>
-						<a href="#pasos">Pasos</a>
-						<?php if ( $gwf_has_print ) : ?><a href="#imprimible">Imprimible</a><?php endif; ?>
-						<?php if ( $gwf_meta( 'gwf_act_porque' ) ) : ?><a href="#que-trabaja">Qué trabaja</a><?php endif; ?>
+						<a href="#pasos"><?php echo gwf_g_svg( 'pasos', 'gwf-g-btn-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Pasos</a>
+						<?php if ( $gwf_has_print ) : ?><a href="#imprimible"><?php echo gwf_g_svg( 'imprimible', 'gwf-g-btn-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Imprimible</a><?php endif; ?>
+						<?php if ( $gwf_meta( 'gwf_act_porque' ) ) : ?><a href="#que-trabaja"><?php echo gwf_g_svg( 'trabaja', 'gwf-g-btn-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Qué trabaja</a><?php endif; ?>
 					</nav>
 				</div>
 			</aside>
@@ -227,9 +227,9 @@ while ( have_posts() ) :
 
 	<?php // 3. Botones rápidos en una barra fija abajo (móvil). ?>
 	<div class="gwf-g-bar gwf-a-bar" aria-label="Ir a">
-		<a href="#pasos">Pasos</a>
-		<?php if ( $gwf_has_print ) : ?><a href="#imprimible">Imprimible</a><?php endif; ?>
-		<?php if ( $gwf_meta( 'gwf_act_porque' ) ) : ?><a href="#que-trabaja">Qué trabaja</a><?php endif; ?>
+		<a href="#pasos"><?php echo gwf_g_svg( 'pasos', 'gwf-g-btn-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Pasos</a>
+		<?php if ( $gwf_has_print ) : ?><a href="#imprimible"><?php echo gwf_g_svg( 'imprimible', 'gwf-g-btn-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Imprimible</a><?php endif; ?>
+		<?php if ( $gwf_meta( 'gwf_act_porque' ) ) : ?><a href="#que-trabaja"><?php echo gwf_g_svg( 'trabaja', 'gwf-g-btn-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Qué trabaja</a><?php endif; ?>
 	</div>
 </main>
 
