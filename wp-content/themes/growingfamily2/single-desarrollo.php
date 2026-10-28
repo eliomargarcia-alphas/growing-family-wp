@@ -63,7 +63,6 @@ while ( have_posts() ) :
 					<p class="gwf-g-byline">
 						<?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 						<?php if ( $gwf_date_html ) : ?> · Actualizado el <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?><?php endif; ?>
-						<span class="gwf-g-byline-read">· <?php echo $gwf_read_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 					</p>
 					<p class="gwf-g-strip">
 						<?php echo esc_html( implode( ' · ', array_filter( array( $gwf_ages, $gwf_tema ? $gwf_tema->name : '' ) ) ) ); ?>
