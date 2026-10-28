@@ -86,10 +86,12 @@ function gwf_act_reviewer( $post_id ) {
 	if ( ! $user ) {
 		return null;
 	}
+	$foto_id = (int) get_user_meta( $user_id, 'gwf_foto', true );
 	return array(
 		'id'     => $user_id,
 		'nombre' => $user->display_name,
 		'cargo'  => (string) get_user_meta( $user_id, 'gwf_cargo', true ),
+		'foto'   => $foto_id ? (string) wp_get_attachment_image_url( $foto_id, 'thumbnail' ) : '',
 		'ficha'  => function_exists( 'gwf_guias_person_url' ) ? gwf_guias_person_url( $user_id ) : '',
 	);
 }

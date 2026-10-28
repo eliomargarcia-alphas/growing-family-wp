@@ -70,7 +70,7 @@ while ( have_posts() ) :
 					<?php // 1. Pregunta de la familia con la edad + línea de autoría. ?>
 					<?php the_title( '<h1 class="gwf-g-title">', '</h1>' ); ?>
 					<p class="gwf-g-byline">
-						<?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						Escrito por <?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 						<?php if ( $gwf_date_html ) : ?> · Actualizado el <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?><?php endif; ?>
 					</p>
 					<?php // Franja compacta con la ficha (solo móvil). ?>

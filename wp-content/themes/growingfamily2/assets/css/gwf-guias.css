@@ -721,8 +721,6 @@ body.single-actividad {
 /* 6, 8 y panel */
 .gwf-a-source { font-size: 0.9375rem; }
 .gwf-a-source a { color: var(--g-blue); }
-.gwf-a-credits p { margin: 0; font-size: 0.9375rem; }
-.gwf-a-credits a { color: #0d6efd; }
 .gwf-a-more-title { font-weight: 600; margin: 0 0 0.4rem; }
 .gwf-a-materials { margin: 0 0 0.75rem; padding-left: 1.2rem; list-style: disc outside; }
 .gwf-a-materials li { list-style: inherit; margin-bottom: 0.2rem; }

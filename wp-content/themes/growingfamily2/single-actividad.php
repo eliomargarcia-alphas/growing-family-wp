@@ -43,7 +43,6 @@ while ( have_posts() ) :
 			$gwf_minutes ? gwf_g_read_html( $gwf_minutes, 'minutos' ) : '',
 		)
 	);
-	$gwf_reviewer_html = $gwf_reviewer ? ( $gwf_reviewer['ficha'] ? '<a href="' . esc_url( $gwf_reviewer['ficha'] ) . '">' . esc_html( $gwf_reviewer['nombre'] ) . '</a>' : esc_html( $gwf_reviewer['nombre'] ) ) : '';
 
 	/** Ficha ampliada: materiales, participantes y lugar (panel lateral y desplegable de móvil). */
 	$gwf_more = function () use ( $gwf_materials, $gwf_meta ) {
@@ -79,7 +78,7 @@ while ( have_posts() ) :
 					<?php the_title( '<h1 class="gwf-g-title">', '</h1>' ); ?>
 					<div class="gwf-a-byline">
 						<p class="gwf-g-byline">
-							<?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+							Escrito por <?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							· Actualizado el <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 						</p>
 					</div>
@@ -177,6 +176,7 @@ while ( have_posts() ) :
 						</div>
 					<?php endif; ?>
 					<div class="gwf-g-card"><?php $gwf_more(); // 2a. Ficha ampliada. ?></div>
+					<?php gwf_g_reviewer_card( $gwf_reviewer ); // Revisor, solo si el tema pidió revisión experta (la autoría ya va bajo el título). ?>
 					<nav class="gwf-g-card gwf-a-quick" aria-label="Ir a"><?php // 3. Botones rápidos. ?>
 						<a href="#pasos"><?php echo gwf_g_svg( 'pasos', 'gwf-g-btn-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Pasos</a>
 						<?php if ( $gwf_has_print ) : ?><a href="#imprimible"><?php echo gwf_g_svg( 'imprimible', 'gwf-g-btn-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Imprimible</a><?php endif; ?>
@@ -192,13 +192,6 @@ while ( have_posts() ) :
 				<h2>Sostenerlo en el tiempo</h2>
 				<p>Esta actividad es un momento compartido; el ritual de cada noche es la forma de sostenerlo.</p>
 				<a class="gwf-g-button" href="<?php echo esc_url( home_url( '/acerca-de/el-metodo/' ) ); ?>">Conoce el método</a>
-			</section>
-
-			<?php // 8. Autoría y fecha. ?>
-			<section class="gwf-g-block gwf-a-credits">
-				<p><strong>Escrito por</strong> <?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-					<?php if ( $gwf_reviewer_html ) : ?> · <strong>Revisado por</strong> <?php echo $gwf_reviewer_html; // phpcs:ignore WordPress.Security.EscapeOutput ?><?php endif; ?>
-					· <strong>Actualizado</strong> <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
 			</section>
 
 			<?php gwf_g_like(); // 10. «¿Te ha gustado este contenido?» con el «me gusta» (ordena los listados), como en las guías. ?>
