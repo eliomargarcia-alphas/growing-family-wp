@@ -766,6 +766,7 @@ body.single-actividad {
 	.gwf-a-print { grid-template-columns: 1fr; gap: 1rem; }
 	.gwf-a-print-preview { max-width: none; }
 	.gwf-a-print-form .gwf-g-button { justify-self: stretch; text-align: center; }
+	.gwf-a-bar a { font-size: 0.875rem; }
 }
 
 /* ==========================================================================
@@ -943,9 +944,10 @@ body.single-actividad {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		gap: 0.4rem;
+		gap: 0.35rem;
+		white-space: nowrap; /* Icono y texto en una sola línea */
 		text-align: center;
-		padding: 0.65rem 0.5rem;
+		padding: 0.65rem 0.35rem;
 		border: 1px solid #c9ccd3;
 		border-radius: 10px;
 		color: var(--g-text);
