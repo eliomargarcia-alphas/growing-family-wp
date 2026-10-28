@@ -80,7 +80,6 @@ while ( have_posts() ) :
 					<div class="gwf-a-byline">
 						<p class="gwf-g-byline">
 							<?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-							<?php if ( $gwf_reviewer_html ) : ?> · Revisado por <?php echo $gwf_reviewer_html; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado arriba. ?><?php endif; ?>
 							· Actualizado el <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 						</p>
 						<?php echo shortcode_exists( 'wp_ulike' ) ? do_shortcode( '[wp_ulike]' ) : ''; ?>

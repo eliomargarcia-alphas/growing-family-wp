@@ -29,7 +29,7 @@ function gwf_g_svg( $icon, $class = 'gwf-g-clock' ) {
 		'imprimible'    => '<path d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" ' . $s . '/><rect x="7" y="14" width="10" height="7" rx="1" ' . $s . '/>',
 		'trabaja'       => '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z" ' . $s . '/>',
 		'indice'        => '<path d="M8 6h13M8 12h13M8 18h13" ' . $s . '/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/>',
-		'consultar'     => '<path d="M6 3v6a4 4 0 0 0 8 0V3M6 3H4M14 3h2M10 13v2a5 5 0 0 0 10 0v-2" ' . $s . '/><circle cx="20" cy="11" r="2" ' . $s . '/>',
+		'consultar'     => '<path d="M3 5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H8l-3.5 3v-3H5a2 2 0 0 1-2-2z" ' . $s . '/><path d="M7.4 6.4a1.7 1.7 0 1 1 2.4 1.6c-.5.2-.8.7-.8 1.2" ' . $s . '/><circle cx="9" cy="11" r=".8" fill="currentColor"/><path d="M15 8h4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-.5v3L15 17h-4a2 2 0 0 1-2-2M12.5 14h5.5M16 11h2" ' . $s . '/>',
 		'enlaces'       => '<path d="M4 19.5V5a2 2 0 0 1 2-2h14v15H6a2 2 0 0 0-2 2zM4 19.5A2 2 0 0 0 6 21h14M9 7h7" ' . $s . '/>',
 	);
 	return '<svg class="' . esc_attr( $class ) . '" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">' . ( $paths[ $icon ] ?? '' ) . '</svg>';

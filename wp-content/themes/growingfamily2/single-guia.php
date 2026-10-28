@@ -71,7 +71,6 @@ while ( have_posts() ) :
 					<?php the_title( '<h1 class="gwf-g-title">', '</h1>' ); ?>
 					<p class="gwf-g-byline">
 						<?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-						<?php if ( $gwf_reviewer_html ) : ?> · Revisado por <?php echo $gwf_reviewer_html; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado arriba. ?><?php endif; ?>
 						<?php if ( $gwf_date_html ) : ?> · Actualizado el <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?><?php endif; ?>
 						<span class="gwf-g-byline-read">· <?php echo $gwf_read_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 					</p>
