@@ -75,14 +75,13 @@ while ( have_posts() ) :
 			<div <?php post_class( 'gwf-g-main' ); ?> id="post-<?php the_ID(); ?>">
 
 				<header class="gwf-g-header">
-					<?php // 1. Título con la edad, autoría, fecha y «me gusta» (10). ?>
+					<?php // 1. Título con la edad, autoría y fecha. ?>
 					<?php the_title( '<h1 class="gwf-g-title">', '</h1>' ); ?>
 					<div class="gwf-a-byline">
 						<p class="gwf-g-byline">
 							<?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							· Actualizado el <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 						</p>
-						<?php echo shortcode_exists( 'wp_ulike' ) ? do_shortcode( '[wp_ulike]' ) : ''; ?>
 					</div>
 
 					<?php // 2. Franja compacta con la ficha (solo móvil); 2a se despliega. ?>
@@ -201,6 +200,8 @@ while ( have_posts() ) :
 					<?php if ( $gwf_reviewer_html ) : ?> · <strong>Revisado por</strong> <?php echo $gwf_reviewer_html; // phpcs:ignore WordPress.Security.EscapeOutput ?><?php endif; ?>
 					· <strong>Actualizado</strong> <?php echo $gwf_date_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
 			</section>
+
+			<?php gwf_g_like(); // 10. «¿Te ha gustado este contenido?» con el «me gusta» (ordena los listados), como en las guías. ?>
 
 			<?php // 9. Enlaces: actividades de la misma edad, el cuento relacionado (con gwf-cuentos) y el pilar de la edad. ?>
 			<nav class="gwf-g-block gwf-g-related" aria-label="Enlaces">
