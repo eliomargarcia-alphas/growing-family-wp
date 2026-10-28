@@ -19,6 +19,16 @@ function gwf_g_read_html( $minutes, $label = 'min de lectura' ) {
 		. (int) $minutes . ' ' . esc_html( $label ) . '</span>';
 }
 
+/** Texto con icono SVG delante (participantes o lugar), con el mismo estilo que el reloj. */
+function gwf_g_icon_html( $icon, $text ) {
+	$paths = array(
+		'participantes' => '<circle cx="9" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="17" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.5 14.1c2.6.3 4.5 2.6 4.5 5.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+		'lugar'         => '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/>',
+	);
+	return '<span class="gwf-g-read gwf-g-icon"><svg class="gwf-g-clock" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">'
+		. ( $paths[ $icon ] ?? '' ) . '</svg>' . esc_html( $text ) . '</span>';
+}
+
 /** Imagen destacada de una entrada para las tarjetas (vacío si no tiene). */
 function gwf_g_card_image( $post_id ) {
 	if ( ! $post_id || ! has_post_thumbnail( $post_id ) ) {

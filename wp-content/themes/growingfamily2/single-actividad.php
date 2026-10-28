@@ -35,11 +35,12 @@ while ( have_posts() ) :
 	$gwf_date_html = gwf_g_date_html( $gwf_updated );
 	$gwf_status    = isset( $_GET['imprimible'] ) ? sanitize_key( wp_unslash( $_GET['imprimible'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 
+	// Ficha (HTML ya escapado): los minutos con el reloj, como el tiempo de lectura de las guías.
 	$gwf_facts = array_filter(
 		array(
-			$gwf_ages ? 'Edad · ' . $gwf_ages : '',
-			$gwf_trabaja ? 'Qué trabaja · ' . ucfirst( $gwf_trabaja_t ) : '',
-			$gwf_minutes ? $gwf_minutes . ' minutos' : '',
+			$gwf_ages ? esc_html( 'Edad · ' . $gwf_ages ) : '',
+			$gwf_trabaja ? esc_html( 'Qué trabaja · ' . ucfirst( $gwf_trabaja_t ) ) : '',
+			$gwf_minutes ? gwf_g_read_html( $gwf_minutes, 'minutos' ) : '',
 		)
 	);
 	$gwf_reviewer_html = $gwf_reviewer ? ( $gwf_reviewer['ficha'] ? '<a href="' . esc_url( $gwf_reviewer['ficha'] ) . '">' . esc_html( $gwf_reviewer['nombre'] ) . '</a>' : esc_html( $gwf_reviewer['nombre'] ) ) : '';
@@ -55,10 +56,10 @@ while ( have_posts() ) :
 		}
 		echo '<ul class="gwf-g-facts">';
 		if ( $gwf_meta( 'gwf_act_participantes' ) ) {
-			echo '<li>Participantes · ' . esc_html( $gwf_meta( 'gwf_act_participantes' ) ) . '</li>';
+			echo '<li>' . gwf_g_icon_html( 'participantes', 'Participantes · ' . $gwf_meta( 'gwf_act_participantes' ) ) . '</li>'; // phpcs:ignore WordPress.Security.EscapeOutput -- escapa gwf_g_icon_html.
 		}
 		if ( $gwf_meta( 'gwf_act_lugar' ) ) {
-			echo '<li>Lugar · ' . esc_html( $gwf_meta( 'gwf_act_lugar' ) ) . '</li>';
+			echo '<li>' . gwf_g_icon_html( 'lugar', 'Lugar · ' . $gwf_meta( 'gwf_act_lugar' ) ) . '</li>'; // phpcs:ignore WordPress.Security.EscapeOutput -- escapa gwf_g_icon_html.
 		}
 		echo '</ul>';
 	};
@@ -87,7 +88,10 @@ while ( have_posts() ) :
 
 					<?php // 2. Franja compacta con la ficha (solo móvil); 2a se despliega. ?>
 					<div class="gwf-a-strip">
-						<p><?php echo esc_html( implode( ' · ', array_filter( array( $gwf_ages, ucfirst( $gwf_trabaja_t ), $gwf_minutes ? $gwf_minutes . ' min' : '' ) ) ) ); ?></p>
+						<p>
+							<?php echo esc_html( implode( ' · ', array_filter( array( $gwf_ages, ucfirst( $gwf_trabaja_t ) ) ) ) ); ?>
+							<?php if ( $gwf_minutes ) : ?> · <?php echo gwf_g_read_html( $gwf_minutes, 'min' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php endif; ?>
+						</p>
 						<details>
 							<summary>Materiales, participantes y lugar</summary>
 							<?php $gwf_more(); ?>
@@ -171,7 +175,7 @@ while ( have_posts() ) :
 					<?php if ( $gwf_facts ) : // 2. Ficha. ?>
 						<div class="gwf-g-card">
 							<p class="gwf-g-card-title">Ficha</p>
-							<ul class="gwf-g-facts"><?php foreach ( $gwf_facts as $gwf_f ) : ?><li><?php echo esc_html( $gwf_f ); ?></li><?php endforeach; ?></ul>
+							<ul class="gwf-g-facts"><?php foreach ( $gwf_facts as $gwf_f ) : ?><li><?php echo $gwf_f; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado al construir la ficha. ?></li><?php endforeach; ?></ul>
 						</div>
 					<?php endif; ?>
 					<div class="gwf-g-card"><?php $gwf_more(); // 2a. Ficha ampliada. ?></div>

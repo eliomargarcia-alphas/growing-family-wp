@@ -408,6 +408,9 @@ body.single-actividad {
 /* Tiempo de lectura con icono de reloj */
 .gwf-g-read { display: inline-flex; align-items: center; gap: 0.35rem; white-space: nowrap; }
 .gwf-g-clock { flex: 0 0 auto; color: var(--g-blue); }
+/* Participantes y lugar: el texto puede ocupar dos líneas; el icono queda arriba */
+.gwf-g-icon { white-space: normal; align-items: flex-start; }
+.gwf-g-icon .gwf-g-clock { margin-top: 0.2em; }
 
 /* La barra flotante de AddToAny no forma parte de la guía (en las páginas ya la oculta el CSS personalizado) */
 .single-guia .a2a_floating_style,
