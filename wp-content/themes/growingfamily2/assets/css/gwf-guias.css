@@ -25,7 +25,9 @@ body.single-guia,
 html:has(body.single-desarrollo),
 body.single-desarrollo,
 html:has(body.single-actividad),
-body.single-actividad {
+body.single-actividad,
+html:has(body.single-post),
+body.single-post {
 	overflow-x: clip;
 	overflow-y: visible;
 }
@@ -203,6 +205,7 @@ body.single-actividad {
 }
 .gwf-g-facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
 .gwf-g-facts li { background: var(--g-blue-bg); border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.9375rem; }
+.gwf-g-facts a { color: var(--g-blue); }
 
 .gwf-g-reviewer { display: flex; gap: 0.75rem; align-items: center; }
 .gwf-g-reviewer img,
@@ -417,7 +420,8 @@ body.single-actividad {
 /* La barra flotante de AddToAny no forma parte de la guía (en las páginas ya la oculta el CSS personalizado) */
 .single-guia .a2a_floating_style,
 .single-desarrollo .a2a_floating_style,
-.single-actividad .a2a_floating_style { display: none !important; }
+.single-actividad .a2a_floating_style,
+.single-post .a2a_floating_style { display: none !important; }
 
 /* ==========================================================================
    Ficha del equipo: /equipo/<persona>/ (template-parts/gwf-persona.php, wireframe «plantilla-revisor»)

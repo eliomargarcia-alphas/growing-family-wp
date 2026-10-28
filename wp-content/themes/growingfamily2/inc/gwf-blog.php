@@ -193,15 +193,30 @@ function gwf_post_bridge() {
 	if ( ! $guia_url && ! $metodo ) {
 		return;
 	}
-	echo '<aside class="gwf-puente resumen-post p-4 border-radius-24 box-shadow-820 mt-5">';
+	// Mismo bloque que el puente de las guías y las actividades (.gwf-g-bridge, que también mide GA4).
+	echo '<aside class="gwf-g-block gwf-g-bridge gwf-puente">';
 	if ( $guia_url ) {
-		echo '<p class="font-size-20 color-barium">Si quieres profundizar: <a href="' . esc_url( $guia_url ) . '">' . esc_html( $guia_texto ? $guia_texto : 'lee la guía completa' ) . '</a>.</p>';
+		echo '<p>Si quieres profundizar: <a href="' . esc_url( $guia_url ) . '">' . esc_html( $guia_texto ? $guia_texto : 'lee la guía completa' ) . '</a>.</p>';
 	}
 	if ( $metodo ) {
-		echo '<p class="font-size-20 color-barium mb-0">Esto es lo que trabaja <a href="' . esc_url( home_url( '/acerca-de/el-metodo/' ) ) . '">el método Growing Family</a>, diez minutos cada noche.</p>';
+		echo '<p>Esto es lo que trabaja el método Growing Family, diez minutos cada noche.</p>';
+		echo '<a class="gwf-g-button" href="' . esc_url( home_url( '/acerca-de/el-metodo/' ) ) . '">Conoce el método</a>';
 	}
 	echo '</aside>';
 }
+
+/**
+ * Todas las entradas usan single-post.php (diseño de guías y actividades), aunque tengan asignada una plantilla
+ * antigua (Tipo carta, Cómo me siento, Etapas del desarrollo, Tipos de familia, Artículos fundamentales…).
+ */
+function gwf_post_single_template( $template ) {
+	if ( is_singular( 'post' ) ) {
+		$single = locate_template( 'single-post.php' );
+		return $single ? $single : $template;
+	}
+	return $template;
+}
+add_filter( 'template_include', 'gwf_post_single_template', 20 );
 
 /*
  * Imágenes WebP de las entradas: si junto a una imagen de uploads existe "<archivo>.webp"
