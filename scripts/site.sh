@@ -78,6 +78,17 @@ cmd_deploy() {
     tmp_remote="$(mktemp -d)"; tmp_last="$(mktemp -d)"
     fetch_remote "$tmp_remote"
     git archive "$last_deployed" $(git ls-tree --name-only "$last_deployed" -- "${PATHS[@]}") | tar xf - -C "$tmp_last"
+    # Carpeta nueva (p. ej. un plugin) que no estaba en el último deploy: si en el servidor ya es idéntica a HEAD
+    # (se copió a mano para activarla), no cuenta como cambio fuera de git.
+    local p tmp_new
+    for p in "${PATHS[@]}"; do
+      if [ -z "$(git ls-tree --name-only "$last_deployed" -- "$p")" ] && [ -e "$tmp_remote/$p" ]; then
+        tmp_new="$(mktemp -d)"
+        git archive HEAD "$p" | tar xf - -C "$tmp_new"
+        diff -rq "$tmp_new/$p" "$tmp_remote/$p" >/dev/null && rm -rf "$tmp_remote/$p"
+        rm -rf "$tmp_new"
+      fi
+    done
     if ! diff -rq -x node_modules -x "twentytwenty-*.min.css" -x "gwf-guias.min.css" "$tmp_last" "$tmp_remote"; then
       rm -rf "$tmp_remote" "$tmp_last"
       echo "ERROR: alguien cambió archivos en producción desde el último deploy ($last_deployed)." >&2
