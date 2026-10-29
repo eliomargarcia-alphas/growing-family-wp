@@ -98,7 +98,7 @@ get_header();
                 <div class="grid-2-how reveal-item">
                     <!-- Selector de Pasos (Izquierda) -->
                     <div class="how-steps" id="steps-container">
-                        <div class="step-item active" data-step="1" data-img="https://growing.family/wp-content/uploads/2026/09/3_Func_P1-opt.webp">
+                        <div class="step-item active" data-step="1" data-img="https://growing.family/wp-content/uploads/2026/09/3_Func_P1-opt.webp?v=2">
                             <div class="step-header">
                                 <span class="step-num">1</span>
                                 <h3 class="step-title">Apagar el ruido del mundo</h3>
@@ -112,7 +112,7 @@ get_header();
                                 </p>
                                 <div class="step-mobile-card">
                                     <div class="how-card-img-wrapper">
-                                        <img src="https://growing.family/wp-content/uploads/2026/09/3_Func_P1-opt.webp" alt="Mockup paso 1" class="how-card-img" width="488" height="608" loading="lazy" decoding="async">
+                                        <img src="https://growing.family/wp-content/uploads/2026/09/3_Func_P1-opt.webp?v=2" alt="Mockup paso 1" class="how-card-img" width="488" height="608" loading="lazy" decoding="async">
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@ get_header();
                             </div>
                         </div>
 
-                        <div class="step-item" data-step="5" data-img="https://growing.family/wp-content/uploads/2026/09/3_Func_P5-opt.webp">
+                        <div class="step-item" data-step="5" data-img="https://growing.family/wp-content/uploads/2026/09/3_Func_P5-opt.webp?v=2">
                             <div class="step-header">
                                 <span class="step-num">4</span>
                                 <h3 class="step-title">Mirar cómo crece</h3>
@@ -172,7 +172,7 @@ get_header();
                                 </p>
                                 <div class="step-mobile-card">
                                     <div class="how-card-img-wrapper">
-                                        <img src="https://growing.family/wp-content/uploads/2026/09/3_Func_P5-opt.webp" alt="Mockup paso 5" class="how-card-img" width="488" height="608" loading="lazy" decoding="async">
+                                        <img src="https://growing.family/wp-content/uploads/2026/09/3_Func_P5-opt.webp?v=2" alt="Mockup paso 5" class="how-card-img" width="488" height="608" loading="lazy" decoding="async">
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +191,7 @@ get_header();
                                 Juntos realizan un <b>Ritual de Inicio</b> para soltar la prisa y las distracciones del día, lo que les permite reencontrarse y llegar presentes a la historia.
                             </p>
                             <div class="how-card-img-wrapper">
-                                <img id="how-desktop-mockup" src="https://growing.family/wp-content/uploads/2026/09/3_Func_P1-opt.webp" alt="Mockup de la aplicación" class="how-card-img" width="488" height="608" loading="lazy" decoding="async">
+                                <img id="how-desktop-mockup" src="https://growing.family/wp-content/uploads/2026/09/3_Func_P1-opt.webp?v=2" alt="Mockup de la aplicación" class="how-card-img" width="488" height="608" loading="lazy" decoding="async">
                             </div>
                         </div>
                     </div>
@@ -355,7 +355,7 @@ get_header();
                     </div>
                 </div>
                 <div class="focus-image-wrapper reveal-item order-1 order-md-2">
-                    <img class="transition-smooth w-100" src="https://growing.family/wp-content/uploads/2026/09/imagen-felicidad-5-opt.webp" alt="Momentos que definen el crecimiento del hijo" width="678" height="820" loading="lazy" decoding="async">
+                    <img class="transition-smooth w-100" src="https://growing.family/wp-content/uploads/2026/09/imagen-felicidad-5-opt.webp?v=2" alt="Momentos que definen el crecimiento del hijo" width="678" height="820" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
@@ -405,7 +405,7 @@ get_header();
                     </div>
                 </div>
                 <div class="focus-image-wrapper reveal-item order-1 order-md-2">
-                    <img class="transition-smooth" src="https://growing.family/wp-content/uploads/2026/09/imagen-screens-opt.webp" alt="Screens de app" width="588" height="581" loading="lazy" decoding="async">
+                    <img class="transition-smooth" src="https://growing.family/wp-content/uploads/2026/09/imagen-screens-opt.webp?v=2" alt="Screens de app" width="588" height="581" loading="lazy" decoding="async">
                 </div>
             </div>
         </section> 
@@ -543,7 +543,7 @@ get_header();
                     </div>
                 </div>
                 <div class="focus-image-wrapper reveal-item order-1 order-md-2">
-                    <img class="transition-smooth" src="https://growing.family/wp-content/uploads/2026/09/padres-hogar-2-opt.webp" alt="Familia en la sala del hogar" width="449" height="406" loading="lazy" decoding="async">
+                    <img class="transition-smooth" src="https://growing.family/wp-content/uploads/2026/09/padres-hogar-2-opt.webp?v=2" alt="Familia en la sala del hogar" width="449" height="406" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
