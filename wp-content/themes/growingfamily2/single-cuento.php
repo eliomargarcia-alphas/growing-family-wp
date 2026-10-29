@@ -105,9 +105,9 @@ while ( have_posts() ) :
 
 					<div id="leer" class="gwf-cuento" data-total="<?php echo (int) $gwf_total; ?>">
 						<?php foreach ( $gwf_pages as $gwf_i => $gwf_page ) : ?>
-							<section class="gwf-cue-page" id="pagina-<?php echo (int) $gwf_i + 1; ?>" aria-label="<?php echo esc_attr( 'Página ' . ( $gwf_i + 1 ) . ' de ' . $gwf_total ); ?>">
+							<div class="gwf-cue-page" id="pagina-<?php echo (int) $gwf_i + 1; ?>" role="group" aria-label="<?php echo esc_attr( 'Página ' . ( $gwf_i + 1 ) . ' de ' . $gwf_total ); ?>">
 								<?php echo $gwf_page; // phpcs:ignore WordPress.Security.EscapeOutput -- bloques renderizados por WordPress. ?>
-							</section>
+							</div>
 						<?php endforeach; ?>
 					</div>
 					<p class="gwf-cue-pageinfo">Página 1 de <?php echo (int) $gwf_total; ?></p>

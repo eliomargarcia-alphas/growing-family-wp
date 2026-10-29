@@ -806,7 +806,7 @@ body.single-cuento {
 .gwf-cue-start { background: var(--g-soft); }
 .gwf-cue-summary { font-size: 1.0625rem; }
 .gwf-cuento { font-family: var(--cue-serif); font-size: 1.3rem; line-height: 1.6; color: var(--color-dark, #0a0e16); }
-.gwf-cuento p { margin: 0 0 0.8em; }
+.gwf-guia .gwf-cuento p { margin: 0 0 0.8em; font-size: inherit; line-height: inherit; }
 .gwf-cuento figure { margin: 0 0 1rem; }
 .gwf-cuento img { display: block; width: 100%; height: auto; border-radius: 10px; }
 .gwf-cue-page + .gwf-cue-page { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--g-line); }
@@ -815,7 +815,7 @@ body.single-cuento {
 .gwf-cue-js .gwf-cue-pageinfo { display: block; }
 
 /* Notas de lectura: pregunta para la niña o el niño, y tono con su icono */
-.gwf-cuento .is-style-gwf-pregunta {
+.gwf-guia .gwf-cuento .is-style-gwf-pregunta {
 	padding: 0.4rem 0 0.4rem 1rem;
 	border-left: 4px solid var(--g-blue);
 	font-family: var(--g-font, inherit);
@@ -833,7 +833,8 @@ body.single-cuento {
 
 /* Comenzar el cuento y ¿Cómo contarlo? */
 .gwf-cue-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin: 0 0 1.5rem; }
-.gwf-cue-start-btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 1.6rem; font-size: 1.15rem; }
+.gwf-cue-start-btn { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 0; padding: 0.9rem 1.6rem; font-size: 1.15rem; background: var(--g-blue); border-color: var(--g-blue); color: #fff; }
+.gwf-cue-start-btn:hover { background: #003aaf; color: #fff; }
 .gwf-cue-play { width: 18px; height: 18px; }
 .gwf-cue-howto-link { color: var(--g-blue); text-decoration: underline; }
 
