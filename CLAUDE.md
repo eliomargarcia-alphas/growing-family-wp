@@ -8,6 +8,19 @@ Producción en vivo: actuar con cuidado. Responder al usuario en español.
   (doc `778038ac-1872-4a33-b3b9-04e612dafd60`, cuerpo `d304cabf-885e`; se edita con el conector de Docs, no por web).
   Al terminar algo, marcarlo hecho ahí; si surge un pendiente nuevo, añadirlo como tarea en su sección.
 
+## Antes de cualquier cambio: revisar git (varias sesiones trabajan a la vez)
+Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 y producción. Antes de editar o desplegar:
+1. `git pull` y `git status`: partir siempre del último `origin/main` y sin cambios ajenos a medias.
+2. Ver qué tiene cada entorno: `ssh siteground 'cat ~/backups/deploys/LAST_DEPLOYED ~/backups/deploys-staging3/LAST_DEPLOYED'`
+   y `git log --oneline <commit>..origin/main` para saber cuánto va cada uno por detrás.
+3. `scripts/site.sh diff` (y `TARGET=staging3 scripts/site.sh diff`): detectar cambios hechos fuera de git.
+   Ojo: `diff` compara con HEAD; si producción va atrasada, comparar con su `LAST_DEPLOYED` para saber si hay cambios ajenos.
+4. **Producción puede ir muy por detrás de staging3.** Nunca desplegar `main` a producción sin que el usuario lo pida:
+   arrastraría todo lo que solo estaba aprobado para staging3. Un arreglo urgente en producción se hace en una rama
+   creada desde su `LAST_DEPLOYED` (git worktree), se despliega desde ahí y después se lleva a `main` con cherry-pick
+   (ejemplo: rama `hotfix/prod-imagenes-v2`, 2026-10-29).
+5. Si otra sesión dejó cambios sin commitear o el `diff` muestra algo inesperado: parar y preguntar, no sobrescribir.
+
 ## Qué hay en el repo
 - `wp-content/themes/growingfamily2` — tema activo "Growing Family 2.0" (basado en Twenty Twenty).
 - `wp-content/plugins/gwf-*` — 3 bloques propios.
