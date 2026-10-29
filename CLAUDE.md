@@ -161,6 +161,18 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   WordPress envía el correo con el enlace firmado `?gwf_imprimible=<id>&k=<firma>`, que sirve el PDF con `X-Robots-Tag: noindex`.
 - GA4: `gwf_imprimible_envio` (con `compromiso`). Schema: Article sin HowTo. Prueba en staging3: actividad 2328 y PDF 2327, todo «[PRUEBA]».
 
+## Cuentos (plugin gwf-cuentos) — en construcción, activo solo en staging3 (desde 2026-10-29)
+- Plan: «Plan de implementación de cuentos en WordPress — Recorrido enfocado» (docx en la carpeta GWF; wireframes `wireframes/cuento-enfocado-*`).
+  Etapa 1 hecha: tipo `cuento` (`/cuentos/<slug>/`, editor de bloques), taxonomías Edad (compartida), `emocion`, `situacion`, `para_contar`
+  (`/cuentos/emocion/x/`…), campos ACF, Cuentos → Ajustes (recomendaciones del espacio, «Cómo contarlo» por defecto, puente).
+- Sin ACF PRO: cada página del cuento = bloques entre dos «Salto de página» (`gwf_cue_pages()`); notas de lectura = estilos de párrafo
+  `is-style-gwf-pregunta` y `is-style-gwf-tono-{alegre,sorpresa,susurro,grito,triste}`; imágenes `is-style-gwf-solo-ana` / `-solo-max`
+  (sin estilo = para los dos). Los estilos se registran en JS solo en el editor de cuentos. Fuentes «Título | Organismo | URL» por líneas.
+- `{Ana|Max}` / `{asustada|asustado}`: `gwf_cue_variants()` deja la versión del protagonista por defecto y las dos en `data-ana`/`data-max`
+  (solo en el texto visible; en atributos queda la de por defecto). Minutos: campo o palabras / 90.
+- Prueba en staging3: cuentos 2343 (celos, Ana, 4 páginas con notas, tonos e imágenes por protagonista) y 2344 (miedo, Max, 3 páginas).
+- `site.sh`: una carpeta nueva copiada a mano al servidor e idéntica a HEAD ya no bloquea el deploy (primer deploy de un plugin).
+
 ## Diseño
 - Paleta: solo los azules de la marca (`--color-navy`, azul claro `#eaf2fd`, `--color-sky*`). **Nada de naranja ni beige**: en los
   wireframes el naranja solo resaltaba cosas del boceto.
