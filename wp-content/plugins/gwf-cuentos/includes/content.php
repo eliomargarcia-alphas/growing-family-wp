@@ -139,3 +139,66 @@ function gwf_cue_plain_variants( $text, $post = null ) {
 }
 add_filter( 'get_the_excerpt', 'gwf_cue_plain_variants', 20, 2 );
 add_filter( 'the_title', 'gwf_cue_plain_variants', 20, 2 );
+
+/** Términos de una taxonomía del cuento, el principal de Yoast primero. */
+function gwf_cue_terms( $post_id, $taxonomy ) {
+	$terms = get_the_terms( $post_id, $taxonomy );
+	if ( ! $terms || is_wp_error( $terms ) ) {
+		return array();
+	}
+	$primary = function_exists( 'yoast_get_primary_term_id' ) ? (int) yoast_get_primary_term_id( $taxonomy, $post_id ) : 0;
+	usort(
+		$terms,
+		function ( $a, $b ) use ( $primary ) {
+			return ( $b->term_id === $primary ) <=> ( $a->term_id === $primary ) ?: strnatcmp( $a->slug, $b->slug );
+		}
+	);
+	return $terms;
+}
+
+/** Otro cuento para seguir: de la misma emoción o, si no hay, de la misma edad. */
+function gwf_cue_sibling( $post_id ) {
+	foreach ( array( 'emocion', 'edad' ) as $taxonomy ) {
+		$ids = wp_get_post_terms( $post_id, $taxonomy, array( 'fields' => 'ids' ) );
+		if ( ! $ids || is_wp_error( $ids ) ) {
+			continue;
+		}
+		$found = get_posts( array( 'post_type' => 'cuento', 'post_status' => 'publish', 'posts_per_page' => 1, 'post__not_in' => array( $post_id ), 'fields' => 'ids', 'orderby' => 'rand', 'tax_query' => array( array( 'taxonomy' => $taxonomy, 'terms' => $ids ) ) ) ); // phpcs:ignore WordPress.DB.SlowDBQuery
+		if ( $found ) {
+			return (int) $found[0];
+		}
+	}
+	return 0;
+}
+
+/** Guía y pilar enlazados (solo si están publicados). */
+function gwf_cue_linked( $post_id, $field ) {
+	$id = (int) get_post_meta( $post_id, $field, true );
+	return ( $id && 'publish' === get_post_status( $id ) ) ? $id : 0;
+}
+
+/** Revisor (solo si el cuento requiere firma), con el formato de la tarjeta «Revisado por» de las guías. */
+function gwf_cue_reviewer( $post_id ) {
+	if ( ! get_post_meta( $post_id, 'gwf_cue_requiere_firma', true ) ) {
+		return null;
+	}
+	$user_id = (int) get_post_meta( $post_id, 'gwf_cue_revisado_por', true );
+	$user    = $user_id ? get_userdata( $user_id ) : false;
+	if ( ! $user ) {
+		return null;
+	}
+	$foto_id = (int) get_user_meta( $user_id, 'gwf_foto', true );
+	return array(
+		'id'     => $user_id,
+		'nombre' => $user->display_name,
+		'cargo'  => (string) get_user_meta( $user_id, 'gwf_cargo', true ),
+		'foto'   => $foto_id ? (string) wp_get_attachment_image_url( $foto_id, 'thumbnail' ) : '',
+		'ficha'  => function_exists( 'gwf_guias_person_url' ) ? gwf_guias_person_url( $user_id ) : '',
+	);
+}
+
+/** Fecha visible: la de revisión si la hay; si no, la de modificación. */
+function gwf_cue_updated_time( $post_id ) {
+	$ymd = (string) get_post_meta( $post_id, 'gwf_cue_fecha_revision', true );
+	return preg_match( '/^\d{8}$/', $ymd ) ? strtotime( $ymd ) : (int) get_post_modified_time( 'U', false, $post_id );
+}

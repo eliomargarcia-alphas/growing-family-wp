@@ -27,7 +27,9 @@ body.single-desarrollo,
 html:has(body.single-actividad),
 body.single-actividad,
 html:has(body.single-post),
-body.single-post {
+body.single-post,
+html:has(body.single-cuento),
+body.single-cuento {
 	overflow-x: clip;
 	overflow-y: visible;
 }
@@ -421,7 +423,8 @@ body.single-post {
 .single-guia .a2a_floating_style,
 .single-desarrollo .a2a_floating_style,
 .single-actividad .a2a_floating_style,
-.single-post .a2a_floating_style { display: none !important; }
+.single-post .a2a_floating_style,
+.single-cuento .a2a_floating_style { display: none !important; }
 
 /* ==========================================================================
    Ficha del equipo: /equipo/<persona>/ (template-parts/gwf-persona.php, wireframe «plantilla-revisor»)
@@ -769,6 +772,110 @@ body.single-post {
 	.gwf-a-print-preview { max-width: none; }
 	.gwf-a-print-form .gwf-g-button { justify-self: stretch; text-align: center; }
 	.gwf-a-bar a { font-size: 0.875rem; }
+}
+
+/* ==========================================================================
+   Cuento: página del cuento (single-cuento.php, plugin gwf-cuentos, wireframes cuento-enfocado-v1-pagina-*).
+   Usa la rejilla, el panel lateral y la barra de móvil de las guías (.gwf-g-*) y la portada de las actividades.
+   ========================================================================== */
+.gwf-cuento-page { --cue-serif: Georgia, "Times New Roman", serif; }
+
+/* Selector Ana / Max */
+.gwf-cue-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.gwf-cue-prota {
+	padding: 0.6rem 0.75rem;
+	border: 1px solid #c9ccd3;
+	border-radius: 10px;
+	background: #fff;
+	color: var(--g-text);
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+.gwf-cue-prota[aria-pressed="true"] { border: 2px solid var(--g-blue); background: var(--g-blue-bg); color: var(--g-blue); }
+.gwf-cue-strip { display: none; }
+
+/* Portada e ilustraciones por protagonista: solo se ve la del protagonista elegido */
+.gwf-cue-cover img { display: block; }
+.gwf-cuento-page[data-prota="ana"] .gwf-cue-for-max,
+.gwf-cuento-page[data-prota="max"] .gwf-cue-for-ana,
+.gwf-cuento-page[data-prota="ana"] .is-style-gwf-solo-max,
+.gwf-cuento-page[data-prota="max"] .is-style-gwf-solo-ana { display: none; }
+
+/* Así empieza: resumen y primera página (con JS, las demás páginas quedan para el modo lectura) */
+.gwf-cue-start { background: var(--g-soft); }
+.gwf-cue-summary { font-size: 1.0625rem; }
+.gwf-cuento { font-family: var(--cue-serif); font-size: 1.3rem; line-height: 1.6; color: var(--color-dark, #0a0e16); }
+.gwf-cuento p { margin: 0 0 0.8em; }
+.gwf-cuento figure { margin: 0 0 1rem; }
+.gwf-cuento img { display: block; width: 100%; height: auto; border-radius: 10px; }
+.gwf-cue-page + .gwf-cue-page { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--g-line); }
+.gwf-cue-js .gwf-cue-page + .gwf-cue-page { display: none; }
+.gwf-cue-pageinfo { display: none; margin: 0.5rem 0 0; font-size: 0.8125rem; color: var(--g-muted); }
+.gwf-cue-js .gwf-cue-pageinfo { display: block; }
+
+/* Notas de lectura: pregunta para la niña o el niño, y tono con su icono */
+.gwf-cuento .is-style-gwf-pregunta {
+	padding: 0.4rem 0 0.4rem 1rem;
+	border-left: 4px solid var(--g-blue);
+	font-family: var(--g-font, inherit);
+	font-size: 1.0625rem;
+	color: var(--g-blue);
+}
+.gwf-note-label { display: block; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--g-blue); opacity: 0.8; }
+.gwf-tone { display: inline-flex; align-items: center; justify-content: center; width: 1.8rem; height: 1.8rem; margin-right: 0.45rem; border-radius: 50%; background: var(--g-blue-bg); font-size: 1rem; vertical-align: 0.15em; }
+.gwf-tone::before { content: ""; width: 1.05rem; height: 1.05rem; background: var(--g-blue); -webkit-mask: var(--gwf-tone) center / contain no-repeat; mask: var(--gwf-tone) center / contain no-repeat; }
+.gwf-tone-alegre { --gwf-tone: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Ccircle cx="12" cy="12" r="9"/%3E%3Ccircle cx="9" cy="10" r=".6"/%3E%3Ccircle cx="15" cy="10" r=".6"/%3E%3Cpath d="M8.5 14.5a4 4 0 0 0 7 0"/%3E%3C/svg%3E'); }
+.gwf-tone-triste { --gwf-tone: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Ccircle cx="12" cy="12" r="9"/%3E%3Ccircle cx="9" cy="10" r=".6"/%3E%3Ccircle cx="15" cy="10" r=".6"/%3E%3Cpath d="M8.5 16.5a4 4 0 0 1 7 0"/%3E%3C/svg%3E'); }
+.gwf-tone-sorpresa { --gwf-tone: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Ccircle cx="12" cy="12" r="9"/%3E%3Ccircle cx="9" cy="10" r=".6"/%3E%3Ccircle cx="15" cy="10" r=".6"/%3E%3Ccircle cx="12" cy="15.5" r="1.8"/%3E%3C/svg%3E'); }
+.gwf-tone-susurro { --gwf-tone: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Ccircle cx="12" cy="12" r="9"/%3E%3Ccircle cx="9" cy="10" r=".6"/%3E%3Ccircle cx="15" cy="10" r=".6"/%3E%3Cpath d="M10 15.5h4M17 13v6"/%3E%3C/svg%3E'); }
+.gwf-tone-grito { --gwf-tone: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M3 10v4h3l7 4V6L6 10H3zM16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/%3E%3C/svg%3E'); }
+
+/* Comenzar el cuento y ¿Cómo contarlo? */
+.gwf-cue-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin: 0 0 1.5rem; }
+.gwf-cue-start-btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 1.6rem; font-size: 1.15rem; }
+.gwf-cue-play { width: 18px; height: 18px; }
+.gwf-cue-howto-link { color: var(--g-blue); text-decoration: underline; }
+
+/* Cómo contarlo: sin JS se ve al pulsar el enlace (:target); con JS será la pantalla «Antes de empezar» */
+.gwf-cue-howto { display: none; scroll-margin-top: 100px; }
+.gwf-cue-howto:target { display: block; }
+.gwf-cue-space { margin: 0; padding-left: 1.2rem; list-style: disc outside; }
+.gwf-cue-space li { list-style: inherit; margin-bottom: 0.3rem; }
+
+/* Botones rápidos: el primero, relleno */
+.gwf-a-quick .is-primary,
+.gwf-g-bar .is-primary { background: var(--g-blue); border-color: var(--g-blue); color: #fff; }
+.gwf-a-quick .is-primary .gwf-g-btn-icon,
+.gwf-g-bar .is-primary .gwf-g-btn-icon { color: #fff; }
+
+.gwf-cue-sources { margin: 0; padding-left: 1.2rem; list-style: disc outside; font-size: 0.9375rem; }
+.gwf-cue-sources li { list-style: inherit; }
+.gwf-cue-sources a { color: var(--g-blue); }
+#leer,
+#que-trabaja { scroll-margin-top: 100px; }
+
+@media (max-width: 1024px) {
+	.gwf-cue-strip {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		align-items: center;
+		gap: 0.75rem;
+		margin: 1rem 0 0;
+		padding: 0.6rem 0.75rem;
+		background: var(--g-blue-bg);
+		border: 1px solid var(--g-line);
+		border-radius: 10px;
+		font-size: 0.875rem;
+	}
+	.gwf-cue-strip p { margin: 0; }
+	.gwf-cue-strip .gwf-cue-prota { padding: 0.45rem 0.8rem; }
+	.gwf-cuento { font-size: 1.2rem; }
+	.gwf-cue-actions { flex-direction: column; align-items: stretch; text-align: center; }
+	.gwf-cue-start-btn { justify-content: center; }
+}
+@media (max-width: 420px) {
+	.gwf-cue-strip { grid-template-columns: 1fr; }
 }
 
 /* ==========================================================================
