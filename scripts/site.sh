@@ -24,6 +24,7 @@ PATHS=(
   wp-content/plugins/gwf-bloque-linea-izquierda
   wp-content/plugins/gwf-guias
   wp-content/plugins/gwf-actividades
+  wp-content/plugins/gwf-cuentos
 )
 
 ROOT="$(git -C "$(dirname "$0")" rev-parse --show-toplevel)"
