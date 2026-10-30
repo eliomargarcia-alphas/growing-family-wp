@@ -967,6 +967,23 @@ body.single-cuento {
 	.gwf-cue-reader .gwf-cuento { justify-content: flex-start; }
 }
 
+/* Etapa 6 · Modo nocturno (wireframe cuento-enfocado-v3-lectura-movil-noche): solo en la lectura y la pantalla final.
+   Fondo casi negro azulado (nunca negro puro), texto claro sin llegar a blanco, azules apagados e ilustraciones al 80 %. */
+.gwf-cue-reader.is-night {
+	--r-bg: #15181e;
+	--r-text: #e6e9ef;
+	--r-muted: #9aa3b4;
+	--r-line: #323946;
+	--r-accent: #3d6ea5;
+}
+.gwf-cue-reader.is-night::backdrop { background: #15181e; }
+.gwf-cue-reader.is-night .gwf-cuento img { filter: brightness(0.8); }
+.gwf-guia .gwf-cue-reader.is-night .gwf-cuento .is-style-gwf-pregunta { border-left-color: #6f97c8; color: #a9c4e6; }
+.gwf-cue-reader.is-night .gwf-note-label { color: #8fb0da; }
+.gwf-cue-reader.is-night .gwf-tone { background: #263246; }
+.gwf-cue-reader.is-night .gwf-tone::before { background: #a9c4e6; }
+.gwf-cue-reader .gwf-cue-r-night[aria-pressed="true"] { background: #263246; border-color: #6f97c8; color: #cfe0f5; }
+
 /* Botones rápidos: el primero, relleno */
 .gwf-a-quick .is-primary,
 .gwf-g-bar .is-primary { background: var(--g-blue); border-color: var(--g-blue); color: #fff; }

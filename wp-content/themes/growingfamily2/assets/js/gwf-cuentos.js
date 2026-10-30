@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Cuento (single-cuento.php): selector Ana / Max, «Antes de empezar» y modo lectura. Se carga con defer solo en los
-   cuentos. Las etapas siguientes añaden aquí el modo nocturno y la pantalla final.
+   Cuento (single-cuento.php): selector Ana / Max, «Antes de empezar», modo lectura y modo nocturno. Se carga con defer
+   solo en los cuentos. La etapa 7 añade aquí la pantalla final.
    ========================================================================== */
 
 (function () {
@@ -65,6 +65,37 @@
 	var homeNext = story ? story.nextSibling : null;
 	var canReader = !!reader && typeof reader.showModal === 'function' && total > 0;
 
+	/* Modo nocturno: la luna lo activa y la elección queda guardada para los siguientes cuentos. Sin elección guardada,
+	   se propone solo si el dispositivo está en modo oscuro (a cualquier hora). */
+	var NIGHT = 'gwf_cuento_noche';
+	var nightBtn = reader ? reader.querySelector('[data-gwf-cue="noche"]') : null;
+
+	function setNight(on) {
+		reader.classList.toggle('is-night', on);
+		nightBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+	}
+
+	function initialNight() {
+		var saved = null;
+		try { saved = localStorage.getItem(NIGHT); } catch (e) { /* sin almacenamiento */ }
+		if (saved === '1' || saved === '0') return saved === '1';
+		return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+	}
+
+	/* Pantalla encendida mientras se lee (Wake Lock); el navegador la suelta al ocultar la pestaña y se pide de nuevo. */
+	var wakeLock = null;
+	function keepAwake() {
+		if (!('wakeLock' in navigator) || wakeLock || !reader.open) return;
+		navigator.wakeLock.request('screen').then(function (lock) {
+			wakeLock = lock;
+			lock.addEventListener('release', function () { wakeLock = null; });
+		}).catch(function () { /* sin permiso o batería baja: la pantalla se apaga como siempre */ });
+	}
+	function releaseAwake() {
+		if (wakeLock) wakeLock.release().catch(function () {});
+		wakeLock = null;
+	}
+
 	function pageHash(i) { return i === 0 ? '#leer' : '#pagina-' + (i + 1); }
 
 	function showPage(i, announce) {
@@ -92,6 +123,8 @@
 		if (reader.open) return; // «Empezar» desde «¿Cómo contarlo?» con la lectura ya abierta: se sigue leyendo.
 		reader.querySelector('.gwf-cue-r-stage').appendChild(story);
 		document.documentElement.classList.add('gwf-cue-reading');
+		setNight(initialNight());
+		keepAwake();
 		if (!fromHash) history.pushState({ gwfReader: true }, '', pageHash(current));
 		reader.showModal();
 		showPage(current, false);
@@ -116,6 +149,7 @@
 		if (!reader.open) return;
 		if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {});
 		reader.close();
+		releaseAwake();
 		home.insertBefore(story, homeNext);
 		document.documentElement.classList.remove('gwf-cue-reading');
 		if (/^#(leer|pagina-\d+)$/.test(window.location.hash)) history.replaceState(null, '', window.location.pathname + window.location.search);
@@ -144,6 +178,15 @@
 		});
 		reader.querySelector('[data-gwf-cue="cerrar"]').addEventListener('click', closeReader);
 		reader.querySelector('[data-gwf-cue="ayuda"]').addEventListener('click', function () { openBefore('repaso'); });
+		nightBtn.addEventListener('click', function () {
+			var on = !reader.classList.contains('is-night');
+			setNight(on);
+			try { localStorage.setItem(NIGHT, on ? '1' : '0'); } catch (e) { /* sin almacenamiento: dura esta lectura */ }
+			track('cuento_nocturno', { activo: on ? 'si' : 'no', pagina: current + 1 });
+		});
+		document.addEventListener('visibilitychange', function () {
+			if (document.visibilityState === 'visible') keepAwake();
+		});
 		reader.addEventListener('cancel', function (e) { e.preventDefault(); closeReader(); }); // Esc
 		window.addEventListener('popstate', function () { if (reader.open) finishClose(); });
 

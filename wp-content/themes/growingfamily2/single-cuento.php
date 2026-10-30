@@ -160,6 +160,7 @@ while ( have_posts() ) :
 						<p class="gwf-cue-r-count" aria-hidden="true"></p>
 						<div class="gwf-cue-r-tools">
 							<button type="button" class="gwf-cue-close" data-gwf-cue="ayuda" aria-label="¿Cómo contarlo?"><?php echo gwf_g_svg( 'contar', 'gwf-cue-r-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+							<button type="button" class="gwf-cue-close gwf-cue-r-night" data-gwf-cue="noche" aria-label="Modo nocturno" aria-pressed="false"><?php echo gwf_g_svg( 'luna', 'gwf-cue-r-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
 						</div>
 					</div>
 					<div class="gwf-cue-r-stage"></div>
