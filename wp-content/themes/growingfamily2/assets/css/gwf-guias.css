@@ -1036,6 +1036,11 @@ body.single-cuento {
 .gwf-cue-end-next-go { flex: 0 0 auto; color: var(--r-accent); text-decoration: underline; }
 .gwf-cue-reader.is-night .gwf-cue-end-next-go { color: #a9c4e6; }
 .gwf-cue-reader.is-night .gwf-cue-end-next img { filter: brightness(0.8); }
+.gwf-cue-end-next .gwf-g-related-img { background: var(--r-soft); }
+.gwf-guia .gwf-cue-reader.is-night .gwf-g-like .wp_ulike_btn { background-color: #263246; border-color: #3d5a80; }
+.gwf-guia .gwf-cue-reader.is-night .gwf-g-like .wp_ulike_btn:hover,
+.gwf-guia .gwf-cue-reader.is-night .gwf-g-like .wp_ulike_is_liked .wp_ulike_btn { background-color: #31415c; border-color: #6f97c8; }
+.gwf-guia .gwf-cue-reader.is-night .gwf-g-like .count-box { color: #a9c4e6; }
 .gwf-cue-end-actions { display: flex; justify-content: center; gap: 1rem; }
 
 @media (max-width: 767.98px) {
