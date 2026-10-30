@@ -119,15 +119,34 @@ while ( have_posts() ) :
 					<a href="#como-contarlo" class="gwf-cue-howto-link" data-gwf-cue="como-contarlo">¿Cómo contarlo?</a>
 				</div>
 
-				<?php // Cómo contarlo (pantalla «Antes de empezar»): sin JS se ve al pulsar el enlace (:target). ?>
-				<section id="como-contarlo" class="gwf-g-block gwf-cue-howto" aria-labelledby="gwf-cue-howto-title">
-					<h2 id="gwf-cue-howto-title">Antes de empezar</h2>
-					<?php echo wp_kses_post( wpautop( $gwf_howto ) ); ?>
-					<?php $gwf_space = array_filter( array_map( 'trim', preg_split( '/\r\n|\r|\n/', $gwf_texts['espacio'] ) ) ); ?>
+				<?php
+				// Pantalla 2 · Antes de empezar (wireframes cuento-enfocado-v2-antes-*). Un <dialog> nativo: con JS se abre al pulsar
+				// «Comenzar el cuento» la primera vez y con «¿Cómo contarlo?»; sin JS, el enlace lo muestra en la página (:target).
+				$gwf_space = array_filter( array_map( 'trim', preg_split( '/\r\n|\r|\n/', $gwf_texts['espacio'] ) ) );
+				?>
+				<dialog id="como-contarlo" class="gwf-cue-antes" aria-labelledby="gwf-cue-antes-title">
+					<div class="gwf-cue-antes-head">
+						<h2 id="gwf-cue-antes-title">Antes de empezar</h2>
+						<button type="button" class="gwf-cue-close" data-gwf-cue="cerrar-antes" aria-label="Cerrar">
+							<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+						</button>
+					</div>
+					<p class="gwf-cue-antes-sub">Un minuto para que el cuento funcione mejor esta noche.</p>
+					<section class="gwf-cue-antes-card">
+						<h3>Cómo contarlo</h3>
+						<?php echo wp_kses_post( wpautop( $gwf_howto ) ); ?>
+					</section>
 					<?php if ( $gwf_space ) : ?>
-						<ul class="gwf-cue-space"><?php foreach ( $gwf_space as $gwf_s ) : ?><li><?php echo esc_html( $gwf_s ); ?></li><?php endforeach; ?></ul>
+						<section class="gwf-cue-antes-card">
+							<h3>Recomendaciones del espacio</h3>
+							<ul class="gwf-cue-space"><?php foreach ( $gwf_space as $gwf_s ) : ?><li><?php echo esc_html( $gwf_s ); ?></li><?php endforeach; ?></ul>
+						</section>
 					<?php endif; ?>
-				</section>
+					<div class="gwf-cue-antes-foot">
+						<p class="gwf-cue-antes-note">No volverás a ver esto. Puedes repasarlo cuando quieras con el botón «¿Cómo contarlo?».</p>
+						<a href="#leer" class="gwf-g-button gwf-cue-start-btn" data-gwf-cue="empezar">Empezar <span aria-hidden="true">›</span></a>
+					</div>
+				</dialog>
 			</div>
 
 			<aside class="gwf-g-side" aria-label="Sobre este cuento">

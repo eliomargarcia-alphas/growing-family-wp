@@ -811,6 +811,9 @@ body.single-cuento {
 .gwf-cuento img { display: block; width: 100%; height: auto; border-radius: 10px; }
 .gwf-cue-page + .gwf-cue-page { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--g-line); }
 .gwf-cue-js .gwf-cue-page + .gwf-cue-page { display: none; }
+/* Provisional hasta el modo lectura (etapa 5): «Empezar» muestra el cuento completo en la página */
+.gwf-cue-js .gwf-cue-inline .gwf-cue-page + .gwf-cue-page { display: block; }
+.gwf-cue-inline .gwf-cue-pageinfo { display: none !important; }
 .gwf-cue-pageinfo { display: none; margin: 0.5rem 0 0; font-size: 0.8125rem; color: var(--g-muted); }
 .gwf-cue-js .gwf-cue-pageinfo { display: block; }
 
@@ -838,11 +841,65 @@ body.single-cuento {
 .gwf-cue-play { width: 18px; height: 18px; }
 .gwf-cue-howto-link { color: var(--g-blue); text-decoration: underline; }
 
-/* Cómo contarlo: sin JS se ve al pulsar el enlace (:target); con JS será la pantalla «Antes de empezar» */
-.gwf-cue-howto { display: none; scroll-margin-top: 100px; }
-.gwf-cue-howto:target { display: block; }
 .gwf-cue-space { margin: 0; padding-left: 1.2rem; list-style: disc outside; }
 .gwf-cue-space li { list-style: inherit; margin-bottom: 0.3rem; }
+
+/* Pantalla 2 · Antes de empezar: tarjeta sobre la página oscurecida (escritorio) o pantalla completa (móvil) */
+.gwf-cue-antes {
+	width: min(640px, calc(100% - 2rem));
+	max-height: calc(100% - 2rem);
+	padding: 2rem;
+	border: 0;
+	border-radius: 18px;
+	background: #fff;
+	color: var(--g-text);
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+.gwf-cue-antes::backdrop { background: rgba(10, 14, 22, 0.55); }
+.gwf-cue-antes-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.gwf-guia .gwf-cue-antes h2 { margin: 0; font-size: 1.75rem; color: var(--color-dark, #0a0e16); }
+.gwf-cue-close {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	width: 44px;
+	height: 44px;
+	border: 1px solid #c9ccd3;
+	border-radius: 50%;
+	background: #fff;
+	color: var(--g-text);
+	cursor: pointer;
+}
+.gwf-cue-close:hover { border-color: var(--g-blue); color: var(--g-blue); }
+.gwf-cue-antes-sub { margin: 0.4rem 0 1.25rem; color: var(--g-muted); }
+.gwf-cue-antes-card { margin: 0 0 0.9rem; padding: 1rem 1.25rem; border-radius: 12px; background: var(--g-soft); }
+.gwf-guia .gwf-cue-antes-card h3 { margin: 0 0 0.4rem; font-size: 1.05rem; color: var(--color-dark, #0a0e16); }
+.gwf-cue-antes-card p:last-child { margin-bottom: 0; }
+.gwf-cue-antes-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem 1.5rem; margin-top: 1.25rem; }
+.gwf-cue-antes-note { margin: 0; font-size: 0.875rem; color: var(--g-muted); }
+.gwf-cue-antes .gwf-cue-start-btn { flex: 0 0 auto; }
+.gwf-cue-antes[data-mode="repaso"] .gwf-cue-antes-note { visibility: hidden; }
+/* Sin JS, «¿Cómo contarlo?» lo muestra dentro de la página */
+.gwf-cue-antes:target { display: block; position: static; width: auto; margin: 0 0 1.5rem; box-shadow: none; border: 1px solid var(--g-line); }
+.gwf-cue-antes:target .gwf-cue-close,
+.gwf-cue-antes:target .gwf-cue-antes-note { display: none; }
+
+@media (max-width: 767.98px) {
+	.gwf-cue-antes[open] {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		max-width: none;
+		height: 100%;
+		max-height: none;
+		margin: 0;
+		padding: 1.5rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
+		border-radius: 0;
+	}
+	.gwf-cue-antes-foot { flex-direction: column-reverse; align-items: stretch; margin-top: auto; padding-top: 1rem; text-align: center; }
+	.gwf-cue-antes .gwf-cue-start-btn { justify-content: center; }
+}
 
 /* Botones rápidos: el primero, relleno */
 .gwf-a-quick .is-primary,
