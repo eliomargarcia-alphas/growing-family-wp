@@ -311,3 +311,33 @@ function gwf_webp_content_img( $tag ) {
 }
 add_filter( 'wp_content_img_tag', 'gwf_webp_content_img' );
 add_filter( 'wp_get_attachment_image', 'gwf_webp_content_img' );
+
+/**
+ * Listados por término (tema, edad, emoción, «qué trabaja», categoría, etiqueta…): Yoast solo pone Inicio › Término.
+ * Se añade la sección: Inicio › Cuentos › Celos, Inicio › Guías de problema › Rabietas, Inicio › Blog › Crianza.
+ * La edad es común a varios tipos, así que la sección sale del tipo del listado (/cuentos/edad/x/ → Cuentos).
+ */
+function gwf_listing_breadcrumb_section( $links ) {
+	if ( ! ( is_tax() || is_category() || is_tag() ) || count( $links ) < 2 ) {
+		return $links;
+	}
+	$type = get_query_var( 'post_type' );
+	$type = is_array( $type ) ? reset( $type ) : $type;
+	if ( is_category() || is_tag() ) {
+		$section = array( 'text' => 'Blog', 'url' => gwf_blog_url() );
+	} elseif ( $type && post_type_exists( $type ) && get_post_type_archive_link( $type ) ) {
+		$titles  = (array) get_option( 'wpseo_titles', array() );
+		$text    = ! empty( $titles[ 'bctitle-ptarchive-' . $type ] ) ? $titles[ 'bctitle-ptarchive-' . $type ] : get_post_type_object( $type )->labels->name;
+		$section = array( 'text' => $text, 'url' => get_post_type_archive_link( $type ) );
+	} else {
+		return $links;
+	}
+	foreach ( $links as $link ) {
+		if ( isset( $link['url'] ) && untrailingslashit( $link['url'] ) === untrailingslashit( $section['url'] ) ) {
+			return $links; // Ya está (p. ej. si se activa en Yoast «mostrar el archivo del tipo» en la taxonomía).
+		}
+	}
+	array_splice( $links, 1, 0, array( $section ) );
+	return $links;
+}
+add_filter( 'wpseo_breadcrumb_links', 'gwf_listing_breadcrumb_section', 12 );
