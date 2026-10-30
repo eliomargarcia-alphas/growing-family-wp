@@ -118,7 +118,7 @@ function gwf_guias_bridge_text( $type = 'guia' ) {
 
 /**
  * Enlaces hacia abajo de un pilar (bloque 8): todas las guías de problema publicadas de su gran tema o, si es
- * un pilar por edad, de su edad. Se actualiza solo al publicar contenido nuevo. Los cuentos se añaden con gwf-cuentos.
+ * un pilar por edad, de su edad. Se actualiza solo al publicar contenido nuevo. Con gwf-cuentos, también sus cuentos.
  *
  * @return array{label:string, guias:int[], cuentos:int[]}
  */
@@ -133,7 +133,8 @@ function gwf_guias_down_links( $pilar_id ) {
 		return array( 'label' => '', 'guias' => array(), 'cuentos' => array() );
 	}
 	$label = 'edad' === $taxonomy ? gwf_guias_ages_label( $pilar_id ) : implode( ', ', wp_list_pluck( $terms, 'name' ) );
-	return array( 'label' => $label, 'guias' => gwf_guias_pillar_guides( $pilar_id, $taxonomy, $terms ), 'cuentos' => array() );
+	$cuentos = function_exists( 'gwf_cue_for_pillar' ) ? gwf_cue_for_pillar( $pilar_id, $taxonomy, $terms ) : array();
+	return array( 'label' => $label, 'guias' => gwf_guias_pillar_guides( $pilar_id, $taxonomy, $terms ), 'cuentos' => $cuentos );
 }
 
 /**

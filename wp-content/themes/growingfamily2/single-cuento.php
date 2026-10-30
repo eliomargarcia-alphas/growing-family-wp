@@ -173,21 +173,13 @@ while ( have_posts() ) :
 						</div>
 						<?php
 						if ( $gwf_sibling ) :
-							$gwf_sib_meta = array();
-							foreach ( array( 'edad', 'emocion' ) as $gwf_tax ) {
-								$gwf_sib_terms = gwf_cue_terms( $gwf_sibling, $gwf_tax );
-								if ( $gwf_sib_terms ) {
-									$gwf_sib_meta[] = $gwf_sib_terms[0]->name;
-								}
-							}
-							$gwf_sib_meta[] = gwf_cue_minutes( $gwf_sibling ) . ' min';
 							?>
 							<a class="gwf-cue-end-next" href="<?php echo esc_url( get_permalink( $gwf_sibling ) ); ?>" data-gwf-cue="otro-cuento" data-gwf-slug="<?php echo esc_attr( get_post_field( 'post_name', $gwf_sibling ) ); ?>">
 								<?php echo gwf_g_card_image( $gwf_sibling ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 								<span class="gwf-cue-end-next-text">
 									<span class="gwf-cue-end-next-type">Otro cuento para esta noche</span>
 									<span class="gwf-cue-end-next-title"><?php echo esc_html( get_the_title( $gwf_sibling ) ); ?></span>
-									<span class="gwf-cue-end-next-meta"><?php echo esc_html( implode( ' · ', $gwf_sib_meta ) ); ?></span>
+									<span class="gwf-cue-end-next-meta"><?php echo esc_html( gwf_cue_card_meta( $gwf_sibling ) ); ?></span>
 								</span>
 							</a>
 						<?php endif; ?>

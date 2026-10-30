@@ -208,6 +208,10 @@ while ( have_posts() ) :
 					foreach ( $gwf_siblings as $gwf_s ) {
 						echo gwf_g_card( $gwf_s, 'Actividad' );
 					}
+					$gwf_cuento = function_exists( 'gwf_cue_for_activity' ) ? gwf_cue_for_activity( get_the_ID() ) : 0;
+					if ( $gwf_cuento ) {
+						echo gwf_g_card( $gwf_cuento, 'Cuento para esta noche' );
+					}
 					if ( $gwf_pilar ) {
 						echo gwf_g_card( $gwf_pilar, 'Pilar' );
 					}

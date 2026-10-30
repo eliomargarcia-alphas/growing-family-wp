@@ -41,7 +41,8 @@ while ( have_posts() ) :
 	$gwf_date_html     = gwf_g_date_html( $gwf_reviewed );
 
 	// Secciones presentes, en orden: alimentan el índice lateral, el desplegable de móvil y la barra fija.
-	$gwf_toc = array_filter(
+	$gwf_cuento = function_exists( 'gwf_cue_for_guide' ) ? gwf_cue_for_guide( get_the_ID() ) : 0; // 9. Cuento (plugin gwf-cuentos).
+	$gwf_toc    = array_filter(
 		array(
 			'respuesta'        => $gwf_meta( 'gwf_respuesta' ) ? 'Respuesta directa' : '',
 			'lo-que-intentaste' => $gwf_meta( 'gwf_ya_intentaste' ) ? 'Lo que ya intentaste' : '',
@@ -50,6 +51,7 @@ while ( have_posts() ) :
 			'que-hacer'        => $gwf_pasos ? 'Qué hacer esta noche' : '',
 			'que-evitar'       => $gwf_evitar ? 'Qué conviene evitar' : '',
 			'desacuerdo'       => $gwf_meta( 'gwf_desacuerdo' ) ? 'Si no están de acuerdo' : '',
+			'cuento'           => $gwf_cuento ? 'Un cuento para esta noche' : '',
 			'video'            => $gwf_video_id ? 'Vídeo' : '',
 		)
 	);
@@ -146,7 +148,22 @@ while ( have_posts() ) :
 					</section>
 				<?php endif; ?>
 
-				<?php // 9. Un cuento para esta noche: se añade cuando exista el tipo Cuento (plugin gwf-cuentos). ?>
+				<?php
+				// 9. Un cuento para esta noche: el que eligió esta guía como «Guía relacionada» (plugin gwf-cuentos).
+				if ( $gwf_cuento ) :
+					?>
+					<section id="cuento" class="gwf-g-block gwf-g-story">
+						<h2>Un cuento para esta noche</h2>
+						<a class="gwf-g-story-card" href="<?php echo esc_url( get_permalink( $gwf_cuento ) ); ?>" data-gwf-cuento="<?php echo esc_attr( get_post_field( 'post_name', $gwf_cuento ) ); ?>">
+							<?php echo gwf_g_card_image( $gwf_cuento ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+							<span class="gwf-g-story-text">
+								<span class="gwf-g-story-title"><?php echo esc_html( get_the_title( $gwf_cuento ) ); ?></span>
+								<span class="gwf-g-story-meta"><?php echo esc_html( gwf_cue_card_meta( $gwf_cuento ) ); ?></span>
+								<span class="gwf-g-story-go">Leer el cuento <span aria-hidden="true">›</span></span>
+							</span>
+						</a>
+					</section>
+				<?php endif; ?>
 
 			</div>
 

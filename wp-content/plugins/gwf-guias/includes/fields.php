@@ -136,7 +136,7 @@ function gwf_guias_register_fields() {
 				gwf_guias_field( 'gwf_pasos', '6. Qué hacer esta noche', 'textarea', array( 'rows' => 6, 'new_lines' => '', 'instructions' => 'Al menos 3 pasos. ' . $lines_help . ' Formato: Título del paso | Texto del paso' ) ),
 				gwf_guias_field( 'gwf_evitar', '7. Qué conviene evitar', 'textarea', array( 'rows' => 4, 'new_lines' => '', 'instructions' => 'Al menos 2. ' . $lines_help ) ),
 				gwf_guias_field( 'gwf_desacuerdo', '8. Madre y padre en desacuerdo', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Opcional según el tema: si está vacío, el bloque no aparece.' ) ),
-				// 9. Un cuento para esta noche: relación con el tipo Cuento cuando exista el plugin gwf-cuentos.
+				// 9. Un cuento para esta noche: se elige en el cuento («Guía relacionada», plugin gwf-cuentos).
 				gwf_guias_field( 'gwf_video_url', '10. Vídeo: URL de YouTube', 'url', array( 'instructions' => 'Al publicar se avisa si falta.', 'wrapper' => array( 'width' => '50' ) ) ),
 				gwf_guias_field( 'gwf_video_titulo', '10. Vídeo: título', 'text', array( 'wrapper' => array( 'width' => '50' ) ) ),
 				gwf_guias_field( 'gwf_video_duracion', '10. Vídeo: duración (segundos)', 'number', array( 'min' => 1, 'wrapper' => array( 'width' => '50' ) ) ),

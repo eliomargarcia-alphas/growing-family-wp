@@ -4,7 +4,7 @@
  *
  * Guías: columna «Enlazado» con su pilar (campo de «Relacionados») y su cuento, y aviso con las publicadas sin
  * pilar. El pilar elegido siempre lista la guía (gwf_guias_pillar_guides). Pilares: columna con cuántas guías
- * enlaza hacia abajo. El cuento se comprueba cuando exista el tipo Cuento (plugin gwf-cuentos).
+ * enlaza hacia abajo. El cuento (plugin gwf-cuentos) es el que eligió la guía como «Guía relacionada».
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -40,7 +40,10 @@ function gwf_guias_admin_column( $column, $post_id ) {
 		echo $pilar
 			? 'Pilar: <a href="' . esc_url( get_edit_post_link( $pilar ) ) . '">' . esc_html( get_the_title( $pilar ) ) . '</a>'
 			: sprintf( $warn, 'Sin pilar' ); // phpcs:ignore WordPress.Security.EscapeOutput
-		echo '<br>' . ( post_type_exists( 'cuento' ) ? sprintf( $warn, 'Sin cuento' ) : '<span style="color:#646970">Cuento: cuando exista gwf-cuentos</span>' ); // phpcs:ignore WordPress.Security.EscapeOutput
+		if ( function_exists( 'gwf_cue_for_guide' ) ) {
+			$cuento = gwf_cue_for_guide( $post_id );
+			echo '<br>' . ( $cuento ? 'Cuento: <a href="' . esc_url( get_edit_post_link( $cuento ) ) . '">' . esc_html( get_the_title( $cuento ) ) . '</a>' : sprintf( $warn, 'Sin cuento' ) ); // phpcs:ignore WordPress.Security.EscapeOutput
+		}
 		return;
 	}
 	$count = count( gwf_guias_down_links( $post_id )['guias'] );

@@ -158,7 +158,16 @@ while ( have_posts() ) :
 								</ul>
 							</div>
 						<?php endif; ?>
-						<?php // Cuentos · {edad}: cuando exista el tipo Cuento (plugin gwf-cuentos). ?>
+						<?php if ( $gwf_down['cuentos'] ) : // Cuentos que eligieron este pilar o de su edad (plugin gwf-cuentos). ?>
+							<div>
+								<h3>Cuentos · <?php echo esc_html( $gwf_down['label'] ); ?></h3>
+								<ul>
+									<?php foreach ( $gwf_down['cuentos'] as $gwf_c ) : ?>
+										<li><a href="<?php echo esc_url( get_permalink( $gwf_c ) ); ?>"><?php echo esc_html( get_the_title( $gwf_c ) ); ?></a></li>
+									<?php endforeach; ?>
+								</ul>
+							</div>
+						<?php endif; ?>
 					</div>
 				</section>
 			<?php endif; ?>
