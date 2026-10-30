@@ -2,7 +2,7 @@
 /**
  * Plugin Name: GWF Cuentos
  * Description: Cuentos con propósito (capa 1) con recorrido enfocado: tipo Cuento, taxonomías, campos, páginas del cuento, notas de lectura y variantes {Ana|Max}.
- * Version: 0.1.0
+ * Version: 0.2.0
  * Author: Elio
  * Text Domain: gwf-cuentos
  *
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'GWF_CUE_VERSION', '0.1.0' );
+define( 'GWF_CUE_VERSION', '0.2.0' );
 define( 'GWF_CUE_DIR', plugin_dir_path( __FILE__ ) );
 
 require GWF_CUE_DIR . 'includes/types.php';
@@ -23,6 +23,7 @@ require GWF_CUE_DIR . 'includes/fields.php';
 require GWF_CUE_DIR . 'includes/settings.php';
 require GWF_CUE_DIR . 'includes/blocks.php';
 require GWF_CUE_DIR . 'includes/content.php';
+require GWF_CUE_DIR . 'includes/listings.php';
 
 function gwf_cue_activate() {
 	gwf_cue_register_taxonomies();

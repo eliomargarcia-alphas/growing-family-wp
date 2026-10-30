@@ -62,7 +62,7 @@ function gwf_trim_plugin_assets() {
 	}
 
 	// Páginas y guías (plugin gwf-guias): ninguna usa índice de Easy TOC, AddToAny ni formularios fuera de Contacto
-	$gwf_listing = ( function_exists( 'gwf_guias_listing_type' ) && gwf_guias_listing_type() ) || ( function_exists( 'gwf_act_is_listing' ) && gwf_act_is_listing() );
+	$gwf_listing = ( function_exists( 'gwf_guias_listing_type' ) && gwf_guias_listing_type() ) || ( function_exists( 'gwf_act_is_listing' ) && gwf_act_is_listing() ) || ( function_exists( 'gwf_cue_is_listing' ) && gwf_cue_is_listing() );
 	if ( is_page() || is_singular( array( 'guia', 'desarrollo', 'actividad', 'cuento' ) ) || $gwf_listing ) {
 		// WP ULike (+ Pro): solo lo usan las plantillas de artículo, el «me gusta» de cada guía y las tarjetas de los listados
 		if ( is_page() && ! gwf_page_uses_ulike() ) {
@@ -222,7 +222,7 @@ add_action( 'wp_enqueue_scripts', 'gwf_enqueue_main_script' );
 /* Guías (plugin gwf-guias): CSS y JS propios, solo en sus plantillas */
 function gwf_enqueue_guias_assets() {
 	// Listados de guías y del blog (index.php: /blog/, temas, etiquetas y búsqueda) comparten cabecera, filtros y tarjetas
-	$is_listing = ( function_exists( 'gwf_guias_listing_type' ) && gwf_guias_listing_type() ) || ( function_exists( 'gwf_act_is_listing' ) && gwf_act_is_listing() ) || is_home() || is_category() || is_tag() || is_search();
+	$is_listing = ( function_exists( 'gwf_guias_listing_type' ) && gwf_guias_listing_type() ) || ( function_exists( 'gwf_act_is_listing' ) && gwf_act_is_listing() ) || ( function_exists( 'gwf_cue_is_listing' ) && gwf_cue_is_listing() ) || is_home() || is_category() || is_tag() || is_search();
 	$is_person  = ( function_exists( 'gwf_guias_current_person' ) && gwf_guias_current_person() ) || is_page_template( array( 'templates/template-comite.php', 'templates/template-videos.php' ) ); // Ficha /equipo/<persona>/, comité y vídeos
 	if ( ! is_singular( array( 'guia', 'desarrollo', 'actividad', 'post', 'cuento' ) ) && ! $is_listing && ! $is_person ) {
 		return;
