@@ -75,8 +75,7 @@
 	                            </svg>
 	                        </a>
 	                    </li>
-	                    <li><a href="#descargar" class="btn btn-primary btn-sm">Descargar App</a></li>
-	                    <li><a href="#popupsearch"><img src="https://growing.family/wp-content/uploads/2025/09/search-1.svg" alt="buscar" loading="lazy" decoding="async"></a></li>-->
+	                    <li><a href="#descargar" class="btn btn-primary btn-sm">Descargar App</a></li>-->
 	                </ul>
 	            </nav>
 
@@ -108,19 +107,4 @@
 				<li><a href="#descargar" class="btn btn-primary btn-full">Descargar App</a></li>-->
 			</ul>
 		</div>
-		<!--<div id="popupsearch" class="overlay">
-			<div class="popup">
-				<a class="close" href="#">×</a>
-				<div class="content">
-					<div class="formsection contactonuevo">
-						<div class="container px-3">
-							<div class="col-xl-12 color-barium font-size-20">
-								<p class="font-size-32 color-barium fw-semibold">Buscar</p>
-								<?php echo do_shortcode('[wpdreams_ajaxsearchlite]'); ?>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>-->
 		<?php
