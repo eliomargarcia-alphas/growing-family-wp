@@ -24,6 +24,7 @@ require GWF_CUE_DIR . 'includes/settings.php';
 require GWF_CUE_DIR . 'includes/blocks.php';
 require GWF_CUE_DIR . 'includes/content.php';
 require GWF_CUE_DIR . 'includes/listings.php';
+require GWF_CUE_DIR . 'includes/schema.php';
 
 function gwf_cue_activate() {
 	gwf_cue_register_taxonomies();
