@@ -1064,6 +1064,23 @@ body.single-cuento {
 .gwf-g-bar .is-primary { background: var(--g-blue); border-color: var(--g-blue); color: #fff; }
 .gwf-a-quick .is-primary .gwf-g-btn-icon,
 .gwf-g-bar .is-primary .gwf-g-btn-icon { color: #fff; }
+/* Al pasar por encima: el texto sigue blanco y el botón sube un poco con una sombra suave, como «Empieza hoy, es gratis» de la portada */
+.gwf-a-quick .is-primary,
+.gwf-g-bar .is-primary { transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; }
+.gwf-a-quick .is-primary:hover,
+.gwf-a-quick .is-primary:focus-visible,
+.gwf-g-bar .is-primary:hover,
+.gwf-g-bar .is-primary:focus-visible {
+	background: #003aaf;
+	border-color: #003aaf;
+	color: #fff;
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(13, 110, 253, 0.25);
+}
+@media (prefers-reduced-motion: reduce) {
+	.gwf-a-quick .is-primary:hover,
+	.gwf-g-bar .is-primary:hover { transform: none; }
+}
 
 .gwf-cue-sources { margin: 0; padding-left: 1.2rem; list-style: disc outside; font-size: 0.9375rem; }
 .gwf-cue-sources li { list-style: inherit; }
