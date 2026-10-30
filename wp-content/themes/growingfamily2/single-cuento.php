@@ -147,6 +147,32 @@ while ( have_posts() ) :
 						<a href="#leer" class="gwf-g-button gwf-cue-start-btn" data-gwf-cue="empezar">Empezar <span aria-hidden="true">›</span></a>
 					</div>
 				</dialog>
+
+				<?php
+				// Pantalla 3 · Modo lectura (wireframes cuento-enfocado-v3-lectura-*): capa a pantalla completa sobre la misma URL.
+				// Al abrirse, assets/js/gwf-cuentos.js mueve aquí el mismo #leer (no se duplica el cuento) y lo devuelve al cerrar.
+				?>
+				<dialog id="gwf-cue-reader" class="gwf-cue-reader" aria-label="<?php echo esc_attr( 'Cuento: ' . wp_strip_all_tags( get_the_title() ) ); ?>">
+					<div class="gwf-cue-r-top">
+						<button type="button" class="gwf-cue-close" data-gwf-cue="cerrar" aria-label="Cerrar el cuento">
+							<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+						</button>
+						<p class="gwf-cue-r-count" aria-hidden="true"></p>
+						<div class="gwf-cue-r-tools">
+							<button type="button" class="gwf-cue-close" data-gwf-cue="ayuda" aria-label="¿Cómo contarlo?"><?php echo gwf_g_svg( 'contar', 'gwf-cue-r-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+						</div>
+					</div>
+					<div class="gwf-cue-r-stage"></div>
+					<div class="gwf-cue-r-nav">
+						<div class="gwf-cue-r-buttons">
+							<button type="button" class="gwf-cue-r-prev" data-gwf-cue="anterior"><span aria-hidden="true">‹</span> Anterior</button>
+							<button type="button" class="gwf-cue-r-next" data-gwf-cue="siguiente" autofocus>Siguiente <span aria-hidden="true">›</span></button>
+						</div>
+						<div class="gwf-cue-r-dots" aria-hidden="true"></div>
+						<p class="gwf-cue-r-progress" aria-hidden="true"></p>
+					</div>
+					<p class="screen-reader-text gwf-cue-r-live" aria-live="polite"></p>
+				</dialog>
 			</div>
 
 			<aside class="gwf-g-side" aria-label="Sobre este cuento">
