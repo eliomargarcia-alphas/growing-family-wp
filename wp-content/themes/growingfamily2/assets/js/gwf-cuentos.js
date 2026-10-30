@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Cuento (single-cuento.php): selector Ana / Max, «Antes de empezar», modo lectura y modo nocturno. Se carga con defer
-   solo en los cuentos. La etapa 7 añade aquí la pantalla final.
+   Cuento (single-cuento.php): selector Ana / Max, «Antes de empezar», modo lectura, modo nocturno y pantalla final.
+   Se carga con defer solo en los cuentos.
    ========================================================================== */
 
 (function () {
@@ -96,6 +96,17 @@
 		wakeLock = null;
 	}
 
+	/* Pantalla 4 · Final. El «me gusta» es el mismo botón de WP ULike de la página: se trae aquí y vuelve al cerrar. */
+	var end = reader ? reader.querySelector('.gwf-cue-end') : null;
+	var like = main.querySelector('.gwf-g-like:not(.gwf-cue-end-like) .wpulike');
+	var likeHome = like ? like.parentNode : null;
+
+	function showEnd(on) {
+		reader.classList.toggle('is-end', on);
+		end.hidden = !on;
+		if (like) (on ? end.querySelector('.gwf-cue-end-like') : likeHome).appendChild(like);
+	}
+
 	function pageHash(i) { return i === 0 ? '#leer' : '#pagina-' + (i + 1); }
 
 	function showPage(i, announce) {
@@ -150,19 +161,25 @@
 		if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {});
 		reader.close();
 		releaseAwake();
+		if (reader.classList.contains('is-end')) current = 0; // Cuento terminado: al volver a abrirlo, desde el principio.
+		showEnd(false);
 		home.insertBefore(story, homeNext);
 		document.documentElement.classList.remove('gwf-cue-reading');
-		if (/^#(leer|pagina-\d+)$/.test(window.location.hash)) history.replaceState(null, '', window.location.pathname + window.location.search);
+		if (/^#(leer|pagina-\d+|fin)$/.test(window.location.hash)) history.replaceState(null, '', window.location.pathname + window.location.search);
 		if (!finished) track('cuento_cierre', { pagina: current + 1, paginas: total });
 		var start = main.querySelector('.gwf-cue-start-btn');
 		if (start) start.focus();
 	}
 
-	// Al pasar la última página. La pantalla final (etapa 7) se mostrará aquí; mientras, se cierra la lectura.
+	// Al pasar la última página: pantalla final en la misma capa (el «atrás» del móvil la cierra como la lectura).
 	function finish() {
 		finished = true;
+		showEnd(true);
+		if (history.state && history.state.gwfReader) history.replaceState({ gwfReader: true }, '', '#fin');
+		end.scrollTop = 0;
+		end.querySelector('.gwf-cue-end-title').focus();
+		reader.querySelector('.gwf-cue-r-live').textContent = 'Fin del cuento';
 		track('cuento_completado', { paginas: total });
-		closeReader();
 	}
 
 	function startReading() { openReader(false); }
@@ -177,6 +194,21 @@
 			if (current === total - 1) { finish(); } else { showPage(current + 1, true); }
 		});
 		reader.querySelector('[data-gwf-cue="cerrar"]').addEventListener('click', closeReader);
+		reader.querySelector('[data-gwf-cue="volver"]').addEventListener('click', closeReader);
+		reader.querySelector('[data-gwf-cue="releer"]').addEventListener('click', function () {
+			showEnd(false);
+			showPage(0, true);
+			reader.querySelector('[data-gwf-cue="siguiente"]').focus();
+		});
+		reader.querySelector('[data-gwf-cue="puente"]').addEventListener('click', function (e) {
+			track('cuento_puente', { link_url: e.currentTarget.href, ubicacion: 'pantalla_final' });
+		});
+		var other = reader.querySelector('[data-gwf-cue="otro-cuento"]');
+		if (other) {
+			other.addEventListener('click', function () {
+				track('cuento_siguiente', { cuento: other.getAttribute('data-gwf-slug'), link_url: other.href });
+			});
+		}
 		reader.querySelector('[data-gwf-cue="ayuda"]').addEventListener('click', function () { openBefore('repaso'); });
 		nightBtn.addEventListener('click', function () {
 			var on = !reader.classList.contains('is-night');
@@ -192,6 +224,7 @@
 
 		// Teclado: flechas para pasar de página (Esc lo maneja el diálogo).
 		reader.addEventListener('keydown', function (e) {
+			if (reader.classList.contains('is-end')) return;
 			if (e.key === 'ArrowRight') { e.preventDefault(); reader.querySelector('[data-gwf-cue="siguiente"]').click(); }
 			if (e.key === 'ArrowLeft' && current > 0) { e.preventDefault(); showPage(current - 1, true); }
 		});
@@ -201,7 +234,7 @@
 		var touchY = null;
 		reader.addEventListener('touchstart', function (e) { touchX = e.touches[0].clientX; touchY = e.touches[0].clientY; }, { passive: true });
 		reader.addEventListener('touchend', function (e) {
-			if (touchX === null) return;
+			if (touchX === null || reader.classList.contains('is-end')) return;
 			var dx = e.changedTouches[0].clientX - touchX;
 			var dy = e.changedTouches[0].clientY - touchY;
 			touchX = null;

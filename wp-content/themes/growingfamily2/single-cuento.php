@@ -164,6 +164,45 @@ while ( have_posts() ) :
 						</div>
 					</div>
 					<div class="gwf-cue-r-stage"></div>
+					<?php
+					// Pantalla 4 · Final (wireframes cuento-enfocado-v4-final-*): aparece al pasar la última página, dentro de la lectura
+					// (mismos colores, también de noche). El «me gusta» es el mismo botón de WP ULike de la página: el JS lo trae aquí.
+					?>
+					<section class="gwf-cue-end" aria-labelledby="gwf-cue-end-title" hidden>
+						<h2 id="gwf-cue-end-title" class="gwf-cue-end-title" tabindex="-1">Fin</h2>
+						<div class="gwf-g-like gwf-cue-end-like">
+							<p>¿Les gustó el cuento?</p>
+						</div>
+						<div class="gwf-cue-end-bridge">
+							<p><?php echo esc_html( $gwf_texts['puente'] ); ?></p>
+							<a class="gwf-cue-end-btn" href="<?php echo esc_url( home_url( '/acerca-de/el-metodo/' ) ); ?>" data-gwf-cue="puente">Conoce el método</a>
+						</div>
+						<?php
+						if ( $gwf_sibling ) :
+							$gwf_sib_meta = array();
+							foreach ( array( 'edad', 'emocion' ) as $gwf_tax ) {
+								$gwf_sib_terms = gwf_cue_terms( $gwf_sibling, $gwf_tax );
+								if ( $gwf_sib_terms ) {
+									$gwf_sib_meta[] = $gwf_sib_terms[0]->name;
+								}
+							}
+							$gwf_sib_meta[] = gwf_cue_minutes( $gwf_sibling ) . ' min';
+							?>
+							<a class="gwf-cue-end-next" href="<?php echo esc_url( get_permalink( $gwf_sibling ) ); ?>" data-gwf-cue="otro-cuento" data-gwf-slug="<?php echo esc_attr( get_post_field( 'post_name', $gwf_sibling ) ); ?>">
+								<?php echo gwf_g_card_image( $gwf_sibling ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+								<span class="gwf-cue-end-next-text">
+									<span class="gwf-cue-end-next-type">Otro cuento para esta noche</span>
+									<span class="gwf-cue-end-next-title"><?php echo esc_html( get_the_title( $gwf_sibling ) ); ?></span>
+									<span class="gwf-cue-end-next-meta"><?php echo esc_html( implode( ' · ', $gwf_sib_meta ) ); ?></span>
+								</span>
+								<span class="gwf-cue-end-next-go" aria-hidden="true">Leer ›</span>
+							</a>
+						<?php endif; ?>
+						<div class="gwf-cue-end-actions">
+							<button type="button" class="gwf-cue-end-btn" data-gwf-cue="releer"><?php echo gwf_g_svg( 'releer', 'gwf-cue-r-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?> Leer otra vez</button>
+							<button type="button" class="gwf-cue-end-btn" data-gwf-cue="volver">Volver al cuento</button>
+						</div>
+					</section>
 					<div class="gwf-cue-r-nav">
 						<div class="gwf-cue-r-buttons">
 							<button type="button" class="gwf-cue-r-prev" data-gwf-cue="anterior"><span aria-hidden="true">‹</span> Anterior</button>
