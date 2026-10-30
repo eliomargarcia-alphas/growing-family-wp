@@ -846,6 +846,7 @@ body.single-cuento {
 
 /* Pantalla 2 · Antes de empezar: tarjeta sobre la página oscurecida (escritorio) o pantalla completa (móvil) */
 .gwf-cue-antes {
+	margin: auto; /* el reinicio del tema quita el centrado del <dialog> */
 	width: min(640px, calc(100% - 2rem));
 	max-height: calc(100% - 2rem);
 	padding: 2rem;

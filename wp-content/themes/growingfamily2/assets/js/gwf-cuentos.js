@@ -76,16 +76,14 @@
 		}
 		dialog.setAttribute('data-mode', mode);
 		dialog.showModal();
+		if (mode === 'primera') {
+			// Ya vista: no vuelve a salir al pulsar «Comenzar el cuento» (solo con «¿Cómo contarlo?»).
+			try { localStorage.setItem(SEEN, '1'); } catch (e) { /* sin almacenamiento: volverá a salir */ }
+		}
 		track('cuento_como_contarlo', { modo: mode });
 	}
 
 	if (canDialog) {
-		// Al cerrarse por cualquier vía (Empezar, X o Esc) queda guardado que ya se vio.
-		dialog.addEventListener('close', function () {
-			if (dialog.getAttribute('data-mode') === 'primera') {
-				try { localStorage.setItem(SEEN, '1'); } catch (e) { /* sin almacenamiento: volverá a salir */ }
-			}
-		});
 		dialog.querySelector('[data-gwf-cue="empezar"]').addEventListener('click', function (e) {
 			e.preventDefault();
 			dialog.close();
