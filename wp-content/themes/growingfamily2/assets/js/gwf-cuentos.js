@@ -167,7 +167,8 @@
 		document.documentElement.classList.remove('gwf-cue-reading');
 		if (/^#(leer|pagina-\d+|fin)$/.test(window.location.hash)) history.replaceState(null, '', window.location.pathname + window.location.search);
 		if (!finished) track('cuento_cierre', { pagina: current + 1, paginas: total });
-		var start = main.querySelector('.gwf-cue-start-btn');
+		// El foco vuelve a «Comenzar el cuento» visible: el del panel lateral (escritorio) o el de la barra fija (móvil).
+		var start = Array.prototype.find.call(main.querySelectorAll('.gwf-cue-quick[href="#leer"]'), function (a) { return a.offsetParent; });
 		if (start) start.focus();
 	}
 

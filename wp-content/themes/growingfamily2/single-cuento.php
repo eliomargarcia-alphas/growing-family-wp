@@ -113,12 +113,6 @@ while ( have_posts() ) :
 					<p class="gwf-cue-pageinfo">Página 1 de <?php echo (int) $gwf_total; ?></p>
 				</section>
 
-				<?php // 6. Comenzar el cuento y ¿Cómo contarlo? ?>
-				<div class="gwf-cue-actions">
-					<a href="#leer" class="gwf-g-button gwf-cue-start-btn" data-gwf-cue="comenzar"><?php echo gwf_g_svg( 'comenzar', 'gwf-cue-play' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>Comenzar el cuento</a>
-					<a href="#como-contarlo" class="gwf-cue-howto-link" data-gwf-cue="como-contarlo">¿Cómo contarlo?</a>
-				</div>
-
 				<?php
 				// Pantalla 2 · Antes de empezar (wireframes cuento-enfocado-v2-antes-*). Un <dialog> nativo: con JS se abre al pulsar
 				// «Comenzar el cuento» la primera vez y con «¿Cómo contarlo?»; sin JS, el enlace lo muestra en la página (:target).
