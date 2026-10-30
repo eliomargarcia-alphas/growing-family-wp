@@ -118,6 +118,7 @@ body.single-cuento {
 	color: var(--g-muted);
 	margin: 0 0 0.5rem;
 }
+.gwf-cuento-page #que-trabaja .gwf-g-kicker { font-weight: 500; } /* Cuento: «Qué trabaja y por qué» en negrita */
 .gwf-guia .gwf-g-body h2 { margin-top: 1.5rem; }
 .gwf-guia .gwf-g-body > h2:first-of-type { margin-top: 0; }
 .gwf-g-body img { height: auto; border-radius: 10px; }
