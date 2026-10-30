@@ -176,6 +176,11 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   Wake Lock) y pantalla final (`.gwf-cue-end`; el «me gusta» de WP ULike se mueve allí). GA4: `cuento_*` (ver el doc de pendientes).
 - Listados (etapa 8, `includes/listings.php` + `template-parts/gwf-listado-cuentos.php`): /cuentos/, /cuentos/emocion|situacion|para-contar/x/,
   /cuentos/edad/x/. Destacado (`gwf_cue_destacado`) → «me gusta» → fecha; 12 por página; noindex con < 3; filtros Emoción, Situación y Edad.
+- SEO y conexión (etapa 9): `includes/schema.php` (title «<título> | Growing Family» ≤ 60, descripción desde extracto o «Así empieza»,
+  Article con `character` Ana y Max, `timeRequired`, autor = equipo editorial → comité, o el redactor con ficha; reviewedBy si requiere firma)
+  y `includes/links.php`: la relación vive en el cuento (`gwf_cue_guia`, `gwf_cue_pilar`). `gwf_cue_for_guide()` → bloque 9 de la guía
+  (`#cuento`, `data-gwf-cuento` → `gwf_cuento_click`), `gwf_cue_for_pillar()` → «Cuentos · edad» del pilar, `gwf_cue_for_activity()` → actividad
+  (misma edad). Columnas «Enlazado» en Cuentos y Guías. «Cuentos» en los menús 54 y 55 de staging3.
 - Prueba en staging3: cuentos 2343 (celos, Ana, 4 páginas con notas, tonos e imágenes por protagonista) y 2344 (miedo, Max, 3 páginas; también 5 años para probar «otro cuento»).
 - `site.sh`: una carpeta nueva copiada a mano al servidor e idéntica a HEAD ya no bloquea el deploy (primer deploy de un plugin).
 
