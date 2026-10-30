@@ -170,7 +170,13 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   (sin estilo = para los dos). Los estilos se registran en JS solo en el editor de cuentos. Fuentes «Título | Organismo | URL» por líneas.
 - `{Ana|Max}` / `{asustada|asustado}`: `gwf_cue_variants()` deja la versión del protagonista por defecto y las dos en `data-ana`/`data-max`
   (solo en el texto visible; en atributos queda la de por defecto). Minutos: campo o palabras / 90.
-- Prueba en staging3: cuentos 2343 (celos, Ana, 4 páginas con notas, tonos e imágenes por protagonista) y 2344 (miedo, Max, 3 páginas).
+- Recorrido (etapas 3 a 7, `single-cuento.php` + `assets/js/gwf-cuentos.js`): página del cuento con selector Ana/Max (`gwf_cuento_prota`),
+  «Antes de empezar» (`<dialog id="como-contarlo">`, una vez: `gwf_cuento_antes_visto`), modo lectura (`<dialog id="gwf-cue-reader">`, mueve el
+  mismo `#leer`; `#leer`, `#pagina-n`, `#fin`), modo nocturno (`.is-night`, `gwf_cuento_noche`, propuesto con `prefers-color-scheme: dark`,
+  Wake Lock) y pantalla final (`.gwf-cue-end`; el «me gusta» de WP ULike se mueve allí). GA4: `cuento_*` (ver el doc de pendientes).
+- Listados (etapa 8, `includes/listings.php` + `template-parts/gwf-listado-cuentos.php`): /cuentos/, /cuentos/emocion|situacion|para-contar/x/,
+  /cuentos/edad/x/. Destacado (`gwf_cue_destacado`) → «me gusta» → fecha; 12 por página; noindex con < 3; filtros Emoción, Situación y Edad.
+- Prueba en staging3: cuentos 2343 (celos, Ana, 4 páginas con notas, tonos e imágenes por protagonista) y 2344 (miedo, Max, 3 páginas; también 5 años para probar «otro cuento»).
 - `site.sh`: una carpeta nueva copiada a mano al servidor e idéntica a HEAD ya no bloquea el deploy (primer deploy de un plugin).
 
 ## Diseño

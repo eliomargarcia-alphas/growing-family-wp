@@ -1033,8 +1033,6 @@ body.single-cuento {
 .gwf-cue-end-next-type,
 .gwf-cue-end-next-meta { font-size: 0.875rem; color: var(--r-muted); }
 .gwf-cue-end-next-title { font-weight: 600; line-height: 1.35; }
-.gwf-cue-end-next-go { flex: 0 0 auto; color: var(--r-accent); text-decoration: underline; }
-.gwf-cue-reader.is-night .gwf-cue-end-next-go { color: #a9c4e6; }
 .gwf-cue-reader.is-night .gwf-cue-end-next img { filter: brightness(0.8); }
 .gwf-cue-end-next .gwf-g-related-img { background: var(--r-soft); }
 .gwf-guia .gwf-cue-reader.is-night .gwf-g-like .wp_ulike_btn { background-color: #263246; border-color: #3d5a80; }
@@ -1048,7 +1046,6 @@ body.single-cuento {
 	.gwf-cue-end-actions { flex-direction: column; }
 	.gwf-cue-end-actions .gwf-cue-end-btn { width: 100%; padding: 0.9rem; }
 	.gwf-cue-end-next .gwf-g-related-img { flex-basis: 5.5rem; }
-	.gwf-cue-end-next-go { display: none; }
 }
 
 /* Botones rápidos: el primero, relleno */

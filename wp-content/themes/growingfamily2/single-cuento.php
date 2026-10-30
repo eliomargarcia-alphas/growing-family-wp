@@ -195,7 +195,6 @@ while ( have_posts() ) :
 									<span class="gwf-cue-end-next-title"><?php echo esc_html( get_the_title( $gwf_sibling ) ); ?></span>
 									<span class="gwf-cue-end-next-meta"><?php echo esc_html( implode( ' · ', $gwf_sib_meta ) ); ?></span>
 								</span>
-								<span class="gwf-cue-end-next-go" aria-hidden="true">Leer ›</span>
 							</a>
 						<?php endif; ?>
 						<div class="gwf-cue-end-actions">

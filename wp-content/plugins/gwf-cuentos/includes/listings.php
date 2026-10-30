@@ -69,7 +69,7 @@ function gwf_cue_listing_heading() {
 		$titles = array(
 			'edad'        => 'Cuentos para niños de ' . $term->name,
 			'emocion'     => 'Cuentos sobre ' . $name,
-			'situacion'   => 'Cuentos para ' . $name,
+			'situacion'   => 'Cuentos: ' . $term->name,
 			'para_contar' => 'Cuentos para contar ' . $name,
 		);
 		$title = $titles[ $term->taxonomy ] ?? $title;
