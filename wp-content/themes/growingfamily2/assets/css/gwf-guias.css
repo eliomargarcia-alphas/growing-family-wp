@@ -917,8 +917,9 @@ body.single-cuento {
 /* Pantalla 3 · Modo lectura: a pantalla completa, el cuento como un libro sobre la mesa. La mesa es azul muy claro de la
    marca; la página, una tarjeta blanca con dos hojas que asoman debajo (sombras desplazadas, sin imágenes) y una cinta
    marcapáginas con el número de página. En escritorio, ilustración a la izquierda y texto a la derecha con el lomo en medio. */
-.gwf-cue-reading,
-.gwf-cue-reading body { overflow: hidden; }
+/* :root para ganar a html:has(body.single-cuento) { overflow-x: clip } (arriba): la página de detrás no se desplaza */
+:root.gwf-cue-reading,
+:root.gwf-cue-reading body { overflow: hidden; }
 .gwf-cue-reader {
 	--r-desk: #eaf2fd;
 	--r-layer-1: #dfe8f5;
