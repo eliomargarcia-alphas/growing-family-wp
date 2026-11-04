@@ -3716,6 +3716,24 @@ body {
 .gwf-search-btn:focus-visible { color: var(--color-navy); background: #eaf2fd; }
 .nav-search { padding: 0; }
 .nav-search::after { display: none; }
+/* Lista de espera en el menú de escritorio (menú 54, clase nav-cta): botón como el del panel móvil, antes de la lupa */
+.nav-link.nav-cta { padding: 0; }
+.nav-link.nav-cta > a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55rem 1.15rem;
+    border-radius: 999px;
+    background: var(--color-navy);
+    color: #fff;
+    line-height: 1.2;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.nav-link.nav-cta > a:hover,
+.nav-link.nav-cta > a:focus-visible,
+.nav-link.nav-cta.current-menu-item > a { background: var(--color-blue-hover, #004f71); color: #fff; }
+.nav-link.nav-cta > a:hover,
+.nav-link.nav-cta > a:focus-visible { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(13, 110, 253, 0.25); }
 .gwf-search-btn-mobile { display: none; }
 
 /* Panel: alto máximo de la pantalla bajo la cabecera y scroll por dentro (la página no se mueve) */
