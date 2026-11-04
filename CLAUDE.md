@@ -184,6 +184,15 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
 - Prueba en staging3: cuentos 2343 (celos, Ana, 4 páginas con notas, tonos e imágenes por protagonista) y 2344 (miedo, Max, 3 páginas; también 5 años para probar «otro cuento»).
 - `site.sh`: una carpeta nueva copiada a mano al servidor e idéntica a HEAD ya no bloquea el deploy (primer deploy de un plugin).
 
+## Seguridad de los plugins (revisión 2026-11-04)
+- Campos con autoridad: la ficha del equipo y el área del comité (perfil) solo los editan administradores (`edit_users`);
+  «Revisado por» y su fecha (guías, cuentos, actividades) solo editores y administradores (`edit_others_posts`). Se ocultan
+  con `acf/prepare_field` y se quitan de `$_POST['acf']` en `acf/save_post` prioridad 1 (`gwf-guias/includes/security.php`,
+  y al final de `fields.php` en cuentos y actividades). El revisor experto firma con «Aprobar revisión».
+- Imprimible: el PDF no sale en `/wp-json/wp/v2/media` (anónimos); límites 5/h por IP, 3/día por correo, 60/h en total;
+  el log guarda el correo enmascarado. El formulario no lleva nonce a propósito (páginas en caché).
+- Al tocar plantillas: escapar todo (`esc_html`, `esc_attr`, `esc_url`, `wp_kses_post`); en JS, `textContent`, nunca `innerHTML` con datos.
+
 ## Diseño
 - Paleta: solo los azules de la marca (`--color-navy`, azul claro `#eaf2fd`, `--color-sky*`). **Nada de naranja ni beige**: en los
   wireframes el naranja solo resaltaba cosas del boceto.
