@@ -98,11 +98,6 @@
 				<p id="gwf-search-title" class="gwf-search-title">Buscar</p>
 				<button type="button" class="gwf-search-close" data-gwf-search-close aria-label="Cerrar la búsqueda"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
 			</div>
-			<form role="search" method="get" class="gwf-search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<label class="screen-reader-text" for="gwf-search-input">Buscar en Growing Family</label>
-				<svg viewBox="0 0 24 24" width="20" height="20" class="gwf-search-icon" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-				<input type="search" id="gwf-search-input" name="s" placeholder="Buscar cuentos, guías, artículos…" value="<?php echo esc_attr( get_search_query() ); ?>" autocomplete="off" required>
-				<button type="submit" class="gwf-search-submit">Buscar</button>
-			</form>
+			<?php get_template_part( 'template-parts/gwf-buscador', null, array( 'id' => 'gwf-search-input' ) ); ?>
 		</dialog>
 		<?php

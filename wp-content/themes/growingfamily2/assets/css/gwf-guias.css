@@ -1307,3 +1307,10 @@ body.single-cuento {
 
 /* Vídeos del blog (templates/template-videos.php): el feed de YouTube bajo la cabecera del listado */
 .gwf-videos-feed { margin-top: 2.5rem; }
+
+/* Búsqueda (search.php): el buscador bajo el título y, sin resultados, enlaces a las secciones */
+.gwf-busqueda-form { max-width: 720px; margin-top: -1.5rem; }
+.gwf-busqueda-empty { max-width: 720px; margin: 0 auto 3rem; text-align: center; }
+.gwf-guia .gwf-busqueda-empty h2 { font-size: 1.35rem; margin: 0 0 0.5rem; }
+.gwf-busqueda-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.gwf-busqueda-links .gwf-g-button { margin-top: 0; }

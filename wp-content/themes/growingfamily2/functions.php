@@ -417,6 +417,9 @@ require get_template_directory() . '/inc/gwf-blog.php';
 // Guías (plugin gwf-guias): piezas de presentación compartidas por sus plantillas.
 require get_template_directory() . '/inc/gwf-guias-view.php';
 
+/* Búsqueda del sitio (search.php) */
+require get_template_directory() . '/inc/gwf-search.php';
+
 /**
  * Register and Enqueue Styles.
  *

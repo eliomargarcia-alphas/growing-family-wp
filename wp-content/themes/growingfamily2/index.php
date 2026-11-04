@@ -166,7 +166,7 @@ $gwf_blog_card = function () {
 						<div class="col-xl-12 color-barium font-size-20">
 							<h2 class="font-size-32 color-barium fw-semibold mb-4">Sin resultados</h2>
 							<p class="font-size-24 color-barium fw-semibold">¿Desea intentar con otro término de búsqueda?</p>
-							<?php echo do_shortcode('[wpdreams_ajaxsearchlite]'); ?>
+							<?php get_template_part( 'template-parts/gwf-buscador', null, array( 'id' => 'gwf-blog-search-input' ) ); ?>
 						</div>
 					</div>
 				<?php } ?>
