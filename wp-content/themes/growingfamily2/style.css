@@ -3716,24 +3716,25 @@ body {
 .gwf-search-btn:focus-visible { color: var(--color-navy); background: #eaf2fd; }
 .nav-search { padding: 0; }
 .nav-search::after { display: none; }
-/* Lista de espera en el menú de escritorio (menú 54, clase nav-cta): botón como el del panel móvil, antes de la lupa */
+/* Lista de espera en el menú de escritorio (menú 54, clase nav-cta): mismos colores y animación que .btn-accent de la portada, antes de la lupa */
 .nav-link.nav-cta { padding: 0; }
 .nav-link.nav-cta > a {
     display: inline-flex;
     align-items: center;
     padding: 0.55rem 1.15rem;
-    border-radius: 999px;
-    background: var(--color-navy);
+    border-radius: 16px;
+    background: #006590;
     color: #fff;
     line-height: 1.2;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     white-space: nowrap;
     transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .nav-link.nav-cta > a:hover,
 .nav-link.nav-cta > a:focus-visible,
-.nav-link.nav-cta.current-menu-item > a { background: var(--color-blue-hover, #004f71); color: #fff; }
+.nav-link.nav-cta.current-menu-item > a { background: #004f71; color: #fff; }
 .nav-link.nav-cta > a:hover,
-.nav-link.nav-cta > a:focus-visible { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(13, 110, 253, 0.25); }
+.nav-link.nav-cta > a:focus-visible { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(122, 228, 255, 0.4); }
 /* Con el botón, en pantallas de 1025 a 1279px el menú no cabe con el espacio normal: menos hueco y nada partido en dos líneas */
 .nav-list > .nav-link { white-space: nowrap; }
 @media (min-width: 1025px) and (max-width: 1279.98px) {
@@ -3811,12 +3812,13 @@ html.gwf-menu-open body { overflow: hidden; }
 .mobile-drawer .drawer-list > li.drawer-cta > a {
     justify-content: center;
     border-radius: 16px;
-    background: var(--color-navy);
+    background: #006590;
     color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .mobile-drawer .drawer-list > li.drawer-cta > a:hover,
-.mobile-drawer .drawer-list > li.drawer-cta > a:focus-visible { background: var(--color-blue-hover, #004f71); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(13, 110, 253, 0.25); color: #fff; }
+.mobile-drawer .drawer-list > li.drawer-cta > a:focus-visible { background: #004f71; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(122, 228, 255, 0.4); color: #fff; }
 
 /* Ventana de búsqueda: debajo de la cabecera, ancho de lectura */
 .gwf-search {
