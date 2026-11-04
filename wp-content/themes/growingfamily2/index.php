@@ -96,50 +96,7 @@ $gwf_blog_card = function () {
 			<div class="col-md-10 entradas-resultados" id="resultados">
 				<?php get_template_part( 'template-parts/gwf-filtros', null, array( 'mode' => 'chips', 'groups' => $gwf_groups ) ); ?>
 
-				<?php if ( is_home() ) { ?>
-					<?php
-					// Paso 1: Obtiene los IDs de los posts con likes, ordenados de mayor a menor.
-					$popular_post_ids = (array) wp_ulike_get_popular_items_ids(array(
-						'type'   => 'post',
-						'status' => 'like',
-						'period' => 'all'
-					));
-
-					// Paso 2: Obtiene los IDs de todos los posts, excluyendo los ya obtenidos.
-					$all_posts_query = new WP_Query(array(
-						'posts_per_page'   => -1, // Obtiene todos los posts
-						'fields'           => 'ids', // Solo devuelve los IDs
-						'post__not_in'     => $popular_post_ids,
-						'category__not_in' => array(41, 32, 6, 42)
-					));
-					$other_post_ids = $all_posts_query->posts;
-
-					// Paso 3: Populares primero, sin repetir, hasta 60.
-					$ordered_ids = array_slice( array_values( array_unique( array_merge( $popular_post_ids, $other_post_ids ) ) ), 0, 60 );
-
-					// Paso 4: Consulta principal con la lista ordenada.
-					$my_query = new WP_Query(array(
-						'post__in'         => $ordered_ids ? $ordered_ids : array( 0 ),
-						'orderby'          => 'post__in',
-						'posts_per_page'   => 60,
-						'category__not_in' => array(41, 32, 6)
-					));
-
-					if ( $my_query->have_posts() ) {
-					?>
-						<div class="row">
-							<?php
-							while ( $my_query->have_posts() ) {
-								$my_query->the_post();
-								$gwf_blog_card();
-							}
-							?>
-						</div>
-					<?php
-						wp_reset_postdata();
-					}
-					?>
-				<?php } elseif ( have_posts() ) { ?>
+				<?php if ( have_posts() ) { // Blog, temas y etiquetas: 12 por página (inc/gwf-blog.php: gwf_blog_listing_query). ?>
 					<div class="row">
 						<?php
 						while ( have_posts() ) {

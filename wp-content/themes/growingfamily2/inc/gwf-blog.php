@@ -341,3 +341,38 @@ function gwf_listing_breadcrumb_section( $links ) {
 	return $links;
 }
 add_filter( 'wpseo_breadcrumb_links', 'gwf_listing_breadcrumb_section', 12 );
+
+/**
+ * Listados del blog (/blog/, temas y etiquetas): 12 por página con navegación, como guías, actividades y cuentos.
+ * La portada del blog ordena por «me gusta» (WP ULike) y luego por fecha, sin las categorías internas.
+ */
+const GWF_BLOG_PER_PAGE    = 12;
+const GWF_BLOG_HIDDEN_CATS = array( 41, 32, 6, 42 );
+
+function gwf_blog_listing_query( $query ) {
+	if ( is_admin() || ! $query->is_main_query() || ! ( $query->is_home() || $query->is_category() || $query->is_tag() ) ) {
+		return;
+	}
+	$query->set( 'posts_per_page', GWF_BLOG_PER_PAGE );
+	if ( $query->is_home() ) {
+		$query->set( 'category__not_in', GWF_BLOG_HIDDEN_CATS );
+		$query->set( 'gwf_blog_likes', 1 );
+	}
+}
+add_action( 'pre_get_posts', 'gwf_blog_listing_query' );
+
+function gwf_blog_listing_order( $clauses, $query ) {
+	if ( ! $query->get( 'gwf_blog_likes' ) ) {
+		return $clauses;
+	}
+	global $wpdb;
+	$ulike = $wpdb->prefix . 'ulike_meta';
+	if ( ! $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $ulike ) ) ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		return $clauses;
+	}
+	$clauses['join']   .= " LEFT JOIN {$ulike} gwf_blog_likes ON (gwf_blog_likes.item_id = {$wpdb->posts}.ID AND gwf_blog_likes.meta_group = 'post' AND gwf_blog_likes.meta_key = 'count_distinct_like')";
+	$clauses['orderby'] = "COALESCE(gwf_blog_likes.meta_value + 0, 0) DESC, {$wpdb->posts}.post_date DESC";
+	$clauses['groupby'] = "{$wpdb->posts}.ID";
+	return $clauses;
+}
+add_filter( 'posts_clauses', 'gwf_blog_listing_order', 10, 2 );
