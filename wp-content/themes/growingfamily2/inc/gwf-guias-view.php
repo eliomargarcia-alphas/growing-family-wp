@@ -104,11 +104,9 @@ function gwf_placeholder_img( $class = '' ) {
 	return '<img src="' . esc_url( get_template_directory_uri() . '/assets/images/logo-placeholder.jpg' ) . '" alt="" class="' . esc_attr( trim( 'gwf-placeholder-img ' . $class ) ) . '" width="768" height="432" loading="lazy" decoding="async">';
 }
 
+/** Imagen de una tarjeta: la destacada o, si no tiene (o la tarjeta no es un contenido, p. ej. «Actividades para 5 años»), la de relleno. */
 function gwf_g_card_image( $post_id ) {
-	if ( ! $post_id ) {
-		return '';
-	}
-	if ( ! has_post_thumbnail( $post_id ) ) {
+	if ( ! $post_id || ! has_post_thumbnail( $post_id ) ) {
 		return '<span class="gwf-g-related-img">' . gwf_placeholder_img() . '</span>';
 	}
 	return '<span class="gwf-g-related-img">'
