@@ -1,13 +1,15 @@
 <?php
 /**
- * Cabecera común de los listados (guías, pilares y blog): migas de Yoast, título centrado e introducción.
+ * Cabecera común de los listados (guías, pilares, actividades, cuentos, blog, búsqueda y vídeos): migas de Yoast,
+ * título centrado e introducción. Sin espacio inferior en móvil y tablet (pb-xl-5 solo en escritorio): así la barra
+ * «Filtrar» y la primera tarjeta entran en la primera pantalla del teléfono.
  *
  * @param array $args { title, intro }
  * @package WordPress
  * @subpackage growingfamily2
  */
 ?>
-<section class="gwf-l-head pt-0 pb-5 title-section">
+<section class="gwf-l-head pt-0 pb-0 pb-xl-5 title-section">
 	<div class="container">
 		<?php if ( function_exists( 'yoast_breadcrumb' ) ) { yoast_breadcrumb( '<nav class="gwf-l-migas" aria-label="Migas de pan">', '</nav>' ); } ?>
 		<h1 class="font-size-44 text-center mb-4 mt-5 gwf-l-h1"><?php echo esc_html( $args['title'] ); ?></h1>
