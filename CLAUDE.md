@@ -204,6 +204,9 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   Busca también en los campos de `GWF_SEARCH_META_KEYS` (guías, pilares, actividades, cuentos, comité, descripción de Yoast) y en los
   nombres de términos (`GWF_SEARCH_TAXONOMIES`) con `posts_search` (`gwf_search_where`). Incluye páginas (`?tipo=paginas`); fuera
   portada, página del blog y lo marcado noindex en Yoast. Al crear un campo de texto nuevo, añadirlo a `GWF_SEARCH_META_KEYS`.
+- Sugerencias mientras se escribe: `admin-ajax.php?action=gwf_buscar&s=` (`gwf_search_suggest`, 6 primeras de la misma búsqueda,
+  caché de 10 min con versión `gwf_search_version` que cambia al guardar contenido) + `initSuggest()` en `gwf-main.js` sobre
+  `form[data-gwf-suggest]`. Solo texto (tipo + título). Fuera de la búsqueda: legales, comité y política editorial (`GWF_SEARCH_HIDDEN_PAGES`).
 
 ## Diseño
 - Paleta: solo los azules de la marca (`--color-navy`, azul claro `#eaf2fd`, `--color-sky*`). **Nada de naranja ni beige**: en los
