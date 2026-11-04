@@ -146,6 +146,113 @@
     }
 
     /* ==========================================================================
+       1c. SUGERENCIAS DE BÚSQUEDA: mientras se escribe (desde 2 letras), las primeras de la misma búsqueda que la
+           página de resultados. Flechas para moverse, Enter para abrir, Esc para cerrar la lista.
+       ========================================================================== */
+    function initSuggest() {
+        document.querySelectorAll('form[data-gwf-suggest]').forEach(function (form, n) {
+            var input = form.querySelector('input[type="search"]');
+            if (!input || !window.fetch) return;
+            var endpoint = form.getAttribute('data-gwf-suggest');
+            var list = document.createElement('ul');
+            list.className = 'gwf-suggest';
+            list.id = 'gwf-suggest-' + n;
+            list.setAttribute('role', 'listbox');
+            list.setAttribute('aria-label', 'Sugerencias');
+            list.hidden = true;
+            form.appendChild(list);
+            input.setAttribute('role', 'combobox');
+            input.setAttribute('aria-autocomplete', 'list');
+            input.setAttribute('aria-controls', list.id);
+            input.setAttribute('aria-expanded', 'false');
+
+            var timer = null;
+            var controller = null;
+            var active = -1;
+            var last = '';
+
+            function options() { return list.querySelectorAll('[role="option"]'); }
+            function close() {
+                list.hidden = true;
+                input.setAttribute('aria-expanded', 'false');
+                input.removeAttribute('aria-activedescendant');
+                active = -1;
+            }
+            function setActive(i) {
+                var opts = options();
+                if (!opts.length) return;
+                active = (i + opts.length) % opts.length;
+                opts.forEach(function (o, k) { o.classList.toggle('is-active', k === active); o.setAttribute('aria-selected', k === active ? 'true' : 'false'); });
+                input.setAttribute('aria-activedescendant', opts[active].id);
+                opts[active].scrollIntoView({ block: 'nearest' });
+            }
+            function render(data) {
+                list.textContent = '';
+                active = -1;
+                if (!data.items.length) {
+                    var none = document.createElement('li');
+                    none.className = 'gwf-suggest-none';
+                    none.textContent = 'Sin sugerencias: pulsa Enter para buscar en todo el sitio.';
+                    list.appendChild(none);
+                }
+                data.items.concat(data.total > data.items.length ? [{ all: true, url: data.url }] : []).forEach(function (item, k) {
+                    var li = document.createElement('li');
+                    var a = document.createElement('a');
+                    li.setAttribute('role', 'option');
+                    li.id = list.id + '-' + k;
+                    li.setAttribute('aria-selected', 'false');
+                    a.href = item.url;
+                    a.tabIndex = -1;
+                    if (item.all) {
+                        li.className = 'gwf-suggest-all';
+                        a.textContent = 'Ver los ' + data.total + ' resultados ›';
+                    } else {
+                        var type = document.createElement('span');
+                        type.className = 'gwf-suggest-type';
+                        type.textContent = item.type;
+                        var title = document.createElement('span');
+                        title.className = 'gwf-suggest-title';
+                        title.textContent = item.title;
+                        a.appendChild(type);
+                        a.appendChild(title);
+                    }
+                    li.appendChild(a);
+                    list.appendChild(li);
+                });
+                list.hidden = false;
+                input.setAttribute('aria-expanded', 'true');
+            }
+            function fetchSuggest() {
+                var value = input.value.trim();
+                if (value.length < 2) { last = ''; close(); return; }
+                if (value === last && !list.hidden) return;
+                last = value;
+                if (controller) controller.abort();
+                controller = 'AbortController' in window ? new AbortController() : null;
+                fetch(endpoint + '?action=gwf_buscar&s=' + encodeURIComponent(value), { credentials: 'same-origin', signal: controller ? controller.signal : undefined })
+                    .then(function (r) { return r.ok ? r.json() : null; })
+                    .then(function (data) { if (data && input.value.trim() === value) render(data); })
+                    .catch(function () { /* cancelada o sin conexión: se sigue pudiendo buscar con Enter */ });
+            }
+
+            input.addEventListener('input', function () {
+                clearTimeout(timer);
+                timer = setTimeout(fetchSuggest, 250);
+            });
+            input.addEventListener('focus', function () { if (input.value.trim().length >= 2 && list.childNodes.length) { list.hidden = false; input.setAttribute('aria-expanded', 'true'); } });
+            input.addEventListener('keydown', function (e) {
+                if (list.hidden) return;
+                if (e.key === 'ArrowDown') { e.preventDefault(); setActive(active + 1); }
+                else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(active - 1); }
+                else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); window.location.href = options()[active].querySelector('a').href; }
+                else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); } // Primero cierra la lista; otro Esc cierra la ventana
+            });
+            // Clic fuera del formulario: se cierra la lista
+            document.addEventListener('click', function (e) { if (!form.contains(e.target)) close(); });
+        });
+    }
+
+    /* ==========================================================================
        2. SCROLL REVEAL ANIMATIONS (IntersectionObserver)
        ========================================================================== */
     function initReveal() {
@@ -529,6 +636,7 @@
     function init() {
         initMobileMenu();
         initSearch();
+        initSuggest();
         initReveal();
         initSteps();
         initParallax();

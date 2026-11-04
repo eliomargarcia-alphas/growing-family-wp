@@ -218,3 +218,77 @@ function gwf_search_card_args( $post_id ) {
 		'time_label' => $time,
 	);
 }
+
+/**
+ * Sugerencias mientras se escribe (admin-ajax.php?action=gwf_buscar&s=…): las primeras 6 de la misma búsqueda que la
+ * página de resultados (mismos campos, términos y exclusiones), con su tipo. Va por admin-ajax y no por /wp-json/
+ * (SiteGround puede desafiar la API REST). Solo lectura de lo publicado; cada término se guarda 10 minutos y la caché
+ * se renueva sola al guardar contenido.
+ */
+const GWF_SEARCH_SUGGEST_MAX = 6;
+
+/** Nombre del tipo en las sugerencias. */
+function gwf_search_type_label( $type ) {
+	$labels = array(
+		'cuento'     => 'Cuento',
+		'guia'       => 'Guía',
+		'desarrollo' => 'Guía de desarrollo',
+		'actividad'  => 'Actividad',
+		'post'       => 'Blog',
+		'page'       => 'Página',
+	);
+	return $labels[ $type ] ?? '';
+}
+
+function gwf_search_suggest() {
+	$search = isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification -- lectura pública.
+	$search = trim( mb_substr( $search, 0, 80 ) );
+	$empty  = array( 'items' => array(), 'total' => 0, 'url' => '' );
+	if ( mb_strlen( $search ) < 2 ) {
+		wp_send_json( $empty );
+	}
+
+	$key  = 'gwf_sug_' . md5( get_option( 'gwf_search_version', '1' ) . '|' . mb_strtolower( $search ) );
+	$data = get_transient( $key );
+	if ( false === $data ) {
+		$query = new WP_Query(
+			array(
+				's'                   => $search,
+				'post_type'           => gwf_search_all_post_types(),
+				'post_status'         => 'publish',
+				'posts_per_page'      => GWF_SEARCH_SUGGEST_MAX,
+				'category__not_in'    => GWF_SEARCH_HIDDEN_CATS,
+				'post__not_in'        => gwf_search_excluded_ids(),
+				'ignore_sticky_posts' => true,
+				'gwf_search'          => 1,
+			)
+		);
+		$items = array();
+		foreach ( $query->posts as $post ) {
+			$items[] = array(
+				'title' => html_entity_decode( wp_strip_all_tags( get_the_title( $post ) ), ENT_QUOTES, 'UTF-8' ),
+				'type'  => gwf_search_type_label( $post->post_type ),
+				'url'   => get_permalink( $post ),
+			);
+		}
+		$data = array(
+			'items' => $items,
+			'total' => (int) $query->found_posts,
+			'url'   => add_query_arg( 's', rawurlencode( $search ), home_url( '/' ) ),
+		);
+		set_transient( $key, $data, 10 * MINUTE_IN_SECONDS );
+	}
+	nocache_headers();
+	wp_send_json( $data );
+}
+add_action( 'wp_ajax_gwf_buscar', 'gwf_search_suggest' );
+add_action( 'wp_ajax_nopriv_gwf_buscar', 'gwf_search_suggest' );
+
+/** Al guardar contenido cambia la versión de la caché de sugerencias (las anteriores caducan solas). */
+function gwf_search_bump_version( $post_id, $post ) {
+	if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) || ! in_array( $post->post_type, gwf_search_all_post_types(), true ) ) {
+		return;
+	}
+	update_option( 'gwf_search_version', (string) time(), false );
+}
+add_action( 'save_post', 'gwf_search_bump_version', 10, 2 );

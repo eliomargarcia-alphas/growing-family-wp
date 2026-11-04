@@ -3812,7 +3812,7 @@ html.gwf-menu-open body { overflow: hidden; }
 .gwf-search-close:hover { border-color: var(--color-navy); color: var(--color-navy); }
 .gwf-search-form { position: relative; display: flex; gap: 0.6rem; }
 .gwf-search-form .screen-reader-text { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-.gwf-search-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #5b6478; pointer-events: none; }
+.gwf-search-icon { position: absolute; left: 1rem; top: 26px; transform: translateY(-50%); color: #5b6478; pointer-events: none; }
 .gwf-search-form input[type="search"] {
     flex: 1 1 auto;
     min-width: 0;
@@ -3835,4 +3835,37 @@ html.gwf-menu-open body { overflow: hidden; }
 @media (max-width: 480px) {
     .gwf-search-submit { display: none; } /* En móvil se busca con la tecla del teclado */
     .gwf-search-form input[type="search"] { padding-right: 0.75rem; font-size: 0.9375rem; }
+}
+/* Sugerencias de búsqueda: lista bajo el campo (en la ventana, dentro de ella; en la página de resultados, desplegable) */
+.gwf-suggest {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    margin: 0;
+    padding: 0.35rem 0;
+    list-style: none;
+    background: #fff;
+    border: 1px solid #d5dbe6;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(10, 14, 22, 0.12);
+    max-height: 60vh;
+    overflow-y: auto;
+}
+.gwf-suggest[hidden] { display: none; }
+.gwf-search .gwf-suggest { position: static; margin-top: 0.75rem; flex-basis: 100%; box-shadow: none; }
+.gwf-search .gwf-search-form { flex-wrap: wrap; }
+.gwf-suggest li { margin: 0; padding: 0; }
+.gwf-suggest a { display: flex; align-items: baseline; gap: 0.75rem; padding: 0.6rem 1rem; color: #000; text-decoration: none; line-height: 1.35; }
+.gwf-suggest a:hover,
+.gwf-suggest .is-active a { background: #eaf2fd; }
+.gwf-suggest-type { flex: 0 0 7.5rem; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-navy); }
+.gwf-suggest-title { flex: 1 1 auto; font-size: 0.9375rem; font-weight: 500; }
+.gwf-suggest-all { border-top: 1px solid #e3e8ef; margin-top: 0.25rem; }
+.gwf-suggest-all a { font-size: 0.9375rem; font-weight: 600; color: var(--color-navy); }
+.gwf-suggest-none { padding: 0.6rem 1rem; font-size: 0.9375rem; color: #5b6478; }
+@media (max-width: 480px) {
+    .gwf-suggest a { flex-direction: column; gap: 0.15rem; }
+    .gwf-suggest-type { flex-basis: auto; }
 }
