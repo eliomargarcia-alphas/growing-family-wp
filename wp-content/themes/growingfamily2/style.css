@@ -3864,7 +3864,7 @@ html.gwf-menu-open body { overflow: hidden; }
 .gwf-suggest-title { flex: 1 1 auto; font-size: 0.9375rem; font-weight: 500; }
 .gwf-suggest-all { border-top: 1px solid #e3e8ef; margin-top: 0.25rem; }
 .gwf-suggest-all a { font-size: 0.9375rem; font-weight: 600; color: var(--color-navy); }
-.gwf-suggest-none { padding: 0.6rem 1rem; font-size: 0.9375rem; color: #5b6478; }
+.gwf-suggest .gwf-suggest-none { padding: 0.85rem 1.1rem; font-size: 0.9375rem; line-height: 1.4; color: #5b6478; } /* .gwf-suggest li lo ponía a 0 */
 @media (max-width: 480px) {
     .gwf-suggest a { flex-direction: column; gap: 0.15rem; }
     .gwf-suggest-type { flex-basis: auto; }
