@@ -193,6 +193,12 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   el log guarda el correo enmascarado. El formulario no lleva nonce a propósito (páginas en caché).
 - Al tocar plantillas: escapar todo (`esc_html`, `esc_attr`, `esc_url`, `wp_kses_post`); en JS, `textContent`, nunca `innerHTML` con datos.
 
+## Navegación (2026-11-04)
+- Móvil: menú 55 con padres Acerca de, Guías, Blog y Legal (los despliega `gwf-main.js`, el padre no navega) y «Lista de Espera»
+  con la clase `drawer-cta` (botón al final). Panel con scroll propio y bloqueo real del scroll de la página (`lockScroll`).
+- Búsqueda: `<dialog id="gwf-search">` en `header.php` (búsqueda normal de WordPress, `?s=`), abierto con `[data-gwf-search]`:
+  lupa junto a la hamburguesa (móvil) y al final del menú 54 (escritorio).
+
 ## Diseño
 - Paleta: solo los azules de la marca (`--color-navy`, azul claro `#eaf2fd`, `--color-sky*`). **Nada de naranja ni beige**: en los
   wireframes el naranja solo resaltaba cosas del boceto.
