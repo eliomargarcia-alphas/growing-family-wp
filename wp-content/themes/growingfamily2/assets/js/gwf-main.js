@@ -22,20 +22,126 @@
         var mobileDrawer = document.getElementById('mobile-drawer');
         if (!hamburgerBtn || !mobileDrawer) return;
 
-        hamburgerBtn.addEventListener('click', function () {
-            var isActive = hamburgerBtn.classList.toggle('active');
-            mobileDrawer.classList.toggle('open', isActive);
-            // Evita el scroll del body con el menú abierto
-            document.body.style.overflow = isActive ? 'hidden' : '';
+        function setOpen(open) {
+            hamburgerBtn.classList.toggle('active', open);
+            mobileDrawer.classList.toggle('open', open);
+            hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            hamburgerBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+            lockScroll(open); // La página de detrás no se mueve: solo hace scroll el panel
+            if (open) {
+                var first = mobileDrawer.querySelector('a');
+                if (first) first.focus({ preventScroll: true });
+            }
+        }
+        function isOpen() { return mobileDrawer.classList.contains('open'); }
+
+        hamburgerBtn.addEventListener('click', function () { setOpen(!isOpen()); });
+
+        // Grupos (Acerca de, Guías, Blog, Legal): el padre abre y cierra sus hijos; abrir uno cierra los demás
+        var groups = mobileDrawer.querySelectorAll('.drawer-list > .menu-item-has-children');
+        groups.forEach(function (item, n) {
+            var toggle = item.querySelector(':scope > a');
+            var sub = item.querySelector(':scope > .sub-menu');
+            if (!toggle || !sub) return;
+            sub.id = sub.id || 'gwf-drawer-sub-' + n;
+            toggle.setAttribute('role', 'button');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-controls', sub.id);
+            toggle.addEventListener('click', function (e) {
+                e.preventDefault();
+                var open = !item.classList.contains('is-open');
+                groups.forEach(function (other) {
+                    other.classList.remove('is-open');
+                    var t = other.querySelector(':scope > a');
+                    if (t) t.setAttribute('aria-expanded', 'false');
+                });
+                item.classList.toggle('is-open', open);
+                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
+            // El grupo de la página actual empieza abierto
+            if (item.classList.contains('current-menu-ancestor') || item.classList.contains('current-menu-parent')) {
+                item.classList.add('is-open');
+                toggle.setAttribute('aria-expanded', 'true');
+            }
         });
 
-        // Cierra el menú al pulsar un enlace
-        mobileDrawer.querySelectorAll('.drawer-link').forEach(function (link) {
-            link.addEventListener('click', function () {
-                hamburgerBtn.classList.remove('active');
-                mobileDrawer.classList.remove('open');
-                document.body.style.overflow = '';
+        // Cierra el menú al pulsar un enlace de verdad (no los que abren un grupo)
+        mobileDrawer.addEventListener('click', function (e) {
+            var link = e.target.closest('a');
+            if (link && link.getAttribute('role') !== 'button') setOpen(false);
+        });
+
+        // Esc cierra y devuelve el foco al botón; Tab no sale del menú mientras está abierto
+        document.addEventListener('keydown', function (e) {
+            if (!isOpen()) return;
+            if (e.key === 'Escape') {
+                setOpen(false);
+                hamburgerBtn.focus();
+            } else if (e.key === 'Tab') {
+                var items = [hamburgerBtn].concat(Array.prototype.slice.call(mobileDrawer.querySelectorAll('a')));
+                var i = items.indexOf(document.activeElement);
+                if (e.shiftKey && i <= 0) { e.preventDefault(); items[items.length - 1].focus(); }
+                else if (!e.shiftKey && i === items.length - 1) { e.preventDefault(); items[0].focus(); }
+            }
+        });
+
+        // Al pasar a escritorio con el menú abierto, se cierra
+        window.addEventListener('resize', function () { if (isOpen() && isDesktop()) setOpen(false); });
+
+        window.gwfCloseMenu = function () { if (isOpen()) setOpen(false); };
+    }
+
+    /* Bloqueo del scroll de la página (también en iPhone, donde overflow: hidden no basta) */
+    var lockedY = 0;
+    var lockCount = 0;
+    function lockScroll(lock) {
+        var body = document.body;
+        if (lock) {
+            if (lockCount++ > 0) return;
+            lockedY = window.scrollY;
+            document.documentElement.classList.add('gwf-menu-open');
+            body.style.position = 'fixed';
+            body.style.top = -lockedY + 'px';
+            body.style.left = '0';
+            body.style.right = '0';
+        } else {
+            if (lockCount === 0 || --lockCount > 0) return;
+            document.documentElement.classList.remove('gwf-menu-open');
+            body.style.position = '';
+            body.style.top = '';
+            body.style.left = '';
+            body.style.right = '';
+            window.scrollTo(0, lockedY);
+        }
+    }
+
+    /* ==========================================================================
+       1b. BÚSQUEDA: la lupa (cabecera en móvil, final del menú en escritorio) abre la ventana de búsqueda
+       ========================================================================== */
+    function initSearch() {
+        var dialog = document.getElementById('gwf-search');
+        if (!dialog || typeof dialog.showModal !== 'function') return;
+        var input = dialog.querySelector('input[type="search"]');
+        var opener = null;
+
+        document.querySelectorAll('[data-gwf-search]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                opener = btn;
+                if (window.gwfCloseMenu) window.gwfCloseMenu();
+                dialog.showModal();
+                lockScroll(true);
+                input.focus();
             });
+        });
+        dialog.querySelector('[data-gwf-search-close]').addEventListener('click', function () { dialog.close(); });
+        // Pulsar fuera de la ventana la cierra
+        dialog.addEventListener('click', function (e) {
+            var r = dialog.getBoundingClientRect();
+            if (e.target === dialog && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)) dialog.close();
+        });
+        dialog.addEventListener('close', function () {
+            lockScroll(false);
+            if (opener) opener.focus();
         });
     }
 
@@ -422,6 +528,7 @@
 
     function init() {
         initMobileMenu();
+        initSearch();
         initReveal();
         initSteps();
         initParallax();
