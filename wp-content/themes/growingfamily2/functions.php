@@ -1021,3 +1021,13 @@ function twentytwenty_get_elements_array() {
 	 */
 	return apply_filters( 'twentytwenty_get_elements_array', $elements );
 }
+
+/* Seguridad: la lista de usuarios de la API REST (/wp-json/wp/v2/users) solo para quien ha iniciado sesión.
+   Para el público mostraba los nombres de usuario (útil para adivinar accesos); el editor de bloques la sigue usando. */
+function gwf_hide_rest_users( $endpoints ) {
+	if ( ! is_user_logged_in() ) {
+		unset( $endpoints['/wp/v2/users'], $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+	}
+	return $endpoints;
+}
+add_filter( 'rest_endpoints', 'gwf_hide_rest_users' );

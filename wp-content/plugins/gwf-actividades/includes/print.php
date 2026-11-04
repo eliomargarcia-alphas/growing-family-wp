@@ -4,7 +4,8 @@
  *
  * 1. El formulario de la actividad (correo + casilla de compromiso) se envía a admin-post.php (sin JS ni REST:
  *    SiteGround Antibot desafía /wp-json/ y las páginas van en caché).
- * 2. Se suscribe el correo a la lista de la lista de espera de Mailchimp (plugin Mailchimp for WP), con la etiqueta
+ * 2. Se suscribe el correo a la lista de la lista de espera de Mailchimp (plugin Mailchimp for WP) con doble confirmación
+ *    (si es nuevo, Mailchimp le pide confirmar antes de darlo de alta: nadie puede apuntar un correo ajeno), con la etiqueta
  *    de la actividad y, si marcó la casilla, el interés «Disposición». Solo en producción: en staging se registra
  *    en el log (nunca añade contactos de prueba a la lista real), salvo que se defina GWF_ACT_MAILCHIMP_LIVE.
  * 3. WordPress envía un correo con el enlace de descarga.
@@ -127,7 +128,7 @@ function gwf_act_print_subscribe( $email, $post_id, $commit ) {
 	$tag  = 'actividad-' . get_post_field( 'post_name', $post_id );
 	$args = array(
 		'email_address' => $email,
-		'status_if_new' => 'subscribed',
+		'status_if_new' => 'pending', // Doble confirmación: Mailchimp envía el correo para confirmar la suscripción.
 	);
 	if ( $commit ) {
 		$args['interests'] = array( GWF_ACT_MC_COMMITMENT => true ); // Nunca se desmarca si ya la tenía.
