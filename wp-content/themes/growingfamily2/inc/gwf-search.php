@@ -7,7 +7,7 @@
  * y comité (GWF_SEARCH_META_KEYS), en la descripción y frase clave de Yoast y en los nombres de temas, edades,
  * emociones, situaciones, «qué trabaja», categorías y etiquetas. Las páginas hechas con plantilla PHP solo tienen en la
  * base de datos su título y su descripción de Yoast. Quedan fuera la portada, la página del blog, lo marcado «noindex»,
- * las páginas legales (privacidad y términos) y la del comité editorial (GWF_SEARCH_HIDDEN_PAGES).
+ * las páginas legales (privacidad y términos), la del comité y la de la política editorial (GWF_SEARCH_HIDDEN_PAGES).
  *
  * Ajax Search Lite sustituía los resultados de la búsqueda principal por los suyos (vacíos): aquí se le quita esa
  * sustitución solo en la búsqueda principal; el plugin sigue instalado.
@@ -19,8 +19,8 @@
 const GWF_SEARCH_PER_PAGE = 12;
 const GWF_SEARCH_HIDDEN_CATS = array( 41, 32, 6, 42 ); // Las mismas categorías que el blog no muestra.
 
-/** Páginas que no salen en la búsqueda (por su dirección, iguales en staging y producción): legales y comité editorial. */
-const GWF_SEARCH_HIDDEN_PAGES = array( 'poltica-de-privacidad', 'politica-de-privacidad', 'politica-de-privacidad-growing-family-app', 'politica-de-privacidad-growing-family-adminapp', 'terminos-y-condiciones', 'comite-editorial' );
+/** Páginas que no salen en la búsqueda (por su dirección, iguales en staging y producción): legales, comité y política editorial. */
+const GWF_SEARCH_HIDDEN_PAGES = array( 'poltica-de-privacidad', 'politica-de-privacidad', 'politica-de-privacidad-growing-family-app', 'politica-de-privacidad-growing-family-adminapp', 'terminos-y-condiciones', 'comite-editorial', 'politica-editorial' );
 
 /** Campos de texto en los que también se busca. */
 const GWF_SEARCH_META_KEYS = array(
