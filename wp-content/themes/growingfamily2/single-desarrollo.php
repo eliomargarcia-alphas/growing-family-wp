@@ -138,7 +138,7 @@ while ( have_posts() ) :
 		</div>
 
 		<div class="gwf-g-bottom">
-			<?php gwf_g_bridge( 'desarrollo', 'Puente al método' ); // 6. ?>
+			<?php gwf_g_bridge( gwf_guias_bridge_text( 'desarrollo' ) ); // 6. Puente al método (texto global). ?>
 
 			<?php gwf_g_credits( gwf_g_author_html(), $gwf_reviewer_html, $gwf_date_html, $gwf_fuentes, 'Fuentes primarias' ); // 7. ?>
 

@@ -253,11 +253,7 @@ while ( have_posts() ) :
 			<?php endif; ?>
 
 			<?php // 10. Puente al método (texto global de Cuentos → Ajustes). ?>
-			<section class="gwf-g-block gwf-g-bridge">
-				<h2>Sostenerlo en el tiempo</h2>
-				<p><?php echo esc_html( $gwf_texts['puente'] ); ?></p>
-				<a class="gwf-g-button" href="<?php echo esc_url( home_url( '/acerca-de/el-metodo/' ) ); ?>">Conoce el método</a>
-			</section>
+			<?php gwf_g_bridge( $gwf_texts['puente'] ); ?>
 
 			<?php gwf_g_like(); // 12. «¿Te ha gustado este contenido?», como en guías, actividades y entradas. ?>
 

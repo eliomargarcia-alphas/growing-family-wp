@@ -188,11 +188,7 @@ while ( have_posts() ) :
 
 		<div class="gwf-g-bottom">
 			<?php // 7. Puente al método. ?>
-			<section class="gwf-g-block gwf-g-bridge">
-				<h2>Sostenerlo en el tiempo</h2>
-				<p>Esta actividad es un momento compartido; el ritual de cada noche es la forma de sostenerlo.</p>
-				<a class="gwf-g-button" href="<?php echo esc_url( home_url( '/acerca-de/el-metodo/' ) ); ?>">Conoce el método</a>
-			</section>
+			<?php gwf_g_bridge( 'Esta actividad es un momento compartido; el ritual de cada noche es la forma de sostenerlo.' ); ?>
 
 			<?php gwf_g_like(); // 10. «¿Te ha gustado este contenido?» con el «me gusta» (ordena los listados), como en las guías. ?>
 

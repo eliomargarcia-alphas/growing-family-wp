@@ -205,7 +205,7 @@ while ( have_posts() ) :
 				</section>
 			<?php endif; ?>
 
-			<?php gwf_g_bridge( 'guia' ); // 11. Sostenerlo en el tiempo: puente al método (texto global). ?>
+			<?php gwf_g_bridge( gwf_guias_bridge_text( 'guia' ) ); // 11. Puente al método (texto global). ?>
 
 			<?php gwf_g_credits( gwf_g_author_html(), $gwf_reviewer_html, $gwf_date_html, $gwf_fuentes ); // 12. Autoría, revisión, fuentes y fecha. ?>
 

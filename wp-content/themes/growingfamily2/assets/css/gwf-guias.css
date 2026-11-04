@@ -307,10 +307,43 @@ body.single-cuento {
 }
 .gwf-g-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-/* 11. Puente */
-.gwf-g-bridge { background: var(--g-blue-bg); border-color: var(--g-blue-line); }
-.gwf-guia .gwf-g-bridge h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--g-blue); }
-.gwf-g-bridge p { color: var(--color-navy-dark, #07192b); font-size: 1.125rem; }
+/* 11. Puente al método (gwf_g_bridge(): guías, pilares, actividades, cuentos y blog): azul muy claro en dos columnas,
+   texto y «Conoce el método» a la izquierda y la app en dos móviles a la derecha, asomando desde abajo sobre un círculo. */
+.gwf-g-block.gwf-g-bridge {
+	--bridge-pad: clamp(1.5rem, 3vw, 2.5rem);
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+	align-items: center;
+	gap: 1.5rem;
+	overflow: hidden;
+	padding: var(--bridge-pad);
+	border: 1px solid #cfe0f7;
+	border-radius: 20px;
+	background: #eef5ff;
+}
+.gwf-g-bridge .gwf-g-bridge-kicker { margin: 0 0 0.5rem; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #0b47b8; }
+.gwf-g-block.gwf-g-bridge .gwf-g-bridge-title { margin: 0 0 0.75rem; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); font-weight: 700; line-height: 1.2; color: #0a0e16; }
+.gwf-g-block.gwf-g-bridge .gwf-g-bridge-text { margin: 0 0 1.25rem; font-size: 1.0625rem; line-height: 1.55; color: #24304a; }
+.gwf-g-bridge-facts { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1.5rem; padding: 0; list-style: none; }
+.gwf-g-bridge-facts li { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.75rem; border: 1px solid #cfe0f7; border-radius: 999px; background: #fff; font-size: 0.9375rem; font-weight: 600; color: #0b3d7a; }
+.gwf-g-bridge-facts svg { flex: 0 0 auto; color: #0b47b8; }
+.gwf-g-bridge-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.85rem 1.5rem; border-radius: 12px; background: #0b47b8; color: #fff; font-weight: 700; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease; }
+.gwf-g-bridge-btn:hover,
+.gwf-g-bridge-btn:focus-visible { background: #003aaf; color: #fff; text-decoration: none; transform: translateY(-2px); box-shadow: 0 10px 22px rgba(11, 71, 184, 0.28); }
+.gwf-g-bridge-art { position: relative; align-self: end; margin-bottom: calc(-1 * var(--bridge-pad)); }
+.gwf-g-bridge-art::before { content: ""; position: absolute; left: 50%; bottom: 0; width: 82%; aspect-ratio: 1; transform: translate(-50%, 18%); border-radius: 50%; background: #d6e6fb; }
+.gwf-g-bridge-art img { position: relative; display: block; width: 100%; max-width: 360px; height: auto; margin: 0 auto; }
+/* Blog: «Si quieres profundizar» encima del bloque, o solo, si la nota no pide el método */
+.gwf-g-bridge .gwf-puente-guia { margin: 0 0 1.25rem; font-size: 1.0625rem; color: #24304a; }
+.gwf-puente { background: #eef5ff; border-color: #cfe0f7; }
+@media (max-width: 767.98px) {
+	.gwf-g-block.gwf-g-bridge { grid-template-columns: 1fr; }
+	.gwf-g-bridge-art img { max-width: 280px; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.gwf-g-bridge-btn:hover,
+	.gwf-g-bridge-btn:focus-visible { transform: none; }
+}
 .gwf-g-button {
 	display: inline-block;
 	margin-top: 1rem;

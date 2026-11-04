@@ -249,16 +249,13 @@ function gwf_post_bridge() {
 	if ( ! $guia_url && ! $metodo ) {
 		return;
 	}
-	// Mismo bloque que el puente de las guías y las actividades (.gwf-g-bridge, que también mide GA4).
-	echo '<aside class="gwf-g-block gwf-g-bridge gwf-puente">';
-	if ( $guia_url ) {
-		echo '<p>Si quieres profundizar: <a href="' . esc_url( $guia_url ) . '">' . esc_html( $guia_texto ? $guia_texto : 'lee la guía completa' ) . '</a>.</p>';
-	}
+	$deeper = $guia_url ? '<p class="gwf-puente-guia">Si quieres profundizar: <a href="' . esc_url( $guia_url ) . '">' . esc_html( $guia_texto ? $guia_texto : 'lee la guía completa' ) . '</a>.</p>' : '';
 	if ( $metodo ) {
-		echo '<p>Esto es lo que trabaja el método Growing Family, diez minutos cada noche.</p>';
-		echo '<a class="gwf-g-button" href="' . esc_url( home_url( '/acerca-de/el-metodo/' ) ) . '">Conoce el método</a>';
+		// El mismo bloque que en guías, actividades y cuentos (.gwf-g-bridge, que también mide GA4), con la guía encima.
+		gwf_g_bridge( 'Esto es lo que trabaja el método Growing Family, diez minutos cada noche.', $deeper, 'aside' );
+		return;
 	}
-	echo '</aside>';
+	echo '<aside class="gwf-g-block gwf-puente">' . $deeper . '</aside>'; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado arriba.
 }
 
 /**

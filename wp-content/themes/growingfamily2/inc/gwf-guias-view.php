@@ -254,15 +254,40 @@ function gwf_g_like() {
 	<?php
 }
 
-/** Puente al método (bloque fijo con texto global por tipo). */
-function gwf_g_bridge( $type, $title = 'Sostenerlo en el tiempo' ) {
-	?>
-	<section class="gwf-g-block gwf-g-bridge">
-		<h2><?php echo esc_html( $title ); ?></h2>
-		<p><?php echo esc_html( gwf_guias_bridge_text( $type ) ); ?></p>
-		<a class="gwf-g-button" href="<?php echo esc_url( home_url( '/acerca-de/el-metodo/' ) ); ?>">Conoce el método</a>
-	</section>
-	<?php
+/**
+ * Puente al método: el mismo bloque en guías, pilares, actividades, cuentos y blog. Texto a la izquierda (el de cada tipo),
+ * tres datos del ritual y «Conoce el método»; a la derecha, la app en dos móviles (assets/images/gwf-app-metodo.webp).
+ * La clase .gwf-g-bridge mide los clics en GA4 (gwf_puente_click, assets/js/gwf-guias.js).
+ *
+ * @param string $text   Texto del tipo (guías y pilares: gwf_guias_bridge_text(); cuentos: Cuentos → Ajustes).
+ * @param string $before HTML ya escapado antes del título (blog: «Si quieres profundizar…»).
+ * @param string $tag    section o aside.
+ */
+function gwf_g_bridge( $text, $before = '', $tag = 'section' ) {
+	$tag   = 'aside' === $tag ? 'aside' : 'section';
+	$facts = array(
+		'reloj'   => '10 minutos',
+		'luna'    => 'Antes de dormir',
+		'emocion' => 'En familia',
+	);
+	echo '<' . $tag . ' class="gwf-g-block gwf-g-bridge" aria-labelledby="gwf-g-bridge-title">'; // phpcs:ignore WordPress.Security.EscapeOutput
+	echo '<div class="gwf-g-bridge-body">';
+	echo $before; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado por quien llama.
+	echo '<p class="gwf-g-bridge-kicker">El método Growing Family</p>';
+	echo '<h2 id="gwf-g-bridge-title" class="gwf-g-bridge-title">Hazlo parte de cada noche</h2>';
+	echo '<p class="gwf-g-bridge-text">' . esc_html( $text ) . '</p>';
+	echo '<ul class="gwf-g-bridge-facts">';
+	foreach ( $facts as $icon => $label ) {
+		$svg = 'reloj' === $icon
+			? '<svg class="gwf-g-clock" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 6.5V12l3.5 3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+			: gwf_g_svg( $icon );
+		echo '<li>' . $svg . esc_html( $label ) . '</li>'; // phpcs:ignore WordPress.Security.EscapeOutput
+	}
+	echo '</ul>';
+	echo '<a class="gwf-g-bridge-btn" href="' . esc_url( home_url( '/acerca-de/el-metodo/' ) ) . '">Conoce el método <span aria-hidden="true">›</span></a>';
+	echo '</div>';
+	echo '<div class="gwf-g-bridge-art"><img src="' . esc_url( get_template_directory_uri() . '/assets/images/gwf-app-metodo.webp' ) . '" alt="La app de Growing Family: los desafíos y las actividades de cada noche" width="588" height="581" loading="lazy" decoding="async"></div>';
+	echo '</' . $tag . '>'; // phpcs:ignore WordPress.Security.EscapeOutput
 }
 
 /**
