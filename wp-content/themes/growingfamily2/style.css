@@ -3734,6 +3734,12 @@ body {
 .nav-link.nav-cta.current-menu-item > a { background: var(--color-blue-hover, #004f71); color: #fff; }
 .nav-link.nav-cta > a:hover,
 .nav-link.nav-cta > a:focus-visible { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(13, 110, 253, 0.25); }
+/* Con el botón, en pantallas de 1025 a 1279px el menú no cabe con el espacio normal: menos hueco y nada partido en dos líneas */
+.nav-list > .nav-link { white-space: nowrap; }
+@media (min-width: 1025px) and (max-width: 1279.98px) {
+    .nav-list { gap: 1.1rem; }
+    .nav-link.nav-cta > a { padding: 0.5rem 0.9rem; }
+}
 .gwf-search-btn-mobile { display: none; }
 
 /* Panel: alto máximo de la pantalla bajo la cabecera y scroll por dentro (la página no se mueve) */
