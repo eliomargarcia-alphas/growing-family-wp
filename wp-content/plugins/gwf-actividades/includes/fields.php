@@ -90,7 +90,7 @@ add_action( 'acf/init', 'gwf_act_register_fields' );
 const GWF_ACT_EDITOR_FIELDS = array( 'field_gwf_act_revisado_por', 'field_gwf_act_fecha_revision' );
 
 function gwf_act_hide_review_fields( $field ) {
-	return ( in_array( $field['key'], GWF_ACT_EDITOR_FIELDS, true ) && ! current_user_can( 'edit_others_posts' ) ) ? false : $field;
+	return ( $field && in_array( $field['key'], GWF_ACT_EDITOR_FIELDS, true ) && ! current_user_can( 'edit_others_posts' ) ) ? false : $field;
 }
 add_filter( 'acf/prepare_field', 'gwf_act_hide_review_fields' );
 

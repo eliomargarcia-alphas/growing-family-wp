@@ -29,7 +29,7 @@ function gwf_guias_can_edit_field( $field ) {
 }
 
 function gwf_guias_hide_protected_field( $field ) {
-	return gwf_guias_can_edit_field( $field ) ? $field : false;
+	return ( ! $field || gwf_guias_can_edit_field( $field ) ) ? $field : false;
 }
 add_filter( 'acf/prepare_field', 'gwf_guias_hide_protected_field' );
 

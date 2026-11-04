@@ -74,7 +74,7 @@ add_action( 'acf/init', 'gwf_cue_register_fields' );
 const GWF_CUE_EDITOR_FIELDS = array( 'field_gwf_cue_requiere_firma', 'field_gwf_cue_revisado_por', 'field_gwf_cue_fecha_revision' );
 
 function gwf_cue_hide_review_fields( $field ) {
-	return ( in_array( $field['key'], GWF_CUE_EDITOR_FIELDS, true ) && ! current_user_can( 'edit_others_posts' ) ) ? false : $field;
+	return ( $field && in_array( $field['key'], GWF_CUE_EDITOR_FIELDS, true ) && ! current_user_can( 'edit_others_posts' ) ) ? false : $field;
 }
 add_filter( 'acf/prepare_field', 'gwf_cue_hide_review_fields' );
 
