@@ -198,6 +198,9 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   con la clase `drawer-cta` (botón al final). Panel con scroll propio y bloqueo real del scroll de la página (`lockScroll`).
 - Búsqueda: `<dialog id="gwf-search">` en `header.php` (búsqueda normal de WordPress, `?s=`), abierto con `[data-gwf-search]`:
   lupa junto a la hamburguesa (móvil) y al final del menú 54 (escritorio).
+- Resultados: `search.php` + `inc/gwf-search.php` (cuentos, guías y pilares, actividades y blog; `?tipo=cuentos|guias|actividades|blog`;
+  12 por página; sin las categorías ocultas del blog). Formulario único `template-parts/gwf-buscador.php`. Ajax Search Lite sustituía
+  los resultados de la búsqueda principal (salían vacíos): `gwf_search_query()` le quita ese filtro; el plugin sigue instalado.
 
 ## Diseño
 - Paleta: solo los azules de la marca (`--color-navy`, azul claro `#eaf2fd`, `--color-sky*`). **Nada de naranja ni beige**: en los
