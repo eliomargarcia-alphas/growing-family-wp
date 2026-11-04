@@ -81,7 +81,7 @@ function gwf_act_print_submit() {
 		$result = 'error';
 	} elseif ( ! is_email( $email ) ) {
 		$result = 'correo';
-	} elseif ( gwf_act_print_rate_limited() ) {
+	} elseif ( gwf_act_print_rate_limited( $email ) ) {
 		$result = 'error';
 	} else {
 		gwf_act_print_subscribe( $email, $post_id, $commit );
@@ -93,13 +93,33 @@ function gwf_act_print_submit() {
 add_action( 'admin_post_nopriv_gwf_act_imprimible', 'gwf_act_print_submit' );
 add_action( 'admin_post_gwf_act_imprimible', 'gwf_act_print_submit' );
 
-/** Máximo 5 envíos por hora y por IP. */
-function gwf_act_print_rate_limited() {
-	$ip    = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
-	$key   = 'gwf_act_rl_' . md5( $ip );
-	$count = (int) get_transient( $key );
-	set_transient( $key, $count + 1, HOUR_IN_SECONDS );
-	return $count >= 5;
+/**
+ * Límites para que el formulario no sirva para mandar correos a terceros en bucle: 5 envíos por hora y por IP,
+ * 3 al día al mismo correo y 60 por hora en total (el sitio entero).
+ */
+function gwf_act_print_rate_limited( $email = '' ) {
+	$ip     = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+	$limits = array(
+		array( 'gwf_act_rl_' . md5( $ip ), 5, HOUR_IN_SECONDS ),
+		array( 'gwf_act_rl_mail_' . md5( strtolower( $email ) ), 3, DAY_IN_SECONDS ),
+		array( 'gwf_act_rl_total', 60, HOUR_IN_SECONDS ),
+	);
+	$blocked = false;
+	foreach ( $limits as list( $key, $max, $ttl ) ) {
+		$count = (int) get_transient( $key );
+		if ( $count >= $max ) {
+			$blocked = true;
+			continue;
+		}
+		set_transient( $key, $count + 1, $ttl );
+	}
+	return $blocked;
+}
+
+/** Correo enmascarado para el log (a***@dominio.com): el log no guarda datos personales completos. */
+function gwf_act_mask_email( $email ) {
+	$at = strpos( $email, '@' );
+	return false === $at ? '***' : substr( $email, 0, 1 ) . '***' . substr( $email, $at );
 }
 
 /** Alta o actualización en Mailchimp: etiqueta de la actividad y, si la marcó, la casilla de compromiso. */
@@ -113,7 +133,7 @@ function gwf_act_print_subscribe( $email, $post_id, $commit ) {
 		$args['interests'] = array( GWF_ACT_MC_COMMITMENT => true ); // Nunca se desmarca si ya la tenía.
 	}
 	if ( ! gwf_act_mailchimp_live() || ! function_exists( 'mc4wp_get_api_v3' ) ) {
-		error_log( sprintf( '[gwf-actividades] Mailchimp (no se envía fuera de producción): %s, etiqueta %s, compromiso %s', $email, $tag, $commit ? 'sí' : 'no' ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
+		error_log( sprintf( '[gwf-actividades] Mailchimp (no se envía fuera de producción): %s, etiqueta %s, compromiso %s', gwf_act_mask_email( $email ), $tag, $commit ? 'sí' : 'no' ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
 		do_action( 'gwf_act_print_subscribed', $email, $post_id, $commit, false );
 		return false;
 	}
@@ -140,3 +160,31 @@ function gwf_act_print_send( $email, $post_id ) {
 		. '<p>Que lo disfruten juntos.<br>Equipo de Growing Family</p>';
 	return wp_mail( $email, $subject, $body, array( 'Content-Type: text/html; charset=UTF-8' ) );
 }
+
+/**
+ * El PDF solo se reparte con el enlace del correo: no aparece en el listado público de medios de la API REST
+ * (/wp-json/wp/v2/media), desde donde se podría sacar su dirección sin dejar el correo.
+ */
+function gwf_act_hide_print_files( $args ) {
+	global $wpdb;
+	$ids = array_filter( array_map( 'absint', $wpdb->get_col( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = 'gwf_act_imprimible'" ) ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+	if ( $ids && ! current_user_can( 'upload_files' ) ) {
+		$args['post__not_in'] = array_merge( (array) ( $args['post__not_in'] ?? array() ), $ids );
+	}
+	return $args;
+}
+add_filter( 'rest_attachment_query', 'gwf_act_hide_print_files' );
+
+/** Lo mismo para la petición directa /wp-json/wp/v2/media/<id> de un imprimible. */
+function gwf_act_block_print_file_rest( $response, $handler, $request ) {
+	$route = $request->get_route();
+	if ( ! current_user_can( 'upload_files' ) && preg_match( '#^/wp/v2/media/(\d+)#', $route, $m ) ) {
+		global $wpdb;
+		$used = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = 'gwf_act_imprimible' AND meta_value = %s", $m[1] ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		if ( $used ) {
+			return new WP_Error( 'rest_post_invalid_id', 'No existe.', array( 'status' => 404 ) );
+		}
+	}
+	return $response;
+}
+add_filter( 'rest_request_before_callbacks', 'gwf_act_block_print_file_rest', 10, 3 );

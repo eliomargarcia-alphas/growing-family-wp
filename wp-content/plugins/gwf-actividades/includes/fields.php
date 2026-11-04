@@ -82,3 +82,24 @@ function gwf_act_register_fields() {
 	);
 }
 add_action( 'acf/init', 'gwf_act_register_fields' );
+
+/**
+ * La revisión experta («Revisado por», su fecha) sale en la página y en el schema (reviewedBy): solo la marcan editores y
+ * administradores. Para el resto el campo no aparece y, si llega en el envío, se descarta antes de que ACF guarde.
+ */
+const GWF_ACT_EDITOR_FIELDS = array( 'field_gwf_act_revisado_por', 'field_gwf_act_fecha_revision' );
+
+function gwf_act_hide_review_fields( $field ) {
+	return ( in_array( $field['key'], GWF_ACT_EDITOR_FIELDS, true ) && ! current_user_can( 'edit_others_posts' ) ) ? false : $field;
+}
+add_filter( 'acf/prepare_field', 'gwf_act_hide_review_fields' );
+
+function gwf_act_strip_review_fields() {
+	if ( current_user_can( 'edit_others_posts' ) || empty( $_POST['acf'] ) || ! is_array( $_POST['acf'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification -- ACF ya comprobó el nonce.
+		return;
+	}
+	foreach ( GWF_ACT_EDITOR_FIELDS as $key ) {
+		unset( $_POST['acf'][ $key ] ); // phpcs:ignore WordPress.Security.NonceVerification
+	}
+}
+add_action( 'acf/save_post', 'gwf_act_strip_review_fields', 1 );
