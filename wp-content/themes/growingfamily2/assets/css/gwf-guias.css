@@ -410,10 +410,14 @@ body.single-cuento {
 	.gwf-g-story-card .gwf-g-related-img { flex-basis: 5.5rem; }
 }
 
-/* Pilar: enlaces hacia abajo (todas las guías y cuentos de su edad o tema): tarjetas con imagen como las de
-   «Relacionados» (estilos de la tarjeta abajo), en dos columnas; las guías y los cuentos, uno debajo del otro. */
+/* Pilar: enlaces hacia abajo (todas las guías y cuentos de su edad o tema): tarjetas con imagen del tamaño de las de
+   «Relacionados» (estilos de la tarjeta abajo). Guías a la izquierda y cuentos a la derecha, cada una con sus tarjetas
+   en dos columnas; en móvil, una debajo de la otra. */
 .gwf-g-down { background: var(--g-soft); border-color: var(--g-blue-line); }
-.gwf-g-down-grid { display: grid; gap: 1.5rem; }
+.gwf-g-down-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+@media (max-width: 991.98px) {
+	.gwf-g-down-grid { grid-template-columns: 1fr; }
+}
 .gwf-guia .gwf-g-down h3 { font-size: 1rem; margin: 0 0 0.75rem; color: var(--color-navy-dark, #07192b); }
 .gwf-g-down ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
 @media (max-width: 575.98px) {
