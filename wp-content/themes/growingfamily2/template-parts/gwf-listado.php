@@ -102,17 +102,7 @@ foreach (
 					</div>
 
 					<?php
-					$gwf_pages = paginate_links(
-						array(
-							'type'      => 'list',
-							'prev_text' => '‹ Anteriores',
-							'next_text' => 'Siguientes ›',
-							'mid_size'  => 1,
-						)
-					);
-					if ( $gwf_pages ) {
-						echo '<nav class="gwf-l-pages" aria-label="Páginas">' . $gwf_pages . '</nav>'; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML de WordPress.
-					}
+					gwf_l_pagination(); // Navegación entre páginas (inc/gwf-guias-view.php).
 					?>
 				<?php else : ?>
 					<div class="gwf-g-block gwf-l-empty">

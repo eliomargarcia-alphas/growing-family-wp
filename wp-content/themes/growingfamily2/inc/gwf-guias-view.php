@@ -204,3 +204,21 @@ function gwf_g_bridge( $type, $title = 'Sostenerlo en el tiempo' ) {
 	</section>
 	<?php
 }
+
+/**
+ * Navegación entre páginas de los listados (guías, pilares, actividades, cuentos, blog y búsqueda). En móvil solo se ven
+ * las flechas ‹ › (las palabras siguen para los lectores de pantalla) para que todo quepa en una línea.
+ */
+function gwf_l_pagination() {
+	$pages = paginate_links(
+		array(
+			'type'      => 'list',
+			'prev_text' => '<span aria-hidden="true">‹</span><span class="gwf-l-pages-txt"> Anteriores</span>',
+			'next_text' => '<span class="gwf-l-pages-txt">Siguientes </span><span aria-hidden="true">›</span>',
+			'mid_size'  => 1,
+		)
+	);
+	if ( $pages ) {
+		echo '<nav class="gwf-l-pages" aria-label="Páginas">' . $pages . '</nav>'; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML de WordPress.
+	}
+}

@@ -1249,20 +1249,29 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 
 .gwf-l-pages { margin-top: 2rem; }
 .gwf-l-pages ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; }
-.gwf-l-pages a,
-.gwf-l-pages span {
-	display: inline-block;
-	min-width: 2.5rem;
-	padding: 0.5rem 0.8rem;
-	border-radius: 10px;
+.gwf-l-pages .page-numbers {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.3rem;
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	padding: 0.45rem 0.95rem;
+	border-radius: 999px;
 	border: 1px solid var(--g-blue-line);
-	text-align: center;
 	color: var(--g-text);
 	text-decoration: none;
 	background: #fff;
 }
-.gwf-l-pages .current { background: var(--g-blue); border-color: var(--g-blue); color: #fff; }
-.gwf-l-pages .dots { border: 0; background: none; }
+.gwf-l-pages a.page-numbers:hover { border-color: #006590; color: #006590; }
+.gwf-l-pages .current { background: #006590; border-color: #006590; color: #fff; }
+.gwf-l-pages .dots { border: 0; background: none; min-width: 1.5rem; padding: 0.45rem 0.2rem; }
+/* Móvil: solo flechas en «Anteriores» y «Siguientes» (el texto queda para lectores de pantalla) */
+@media (max-width: 575.98px) {
+	.gwf-l-pages ul { flex-wrap: nowrap; gap: 0.35rem; }
+	.gwf-l-pages .page-numbers { min-width: 2.5rem; min-height: 2.5rem; padding: 0.4rem 0.6rem; }
+	.gwf-l-pages-txt { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+}
 .gwf-l-empty { text-align: center; }
 
 /* ==========================================================================
