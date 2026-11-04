@@ -33,7 +33,7 @@ $gwf_summary = $args['summary'] ?? '';
 				<?php if ( has_post_thumbnail() ) : ?>
 					<?php the_post_thumbnail( 'medium_large', array( 'class' => 'blog-image', 'alt' => '', 'loading' => 'lazy', 'decoding' => 'async', 'sizes' => '(min-width: 1200px) 30vw, 100vw' ) ); ?>
 				<?php else : ?>
-					<img src="<?php echo esc_url( content_url( '/uploads/2026/08/article-1-opt.webp' ) ); ?>" alt="" class="blog-image" width="374" height="200" loading="lazy" decoding="async">
+					<?php echo gwf_placeholder_img( 'blog-image' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado en la función. ?>
 				<?php endif; ?>
 			</a>
 			<?php echo do_shortcode( '[wp_ulike]' ); ?>

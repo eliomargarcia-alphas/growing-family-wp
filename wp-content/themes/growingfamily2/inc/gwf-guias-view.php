@@ -45,9 +45,20 @@ function gwf_g_icon_html( $icon, $text ) {
 }
 
 /** Imagen destacada de una entrada para las tarjetas (vacío si no tiene). */
+/**
+ * Imagen para contenido sin imagen destacada (entradas, páginas, guías…): el logo sobre fondo claro, subido a la
+ * biblioteca en 2026/11. Hay que subir el mismo archivo a producción con la misma ruta.
+ */
+function gwf_placeholder_img( $class = '' ) {
+	return '<img src="' . esc_url( content_url( '/uploads/2026/11/logo-placeholder.jpg' ) ) . '" alt="" class="' . esc_attr( trim( 'gwf-placeholder-img ' . $class ) ) . '" width="768" height="432" loading="lazy" decoding="async">';
+}
+
 function gwf_g_card_image( $post_id ) {
-	if ( ! $post_id || ! has_post_thumbnail( $post_id ) ) {
+	if ( ! $post_id ) {
 		return '';
+	}
+	if ( ! has_post_thumbnail( $post_id ) ) {
+		return '<span class="gwf-g-related-img">' . gwf_placeholder_img() . '</span>';
 	}
 	return '<span class="gwf-g-related-img">'
 		. get_the_post_thumbnail( $post_id, 'medium_large', array( 'loading' => 'lazy', 'decoding' => 'async', 'alt' => '', 'sizes' => '(min-width: 1025px) 280px, 100vw' ) )

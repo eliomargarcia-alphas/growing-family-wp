@@ -680,7 +680,7 @@ get_header();
                                     <?php if (has_post_thumbnail()) : ?>
                                         <?php the_post_thumbnail('medium_large', array('class' => 'blog-image', 'alt' => get_the_title())); ?>
                                     <?php else : ?>
-                                        <img src="https://growing.family/wp-content/uploads/2026/08/article-1-opt.webp" alt="<?php the_title_attribute(); ?>" class="blog-image" width="374" height="200" loading="lazy" decoding="async">
+                                        <?php echo gwf_placeholder_img( 'blog-image' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
                                     <?php endif; ?>
                                 </div>
                                 <div class="blog-card-body">
