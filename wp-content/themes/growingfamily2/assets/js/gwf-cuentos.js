@@ -110,11 +110,20 @@
 	function pageHash(i) { return i === 0 ? '#leer' : '#pagina-' + (i + 1); }
 
 	function showPage(i, announce) {
+		var from = current;
 		current = Math.max(0, Math.min(total - 1, i));
-		pages.forEach(function (pg, n) { pg.classList.toggle('is-current', n === current); });
+		pages.forEach(function (pg, n) {
+			pg.classList.toggle('is-current', n === current);
+			pg.classList.remove('is-enter-next', 'is-enter-prev');
+		});
+		// Paso de página: la nueva entra desde el lado hacia el que se avanza (el CSS la quita si se pide menos movimiento).
+		if (announce && from !== current) {
+			void pages[current].offsetWidth;
+			pages[current].classList.add(current > from ? 'is-enter-next' : 'is-enter-prev');
+		}
 		var label = (current + 1) + ' de ' + total;
-		reader.querySelector('.gwf-cue-r-count').textContent = label;
-		reader.querySelector('.gwf-cue-r-progress').textContent = label;
+		reader.querySelector('.gwf-cue-r-ribbon b').textContent = current + 1;
+		reader.querySelector('.gwf-cue-r-ribbon small').textContent = 'de ' + total;
 		reader.querySelectorAll('.gwf-cue-r-dots span').forEach(function (d, n) { d.classList.toggle('is-current', n === current); });
 		reader.querySelector('[data-gwf-cue="anterior"]').disabled = current === 0;
 		var next = reader.querySelector('[data-gwf-cue="siguiente"]');

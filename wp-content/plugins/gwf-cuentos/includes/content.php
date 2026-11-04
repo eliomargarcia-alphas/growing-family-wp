@@ -67,17 +67,24 @@ function gwf_cue_page_blocks( $post_id ) {
 	return array_values( array_filter( $pages ) );
 }
 
-/** HTML de cada página, con variantes, notas de lectura e imágenes con carga diferida. */
+/**
+ * HTML de cada página, con variantes, notas de lectura e imágenes con carga diferida, separado en ilustración
+ * (bloques Imagen y Galería) y texto: en el modo lectura van en dos columnas en escritorio, como un libro abierto.
+ *
+ * @return array[] Una entrada por página: array( 'art' => html, 'text' => html ).
+ */
 function gwf_cue_pages( $post_id ) {
 	$protagonist = gwf_cue_protagonist( $post_id );
 	$pages       = array();
 	foreach ( gwf_cue_page_blocks( $post_id ) as $blocks ) {
-		$html = '';
+		$parts = array( 'art' => '', 'text' => '' );
 		foreach ( $blocks as $block ) {
-			$html .= render_block( $block );
+			$parts[ in_array( $block['blockName'], array( 'core/image', 'core/gallery' ), true ) ? 'art' : 'text' ] .= render_block( $block );
 		}
-		$html    = wp_filter_content_tags( do_shortcode( $html ) );
-		$pages[] = gwf_cue_variants( $html, $protagonist );
+		foreach ( $parts as $key => $html ) {
+			$parts[ $key ] = '' === trim( $html ) ? '' : gwf_cue_variants( wp_filter_content_tags( do_shortcode( $html ) ), $protagonist );
+		}
+		$pages[] = $parts;
 	}
 	return $pages;
 }

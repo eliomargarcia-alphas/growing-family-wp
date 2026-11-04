@@ -174,6 +174,9 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   «Antes de empezar» (`<dialog id="como-contarlo">`, una vez: `gwf_cuento_antes_visto`), modo lectura (`<dialog id="gwf-cue-reader">`, mueve el
   mismo `#leer`; `#leer`, `#pagina-n`, `#fin`), modo nocturno (`.is-night`, `gwf_cuento_noche`, propuesto con `prefers-color-scheme: dark`,
   Wake Lock) y pantalla final (`.gwf-cue-end`; el «me gusta» de WP ULike se mueve allí). GA4: `cuento_*` (ver el doc de pendientes).
+  Lectura como libro sobre la mesa: fondo `--r-desk` azul muy claro, tarjeta `.gwf-cue-r-book` con hojas debajo (sombras), cinta
+  `.gwf-cue-r-ribbon` con la página, título en la página 1 (`.gwf-cue-page-title`). `gwf_cue_pages()` devuelve `art` (bloques Imagen y
+  Galería) y `text`: en escritorio ≥ 900px, dos columnas con lomo; en móvil, ilustración arriba. Paso de página `is-enter-next|prev`.
 - Listados (etapa 8, `includes/listings.php` + `template-parts/gwf-listado-cuentos.php`): /cuentos/, /cuentos/emocion|situacion|para-contar/x/,
   /cuentos/edad/x/. Destacado (`gwf_cue_destacado`) → «me gusta» → fecha; 12 por página; noindex con < 3; filtros Emoción, Situación y Edad.
 - SEO y conexión (etapa 9): `includes/schema.php` (title «<título> | Growing Family» ≤ 60, descripción desde extracto o «Así empieza»,

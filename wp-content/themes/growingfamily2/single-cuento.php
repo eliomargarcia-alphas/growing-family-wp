@@ -105,8 +105,16 @@ while ( have_posts() ) :
 
 					<div id="leer" class="gwf-cuento" data-total="<?php echo (int) $gwf_total; ?>">
 						<?php foreach ( $gwf_pages as $gwf_i => $gwf_page ) : ?>
-							<div class="gwf-cue-page" id="pagina-<?php echo (int) $gwf_i + 1; ?>" role="group" aria-label="<?php echo esc_attr( 'Página ' . ( $gwf_i + 1 ) . ' de ' . $gwf_total ); ?>">
-								<?php echo $gwf_page; // phpcs:ignore WordPress.Security.EscapeOutput -- bloques renderizados por WordPress. ?>
+							<div class="gwf-cue-page<?php echo $gwf_page['art'] ? ' has-art' : ''; ?>" id="pagina-<?php echo (int) $gwf_i + 1; ?>" role="group" aria-label="<?php echo esc_attr( 'Página ' . ( $gwf_i + 1 ) . ' de ' . $gwf_total ); ?>">
+								<?php if ( $gwf_page['art'] ) : ?>
+									<div class="gwf-cue-page-art"><?php echo $gwf_page['art']; // phpcs:ignore WordPress.Security.EscapeOutput -- bloques renderizados por WordPress. ?></div>
+								<?php endif; ?>
+								<div class="gwf-cue-page-text">
+									<?php if ( 0 === $gwf_i ) : // El título abre el libro (solo se ve en el modo lectura). ?>
+										<p class="gwf-cue-page-title" aria-hidden="true"><?php echo esc_html( wp_strip_all_tags( get_the_title() ) ); ?></p>
+									<?php endif; ?>
+									<?php echo $gwf_page['text']; // phpcs:ignore WordPress.Security.EscapeOutput -- bloques renderizados por WordPress. ?>
+								</div>
 							</div>
 						<?php endforeach; ?>
 					</div>
@@ -143,19 +151,19 @@ while ( have_posts() ) :
 				</dialog>
 
 				<?php
-				// Pantalla 3 · Modo lectura (wireframes cuento-enfocado-v3-lectura-*): capa a pantalla completa sobre la misma URL.
+				// Pantalla 3 · Modo lectura (wireframes cuento-enfocado-v3-lectura-*): capa a pantalla completa sobre la misma URL,
+				// con el cuento como un libro sobre la mesa (tarjeta con hojas debajo y cinta con el número de página).
 				// Al abrirse, assets/js/gwf-cuentos.js mueve aquí el mismo #leer (no se duplica el cuento) y lo devuelve al cerrar.
 				?>
 				<dialog id="gwf-cue-reader" class="gwf-cue-reader" aria-label="<?php echo esc_attr( 'Cuento: ' . wp_strip_all_tags( get_the_title() ) ); ?>">
+					<div class="gwf-cue-r-book">
+					<div class="gwf-cue-r-ribbon" aria-hidden="true"><b></b><small></small></div>
 					<div class="gwf-cue-r-top">
-						<button type="button" class="gwf-cue-close" data-gwf-cue="cerrar" aria-label="Cerrar el cuento">
+						<button type="button" class="gwf-cue-close" data-gwf-cue="ayuda" aria-label="¿Cómo contarlo?"><?php echo gwf_g_svg( 'contar', 'gwf-cue-r-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+						<button type="button" class="gwf-cue-close gwf-cue-r-night" data-gwf-cue="noche" aria-label="Modo nocturno" aria-pressed="false"><?php echo gwf_g_svg( 'luna', 'gwf-cue-r-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+						<button type="button" class="gwf-cue-close gwf-cue-r-close" data-gwf-cue="cerrar" aria-label="Cerrar el cuento">
 							<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
 						</button>
-						<p class="gwf-cue-r-count" aria-hidden="true"></p>
-						<div class="gwf-cue-r-tools">
-							<button type="button" class="gwf-cue-close" data-gwf-cue="ayuda" aria-label="¿Cómo contarlo?"><?php echo gwf_g_svg( 'contar', 'gwf-cue-r-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
-							<button type="button" class="gwf-cue-close gwf-cue-r-night" data-gwf-cue="noche" aria-label="Modo nocturno" aria-pressed="false"><?php echo gwf_g_svg( 'luna', 'gwf-cue-r-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
-						</div>
 					</div>
 					<div class="gwf-cue-r-stage"></div>
 					<?php
@@ -194,7 +202,7 @@ while ( have_posts() ) :
 							<button type="button" class="gwf-cue-r-next" data-gwf-cue="siguiente" autofocus>Siguiente <span aria-hidden="true">›</span></button>
 						</div>
 						<div class="gwf-cue-r-dots" aria-hidden="true"></div>
-						<p class="gwf-cue-r-progress" aria-hidden="true"></p>
+					</div>
 					</div>
 					<p class="screen-reader-text gwf-cue-r-live" aria-live="polite"></p>
 				</dialog>
