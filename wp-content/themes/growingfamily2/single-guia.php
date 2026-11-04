@@ -205,11 +205,11 @@ while ( have_posts() ) :
 				</section>
 			<?php endif; ?>
 
-			<?php gwf_g_bridge( gwf_guias_bridge_text( 'guia' ) ); // 11. Puente al método (texto global). ?>
-
 			<?php gwf_g_credits( gwf_g_author_html(), $gwf_reviewer_html, $gwf_date_html, $gwf_fuentes ); // 12. Autoría, revisión, fuentes y fecha. ?>
 
 			<?php gwf_g_like(); ?>
+
+			<?php gwf_g_bridge( gwf_guias_bridge_text( 'guia' ) ); // 11. Puente al método (texto global), justo antes de «Relacionados». ?>
 
 			<?php // 13. Relacionados: pilar, guías hermanas, nota de padre a padre y método. ?>
 			<nav class="gwf-g-block gwf-g-related" aria-label="Relacionados">

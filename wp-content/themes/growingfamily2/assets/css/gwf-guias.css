@@ -410,20 +410,15 @@ body.single-cuento {
 	.gwf-g-story-card .gwf-g-related-img { flex-basis: 5.5rem; }
 }
 
-/* Pilar: enlaces hacia abajo (todas las guías y cuentos de su edad o tema) */
+/* Pilar: enlaces hacia abajo (todas las guías y cuentos de su edad o tema): tarjetas con imagen como las de
+   «Relacionados» (estilos de la tarjeta abajo), en dos columnas; las guías y los cuentos, uno debajo del otro. */
 .gwf-g-down { background: var(--g-soft); border-color: var(--g-blue-line); }
-.gwf-g-down-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
-.gwf-guia .gwf-g-down h3 { font-size: 1rem; margin: 0 0 0.6rem; color: var(--color-navy-dark, #07192b); }
-.gwf-g-down ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
-.gwf-g-down a {
-	display: block;
-	background: #fff;
-	border-radius: 10px;
-	padding: 0.7rem 1rem;
-	color: var(--g-text);
-	text-decoration: none;
+.gwf-g-down-grid { display: grid; gap: 1.5rem; }
+.gwf-guia .gwf-g-down h3 { font-size: 1rem; margin: 0 0 0.75rem; color: var(--color-navy-dark, #07192b); }
+.gwf-g-down ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+@media (max-width: 575.98px) {
+	.gwf-g-down ul { grid-template-columns: 1fr; }
 }
-.gwf-g-down a:hover { color: var(--g-blue); box-shadow: var(--shadow-sm); }
 
 /* 13. Relacionados */
 .gwf-g-related { background: var(--g-blue-bg); border: 1px dashed #9cc0f2; }
@@ -436,7 +431,8 @@ body.single-cuento {
 	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* auto-fill: con pocas tarjetas no se estiran */
 	gap: 0.75rem;
 }
-.gwf-g-related a {
+.gwf-g-related a,
+.gwf-g-down a {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
@@ -459,8 +455,9 @@ body.single-cuento {
 	letter-spacing: 0.05em;
 	color: var(--g-muted);
 }
-.gwf-g-related a:hover { box-shadow: 0 8px 20px rgba(13, 40, 90, 0.14); transform: translateY(-2px); color: var(--g-blue); }
-@media (prefers-reduced-motion: reduce) { .gwf-g-related a:hover { transform: none; } }
+.gwf-g-related a:hover,
+.gwf-g-down a:hover { box-shadow: 0 8px 20px rgba(13, 40, 90, 0.14); transform: translateY(-2px); color: var(--g-blue); }
+@media (prefers-reduced-motion: reduce) { .gwf-g-related a:hover, .gwf-g-down a:hover { transform: none; } }
 
 .gwf-g-bar { display: none; }
 

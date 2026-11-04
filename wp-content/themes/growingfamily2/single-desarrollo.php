@@ -138,8 +138,6 @@ while ( have_posts() ) :
 		</div>
 
 		<div class="gwf-g-bottom">
-			<?php gwf_g_bridge( gwf_guias_bridge_text( 'desarrollo' ) ); // 6. Puente al método (texto global). ?>
-
 			<?php gwf_g_credits( gwf_g_author_html(), $gwf_reviewer_html, $gwf_date_html, $gwf_fuentes, 'Fuentes primarias' ); // 7. ?>
 
 			<?php gwf_g_like(); ?>
@@ -153,7 +151,7 @@ while ( have_posts() ) :
 								<h3>Guías de problema · <?php echo esc_html( $gwf_down['label'] ); ?></h3>
 								<ul>
 									<?php foreach ( $gwf_down['guias'] as $gwf_g ) : ?>
-										<li><a href="<?php echo esc_url( get_permalink( $gwf_g ) ); ?>"><?php echo esc_html( get_the_title( $gwf_g ) ); ?></a></li>
+										<?php echo gwf_g_card( $gwf_g, 'Guía de problema' ); // phpcs:ignore WordPress.Security.EscapeOutput -- gwf_g_card escapa cada valor. ?>
 									<?php endforeach; ?>
 								</ul>
 							</div>
@@ -163,7 +161,7 @@ while ( have_posts() ) :
 								<h3>Cuentos · <?php echo esc_html( $gwf_down['label'] ); ?></h3>
 								<ul>
 									<?php foreach ( $gwf_down['cuentos'] as $gwf_c ) : ?>
-										<li><a href="<?php echo esc_url( get_permalink( $gwf_c ) ); ?>"><?php echo esc_html( get_the_title( $gwf_c ) ); ?></a></li>
+										<?php echo gwf_g_card( $gwf_c, 'Cuento' ); // phpcs:ignore WordPress.Security.EscapeOutput -- gwf_g_card escapa cada valor. ?>
 									<?php endforeach; ?>
 								</ul>
 							</div>
@@ -171,6 +169,8 @@ while ( have_posts() ) :
 					</div>
 				</section>
 			<?php endif; ?>
+
+			<?php gwf_g_bridge( gwf_guias_bridge_text( 'desarrollo' ) ); // 6. Puente al método (texto global), justo antes de «Relacionados». ?>
 
 			<nav class="gwf-g-block gwf-g-related" aria-label="Relacionados">
 				<h2>Relacionados</h2>
