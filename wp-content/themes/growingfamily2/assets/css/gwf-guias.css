@@ -208,7 +208,11 @@ body.single-cuento {
 }
 .gwf-g-facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
 .gwf-g-facts li { background: var(--g-blue-bg); border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.9375rem; }
-.gwf-g-facts a { color: var(--g-blue); }
+.gwf-g-facts a { color: var(--g-blue); text-decoration: none; }
+.gwf-g-facts a:hover,
+.gwf-g-facts a:focus-visible { text-decoration: underline; text-underline-offset: 2px; }
+.gwf-g-facts .gwf-g-read { gap: 0.5rem; }
+.gwf-g-facts .gwf-g-icon { display: flex; }
 
 .gwf-g-reviewer { display: flex; gap: 0.75rem; align-items: center; }
 .gwf-g-reviewer img,

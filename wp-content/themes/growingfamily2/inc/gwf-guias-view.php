@@ -35,6 +35,12 @@ function gwf_g_svg( $icon, $class = 'gwf-g-clock' ) {
 		'releer'        => '<path d="M3.5 12a8.5 8.5 0 1 0 2.5-6M3.5 4v4.5H8" ' . $s . '/>',
 		'luna'          => '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" ' . $s . '/>',
 		'contar'        => '<circle cx="12" cy="12" r="9.5" ' . $s . '/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.6 2.3c-.7.3-1.2 1-1.2 1.8v.4" ' . $s . '/><circle cx="12" cy="17" r="1" fill="currentColor"/>',
+		// Ficha: edad, emoción, situación, páginas y tema.
+		'edad'          => '<circle cx="12" cy="5.5" r="2.5" ' . $s . '/><path d="M8 21v-5.5L6 11.5l3-2h6l3 2-2 4V21M12 15v6" ' . $s . '/>',
+		'emocion'       => '<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z" ' . $s . '/>',
+		'situacion'     => '<path d="M3.5 11 12 4l8.5 7M5.5 9.5V20h13V9.5M10 20v-5.5h4V20" ' . $s . '/>',
+		'paginas'       => '<path d="M12 6.5C10.3 5 7.8 4.5 3.5 4.5v14c4.3 0 6.8.5 8.5 2 1.7-1.5 4.2-2 8.5-2v-14c-4.3 0-6.8.5-8.5 2zM12 6.5v14" ' . $s . '/>',
+		'tema'          => '<path d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1.4 1.4 0 0 1 0 2l-7 7a1.4 1.4 0 0 1-2 0z" ' . $s . '/><circle cx="8" cy="8" r="1.4" fill="currentColor"/>',
 	);
 	return '<svg class="' . esc_attr( $class ) . '" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">' . ( $paths[ $icon ] ?? '' ) . '</svg>';
 }
@@ -42,6 +48,51 @@ function gwf_g_svg( $icon, $class = 'gwf-g-clock' ) {
 /** Texto con icono delante (participantes o lugar), con el mismo estilo que el reloj. */
 function gwf_g_icon_html( $icon, $text ) {
 	return '<span class="gwf-g-read gwf-g-icon">' . gwf_g_svg( $icon ) . esc_html( $text ) . '</span>';
+}
+
+/**
+ * Fila de la ficha (cuentos, guías, actividades y blog): icono y «Etiqueta · valor». $value llega ya escapado y puede
+ * llevar enlaces a los listados; va en su propio span para que el texto haga salto de línea junto al icono.
+ */
+function gwf_g_fact( $icon, $label, $value ) {
+	return '<span class="gwf-g-read gwf-g-icon">' . gwf_g_svg( $icon ) . '<span>' . ( '' !== $label ? esc_html( $label ) . ' · ' : '' ) . $value . '</span></span>';
+}
+
+/** Término enlazado a su listado (con $name, otro texto: p. ej. en minúscula). */
+function gwf_g_term_link( $term, $name = null ) {
+	$url = get_term_link( $term );
+	$txt = esc_html( null !== $name ? $name : $term->name );
+	return is_wp_error( $url ) ? $txt : '<a href="' . esc_url( $url ) . '">' . $txt . '</a>';
+}
+
+/** Lista «a, b y c» con cada término enlazado; desde el segundo, en minúscula (p. ej. «Emociones y imaginación»). */
+function gwf_g_terms_links( $terms ) {
+	$links = array();
+	foreach ( array_values( $terms ) as $i => $term ) {
+		$links[] = gwf_g_term_link( $term, $i ? mb_strtolower( $term->name ) : $term->name );
+	}
+	$last = array_pop( $links );
+	return $links ? implode( ', ', $links ) . ' y ' . $last : $last;
+}
+
+/**
+ * Edades enlazadas al listado de su sección (/cuentos/edad/5-anos/, /guias/edad/…, /actividades/edad/…), con el formato
+ * de las edades: «5 años» o «4, 5 y 6 años» (cada número lleva a su edad).
+ */
+function gwf_g_ages_links( $terms, $section ) {
+	if ( ! $terms || is_wp_error( $terms ) ) {
+		return '';
+	}
+	usort( $terms, function ( $a, $b ) { return strnatcmp( $a->slug, $b->slug ); } );
+	$link = function ( $term, $text ) use ( $section ) {
+		return '<a href="' . esc_url( home_url( '/' . $section . '/edad/' . $term->slug . '/' ) ) . '">' . esc_html( $text ) . '</a>';
+	};
+	if ( 1 === count( $terms ) ) {
+		return $link( $terms[0], $terms[0]->name );
+	}
+	$last  = array_pop( $terms );
+	$links = array_map( function ( $t ) use ( $link ) { return $link( $t, (string) (int) $t->name ); }, $terms );
+	return implode( ', ', $links ) . ' y ' . $link( $last, (int) $last->name . ' años' );
 }
 
 /** Imagen destacada de una entrada para las tarjetas (vacío si no tiene). */

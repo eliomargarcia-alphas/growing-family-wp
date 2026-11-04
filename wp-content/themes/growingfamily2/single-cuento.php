@@ -39,13 +39,13 @@ while ( have_posts() ) :
 	$gwf_pilar    = gwf_cue_linked( $gwf_id, 'gwf_cue_pilar' );
 	$gwf_names    = array( 'ana' => 'Ana', 'max' => 'Max' );
 
-	// Ficha: edad, emoción o situación, páginas y minutos (panel lateral; en móvil, franja bajo el título).
+	// Ficha: edad, emoción o situación (enlazadas a sus listados), páginas y minutos (panel lateral; en móvil, franja bajo el título).
 	$gwf_facts = array_filter(
 		array(
-			$gwf_edad ? esc_html( 'Edad · ' . $gwf_edad[0]->name ) : '',
-			$gwf_emocion ? esc_html( 'Emoción · ' . $gwf_emocion[0]->name ) : '',
-			$gwf_situ ? esc_html( 'Situación · ' . $gwf_situ[0]->name ) : '',
-			esc_html( $gwf_total . ( 1 === $gwf_total ? ' página' : ' páginas' ) ),
+			$gwf_edad ? gwf_g_fact( 'edad', 'Edad', gwf_g_ages_links( $gwf_edad, 'cuentos' ) ) : '',
+			$gwf_emocion ? gwf_g_fact( 'emocion', 'Emoción', gwf_g_term_link( $gwf_emocion[0] ) ) : '',
+			$gwf_situ ? gwf_g_fact( 'situacion', 'Situación', gwf_g_term_link( $gwf_situ[0] ) ) : '',
+			gwf_g_fact( 'paginas', '', esc_html( $gwf_total . ( 1 === $gwf_total ? ' página' : ' páginas' ) ) ),
 			gwf_g_read_html( $gwf_minutes, 'min para contarlo' ),
 		)
 	);

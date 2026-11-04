@@ -38,8 +38,8 @@ while ( have_posts() ) :
 	// Ficha (HTML ya escapado): los minutos con el reloj, como el tiempo de lectura de las guías.
 	$gwf_facts = array_filter(
 		array(
-			$gwf_ages ? esc_html( 'Edad · ' . $gwf_ages ) : '',
-			$gwf_trabaja ? esc_html( 'Qué trabaja · ' . ucfirst( $gwf_trabaja_t ) ) : '',
+			$gwf_edad ? gwf_g_fact( 'edad', 'Edad', gwf_g_ages_links( $gwf_edad, 'actividades' ) ) : '',
+			$gwf_trabaja ? gwf_g_fact( 'trabaja', 'Qué trabaja', gwf_g_terms_links( array_slice( $gwf_trabaja, 0, 2 ) ) ) : '',
 			$gwf_minutes ? gwf_g_read_html( $gwf_minutes, 'minutos' ) : '',
 		)
 	);

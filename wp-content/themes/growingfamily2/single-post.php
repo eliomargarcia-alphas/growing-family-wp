@@ -94,7 +94,7 @@ while ( have_posts() ) :
 						<p class="gwf-g-card-title">Ficha</p>
 						<ul class="gwf-g-facts">
 							<?php foreach ( $gwf_cats as $gwf_cat ) : ?>
-								<li>Tema · <a href="<?php echo esc_url( get_category_link( $gwf_cat ) ); ?>"><?php echo esc_html( $gwf_cat->name ); ?></a></li>
+								<li><?php echo gwf_g_fact( 'tema', 'Tema', gwf_g_term_link( $gwf_cat ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></li>
 							<?php endforeach; ?>
 							<li><?php echo gwf_g_read_html( $gwf_minutes ); // phpcs:ignore WordPress.Security.EscapeOutput ?></li>
 						</ul>
