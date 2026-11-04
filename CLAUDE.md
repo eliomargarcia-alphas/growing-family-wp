@@ -200,7 +200,10 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   lupa junto a la hamburguesa (móvil) y al final del menú 54 (escritorio).
 - Resultados: `search.php` + `inc/gwf-search.php` (cuentos, guías y pilares, actividades y blog; `?tipo=cuentos|guias|actividades|blog`;
   12 por página; sin las categorías ocultas del blog). Formulario único `template-parts/gwf-buscador.php`. Ajax Search Lite sustituía
-  los resultados de la búsqueda principal (salían vacíos): `gwf_search_query()` le quita ese filtro; el plugin sigue instalado.
+  los resultados de la búsqueda principal (salían vacíos): `gwf_search_query()` le quita ese filtro (en staging3 ya está desactivado).
+  Busca también en los campos de `GWF_SEARCH_META_KEYS` (guías, pilares, actividades, cuentos, comité, descripción de Yoast) y en los
+  nombres de términos (`GWF_SEARCH_TAXONOMIES`) con `posts_search` (`gwf_search_where`). Incluye páginas (`?tipo=paginas`); fuera
+  portada, página del blog y lo marcado noindex en Yoast. Al crear un campo de texto nuevo, añadirlo a `GWF_SEARCH_META_KEYS`.
 
 ## Diseño
 - Paleta: solo los azules de la marca (`--color-navy`, azul claro `#eaf2fd`, `--color-sky*`). **Nada de naranja ni beige**: en los
