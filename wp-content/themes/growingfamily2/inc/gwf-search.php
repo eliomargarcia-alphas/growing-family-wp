@@ -6,7 +6,8 @@
  * Además del título, el extracto y el texto, cada palabra se busca en los campos de guías, pilares, actividades, cuentos
  * y comité (GWF_SEARCH_META_KEYS), en la descripción y frase clave de Yoast y en los nombres de temas, edades,
  * emociones, situaciones, «qué trabaja», categorías y etiquetas. Las páginas hechas con plantilla PHP solo tienen en la
- * base de datos su título y su descripción de Yoast. Quedan fuera la portada, la página del blog y lo marcado «noindex».
+ * base de datos su título y su descripción de Yoast. Quedan fuera la portada, la página del blog, lo marcado «noindex»,
+ * las páginas legales (privacidad y términos) y la del comité editorial (GWF_SEARCH_HIDDEN_PAGES).
  *
  * Ajax Search Lite sustituía los resultados de la búsqueda principal por los suyos (vacíos): aquí se le quita esa
  * sustitución solo en la búsqueda principal; el plugin sigue instalado.
@@ -17,6 +18,9 @@
 
 const GWF_SEARCH_PER_PAGE = 12;
 const GWF_SEARCH_HIDDEN_CATS = array( 41, 32, 6, 42 ); // Las mismas categorías que el blog no muestra.
+
+/** Páginas que no salen en la búsqueda (por su dirección, iguales en staging y producción): legales y comité editorial. */
+const GWF_SEARCH_HIDDEN_PAGES = array( 'poltica-de-privacidad', 'politica-de-privacidad', 'politica-de-privacidad-growing-family-app', 'politica-de-privacidad-growing-family-adminapp', 'terminos-y-condiciones', 'comite-editorial' );
 
 /** Campos de texto en los que también se busca. */
 const GWF_SEARCH_META_KEYS = array(
@@ -94,13 +98,15 @@ function gwf_search_query( $query ) {
 }
 add_action( 'pre_get_posts', 'gwf_search_query', 20 );
 
-/** Lo que no sale en la búsqueda: portada, página del blog y contenido marcado «noindex» en Yoast. */
+/** Lo que no sale en la búsqueda: portada, página del blog, contenido marcado «noindex» en Yoast y GWF_SEARCH_HIDDEN_PAGES. */
 function gwf_search_excluded_ids() {
 	static $ids = null;
 	if ( null === $ids ) {
 		global $wpdb;
 		$ids = array_map( 'intval', $wpdb->get_col( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_yoast_wpseo_meta-robots-noindex' AND meta_value = '1'" ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$ids = array_values( array_filter( array_merge( $ids, array( (int) get_option( 'page_on_front' ), (int) get_option( 'page_for_posts' ) ) ) ) );
+		$slugs = "'" . implode( "','", array_map( 'esc_sql', GWF_SEARCH_HIDDEN_PAGES ) ) . "'";
+		$pages = array_map( 'intval', $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND post_name IN ({$slugs})" ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- direcciones fijas escapadas.
+		$ids   = array_values( array_filter( array_merge( $ids, $pages, array( (int) get_option( 'page_on_front' ), (int) get_option( 'page_for_posts' ) ) ) ) );
 	}
 	return $ids;
 }

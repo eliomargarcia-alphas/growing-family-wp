@@ -438,7 +438,8 @@ body.single-cuento {
 .single-desarrollo .a2a_floating_style,
 .single-actividad .a2a_floating_style,
 .single-post .a2a_floating_style,
-.single-cuento .a2a_floating_style { display: none !important; }
+.single-cuento .a2a_floating_style,
+.search .a2a_floating_style { display: none !important; }
 
 /* ==========================================================================
    Ficha del equipo: /equipo/<persona>/ (template-parts/gwf-persona.php, wireframe «plantilla-revisor»)
