@@ -46,11 +46,11 @@ function gwf_g_icon_html( $icon, $text ) {
 
 /** Imagen destacada de una entrada para las tarjetas (vacío si no tiene). */
 /**
- * Imagen para contenido sin imagen destacada (entradas, páginas, guías…): el logo sobre fondo claro, subido a la
- * biblioteca en 2026/11. Hay que subir el mismo archivo a producción con la misma ruta.
+ * Imagen para contenido sin imagen destacada (entradas, páginas, guías…): el logo sobre fondo claro. Va dentro del tema
+ * (assets/images/logo-placeholder.jpg) para que llegue a cada entorno con el deploy, sin depender de la biblioteca.
  */
 function gwf_placeholder_img( $class = '' ) {
-	return '<img src="' . esc_url( content_url( '/uploads/2026/11/logo-placeholder.jpg' ) ) . '" alt="" class="' . esc_attr( trim( 'gwf-placeholder-img ' . $class ) ) . '" width="768" height="432" loading="lazy" decoding="async">';
+	return '<img src="' . esc_url( get_template_directory_uri() . '/assets/images/logo-placeholder.jpg' ) . '" alt="" class="' . esc_attr( trim( 'gwf-placeholder-img ' . $class ) ) . '" width="768" height="432" loading="lazy" decoding="async">';
 }
 
 function gwf_g_card_image( $post_id ) {
