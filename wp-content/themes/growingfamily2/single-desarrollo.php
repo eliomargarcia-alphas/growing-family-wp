@@ -121,8 +121,9 @@ while ( have_posts() ) :
 					<div class="gwf-g-card">
 						<p class="gwf-g-card-title">Ficha</p>
 						<ul class="gwf-g-facts">
-							<?php if ( $gwf_ages ) : ?><li>Edad · <?php echo esc_html( $gwf_ages ); ?></li><?php endif; ?>
-							<?php if ( $gwf_tema ) : ?><li>Gran tema · <?php echo esc_html( $gwf_tema->name ); ?></li><?php endif; ?>
+							<?php // Edad y gran tema con icono y enlazados a sus listados (/desarrollo/edad/x/, /desarrollo/tema/x/). ?>
+							<?php if ( $gwf_ages ) : ?><li><?php echo gwf_g_fact( 'edad', 'Edad', gwf_g_ages_links( get_the_terms( $gwf_id, 'edad' ), 'desarrollo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></li><?php endif; ?>
+							<?php if ( $gwf_tema ) : ?><li><?php echo gwf_g_fact( 'tema', 'Gran tema', gwf_g_term_link( $gwf_tema ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></li><?php endif; ?>
 							<li><?php echo $gwf_read_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></li>
 						</ul>
 					</div>

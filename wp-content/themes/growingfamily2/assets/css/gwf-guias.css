@@ -420,8 +420,17 @@ body.single-cuento {
 }
 .gwf-guia .gwf-g-down h3 { font-size: 1rem; margin: 0 0 0.75rem; color: var(--color-navy-dark, #07192b); }
 .gwf-g-down ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+/* Misma altura en guías y cuentos (son dos rejillas distintas): el título ocupa siempre tres líneas (más, con «…») */
+.gwf-g-down .gwf-g-related-title {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+	min-height: calc(3 * 1.4em);
+}
 @media (max-width: 575.98px) {
 	.gwf-g-down ul { grid-template-columns: 1fr; }
+	.gwf-g-down .gwf-g-related-title { min-height: 0; }
 }
 
 /* 13. Relacionados */

@@ -119,7 +119,7 @@ function gwf_g_card( $post_id, $label, $title = null, $url = null ) {
 	return '<li><a href="' . esc_url( $url ? $url : get_permalink( $post_id ) ) . '">'
 		. gwf_g_card_image( $post_id )
 		. '<span class="gwf-g-related-text"><span class="gwf-g-related-type">' . esc_html( $label ) . '</span>'
-		. esc_html( null !== $title ? $title : get_the_title( $post_id ) ) . '</span></a></li>';
+		. '<span class="gwf-g-related-title">' . esc_html( null !== $title ? $title : get_the_title( $post_id ) ) . '</span></span></a></li>';
 }
 
 /** Tarjeta fija de «El método», con la imagen destacada de su página si la tiene. */
