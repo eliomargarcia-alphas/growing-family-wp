@@ -3741,6 +3741,10 @@ body {
     .nav-list { gap: 1.1rem; }
     .nav-link.nav-cta > a { padding: 0.5rem 0.9rem; }
 }
+/* Ocultar header-actions en desktop temporalmente (fix/ocultar-header-actions-desktop) */
+@media (min-width: 1280px) {
+    .header-actions { display: none; }
+}
 .gwf-search-btn-mobile { display: none; }
 
 /* Panel: alto máximo de la pantalla bajo la cabecera y scroll por dentro (la página no se mueve) */
