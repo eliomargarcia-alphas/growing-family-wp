@@ -124,7 +124,7 @@ while ( have_posts() ) :
 								}
 								$etiquetas_html .= gwf_g_term_link( $gwf_tag );
 							}
-							echo gwf_g_fact( 'etiqueta', $label, $etiquetas_html ); // phpcs:ignore WordPress.Security.EscapeOutput
+							echo gwf_g_fact( 'tema', $label, $etiquetas_html ); // phpcs:ignore WordPress.Security.EscapeOutput
 							?>
 						</li>
 					<?php endif; ?>
