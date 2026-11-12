@@ -458,7 +458,7 @@ body.single-cuento {
 	box-shadow: 0 2px 8px rgba(13, 40, 90, 0.08), 0 1px 2px rgba(13, 40, 90, 0.06); /* Sombra ligera: la tarjeta destaca del fondo azul */
 	transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
-.gwf-g-related-img { display: block; aspect-ratio: 1 / 1; overflow: hidden; background: var(--g-blue-bg); }
+.gwf-g-related-img { display: block; aspect-ratio: 3 / 2; overflow: hidden; background: var(--g-blue-bg); }
 .gwf-g-related-img img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .gwf-g-related-text { display: block; padding: 0.75rem 1rem; }
 .gwf-g-related-type {
@@ -682,7 +682,7 @@ body.single-cuento {
 	background: #fff;
 }
 .gwf-c-reviewed a:hover { border-color: var(--g-blue-line); box-shadow: var(--shadow-md); }
-.gwf-c-reviewed .gwf-g-related-img { display: block; aspect-ratio: 1 / 1; overflow: hidden; background: var(--g-blue-bg); }
+.gwf-c-reviewed .gwf-g-related-img { display: block; aspect-ratio: 3 / 2; overflow: hidden; background: var(--g-blue-bg); }
 .gwf-c-reviewed .gwf-g-related-img img { width: 100%; height: 100%; object-fit: cover; }
 .gwf-c-reviewed-title { padding: 0.75rem 0.9rem 0.25rem; font-weight: 600; line-height: 1.35; }
 .gwf-c-reviewed-meta { padding: 0 0.9rem 0.9rem; font-size: 0.8125rem; color: var(--g-muted); }
