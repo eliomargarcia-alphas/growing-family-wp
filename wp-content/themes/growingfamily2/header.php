@@ -66,14 +66,13 @@
 						    'container'  => false,
 						    'items_wrap' => '%3$s'
 						) ); ?>
-						<!-- Búsqueda oculta temporalmente en el menú de escritorio (fix/quitar-busqueda-header) -->
-						<!-- <li class="nav-link nav-search"><button type="button" class="gwf-search-btn" data-gwf-search aria-label="Buscar" aria-haspopup="dialog" aria-controls="gwf-search"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li> -->
+						<li class="nav-link nav-search"><button type="button" class="gwf-search-btn" data-gwf-search aria-label="Buscar" aria-haspopup="dialog" aria-controls="gwf-search"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
 	                </ul>
 	            </nav>
 
 	            <div class="header-actions">
-	                <!-- Búsqueda oculta temporalmente en móvil (fix/quitar-busqueda-header) -->
-	                <!-- <button type="button" class="gwf-search-btn gwf-search-btn-mobile" data-gwf-search aria-label="Buscar" aria-haspopup="dialog" aria-controls="gwf-search"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button> -->
+	                <!-- Buscar (móvil): abre la misma ventana de búsqueda que la lupa del menú de escritorio -->
+	                <button type="button" class="gwf-search-btn gwf-search-btn-mobile" data-gwf-search aria-label="Buscar" aria-haspopup="dialog" aria-controls="gwf-search"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
 	                <!-- Hamburger Button -->
 	                <button type="button" class="hamburger" id="hamburger-btn" aria-label="Abrir menú" aria-controls="mobile-drawer" aria-expanded="false">
 	                    <span class="hamburger-bar"></span>
@@ -93,12 +92,12 @@
 				) ); ?>
 			</ul>
 		</nav>
-		<!-- Diálogo de búsqueda oculto temporalmente (fix/quitar-busqueda-header) -->
-		<!-- <dialog id="gwf-search" class="gwf-search" aria-labelledby="gwf-search-title">
+		<!-- Búsqueda: búsqueda normal de WordPress (?s=) hasta que se defina la búsqueda del sitio -->
+		<dialog id="gwf-search" class="gwf-search" aria-labelledby="gwf-search-title">
 			<div class="gwf-search-head">
 				<p id="gwf-search-title" class="gwf-search-title">Buscar</p>
 				<button type="button" class="gwf-search-close" data-gwf-search-close aria-label="Cerrar la búsqueda"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
 			</div>
 			<?php get_template_part( 'template-parts/gwf-buscador', null, array( 'id' => 'gwf-search-input' ) ); ?>
-		</dialog> -->
+		</dialog>
 		<?php
