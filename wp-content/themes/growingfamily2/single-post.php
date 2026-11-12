@@ -138,6 +138,11 @@ while ( have_posts() ) :
 							<ol><?php echo $gwf_toc_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></ol>
 						</nav>
 					<?php endif; ?>
+					<!-- Compartir artículo en el sidebar -->
+					<div class="gwf-g-card">
+						<p class="gwf-g-card-title">Compartir</p>
+						<?php echo do_shortcode( '[addtoany]' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					</div>
 				</div>
 			</aside>
 		</div>
