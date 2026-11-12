@@ -89,12 +89,11 @@ $gwf_blog_card = function () {
 	<div class="container-fluid mt-5">
 		<div class="row">
 
-			<!-- Sidebar de filtros oculto temporalmente: preajuste para blog en producción (fix/blog-sidebar-produccion) -->
-			<!-- <div class="d-none d-xl-block col-md-2 mb-5">
+			<div class="d-none d-xl-block col-md-2 mb-5">
 				<?php get_template_part( 'template-parts/gwf-filtros', null, array( 'mode' => 'side', 'groups' => $gwf_groups ) ); ?>
-			</div> -->
+			</div>
 
-			<div class="col-12 entradas-resultados" id="resultados">
+			<div class="col-md-10 entradas-resultados" id="resultados">
 				<?php get_template_part( 'template-parts/gwf-filtros', null, array( 'mode' => 'chips', 'groups' => $gwf_groups ) ); ?>
 
 				<?php if ( have_posts() ) { // Blog, temas y etiquetas: 12 por página (inc/gwf-blog.php: gwf_blog_listing_query). ?>
