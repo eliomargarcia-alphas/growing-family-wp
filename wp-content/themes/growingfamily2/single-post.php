@@ -113,8 +113,7 @@ while ( have_posts() ) :
 		<div class="gwf-g-bottom">
 			<?php gwf_g_like(); ?>
 
-			<!-- Sección "Más artículos" oculta temporalmente: preajuste para blog en producción (fix/blog-sidebar-produccion) -->
-			<?php if ( false && $gwf_related ) : ?>
+			<?php if ( $gwf_related ) : ?>
 				<nav class="gwf-g-block gwf-g-related" aria-label="Relacionados">
 					<h2>Relacionados</h2>
 					<ul>
