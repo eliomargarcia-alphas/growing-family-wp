@@ -93,9 +93,23 @@ while ( have_posts() ) :
 					<div class="gwf-g-card">
 						<p class="gwf-g-card-title">Ficha</p>
 						<ul class="gwf-g-facts">
-							<?php foreach ( $gwf_cats as $gwf_cat ) : ?>
-								<li><?php echo gwf_g_fact( 'tema', 'Tema', gwf_g_term_link( $gwf_cat ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></li>
-							<?php endforeach; ?>
+							<?php if ( $gwf_cats ) : ?>
+								<li>
+									<?php
+									// Título: "Tema" o "Temas" según la cantidad
+									$label = count( $gwf_cats ) === 1 ? 'Tema' : 'Temas';
+									$temas_html = '';
+									foreach ( $gwf_cats as $i => $gwf_cat ) {
+										// Separador de coma (excepto el último)
+										if ( $i > 0 ) {
+											$temas_html .= ', ';
+										}
+										$temas_html .= gwf_g_term_link( $gwf_cat );
+									}
+									echo gwf_g_fact( 'tema', $label, $temas_html ); // phpcs:ignore WordPress.Security.EscapeOutput
+									?>
+								</li>
+							<?php endif; ?>
 							<li><?php echo gwf_g_read_html( $gwf_minutes ); // phpcs:ignore WordPress.Security.EscapeOutput ?></li>
 						</ul>
 					</div>
