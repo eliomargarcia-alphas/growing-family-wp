@@ -25,6 +25,7 @@ while ( have_posts() ) :
 			}
 		)
 	);
+	$gwf_tags    = (array) get_the_tags( $gwf_id );
 	$gwf_minutes = gwf_reading_time();
 	$gwf_byline  = gwf_author_byline();
 	$gwf_updated = (int) get_the_modified_time( 'U' );
@@ -110,6 +111,23 @@ while ( have_posts() ) :
 									?>
 								</li>
 							<?php endif; ?>
+					<?php if ( $gwf_tags ) : ?>
+						<li>
+							<?php
+							// Título: "Etiqueta" o "Etiquetas" según la cantidad
+							$label = count( $gwf_tags ) === 1 ? 'Etiqueta' : 'Etiquetas';
+							$etiquetas_html = '';
+							foreach ( $gwf_tags as $i => $gwf_tag ) {
+								// Separador de coma (excepto el último)
+								if ( $i > 0 ) {
+									$etiquetas_html .= ', ';
+								}
+								$etiquetas_html .= gwf_g_term_link( $gwf_tag );
+							}
+							echo gwf_g_fact( 'etiqueta', $label, $etiquetas_html ); // phpcs:ignore WordPress.Security.EscapeOutput
+							?>
+						</li>
+					<?php endif; ?>
 							<li><?php echo gwf_g_read_html( $gwf_minutes ); // phpcs:ignore WordPress.Security.EscapeOutput ?></li>
 						</ul>
 					</div>
