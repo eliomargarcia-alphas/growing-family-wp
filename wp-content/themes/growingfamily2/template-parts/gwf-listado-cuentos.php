@@ -66,24 +66,34 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 			<!-- Buscador -->
 			<div class="gwf-cuentos-search mx-auto mb-5">
 				<div class="position-relative">
-					<svg class="position-absolute start-3 top-50 translate-middle-y" width="18" height="18" fill="#666" viewBox="0 0 16 16">
+					<svg class="position-absolute start-3 top-50 translate-middle-y gwf-search-icon" width="20" height="20" fill="#999" viewBox="0 0 16 16">
 						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.003.004.009.01.017.02l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85c-.01-.01-.016-.016-.02-.017a.5.5 0 0 0 .006-.007z"/>
 					</svg>
-					<input type="text" class="form-control gwf-search-input" placeholder="¿Qué emoción o situación exploramos hoy?" aria-label="Buscar cuentos" id="gwf-cuentos-search" style="padding-left: 2.5rem; padding-right: 1rem;">
+					<input type="text" class="form-control gwf-search-input" placeholder="¿Qué emoción o situación exploramos hoy? (ej. miedo, celos, enfado...)" aria-label="Buscar cuentos" id="gwf-cuentos-search" style="padding-left: 2.5rem; padding-right: 1rem;">
 				</div>
 			</div>
 
 			<!-- Filtros como pills -->
 			<?php if ( $gwf_groups ) : ?>
-				<div class="gwf-cuentos-filters text-center">
-					<?php foreach ( $gwf_groups as $gwf_group ) : ?>
-						<div class="mb-3">
-							<?php foreach ( $gwf_group['items'] as $gwf_item ) : ?>
-								<a href="<?php echo esc_url( $gwf_item['url'] ); ?>" class="btn btn-sm me-2 mb-2 <?php echo $gwf_item['active'] ? 'btn-primary' : 'btn-outline-secondary'; ?> rounded-pill">
-									<?php echo esc_html( $gwf_item['label'] ); ?>
-								</a>
-							<?php endforeach; ?>
-						</div>
+				<div class="gwf-cuentos-filters d-flex align-items-center flex-wrap gap-2">
+					<?php foreach ( $gwf_groups as $gwf_group_idx => $gwf_group ) : ?>
+						<?php foreach ( $gwf_group['items'] as $gwf_item_idx => $gwf_item ) : ?>
+							<?php 
+							// Primera iteración del primer grupo: usar botón primario destacado
+							$gwf_is_first = ( 0 === $gwf_group_idx && 0 === $gwf_item_idx );
+							$gwf_btn_class = $gwf_is_first ? 'btn-primary' : ( $gwf_item['active'] ? 'btn-primary' : 'btn-outline-secondary' );
+							$gwf_extra_style = $gwf_is_first ? ' style="background: linear-gradient(135deg, #1e5fa0 0%, #0049db 100%); flex-shrink: 0;"' : '';
+							?>
+							<a href="<?php echo esc_url( $gwf_item['url'] ); ?>" class="btn btn-sm <?php echo $gwf_btn_class; ?> rounded-pill gwf-filter-pill"<?php echo $gwf_extra_style; ?>>
+								<?php 
+								// Mostrar ✨ para primer botón
+								if ( $gwf_is_first ) {
+									echo '✨ ';
+								}
+								echo esc_html( $gwf_item['label'] ); 
+								?>
+							</a>
+						<?php endforeach; ?>
 					<?php endforeach; ?>
 				</div>
 			<?php endif; ?>

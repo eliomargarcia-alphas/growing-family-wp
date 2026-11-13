@@ -1555,18 +1555,25 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 
 .gwf-cuentos-search .form-control {
 	border-radius: 1.5rem;
-	padding: 0.75rem 1rem;
+	padding: 0.75rem 1rem 0.75rem 2.75rem;
 	font-size: 0.95rem;
 	border: 1px solid var(--g-line, #c0d9f0);
+	background-color: #fff;
 }
 
-.gwf-cuentos-search .form-control:focus {
-	border-color: var(--color-navy, #0049db);
-	box-shadow: 0 0 0 0.2rem rgba(0, 77, 217, 0.1);
+.gwf-cuentos-search .form-control::placeholder {
+	color: #999;
 }
 
-/* Filtros como pills */
+.gwf-search-icon {
+	pointer-events: none;
+}
+
 .gwf-cuentos-filters {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.75rem;
 	margin-top: 2rem;
 }
 
@@ -1576,27 +1583,22 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 	font-weight: 600;
 	border-radius: 50px;
 	transition: all 0.2s ease;
+	white-space: nowrap;
 }
 
-.gwf-cuentos-filters .btn-primary {
-	background-color: var(--color-navy, #0049db);
-	border-color: var(--color-navy, #0049db);
-	color: #fff;
-	box-shadow: 0 2px 8px rgba(0, 77, 217, 0.15);
+.gwf-filter-pill.btn-primary {
+	box-shadow: 0 2px 8px rgba(0, 77, 217, 0.25);
 }
 
-.gwf-cuentos-filters .btn-outline-secondary {
-	color: var(--g-text, #2c3e50);
-	border-color: var(--g-line, #c0d9f0);
-	background-color: #fff;
+.gwf-filter-pill.btn-primary:hover {
+	box-shadow: 0 4px 12px rgba(0, 77, 217, 0.35);
+	transform: translateY(-2px);
 }
 
-.gwf-cuentos-filters .btn-outline-secondary:hover {
-	background-color: var(--g-blue-bg, #eaf2fd);
-	border-color: var(--color-navy, #0049db);
-	color: var(--color-navy, #0049db);
+.gwf-filter-pill.btn-outline-secondary {
+	border-color: #d0d0d0 !important;
+	border-width: 1.5px;
 }
-
 /* Grid de tarjetas */
 .gwf-cuentos-grid {
 	padding-top: 3rem;
