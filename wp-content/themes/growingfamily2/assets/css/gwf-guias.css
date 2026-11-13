@@ -1814,3 +1814,33 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 		font-size: 0.85rem;
 	}
 }
+
+/* Mejoras al buscador - ACTUALIZADO */
+.gwf-cuentos-search {
+	max-width: 600px;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+
+.gwf-search-input {
+	border-radius: 1.5rem !important;
+	border: 1px solid var(--g-line, #c0d9f0) !important;
+	padding: 1rem 1rem 1rem 2.5rem !important;
+	font-size: 1rem !important;
+	line-height: 1.5;
+	background-color: #fff !important;
+	color: var(--g-text, #2c3e50);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	transition: all 0.3s ease;
+}
+
+.gwf-search-input:focus {
+	border-color: var(--color-navy, #0049db) !important;
+	box-shadow: 0 0 0 3px rgba(0, 77, 217, 0.1), 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+	outline: none;
+}
+
+.gwf-search-input::placeholder {
+	color: #999;
+	font-weight: 400;
+}

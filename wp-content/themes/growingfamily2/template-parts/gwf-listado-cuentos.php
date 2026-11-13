@@ -64,14 +64,12 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 			</div>
 
 			<!-- Buscador -->
-			<div class="gwf-cuentos-search mx-auto mb-5" style="max-width: 400px;">
-				<div class="input-group">
-					<span class="input-group-text bg-white border-end-0">
-						<svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-							<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.003.004.009.01.017.02l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85c-.01-.01-.016-.016-.02-.017a.5.5 0 0 0 .006-.007z"/>
-						</svg>
-					</span>
-					<input type="text" class="form-control border-start-0" placeholder="¿Qué emoción o situación exploramos hoy?" aria-label="Buscar cuentos" id="gwf-cuentos-search">
+			<div class="gwf-cuentos-search mx-auto mb-5">
+				<div class="position-relative">
+					<svg class="position-absolute start-3 top-50 translate-middle-y" width="18" height="18" fill="#666" viewBox="0 0 16 16">
+						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.003.004.009.01.017.02l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85c-.01-.01-.016-.016-.02-.017a.5.5 0 0 0 .006-.007z"/>
+					</svg>
+					<input type="text" class="form-control gwf-search-input" placeholder="¿Qué emoción o situación exploramos hoy?" aria-label="Buscar cuentos" id="gwf-cuentos-search" style="padding-left: 2.5rem; padding-right: 1rem;">
 				</div>
 			</div>
 
