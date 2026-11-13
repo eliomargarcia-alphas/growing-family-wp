@@ -1550,7 +1550,9 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 
 /* Buscador */
 .gwf-cuentos-search {
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	max-width: 50%;
+	margin: 0 auto 2rem;
+	box-shadow: none;
 }
 
 .gwf-cuentos-search .form-control {
@@ -1563,6 +1565,11 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 
 .gwf-cuentos-search .form-control::placeholder {
 	color: #999;
+}
+
+.gwf-cuentos-search .form-control:focus {
+	border-color: var(--color-navy, #0049db);
+	box-shadow: 0 0 0 0.2rem rgba(0, 77, 217, 0.1);
 }
 
 .gwf-search-icon {

@@ -58,7 +58,7 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 				</h1>
 
 				<!-- Subtítulo -->
-				<p class="gwf-cuentos-intro lead text-muted mx-auto" style="max-width: 500px;">
+				<p class="gwf-cuentos-intro lead text-muted mx-auto text-center" style="max-width: 500px;">
 					<?php echo wp_kses_post( $gwf_h['intro'] ); ?>
 				</p>
 			</div>
