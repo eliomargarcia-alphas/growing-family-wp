@@ -1523,3 +1523,294 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 .gwf-guia .gwf-busqueda-empty h2 { font-size: 1.35rem; margin: 0 0 0.5rem; }
 .gwf-busqueda-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin: 1rem 0 0; padding: 0; list-style: none; }
 .gwf-busqueda-links .gwf-g-button { margin-top: 0; }
+
+/* ============================================================
+   REDISEÑO LISTADO DE CUENTOS (Biblioteca Emocional)
+   ============================================================ */
+
+/* Cabecera del listado */
+.gwf-cuentos-header {
+	background: linear-gradient(135deg, var(--g-blue-bg, #eaf2fd) 0%, rgba(0, 77, 217, 0.05) 100%);
+	border-bottom: 1px solid var(--g-line, #c0d9f0);
+}
+
+.gwf-cuentos-title {
+	color: var(--color-navy, #0049db);
+	font-size: 2.5rem;
+	font-weight: 700;
+	letter-spacing: -0.5px;
+	line-height: 1.2;
+}
+
+.gwf-cuentos-intro {
+	color: var(--g-text, #2c3e50);
+	font-size: 1.125rem;
+	line-height: 1.6;
+}
+
+/* Buscador */
+.gwf-cuentos-search {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.gwf-cuentos-search .form-control {
+	border-radius: 1.5rem;
+	padding: 0.75rem 1rem;
+	font-size: 0.95rem;
+	border: 1px solid var(--g-line, #c0d9f0);
+}
+
+.gwf-cuentos-search .form-control:focus {
+	border-color: var(--color-navy, #0049db);
+	box-shadow: 0 0 0 0.2rem rgba(0, 77, 217, 0.1);
+}
+
+/* Filtros como pills */
+.gwf-cuentos-filters {
+	margin-top: 2rem;
+}
+
+.gwf-cuentos-filters .btn {
+	padding: 0.6rem 1.25rem;
+	font-size: 0.9rem;
+	font-weight: 600;
+	border-radius: 50px;
+	transition: all 0.2s ease;
+}
+
+.gwf-cuentos-filters .btn-primary {
+	background-color: var(--color-navy, #0049db);
+	border-color: var(--color-navy, #0049db);
+	color: #fff;
+	box-shadow: 0 2px 8px rgba(0, 77, 217, 0.15);
+}
+
+.gwf-cuentos-filters .btn-outline-secondary {
+	color: var(--g-text, #2c3e50);
+	border-color: var(--g-line, #c0d9f0);
+	background-color: #fff;
+}
+
+.gwf-cuentos-filters .btn-outline-secondary:hover {
+	background-color: var(--g-blue-bg, #eaf2fd);
+	border-color: var(--color-navy, #0049db);
+	color: var(--color-navy, #0049db);
+}
+
+/* Grid de tarjetas */
+.gwf-cuentos-grid {
+	padding-top: 3rem;
+	padding-bottom: 3rem;
+}
+
+/* Tarjeta de cuento */
+.gwf-cuento-card {
+	transition: all 0.3s ease;
+	border-color: var(--g-line, #c0d9f0) !important;
+}
+
+.gwf-cuento-card:hover {
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+	transform: translateY(-4px);
+}
+
+/* Efecto lomo de libro */
+.gwf-cuento-spine {
+	background: linear-gradient(to right, 
+		var(--g-line, #c0d9f0) 0%, 
+		var(--g-line, #c0d9f0) 50%, 
+		rgba(0, 77, 217, 0.1) 100%);
+	box-shadow: inset 2px 0 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Imagen con aspect-ratio */
+.gwf-cuento-card .object-fit-cover {
+	object-fit: cover;
+}
+
+/* Badges en imagen */
+.gwf-cuento-card .badge {
+	font-size: 0.8rem;
+	padding: 0.5rem 0.75rem;
+	font-weight: 600;
+}
+
+.gwf-cuento-card .badge.bg-primary {
+	background-color: var(--color-navy, #0049db) !important;
+	color: #fff;
+}
+
+.gwf-cuento-card .badge.bg-dark {
+	background-color: rgba(0, 0, 0, 0.6) !important;
+	backdrop-filter: blur(4px);
+	color: #fff;
+}
+
+/* Título de tarjeta */
+.gwf-cuento-title {
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: var(--g-text, #2c3e50);
+	transition: color 0.2s ease;
+}
+
+.gwf-cuento-card:hover .gwf-cuento-title a {
+	color: var(--color-navy, #0049db) !important;
+}
+
+/* Alert pedagógico */
+.gwf-cuento-card .alert {
+	background-color: var(--g-blue-bg, #eaf2fd) !important;
+	border: 1px solid var(--g-line, #c0d9f0) !important;
+	color: var(--g-text, #2c3e50);
+	font-size: 0.875rem;
+}
+
+/* Botones en tarjeta */
+.gwf-cuento-card .btn-primary {
+	background-color: var(--color-navy, #0049db);
+	border-color: var(--color-navy, #0049db);
+	color: #fff;
+	font-weight: 600;
+	transition: all 0.2s ease;
+}
+
+.gwf-cuento-card .btn-primary:hover {
+	background-color: #003aa8;
+	border-color: #003aa8;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 77, 217, 0.2);
+}
+
+.gwf-cuento-card .btn-light {
+	background-color: var(--g-blue-bg, #eaf2fd) !important;
+	border: none;
+	font-size: 1.25rem;
+	transition: all 0.2s ease;
+}
+
+.gwf-cuento-card .btn-light:hover {
+	background-color: #d4e4f7 !important;
+}
+
+/* Tarjeta "Próximamente" */
+.gwf-cuento-coming-soon {
+	background: linear-gradient(135deg, rgba(232, 242, 253, 0.5) 0%, rgba(0, 77, 217, 0.02) 100%);
+	border-color: var(--g-line, #c0d9f0) !important;
+	transition: all 0.3s ease;
+}
+
+.gwf-cuento-coming-soon:hover {
+	box-shadow: 0 4px 16px rgba(0, 77, 217, 0.08) !important;
+	border-color: var(--color-navy, #0049db) !important;
+}
+
+.gwf-cuento-coming-soon .badge {
+	background-color: var(--g-blue-bg, #eaf2fd) !important;
+	color: var(--color-navy, #0049db);
+	border: 1px solid var(--g-line, #c0d9f0);
+}
+
+.gwf-cuento-coming-soon .btn-link {
+	color: var(--color-navy, #0049db);
+	text-decoration: none;
+	font-weight: 600;
+	transition: all 0.2s ease;
+}
+
+.gwf-cuento-coming-soon .btn-link:hover {
+	color: #003aa8;
+	text-decoration: underline;
+}
+
+/* Modal de suscripción */
+.modal-content {
+	border: 1px solid var(--g-line, #c0d9f0);
+	background-color: #fff;
+}
+
+.modal-header {
+	border-bottom: 1px solid var(--g-line, #c0d9f0);
+}
+
+.modal-title {
+	color: var(--g-text, #2c3e50);
+}
+
+#gwf-cuentos-form .form-control {
+	border-radius: 1.5rem;
+	border: 1px solid var(--g-line, #c0d9f0);
+	padding: 0.75rem 1rem;
+	font-size: 0.95rem;
+}
+
+#gwf-cuentos-form .form-control:focus {
+	border-color: var(--color-navy, #0049db);
+	box-shadow: 0 0 0 0.2rem rgba(0, 77, 217, 0.1);
+}
+
+#gwf-cuentos-form .btn {
+	border-radius: 1.5rem;
+	padding: 0.75rem 1.5rem;
+	font-weight: 600;
+	background-color: var(--color-navy, #0049db);
+	border-color: var(--color-navy, #0049db);
+	color: #fff;
+	transition: all 0.2s ease;
+}
+
+#gwf-cuentos-form .btn:hover {
+	background-color: #003aa8;
+	border-color: #003aa8;
+	box-shadow: 0 4px 12px rgba(0, 77, 217, 0.2);
+}
+
+/* Estilos auxiliares */
+.hover-shadow-lg:hover {
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+.transition-all {
+	transition: all 0.3s ease;
+}
+
+.transition-colors {
+	transition: color 0.2s ease;
+}
+
+.transition-transform {
+	transition: transform 0.5s ease;
+}
+
+.hover-text-primary:hover {
+	color: var(--color-navy, #0049db) !important;
+}
+
+.object-fit-cover {
+	object-fit: cover;
+}
+
+.inset-0 {
+	position: absolute;
+	inset: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+	.gwf-cuentos-title {
+		font-size: 1.75rem;
+	}
+
+	.gwf-cuentos-intro {
+		font-size: 1rem;
+	}
+
+	.gwf-cuento-title {
+		font-size: 1.1rem;
+	}
+
+	.gwf-cuentos-filters .btn {
+		padding: 0.5rem 1rem;
+		font-size: 0.85rem;
+	}
+}
