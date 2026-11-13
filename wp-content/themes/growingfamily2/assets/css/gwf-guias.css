@@ -1584,8 +1584,12 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 }
 
 .gwf-search-icon {
-	pointer-events: none;
-	left: 1rem;
+    position: relative;
+    left: 1rem !important;
+    top: 48px;
+    transform: translateY(-50%);
+    color: #5b6478;
+    pointer-events: none;
 }
 
 /* Filtros: una sola fila centrada */

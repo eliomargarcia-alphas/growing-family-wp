@@ -63,14 +63,12 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 				</p>
 			</div>
 
-			<!-- Buscador -->
+			<!-- Buscador: formulario GET sobre el archivo de cuentos (?s=) -->
 			<div class="gwf-cuentos-search mb-5">
-				<div class="position-relative">
-					<svg class="position-absolute start-3 top-50 translate-middle-y gwf-search-icon" width="20" height="20" fill="#999" viewBox="0 0 16 16">
-						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.003.004.009.01.017.02l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85c-.01-.01-.016-.016-.02-.017a.5.5 0 0 0 .006-.007z"/>
-					</svg>
-					<input type="text" class="form-control gwf-search-input" placeholder="¿Qué emoción o situación exploramos hoy? (ej. miedo, celos, enfado...)" aria-label="Buscar cuentos" id="gwf-cuentos-search" style="padding-left: 2.5rem; padding-right: 1rem;">
-				</div>
+				<form role="search" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'cuento' ) ); ?>" class="position-relative">
+					<svg class="gwf-search-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"></circle><path d="M20 20l-4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+					<input type="search" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" class="form-control gwf-search-input" placeholder="¿Qué emoción o situación exploramos hoy? (ej. miedo, celos, enfado...)" aria-label="Buscar cuentos" id="gwf-cuentos-search">
+				</form>
 			</div>
 
 						<!-- Filtros como pills: un solo "Todos" + términos de emoción, situación y edad -->
