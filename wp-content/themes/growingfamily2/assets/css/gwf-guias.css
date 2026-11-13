@@ -1548,16 +1548,27 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 	line-height: 1.6;
 }
 
-/* Buscador */
+/* Subtítulo centrado */
+.gwf-cuentos-intro {
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+/* Buscador: centrado, sin sombra, mitad de pantalla */
 .gwf-cuentos-search {
-	max-width: 50%;
-	margin: 0 auto 2rem;
+	width: 50%;
+	min-width: 280px;
+	margin-left: auto;
+	margin-right: auto;
 	box-shadow: none;
 }
 
 .gwf-cuentos-search .form-control {
-	border-radius: 1.5rem;
-	padding: 0.75rem 1rem 0.75rem 2.75rem;
+	width: 100%;
+	border-radius: 999px;
+	padding: 0.8rem 1rem 0.8rem 2.75rem;
 	font-size: 0.95rem;
 	border: 1px solid var(--g-line, #c0d9f0);
 	background-color: #fff;
@@ -1574,38 +1585,36 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 
 .gwf-search-icon {
 	pointer-events: none;
+	left: 1rem;
 }
 
+/* Filtros: una sola fila centrada */
 .gwf-cuentos-filters {
 	display: flex;
-	align-items: center;
 	flex-wrap: wrap;
-	gap: 0.75rem;
+	justify-content: center;
+	gap: 0.6rem;
 	margin-top: 2rem;
 }
 
-.gwf-cuentos-filters .btn {
-	padding: 0.6rem 1.25rem;
+.gwf-filter-pill {
+	padding: 0.5rem 1.1rem;
 	font-size: 0.9rem;
 	font-weight: 600;
-	border-radius: 50px;
-	transition: all 0.2s ease;
 	white-space: nowrap;
-}
-
-.gwf-filter-pill.btn-primary {
-	box-shadow: 0 2px 8px rgba(0, 77, 217, 0.25);
-}
-
-.gwf-filter-pill.btn-primary:hover {
-	box-shadow: 0 4px 12px rgba(0, 77, 217, 0.35);
-	transform: translateY(-2px);
+	border-width: 1.5px;
 }
 
 .gwf-filter-pill.btn-outline-secondary {
-	border-color: #d0d0d0 !important;
-	border-width: 1.5px;
+	border-color: #d0d7e2;
+	background-color: #fff;
 }
+
+.gwf-filter-pill.btn-primary {
+	background-color: var(--color-navy, #0049db);
+	border-color: var(--color-navy, #0049db);
+}
+
 /* Grid de tarjetas */
 .gwf-cuentos-grid {
 	padding-top: 3rem;
@@ -1824,32 +1833,16 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 	}
 }
 
-/* Mejoras al buscador - ACTUALIZADO */
-.gwf-cuentos-search {
-	max-width: 600px;
-	margin-top: 2rem;
-	margin-bottom: 2rem;
-}
-
+/* Input del buscador (clase usada en la plantilla) */
 .gwf-search-input {
-	border-radius: 1.5rem !important;
+	width: 100%;
+	border-radius: 999px !important;
 	border: 1px solid var(--g-line, #c0d9f0) !important;
-	padding: 1rem 1rem 1rem 2.5rem !important;
-	font-size: 1rem !important;
-	line-height: 1.5;
-	background-color: #fff !important;
-	color: var(--g-text, #2c3e50);
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-	transition: all 0.3s ease;
+	box-shadow: none !important;
 }
 
 .gwf-search-input:focus {
 	border-color: var(--color-navy, #0049db) !important;
-	box-shadow: 0 0 0 3px rgba(0, 77, 217, 0.1), 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+	box-shadow: 0 0 0 3px rgba(0, 77, 217, 0.1) !important;
 	outline: none;
-}
-
-.gwf-search-input::placeholder {
-	color: #999;
-	font-weight: 400;
 }
