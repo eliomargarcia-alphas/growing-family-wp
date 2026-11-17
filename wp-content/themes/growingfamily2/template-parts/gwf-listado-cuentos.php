@@ -186,7 +186,15 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 	</section>
 
 	<!-- Puente al método (mismo bloque que en la página de cada cuento) -->
-	<?php gwf_g_bridge( gwf_cue_texts()['puente'] ); ?>
+	<section class="py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<?php gwf_g_bridge( gwf_cue_texts()['puente'] ); ?>
+				</div>
+			</div>
+		</div>
+	</section>
 </main>
 
 <!-- Modal de suscripción para próximos cuentos -->
