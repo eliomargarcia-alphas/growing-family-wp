@@ -2081,3 +2081,9 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 	font-size: 0.9rem;
 	cursor: pointer;
 }
+
+/* Modal de aviso (Próximamente): oculto mientras no esté abierto.
+   El build reducido de Bootstrap no incluye .modal ni .fade, y el JS de Bootstrap no está cargado. */
+.modal:not(.show) {
+	display: none !important;
+}

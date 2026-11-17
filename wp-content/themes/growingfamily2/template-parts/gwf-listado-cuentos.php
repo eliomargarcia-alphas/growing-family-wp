@@ -118,7 +118,7 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 							'frustración' => '💪',
 						);
 						?>
-						<div class="col-12 col-md-6 col-lg-4">
+						<div class="col-12 col-md-6 col-xl-4">
 							<article class="gwf-cuento-card">
 								<a class="gwf-cuento-media" href="<?php the_permalink(); ?>" tabindex="-1" aria-hidden="true">
 									<?php if ( has_post_thumbnail() ) : ?>
@@ -162,7 +162,7 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 					<?php endwhile; ?>
 
 					<!-- Tarjeta Próximamente -->
-					<div class="col-12 col-md-6 col-lg-4">
+					<div class="col-12 col-md-6 col-xl-4">
 						<article class="gwf-cuento-card gwf-cuento-soon">
 							<div class="gwf-soon-icon" aria-hidden="true">🎈</div>
 							<span class="gwf-soon-badge">Próximo Estreno</span>
