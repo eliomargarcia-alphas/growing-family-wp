@@ -184,6 +184,9 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 			<?php endif; ?>
 		</div>
 	</section>
+
+	<!-- Puente al método (mismo bloque que en la página de cada cuento) -->
+	<?php gwf_g_bridge( gwf_cue_texts()['puente'] ); ?>
 </main>
 
 <!-- Modal de suscripción para próximos cuentos -->
