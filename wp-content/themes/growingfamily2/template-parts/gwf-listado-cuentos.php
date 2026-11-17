@@ -154,7 +154,6 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 
 									<div class="gwf-cuento-actions">
 										<a href="<?php the_permalink(); ?>" class="gwf-cuento-btn">Abrir cuento ›</a>
-										<button type="button" class="gwf-cuento-tip" title="Tips antes de empezar" aria-label="Tips antes de empezar">💡</button>
 									</div>
 								</div>
 							</article>

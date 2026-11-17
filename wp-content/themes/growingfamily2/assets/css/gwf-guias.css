@@ -2000,7 +2000,8 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 }
 
 .gwf-cuento-btn {
-	flex-grow: 1;
+	flex: 1 1 100%;
+	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
