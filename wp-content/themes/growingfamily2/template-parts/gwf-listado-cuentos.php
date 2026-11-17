@@ -107,119 +107,69 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 						$gwf_summ   = has_excerpt() ? get_the_excerpt() : gwf_cue_plain_variants( (string) get_post_meta( $gwf_pid, 'gwf_cue_asi_empieza', true ), $gwf_pid );
 						$gwf_protas = get_post_meta( $gwf_pid, 'gwf_cue_protagonistas', true );
 						?>
+						<?php
+						$gwf_emoji_map = array(
+							'miedo'       => '🌙',
+							'celos'       => '🧸',
+							'enfado'      => '🎈',
+							'ansiedad'    => '😟',
+							'tristeza'    => '💙',
+							'soledad'     => '🤝',
+							'frustración' => '💪',
+						);
+						?>
 						<div class="col-12 col-md-6 col-lg-4">
-							<article class="gwf-cuento-card h-100 bg-white rounded-4 border border-light p-4 position-relative overflow-hidden shadow-sm hover-shadow-lg transition-all">
-								<!-- Efecto lomo de libro -->
-								<div class="gwf-cuento-spine position-absolute start-0 top-0 bottom-0" style="width: 8px;"></div>
-
-								<!-- Imagen del cuento -->
-								<div class="position-relative rounded-3 overflow-hidden mb-4" style="aspect-ratio: 4/3;">
+							<article class="gwf-cuento-card">
+								<a class="gwf-cuento-media" href="<?php the_permalink(); ?>" tabindex="-1" aria-hidden="true">
 									<?php if ( has_post_thumbnail() ) : ?>
-										<?php the_post_thumbnail( 'large', array( 'class' => 'w-100 h-100 object-fit-cover transition-transform', 'alt' => '', 'loading' => 'lazy' ) ); ?>
+										<?php the_post_thumbnail( 'large', array( 'class' => 'gwf-cuento-img', 'alt' => '', 'loading' => 'lazy' ) ); ?>
 									<?php else : ?>
-										<?php echo gwf_placeholder_img( 'w-100 h-100' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado en la función. ?>
+										<?php echo gwf_placeholder_img( 'gwf-cuento-img' ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado en la función. ?>
 									<?php endif; ?>
-									
-									<!-- Overlay degradado -->
-									<div class="position-absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,.5) 0%, rgba(0,0,0,.2) 50%, rgba(0,0,0,.1) 100%);"></div>
-
-									<!-- Badge de emoción -->
 									<?php if ( $gwf_badge ) : ?>
-										<span class="badge bg-primary position-absolute top-3 start-3 small">
-											<?php 
-											// Emojis por emoción
-											$gwf_emoji_map = array(
-												'miedo'        => '🌙',
-												'celos'        => '🧸',
-												'enfado'       => '🎈',
-												'ansiedad'     => '😟',
-												'tristeza'     => '💙',
-												'soledad'      => '🤝',
-												'frustración'  => '💪',
-											);
-											$gwf_emoji = $gwf_emoji_map[ $gwf_badge->slug ] ?? '📚';
-											echo esc_html( $gwf_emoji . ' ' . $gwf_badge->name );
-											?>
-										</span>
+										<span class="gwf-cuento-chip gwf-cuento-chip--emotion"><?php echo esc_html( ( $gwf_emoji_map[ $gwf_badge->slug ] ?? '📚' ) . ' ' . $gwf_badge->name ); ?></span>
 									<?php endif; ?>
+									<span class="gwf-cuento-chip gwf-cuento-chip--time">⏱ <?php echo absint( $gwf_mins ); ?> min</span>
+									<span class="gwf-cuento-readwith">Para leer con: <strong>Ana</strong> • <strong>Max</strong></span>
+								</a>
 
-									<!-- Badge de tiempo -->
-									<span class="badge bg-dark position-absolute top-3 end-3 small">
-										⏱️ <?php echo absint( $gwf_mins ); ?> min
-									</span>
-
-									<!-- Información de protagonistas -->
-									<div class="position-absolute bottom-3 start-3 bg-white bg-opacity-90 px-3 py-1 rounded-pill small fw-semibold" style="backdrop-filter: blur(4px);">
-										Para leer con: <span class="text-primary">Ana</span> • <span class="text-primary">Max</span>
-									</div>
-								</div>
-
-								<!-- Contenido de la tarjeta -->
-								<div class="d-flex flex-column flex-grow-1">
-									<!-- Metadatos -->
-									<div class="small text-muted mb-2">
+								<div class="gwf-cuento-body">
+									<p class="gwf-cuento-meta">
 										<?php if ( $gwf_age ) : ?>
-											<span class="text-warning fw-medium">★ Edad <?php echo esc_html( $gwf_age ); ?></span>
-											<span class="text-muted">•</span>
+											<span>★ Edad <?php echo esc_html( $gwf_age ); ?></span>
+											<span class="gwf-cuento-dot">•</span>
 										<?php endif; ?>
-										<span>Ilustrado</span>
-									</div>
+										<span><?php echo absint( count( gwf_cue_pages( $gwf_pid ) ) ); ?> páginas ilustradas</span>
+									</p>
 
-									<!-- Título -->
-									<h3 class="gwf-cuento-title h5 fw-bold mb-2">
-										<a href="<?php the_permalink(); ?>" class="text-decoration-none text-dark hover-text-primary transition-colors">
-											<?php the_title(); ?>
-										</a>
+									<h3 class="gwf-cuento-title">
+										<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 									</h3>
 
-									<!-- Descripción -->
 									<?php if ( $gwf_summ ) : ?>
-										<p class="small text-muted mb-3 flex-grow-1">
-											<?php echo wp_kses_post( $gwf_summ ); ?>
-										</p>
+										<p class="gwf-cuento-desc"><?php echo wp_kses_post( $gwf_summ ); ?></p>
 									<?php endif; ?>
 
-									<!-- Aval pedagógico -->
-									<div class="alert alert-light small mb-3 p-2 border-0">
-										<span class="text-success me-1">✓</span>
-										<span class="text-muted">Incluye pregunta de conexión para padres</span>
-									</div>
+									<p class="gwf-cuento-aval"><span class="gwf-cuento-check">✓</span> Incluye pregunta de conexión guiada para padres</p>
 
-									<!-- Botones -->
-									<div class="d-flex gap-2 pt-3 border-top">
-										<a href="<?php the_permalink(); ?>" class="btn btn-primary btn-sm flex-grow-1 rounded-3">
-											Abrir cuento
-										</a>
-										<button class="btn btn-light btn-sm rounded-3 text-dark" title="Tips antes de empezar">
-											💡
-										</button>
+									<div class="gwf-cuento-actions">
+										<a href="<?php the_permalink(); ?>" class="gwf-cuento-btn">Abrir cuento ›</a>
+										<button type="button" class="gwf-cuento-tip" title="Tips antes de empezar" aria-label="Tips antes de empezar">💡</button>
 									</div>
 								</div>
 							</article>
 						</div>
 					<?php endwhile; ?>
 
-					<!-- Tarjeta Próximamente (si existen cuentos no publicados) -->
+					<!-- Tarjeta Próximamente -->
 					<div class="col-12 col-md-6 col-lg-4">
-						<article class="gwf-cuento-card gwf-cuento-coming-soon h-100 bg-light rounded-4 border border-2 border-dashed p-5 position-relative d-flex flex-column justify-content-between" style="border-color: var(--g-blue-line, #c0d9f0);">
-							<div>
-								<div class="mb-3" style="font-size: 2rem;">
-									🎈
-								</div>
-								<span class="badge bg-light text-primary small mb-2">
-									Próximo Estreno
-								</span>
-								<h3 class="h5 fw-bold mb-3">
-									El dragón que aprendió a soplar despacito
-								</h3>
-								<p class="small text-muted mb-0">
-									Un cuento interactivo para aprender a respirar y canalizar la frustración. Edades 4 a 6 años.
-								</p>
-							</div>
-							<div class="mt-4 pt-3 border-top">
-								<button class="btn btn-link btn-sm p-0 text-primary text-decoration-none fw-semibold" data-bs-toggle="modal" data-bs-target="#gwf-cuentos-notify">
-									🔔 Recibir aviso cuando esté listo
-								</button>
+						<article class="gwf-cuento-card gwf-cuento-soon">
+							<div class="gwf-soon-icon" aria-hidden="true">🎈</div>
+							<span class="gwf-soon-badge">Próximo Estreno</span>
+							<h3 class="gwf-cuento-title">El dragón que aprendió a soplar despacito</h3>
+							<p class="gwf-cuento-desc">Un cuento interactivo para aprender a respirar y canalizar la frustración y los berrinches de los 4 a los 6 años.</p>
+							<div class="gwf-soon-foot">
+								<button type="button" class="gwf-soon-link" data-bs-toggle="modal" data-bs-target="#gwf-cuentos-notify">🔔 Recibir aviso cuando esté listo</button>
 							</div>
 						</article>
 					</div>
