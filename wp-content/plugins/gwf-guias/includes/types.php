@@ -104,6 +104,13 @@ function gwf_guias_register_taxonomies() {
 }
 add_action( 'init', 'gwf_guias_register_taxonomies', 5 );
 
+/**
+ * Permisos del Autor (redactor): como con las entradas, crea y edita sus propias guías y borra las no publicadas.
+ * Puede pulsar Publicar, pero la regla de publicación la deja en «Pendiente de revisión» hasta que el revisor
+ * experto la apruebe; «Revisado por» y su fecha no los ve (includes/security.php).
+ */
+const GWF_GUIAS_AUTHOR_CAPS = array( 'edit_guias', 'edit_published_guias', 'publish_guias', 'delete_guias' );
+
 /** Rol Revisor y permisos de los roles existentes. */
 function gwf_guias_setup_roles() {
 	foreach ( array( 'administrator', 'editor' ) as $role_name ) {
@@ -112,6 +119,13 @@ function gwf_guias_setup_roles() {
 			foreach ( GWF_GUIAS_CAPS as $cap ) {
 				$role->add_cap( $cap );
 			}
+		}
+	}
+
+	$author = get_role( 'author' );
+	if ( $author ) {
+		foreach ( GWF_GUIAS_AUTHOR_CAPS as $cap ) {
+			$author->add_cap( $cap );
 		}
 	}
 
