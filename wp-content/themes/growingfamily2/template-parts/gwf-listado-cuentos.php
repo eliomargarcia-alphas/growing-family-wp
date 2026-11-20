@@ -7,7 +7,7 @@
  * - Cabecera con título, subtítulo y buscador
  * - Filtros como pills/chips
  * - Tarjetas estilo "libro" con lomo decorativo
- * - Sección "Próximamente" para cuentos no publicados
+ * - Sección "Próximamente" para cuentos no publicados (solo en staging: $gwf_show_soon)
  *
  * @package WordPress
  * @subpackage growingfamily2
@@ -15,6 +15,9 @@
 
 $gwf_h    = gwf_cue_listing_heading();
 $gwf_term = $gwf_h['term'];
+
+// «Próximo Estreno» (tarjeta y aviso por correo): de momento solo en staging, no en growing.family.
+$gwf_show_soon = false !== strpos( (string) wp_parse_url( home_url(), PHP_URL_HOST ), 'staging' );
 
 $gwf_groups = array();
 foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'Situación', 'Todas' ), array( 'edad', 'Edad', 'Todas' ) ) as list( $gwf_tax, $gwf_label, $gwf_all ) ) {
@@ -116,6 +119,9 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 							'tristeza'    => '💙',
 							'soledad'     => '🤝',
 							'frustración' => '💪',
+							'frustracion' => '💪', // Slugs de los términos sembrados por gwf-cuentos.
+							'rabia'       => '🎈',
+							'alegria'     => '😊',
 						);
 						?>
 						<div class="col-12 col-md-6 col-xl-4">
@@ -160,6 +166,7 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 						</div>
 					<?php endwhile; ?>
 
+					<?php if ( $gwf_show_soon ) : ?>
 					<!-- Tarjeta Próximamente -->
 					<div class="col-12 col-md-6 col-xl-4">
 						<article class="gwf-cuento-card gwf-cuento-soon">
@@ -172,6 +179,7 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 							</div>
 						</article>
 					</div>
+					<?php endif; ?>
 				</div>
 
 				<?php gwf_l_pagination(); // Navegación entre páginas (inc/gwf-guias-view.php). ?>
@@ -196,6 +204,7 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 	</section>
 </main>
 
+<?php if ( $gwf_show_soon ) : ?>
 <!-- Modal de suscripción para próximos cuentos -->
 <div class="modal fade" id="gwf-cuentos-notify" tabindex="-1" aria-labelledby="gwf-cuentos-notify-label" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
@@ -222,3 +231,4 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 		</div>
 	</div>
 </div>
+<?php endif; ?>
