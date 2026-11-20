@@ -163,7 +163,14 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   WordPress envía el correo con el enlace firmado `?gwf_imprimible=<id>&k=<firma>`, que sirve el PDF con `X-Robots-Tag: noindex`.
 - GA4: `gwf_imprimible_envio` (con `compromiso`). Schema: Article sin HowTo. Prueba en staging3: actividad 2328 y PDF 2327, todo «[PRUEBA]».
 
-## Cuentos (plugin gwf-cuentos) — en construcción, activo solo en staging3 (desde 2026-10-29)
+## Cuentos (plugin gwf-cuentos) — en producción desde 2026-11-20 (staging3 desde 2026-10-29)
+- Producción (2026-11-20): plugin activo (guías, pilares y actividades siguen inactivos), cuento 2315 «{Ana|Max} y la Piedra de la Alegría»
+  (imágenes 2309–2314, autor `equipo-editorial` ID 4, rol Editor, sin contraseña conocida), «Cuentos» en los menús 54 (ítem 2316, `nav-link`)
+  y 55 (ítem 2317, `drawer-link`), antes de Blog. Backup previo: `~/backups/db-antes-cuentos-20261120-194040.sql.gz`.
+- «Próximo Estreno» (tarjeta + modal de aviso del listado) solo se muestra si el host contiene «staging» (`$gwf_show_soon`).
+- /cuentos/ se indexa desde el primer cuento; /cuentos/emocion|situacion|para-contar|edad/x/ con noindex por debajo de 3.
+- Fuentes del cuento opcionales. Variantes `{Ana | Max}` con espacios se aceptan (se recortan); el H1 cambia con el selector.
+- Subir cuentos: prompt para editores en `GWF/prompt-subir-cuento-wpvibe.md` (WPVibe solo funciona en el live; en staging3, por SSH).
 - Plan: «Plan de implementación de cuentos en WordPress — Recorrido enfocado» (docx en la carpeta GWF; wireframes `wireframes/cuento-enfocado-*`).
   Etapa 1 hecha: tipo `cuento` (`/cuentos/<slug>/`, editor de bloques), taxonomías Edad (compartida), `emocion`, `situacion`, `para_contar`
   (`/cuentos/emocion/x/`…), campos ACF, Cuentos → Ajustes (recomendaciones del espacio, «Cómo contarlo» por defecto, puente).
