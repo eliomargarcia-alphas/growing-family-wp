@@ -29,6 +29,9 @@ function gwf_cue_variants( $text, $protagonist = 'ana', $html = true ) {
 		return preg_replace_callback(
 			'/\{([^{}|<>]*)\|([^{}|<>]*)\}/u',
 			function ( $m ) use ( $protagonist, $wrap ) {
+				// {Ana | Max} vale igual que {Ana|Max}: los espacios junto a la barra no forman parte del nombre.
+				$m[1]  = trim( $m[1] );
+				$m[2]  = trim( $m[2] );
 				$value = 'max' === $protagonist ? $m[2] : $m[1];
 				if ( ! $wrap ) {
 					return $value;
