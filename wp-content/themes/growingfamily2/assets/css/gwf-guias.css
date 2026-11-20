@@ -1583,7 +1583,8 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 	box-shadow: 0 0 0 0.2rem rgba(0, 77, 217, 0.1);
 }
 
-.gwf-search-icon {
+/* Solo la lupa del buscador de cuentos: la del buscador general (ventana y resultados, style.css) usa la misma clase. */
+.gwf-cuentos-search .gwf-search-icon {
     position: relative;
     left: 1rem !important;
     top: 48px;
