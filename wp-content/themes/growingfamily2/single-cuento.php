@@ -73,8 +73,9 @@ while ( have_posts() ) :
 			<div <?php post_class( 'gwf-g-main' ); ?> id="post-<?php the_ID(); ?>">
 
 				<header class="gwf-g-header">
-					<?php // 1. Título y autoría. ?>
-					<?php the_title( '<h1 class="gwf-g-title">', '</h1>' ); ?>
+					<?php // 1. Título y autoría. Con {Ana|Max} en el título, cambia con el selector como el resto del cuento. ?>
+					<?php $gwf_title_html = gwf_cue_variants( esc_html( get_post_field( 'post_title', $gwf_id ) ), $gwf_prota ); ?>
+					<h1 class="gwf-g-title"><?php echo wp_kses_post( $gwf_title_html ); ?></h1>
 					<p class="gwf-g-byline">
 						Escrito por <?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 						· Actualizado el <?php echo $gwf_date; // phpcs:ignore WordPress.Security.EscapeOutput ?>
@@ -111,7 +112,7 @@ while ( have_posts() ) :
 								<?php endif; ?>
 								<div class="gwf-cue-page-text">
 									<?php if ( 0 === $gwf_i ) : // El título abre el libro (solo se ve en el modo lectura). ?>
-										<p class="gwf-cue-page-title" aria-hidden="true"><?php echo esc_html( wp_strip_all_tags( get_the_title() ) ); ?></p>
+										<p class="gwf-cue-page-title" aria-hidden="true"><?php echo wp_kses_post( $gwf_title_html ); ?></p>
 									<?php endif; ?>
 									<?php echo $gwf_page['text']; // phpcs:ignore WordPress.Security.EscapeOutput -- bloques renderizados por WordPress. ?>
 								</div>
