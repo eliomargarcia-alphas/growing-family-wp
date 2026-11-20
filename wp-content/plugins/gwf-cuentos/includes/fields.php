@@ -43,7 +43,7 @@ function gwf_cue_register_fields() {
 
 				gwf_cue_field( 'gwf_cue_tab_trabaja', 'Qué trabaja', 'tab' ),
 				gwf_cue_field( 'gwf_cue_que_trabaja', 'Qué trabaja y por qué', 'textarea', array( 'rows' => 4, 'new_lines' => 'wpautop', 'required' => 1 ) ),
-				gwf_cue_field( 'gwf_cue_fuentes', 'Fuentes', 'textarea', array( 'rows' => 3, 'new_lines' => '', 'required' => 1, 'instructions' => 'Una por línea: Título | Organismo | URL' ) ),
+				gwf_cue_field( 'gwf_cue_fuentes', 'Fuentes', 'textarea', array( 'rows' => 3, 'new_lines' => '', 'instructions' => 'Una por línea: Título | Organismo | URL' ) ),
 
 				gwf_cue_field( 'gwf_cue_tab_enlaces', 'Enlaces y revisión', 'tab' ),
 				gwf_cue_field( 'gwf_cue_guia', 'Guía relacionada', 'post_object', array( 'post_type' => array( 'guia' ), 'return_format' => 'id', 'allow_null' => 1, 'instructions' => 'Triángulo cuento – guía – pilar. Si falta, se avisa en el listado del administrador.' ) ),

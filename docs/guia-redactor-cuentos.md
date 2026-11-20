@@ -50,7 +50,7 @@ Los campos están en el bloque de datos del cuento. Algunos son obligatorios.
 | Campo | Obligatorio | Qué poner |
 |---|---|---|
 | **Qué trabaja y por qué** | Sí | Explicación breve del valor del cuento para el niño y la familia. |
-| **Fuentes** | Sí | Una por línea, con el formato: `Título \| Organismo \| URL`. |
+| **Fuentes** | No | Recomendadas, sobre todo en temas de salud emocional. Una por línea, con el formato: `Título \| Organismo \| URL`. |
 
 ### Enlaces y revisión
 
@@ -122,7 +122,7 @@ Marca cada punto antes de publicar:
 - [ ] Protagonista por defecto asignado (Ana o Max, repartido).
 - [ ] "Así empieza" con dos frases.
 - [ ] "Qué trabaja y por qué" escrito.
-- [ ] Fuentes en el formato `Título | Organismo | URL`, con enlaces que funcionan.
+- [ ] Si hay fuentes: en el formato `Título | Organismo | URL`, con enlaces que funcionan.
 - [ ] Al menos una emoción, una edad y, si aplica, una situación.
 - [ ] Páginas separadas con **Salto de página**.
 - [ ] Las preguntas llevan el estilo **Nota: pregunta**.
