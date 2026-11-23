@@ -131,7 +131,7 @@ while ( have_posts() ) :
 					</section>
 				<?php endif; ?>
 
-				<?php if ( $gwf_meta( 'gwf_si_no_funciona' ) ) : // 5b. Si aún así no funciona (opcional: solo si el texto de la guía lo trae). ?>
+				<?php if ( $gwf_meta( 'gwf_si_no_funciona' ) ) : // 5b. Si aun así no funciona (opcional: solo si el texto de la guía lo trae). ?>
 					<section id="si-no-funciona" class="gwf-g-block">
 						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'si-no-funciona' ) ); ?></h2>
 						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_si_no_funciona' ) ) ); ?>

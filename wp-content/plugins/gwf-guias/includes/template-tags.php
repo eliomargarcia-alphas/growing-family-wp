@@ -16,7 +16,7 @@ const GWF_GUIAS_SECTION_TITLES = array(
 	'lo-que-intentaste' => array( 'field' => 'gwf_titulo_intentaste', 'default' => 'Lo que ya intentaste', 'toc' => 'Lo que ya intentaste' ),
 	'por-que-pasa'      => array( 'field' => 'gwf_titulo_por_que', 'default' => 'Por qué pasa a esta edad', 'toc' => 'Por qué pasa a esta edad' ),
 	'que-hacer'         => array( 'field' => 'gwf_titulo_que_hacer', 'default' => 'Qué hacer esta noche', 'toc' => 'Qué hacer esta noche' ),
-	'si-no-funciona'    => array( 'field' => 'gwf_titulo_si_no_funciona', 'default' => '¿Y si aún así no funciona?', 'toc' => 'Si aún así no funciona' ),
+	'si-no-funciona'    => array( 'field' => 'gwf_titulo_si_no_funciona', 'default' => '¿Y si aun así no funciona?', 'toc' => 'Si aun así no funciona' ),
 	'cuando-consultar'  => array( 'field' => 'gwf_titulo_consultar', 'default' => 'Cuándo consultar con un profesional', 'toc' => 'Cuándo consultar' ),
 	'que-evitar'        => array( 'field' => 'gwf_titulo_evitar', 'default' => 'Qué conviene evitar', 'toc' => 'Qué conviene evitar' ),
 	'desacuerdo'        => array( 'field' => 'gwf_titulo_desacuerdo', 'default' => '¿Y si en casa cada adulto responde distinto?', 'toc' => 'Si cada adulto responde distinto' ),
