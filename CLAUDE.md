@@ -145,6 +145,11 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   `gwf_guias_section_title()` / `gwf_guias_toc_label()` (el índice usa la versión corta mientras el título sea el de por defecto).
   Solo los títulos propios cuentan en la huella de revisión. «Cuándo consultar» va tras «Qué hacer esta noche»; el bloque 8 se titula
   «¿Y si en casa cada adulto responde distinto?».
+- Bloques opcionales que solo se rellenan si el texto de la guía los trae (2026-11-23, plugin 0.4.0): `gwf_si_no_funciona`
+  (5b, tras los pasos), `gwf_sostener` (9b, tras el cuento; está en la Estrategia v1.6) y `gwf_secciones_extra` (WYSIWYG,
+  grupo compartido con `desarrollo`): cada «Encabezado 2» abre un bloque propio con entrada en el índice
+  (`gwf_guias_extra_sections()`); en la guía de problema van tras el bloque 8, en el pilar tras «Cómo lo trabajamos».
+  Nunca pegar secciones sin título dentro del texto del editor. Los tres solo entran en la huella de revisión si tienen texto.
 - Regla: `gwf_guias_check()` (revisor, fecha, 2 fuentes y bloques obligatorios). Sin cumplirla → «Pendiente de revisión»
   (o 400 por REST). Aprobación del revisor guarda nombre, fecha y `_gwf_hash_revisado`.
 - Fichas del equipo (2026-10-27, `includes/people.php` + `author.php` + `template-parts/gwf-persona.php`): `/equipo/<user_nicename>/` para

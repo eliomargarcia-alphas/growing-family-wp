@@ -34,13 +34,19 @@ while ( have_posts() ) :
 	$gwf_date_html     = gwf_g_date_html( gwf_guias_review_time( $gwf_id ) );
 	$gwf_down_title    = $gwf_down['label'] ? 'Guías y cuentos de ' . ( $gwf_tema ? mb_strtolower( $gwf_down['label'] ) : $gwf_down['label'] ) : 'Guías y cuentos';
 
-	$gwf_toc = array_filter(
-		array(
-			'definicion' => $gwf_meta( 'gwf_definicion' ) ? 'Definición' : '',
-			'hitos'      => $gwf_hitos ? ( $gwf_tema ? 'Hitos' : 'Hitos de esta edad' ) : '',
-			'familia'    => $gwf_has_body ? 'Qué puede hacer la familia' : '',
-			'curriculo'  => $gwf_meta( 'gwf_curriculo' ) ? 'Cómo lo trabajamos' : '',
-			'enlaces'    => ( $gwf_down['guias'] || $gwf_down['cuentos'] ) ? $gwf_down_title : '',
+	$gwf_extras = gwf_guias_extra_sections( $gwf_id ); // Secciones adicionales del texto de la guía.
+	$gwf_toc    = array_filter(
+		array_merge(
+			array(
+				'definicion' => $gwf_meta( 'gwf_definicion' ) ? 'Definición' : '',
+				'hitos'      => $gwf_hitos ? ( $gwf_tema ? 'Hitos' : 'Hitos de esta edad' ) : '',
+				'familia'    => $gwf_has_body ? 'Qué puede hacer la familia' : '',
+				'curriculo'  => $gwf_meta( 'gwf_curriculo' ) ? 'Cómo lo trabajamos' : '',
+			),
+			gwf_guias_extra_toc( $gwf_extras ),
+			array(
+				'enlaces' => ( $gwf_down['guias'] || $gwf_down['cuentos'] ) ? $gwf_down_title : '',
+			)
 		)
 	);
 	$gwf_toc_html = gwf_g_toc_html( $gwf_toc );
@@ -113,6 +119,8 @@ while ( have_posts() ) :
 						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_curriculo' ) ) ); ?>
 					</section>
 				<?php endif; ?>
+
+				<?php gwf_g_extra_sections( $gwf_extras ); // 5b. Secciones adicionales (opcional). ?>
 
 			</div>
 

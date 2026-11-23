@@ -16,11 +16,59 @@ const GWF_GUIAS_SECTION_TITLES = array(
 	'lo-que-intentaste' => array( 'field' => 'gwf_titulo_intentaste', 'default' => 'Lo que ya intentaste', 'toc' => 'Lo que ya intentaste' ),
 	'por-que-pasa'      => array( 'field' => 'gwf_titulo_por_que', 'default' => 'Por qué pasa a esta edad', 'toc' => 'Por qué pasa a esta edad' ),
 	'que-hacer'         => array( 'field' => 'gwf_titulo_que_hacer', 'default' => 'Qué hacer esta noche', 'toc' => 'Qué hacer esta noche' ),
+	'si-no-funciona'    => array( 'field' => 'gwf_titulo_si_no_funciona', 'default' => '¿Y si aún así no funciona?', 'toc' => 'Si aún así no funciona' ),
 	'cuando-consultar'  => array( 'field' => 'gwf_titulo_consultar', 'default' => 'Cuándo consultar con un profesional', 'toc' => 'Cuándo consultar' ),
 	'que-evitar'        => array( 'field' => 'gwf_titulo_evitar', 'default' => 'Qué conviene evitar', 'toc' => 'Qué conviene evitar' ),
 	'desacuerdo'        => array( 'field' => 'gwf_titulo_desacuerdo', 'default' => '¿Y si en casa cada adulto responde distinto?', 'toc' => 'Si cada adulto responde distinto' ),
 	'cuento'            => array( 'field' => 'gwf_titulo_cuento', 'default' => 'Un cuento para esta noche', 'toc' => 'Un cuento para esta noche' ),
+	'sostener'          => array( 'field' => 'gwf_titulo_sostener', 'default' => 'Cómo sostenerlo en el tiempo', 'toc' => 'Cómo sostenerlo en el tiempo' ),
 );
+
+/**
+ * Secciones adicionales (campo gwf_secciones_extra, guías de problema y de desarrollo): las que trae el texto de una
+ * guía y no tienen bloque propio. Cada «Encabezado 2» abre una sección; lo que haya antes del primero va sin título.
+ *
+ * @return array<int, array{id:string, titulo:string, html:string}>
+ */
+function gwf_guias_extra_sections( $post_id ) {
+	$raw = trim( (string) get_post_meta( $post_id, 'gwf_secciones_extra', true ) );
+	if ( '' === $raw ) {
+		return array();
+	}
+	$parts    = preg_split( '~<h2[^>]*>(.*?)</h2>~is', $raw, -1, PREG_SPLIT_DELIM_CAPTURE );
+	$sections = array();
+	$used     = array();
+	$add      = function ( $titulo, $html ) use ( &$sections, &$used ) {
+		$titulo = trim( wp_strip_all_tags( html_entity_decode( $titulo, ENT_QUOTES, 'UTF-8' ) ) );
+		$html   = trim( $html );
+		if ( '' === $titulo && '' === trim( wp_strip_all_tags( $html ) ) ) {
+			return;
+		}
+		$base = 'extra-' . ( '' !== $titulo ? sanitize_title( $titulo ) : 'intro' );
+		$id   = $base;
+		for ( $n = 2; isset( $used[ $id ] ); $n++ ) {
+			$id = $base . '-' . $n;
+		}
+		$used[ $id ] = true;
+		$sections[]  = array( 'id' => $id, 'titulo' => $titulo, 'html' => $html );
+	};
+	$add( '', array_shift( $parts ) );
+	for ( $i = 0; $i + 1 < count( $parts ); $i += 2 ) {
+		$add( $parts[ $i ], $parts[ $i + 1 ] );
+	}
+	return $sections;
+}
+
+/** Entradas del índice de las secciones adicionales (solo las que tienen título). */
+function gwf_guias_extra_toc( $sections ) {
+	$toc = array();
+	foreach ( $sections as $section ) {
+		if ( '' !== $section['titulo'] ) {
+			$toc[ $section['id'] ] = $section['titulo'];
+		}
+	}
+	return $toc;
+}
 
 /** Título propio de una sección, o '' si está vacío o es igual al de por defecto. */
 function gwf_guias_custom_title( $post_id, $section ) {
@@ -85,7 +133,7 @@ function gwf_guias_review_time( $post_id ) {
 /** Minutos de lectura del texto del editor y de los bloques (200 palabras por minuto, mínimo 1). */
 function gwf_guias_reading_time( $post_id ) {
 	$text = get_post_field( 'post_content', $post_id );
-	foreach ( array( 'gwf_respuesta', 'gwf_ya_intentaste', 'gwf_cuando_consultar', 'gwf_pasos', 'gwf_evitar', 'gwf_desacuerdo', 'gwf_definicion', 'gwf_hitos', 'gwf_curriculo' ) as $name ) {
+	foreach ( array( 'gwf_respuesta', 'gwf_ya_intentaste', 'gwf_cuando_consultar', 'gwf_pasos', 'gwf_si_no_funciona', 'gwf_evitar', 'gwf_desacuerdo', 'gwf_secciones_extra', 'gwf_sostener', 'gwf_definicion', 'gwf_hitos', 'gwf_curriculo' ) as $name ) {
 		$text .= ' ' . get_post_meta( $post_id, $name, true );
 	}
 	return max( 1, (int) ceil( str_word_count( wp_strip_all_tags( $text ) ) / 200 ) );

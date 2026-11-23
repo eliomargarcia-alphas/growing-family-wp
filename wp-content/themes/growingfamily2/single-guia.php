@@ -42,17 +42,25 @@ while ( have_posts() ) :
 
 	// Secciones presentes, en orden: alimentan el índice lateral, el desplegable de móvil y la barra fija.
 	$gwf_cuento = function_exists( 'gwf_cue_for_guide' ) ? gwf_cue_for_guide( get_the_ID() ) : 0; // 9. Cuento (plugin gwf-cuentos).
+	$gwf_extras = gwf_guias_extra_sections( $gwf_id ); // Secciones adicionales del texto de la guía.
 	$gwf_toc    = array_filter(
-		array(
-			'respuesta'        => $gwf_meta( 'gwf_respuesta' ) ? 'Respuesta directa' : '',
-			'lo-que-intentaste' => $gwf_meta( 'gwf_ya_intentaste' ) ? gwf_guias_toc_label( $gwf_id, 'lo-que-intentaste' ) : '',
-			'por-que-pasa'     => $gwf_has_body ? gwf_guias_toc_label( $gwf_id, 'por-que-pasa' ) : '',
-			'que-hacer'        => $gwf_pasos ? gwf_guias_toc_label( $gwf_id, 'que-hacer' ) : '',
-			'cuando-consultar' => $gwf_meta( 'gwf_cuando_consultar' ) ? gwf_guias_toc_label( $gwf_id, 'cuando-consultar' ) : '',
-			'que-evitar'       => $gwf_evitar ? gwf_guias_toc_label( $gwf_id, 'que-evitar' ) : '',
-			'desacuerdo'       => $gwf_meta( 'gwf_desacuerdo' ) ? gwf_guias_toc_label( $gwf_id, 'desacuerdo' ) : '',
-			'cuento'           => $gwf_cuento ? gwf_guias_toc_label( $gwf_id, 'cuento' ) : '',
-			'video'            => $gwf_video_id ? 'Vídeo' : '',
+		array_merge(
+			array(
+				'respuesta'         => $gwf_meta( 'gwf_respuesta' ) ? 'Respuesta directa' : '',
+				'lo-que-intentaste' => $gwf_meta( 'gwf_ya_intentaste' ) ? gwf_guias_toc_label( $gwf_id, 'lo-que-intentaste' ) : '',
+				'por-que-pasa'      => $gwf_has_body ? gwf_guias_toc_label( $gwf_id, 'por-que-pasa' ) : '',
+				'que-hacer'         => $gwf_pasos ? gwf_guias_toc_label( $gwf_id, 'que-hacer' ) : '',
+				'si-no-funciona'    => $gwf_meta( 'gwf_si_no_funciona' ) ? gwf_guias_toc_label( $gwf_id, 'si-no-funciona' ) : '',
+				'cuando-consultar'  => $gwf_meta( 'gwf_cuando_consultar' ) ? gwf_guias_toc_label( $gwf_id, 'cuando-consultar' ) : '',
+				'que-evitar'        => $gwf_evitar ? gwf_guias_toc_label( $gwf_id, 'que-evitar' ) : '',
+				'desacuerdo'        => $gwf_meta( 'gwf_desacuerdo' ) ? gwf_guias_toc_label( $gwf_id, 'desacuerdo' ) : '',
+			),
+			gwf_guias_extra_toc( $gwf_extras ),
+			array(
+				'cuento'   => $gwf_cuento ? gwf_guias_toc_label( $gwf_id, 'cuento' ) : '',
+				'sostener' => $gwf_meta( 'gwf_sostener' ) ? gwf_guias_toc_label( $gwf_id, 'sostener' ) : '',
+				'video'    => $gwf_video_id ? 'Vídeo' : '',
+			)
 		)
 	);
 	$gwf_toc_html = gwf_g_toc_html( $gwf_toc );
@@ -123,6 +131,13 @@ while ( have_posts() ) :
 					</section>
 				<?php endif; ?>
 
+				<?php if ( $gwf_meta( 'gwf_si_no_funciona' ) ) : // 5b. Si aún así no funciona (opcional: solo si el texto de la guía lo trae). ?>
+					<section id="si-no-funciona" class="gwf-g-block">
+						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'si-no-funciona' ) ); ?></h2>
+						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_si_no_funciona' ) ) ); ?>
+					</section>
+				<?php endif; ?>
+
 				<?php if ( $gwf_meta( 'gwf_cuando_consultar' ) ) : // 6. Cuándo consultar: después de «Qué hacer esta noche» (la barra fija de móvil lleva a él). ?>
 					<section id="cuando-consultar" class="gwf-g-block gwf-g-consultar">
 						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'cuando-consultar' ) ); ?></h2>
@@ -148,6 +163,8 @@ while ( have_posts() ) :
 					</section>
 				<?php endif; ?>
 
+				<?php gwf_g_extra_sections( $gwf_extras ); // 8b. Secciones adicionales (opcional). ?>
+
 				<?php
 				// 9. Un cuento para esta noche: el que eligió esta guía como «Guía relacionada» (plugin gwf-cuentos).
 				if ( $gwf_cuento ) :
@@ -162,6 +179,13 @@ while ( have_posts() ) :
 								<span class="gwf-g-story-go">Leer el cuento <span aria-hidden="true">›</span></span>
 							</span>
 						</a>
+					</section>
+				<?php endif; ?>
+
+				<?php if ( $gwf_meta( 'gwf_sostener' ) ) : // 9b. Cómo sostenerlo en el tiempo (opcional: solo si el texto de la guía lo trae). ?>
+					<section id="sostener" class="gwf-g-block">
+						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'sostener' ) ); ?></h2>
+						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_sostener' ) ) ); ?>
 					</section>
 				<?php endif; ?>
 

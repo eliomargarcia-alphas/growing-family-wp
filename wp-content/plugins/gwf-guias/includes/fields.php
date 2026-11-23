@@ -151,6 +151,8 @@ function gwf_guias_register_fields() {
 				gwf_guias_title_field( 'por-que-pasa', '4. Por qué pasa a esta edad: título', 'El texto se escribe en el editor de arriba, con subtítulos «Encabezado 2» que son preguntas de la familia. Si el editor está vacío, el bloque no aparece.' ),
 				gwf_guias_title_field( 'que-hacer', '5. Qué hacer esta noche: título' ),
 				gwf_guias_field( 'gwf_pasos', '5. Qué hacer esta noche: pasos', 'textarea', array( 'rows' => 6, 'new_lines' => '', 'instructions' => 'Al menos 3 pasos. ' . $lines_help . ' Formato: Título del paso | Texto del paso' ) ),
+				gwf_guias_title_field( 'si-no-funciona', '5b. Si aún así no funciona: título' ),
+				gwf_guias_field( 'gwf_si_no_funciona', '5b. Si aún así no funciona: texto', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Opcional: solo si el texto de la guía lo trae. Va justo después de los pasos. Si está vacío, el bloque no aparece.' ) ),
 				gwf_guias_title_field( 'cuando-consultar', '6. Cuándo consultar: título' ),
 				gwf_guias_field( 'gwf_cuando_consultar', '6. Cuándo consultar: texto', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Obligatorio. Va en un recuadro azul claro, después de «Qué hacer esta noche».' ) ),
 				gwf_guias_title_field( 'que-evitar', '7. Qué conviene evitar: título' ),
@@ -159,6 +161,8 @@ function gwf_guias_register_fields() {
 				gwf_guias_field( 'gwf_desacuerdo', '8. Si cada adulto responde distinto: texto', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Opcional según el tema: si está vacío, el bloque no aparece.' ) ),
 				// 9. Un cuento para esta noche: el cuento se elige en el cuento («Guía relacionada», plugin gwf-cuentos); aquí solo el título.
 				gwf_guias_title_field( 'cuento', '9. Un cuento para esta noche: título', 'El cuento no se elige aquí: se enlaza desde el propio cuento, en su campo «Guía relacionada». Si ningún cuento eligió esta guía, el bloque no aparece.' ),
+				gwf_guias_title_field( 'sostener', '9b. Cómo sostenerlo en el tiempo: título' ),
+				gwf_guias_field( 'gwf_sostener', '9b. Cómo sostenerlo en el tiempo: texto', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Opcional: solo si el texto de la guía lo trae. Va después del cuento. Si está vacío, el bloque no aparece.' ) ),
 				gwf_guias_field( 'gwf_video_url', '10. Vídeo: URL de YouTube', 'url', array( 'instructions' => 'Al publicar se avisa si falta.', 'wrapper' => array( 'width' => '50' ) ) ),
 				gwf_guias_field( 'gwf_video_titulo', '10. Vídeo: título', 'text', array( 'wrapper' => array( 'width' => '50' ) ) ),
 				gwf_guias_field( 'gwf_video_duracion', '10. Vídeo: duración (segundos)', 'number', array( 'min' => 1, 'wrapper' => array( 'width' => '50' ) ) ),
@@ -173,6 +177,29 @@ function gwf_guias_register_fields() {
 						'return_format' => 'id',
 						'allow_null'    => 1,
 						'instructions'  => 'Se avisa si falta.',
+					)
+				),
+			),
+		)
+	);
+
+	// Secciones adicionales (las dos clases de guía): lo que trae el texto de una guía y no tiene bloque propio.
+	acf_add_local_field_group(
+		array(
+			'key'        => 'group_gwf_guia_extra',
+			'title'      => 'Guía: secciones adicionales',
+			'menu_order' => 2,
+			'location'   => gwf_guias_location( GWF_GUIAS_TYPES ),
+			'fields'     => array(
+				gwf_guias_field(
+					'gwf_secciones_extra',
+					'Secciones adicionales',
+					'wysiwyg',
+					array(
+						'tabs'         => 'all',
+						'toolbar'      => 'full',
+						'media_upload' => 0,
+						'instructions' => 'Opcional: solo para secciones que trae el texto de la guía y no encajan en ningún bloque. Cada sección empieza con su título en «Encabezado 2»; cada una sale como bloque propio y en el índice. Guía de problema: van después de «Si cada adulto responde distinto». Guía de desarrollo: después de «Cómo lo trabajamos».',
 					)
 				),
 			),

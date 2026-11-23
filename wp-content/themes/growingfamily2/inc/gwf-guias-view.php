@@ -181,6 +181,18 @@ function gwf_g_toc_html( $toc ) {
 	return $html;
 }
 
+/** Secciones adicionales de una guía (gwf_guias_extra_sections): un bloque por sección, con su título como H2. */
+function gwf_g_extra_sections( $sections ) {
+	foreach ( $sections as $section ) {
+		echo '<section id="' . esc_attr( $section['id'] ) . '" class="gwf-g-block gwf-g-extra">';
+		if ( '' !== $section['titulo'] ) {
+			echo '<h2>' . esc_html( $section['titulo'] ) . '</h2>';
+		}
+		echo wp_kses_post( wpautop( $section['html'] ) );
+		echo '</section>';
+	}
+}
+
 /** Tarjeta «Revisado por» del panel lateral. */
 function gwf_g_reviewer_card( $reviewer ) {
 	if ( ! $reviewer ) {

@@ -122,6 +122,11 @@ body.single-cuento {
 .gwf-guia .gwf-g-body h2 { margin-top: 1.5rem; }
 .gwf-guia .gwf-g-body > h2:first-of-type { margin-top: 0; }
 .gwf-g-body img { height: auto; border-radius: 10px; }
+/* Secciones adicionales: el texto puede traer listas y subtítulos propios */
+.gwf-g-extra ul,
+.gwf-g-extra ol { padding-left: 1.25rem; }
+.gwf-g-extra li { font-size: 1.0625rem; line-height: 1.6; margin-bottom: 0.4rem; }
+.gwf-guia .gwf-g-extra h3 { font-size: 1.125rem; margin: 1.25rem 0 0.5rem; }
 
 /* 6. Pasos numerados */
 .gwf-g-steps {
