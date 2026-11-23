@@ -204,13 +204,19 @@ function gwf_guias_listing_canonical( $url ) {
 }
 add_filter( 'wpseo_canonical', 'gwf_guias_listing_canonical' );
 
-/** Listados de un término con menos de 3 guías: noindex (plan). /edad/<edad>/ a secas, siempre noindex. */
+/**
+ * Listados de un término con menos de 3 guías: noindex (plan). /edad/<edad>/ a secas, siempre noindex.
+ * /guias/ y /desarrollo/ sin nada publicado, también noindex (como /cuentos/): se indexan desde la primera guía.
+ */
 function gwf_guias_listing_robots( $robots ) {
+	global $wp_query;
 	$type = gwf_guias_listing_type();
-	if ( ! $type || ! gwf_guias_listing_term() ) {
+	if ( $type && ! gwf_guias_listing_term() ) {
+		return $wp_query->found_posts ? $robots : 'noindex, follow';
+	}
+	if ( ! $type ) {
 		return $robots;
 	}
-	global $wp_query;
 	// /edad/<edad>/ a secas (sin /guias/ ni /desarrollo/ delante) duplica /guias/edad/<edad>/: siempre noindex.
 	$path      = (string) wp_parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
 	$bare_edad = is_tax( 'edad' ) && ! preg_match( '#^/(guias|desarrollo)/#', $path );
