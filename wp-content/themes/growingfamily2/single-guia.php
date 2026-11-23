@@ -1,7 +1,7 @@
 <?php
 /**
- * Guía de problema (capa 2). Bloques 0 a 13 en el orden de la Estrategia v1.6 y los wireframes
- * «plantilla-guia-v2». Todo el texto sale en el HTML del servidor; assets/js/gwf-guias.js solo maneja
+ * Guía de problema (capa 2). Bloques 0 a 13 en el orden de la Estrategia v1.6 y los wireframes «plantilla-guia-v2»,
+ * salvo «Cuándo consultar», que va tras «Qué hacer esta noche» (2026-11-23). Todo el texto sale en el HTML del servidor; assets/js/gwf-guias.js solo maneja
  * el índice, la barra fija de móvil y la carga del vídeo al pulsar.
  *
  * Los datos los da el plugin gwf-guias (gwf_guias_items, gwf_guias_reviewer, …).
@@ -102,14 +102,14 @@ while ( have_posts() ) :
 					</details>
 				<?php endif; ?>
 
-				<?php if ( $gwf_has_body ) : // 5. Por qué pasa a esta edad: editor, con H2 que son preguntas de la familia. ?>
+				<?php if ( $gwf_has_body ) : // 4. Por qué pasa a esta edad: editor, con H2 que son preguntas de la familia. ?>
 					<section id="por-que-pasa" class="gwf-g-block gwf-g-body">
 						<p class="gwf-g-kicker">Por qué pasa a esta edad</p>
 						<?php the_content(); ?>
 					</section>
 				<?php endif; ?>
 
-				<?php if ( $gwf_pasos ) : // 6. Qué hacer esta noche. ?>
+				<?php if ( $gwf_pasos ) : // 5. Qué hacer esta noche. ?>
 					<section id="que-hacer" class="gwf-g-block">
 						<h2>Qué hacer esta noche</h2>
 						<ol class="gwf-g-steps">
@@ -123,7 +123,7 @@ while ( have_posts() ) :
 					</section>
 				<?php endif; ?>
 
-				<?php if ( $gwf_meta( 'gwf_cuando_consultar' ) ) : // 4. Cuándo consultar: después de «Qué hacer esta noche» (la barra fija de móvil lleva a él). ?>
+				<?php if ( $gwf_meta( 'gwf_cuando_consultar' ) ) : // 6. Cuándo consultar: después de «Qué hacer esta noche» (la barra fija de móvil lleva a él). ?>
 					<section id="cuando-consultar" class="gwf-g-block gwf-g-consultar">
 						<h2>Cuándo consultar con un profesional</h2>
 						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_cuando_consultar' ) ) ); ?>

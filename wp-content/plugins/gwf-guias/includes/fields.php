@@ -122,7 +122,7 @@ function gwf_guias_register_fields() {
 		)
 	);
 
-	// Guía de problema: bloques 2 a 13 de la Estrategia v1.6 (el 5 va en el editor).
+	// Guía de problema: bloques 2 a 13 en el orden de la página (el 4, «Por qué pasa a esta edad», va en el editor).
 	acf_add_local_field_group(
 		array(
 			'key'        => 'group_gwf_guia_problema',
@@ -132,8 +132,9 @@ function gwf_guias_register_fields() {
 			'fields'     => array(
 				gwf_guias_field( 'gwf_respuesta', '2. Respuesta directa', 'textarea', array( 'rows' => 3, 'new_lines' => '', 'instructions' => 'Obligatoria. 2 o 3 frases que responden la pregunta del título. También se usa como meta descripción.' ) ),
 				gwf_guias_field( 'gwf_ya_intentaste', '3. Reconocer lo que ya intentaste', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Obligatorio.' ) ),
-				gwf_guias_field( 'gwf_cuando_consultar', '4. Cuándo consultar', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Obligatorio. Va en un recuadro azul claro, después de «Qué hacer esta noche».' ) ),
-				gwf_guias_field( 'gwf_pasos', '6. Qué hacer esta noche', 'textarea', array( 'rows' => 6, 'new_lines' => '', 'instructions' => 'Al menos 3 pasos. ' . $lines_help . ' Formato: Título del paso | Texto del paso' ) ),
+				gwf_guias_field( 'gwf_aviso_editor', '4. Por qué pasa a esta edad', 'message', array( 'message' => 'Se escribe en el editor de arriba, con subtítulos «Encabezado 2» que son preguntas de la familia. Si se deja vacío, el bloque no aparece.', 'new_lines' => '' ) ),
+				gwf_guias_field( 'gwf_pasos', '5. Qué hacer esta noche', 'textarea', array( 'rows' => 6, 'new_lines' => '', 'instructions' => 'Al menos 3 pasos. ' . $lines_help . ' Formato: Título del paso | Texto del paso' ) ),
+				gwf_guias_field( 'gwf_cuando_consultar', '6. Cuándo consultar', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Obligatorio. Va en un recuadro azul claro, después de «Qué hacer esta noche».' ) ),
 				gwf_guias_field( 'gwf_evitar', '7. Qué conviene evitar', 'textarea', array( 'rows' => 4, 'new_lines' => '', 'instructions' => 'Al menos 2. ' . $lines_help ) ),
 				gwf_guias_field( 'gwf_desacuerdo', '8. Madre y padre en desacuerdo', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Opcional según el tema: si está vacío, el bloque no aparece.' ) ),
 				// 9. Un cuento para esta noche: se elige en el cuento («Guía relacionada», plugin gwf-cuentos).
