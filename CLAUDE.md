@@ -105,7 +105,14 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
 - Desplegar ahí: `TARGET=staging3 scripts/site.sh deploy` (backups en `~/backups/deploys-staging3/`).
   Ojo: la base de datos de staging3 es independiente; los cambios por WP-CLI hay que repetirlos o probarlos primero ahí.
 
-## Guías (plugin gwf-guias) — en construcción, activo solo en staging3
+## Guías (plugin gwf-guias) — activo en producción desde 2026-11-23 (sin enlace en los menús)
+- Producción (2026-11-23): gwf-guias activo; guía de problema 2328 «[PRUEBA] Berrinches…» en **borrador** (copiada de staging3 2307,
+  autor `equipo-editorial`, revisor el comité, sin fecha de revisión). Sin «Guías» en los menús 54 y 55 (no añadir hasta que se pida).
+  Backup previo: `~/backups/db-antes-guias-20261123-193259.sql.gz`. /guias/ y /desarrollo/ llevan noindex mientras no haya nada publicado.
+- Revisor = **Comité editorial Growing Family**: usuario `comite-editorial` (ID 5 en producción, 7 en staging3; rol Revisor experto,
+  sin contraseña conocida, correo `.invalid`) con la meta `gwf_revisor_organizacion = 1`. Los editores lo eligen en «Revisado por» y ponen
+  la fecha a mano. En el schema es la Organization `#/schema/comite-editorial` (no Person) en guías, pilares, cuentos y actividades
+  (`gwf_guias_is_org_reviewer()`); su «ficha» es la página /comite-editorial/ si está publicada (en producción todavía no existe).
 - Plan: «Plan de implementación de guías en WordPress». Hechas las etapas 1 a 8 (2026-10-26): base, regla de publicación, plantilla de guía de problema, vídeo con `VideoObject` (includes/schema.php), plantilla del pilar (`single-desarrollo.php`), listados y SEO.
 - Etapa 8 (GA4, en `assets/js/gwf-guias.js`): `gwf_puente_click`, `gwf_cuando_consultar_click` (`ubicacion`), `gwf_video_inicio`, `gwf_video_75`
   (API de YouTube solo tras pulsar) y `gwf_cuento_click` (espera `data-gwf-cuento`). Todos con `guia_origen` y `tipo_contenido` (data-* del `<main>`).
@@ -153,7 +160,6 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   política editorial (`/politica-editorial/`, ID 2325) y método solo si la página existe. Las tres páginas son de staging3, con textos borrador.
 - Usuarios de prueba en staging3: `prueba-revisora` (rol Revisor experto, ficha pública, comité), `prueba-redactor` (autor, ficha pública, redacta;
   autor de la guía 2309, antes era `equipo-editorial`) y `equipo-editorial` (editor), sin contraseña conocida.
-- El deploy a producción copia el plugin, pero allí **no está activado**: no activarlo hasta aprobar el plan.
 
 ## Actividades (plugin gwf-actividades) — activo solo en staging3 (2026-10-27)
 - Plugin propio, independiente de gwf-guias (si está activo comparte la Edad, el pilar y la ficha del revisor). `site.sh` lo despliega;
