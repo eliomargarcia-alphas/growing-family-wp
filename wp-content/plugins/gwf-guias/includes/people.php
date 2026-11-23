@@ -56,6 +56,20 @@ function gwf_guias_team_base() {
 }
 add_action( 'init', 'gwf_guias_team_base' );
 
+/**
+ * ¿Es un revisor que representa a una organización (el «Comité editorial Growing Family»)? Se marca con la meta de usuario
+ * gwf_revisor_organizacion = 1 (por WP-CLI). En el schema es una Organization (el comité), no una Person, y su ficha es la página del comité.
+ */
+function gwf_guias_is_org_reviewer( $user_id ) {
+	return $user_id && '1' === (string) get_user_meta( (int) $user_id, 'gwf_revisor_organizacion', true );
+}
+
+/** URL de la página del comité editorial si está publicada, o ''. */
+function gwf_guias_committee_page_url() {
+	$page = get_page_by_path( 'comite-editorial' );
+	return ( $page && 'publish' === $page->post_status ) ? get_permalink( $page ) : '';
+}
+
 function gwf_guias_person_is_public( $user_id ) {
 	return $user_id && (bool) get_user_meta( (int) $user_id, 'gwf_ficha_publica', true );
 }

@@ -75,6 +75,9 @@ function gwf_guias_video_piece( $post_id, $canonical ) {
 
 /** @id de una persona del equipo (el mismo en su ficha y en todo lo que revisa o firma). */
 function gwf_guias_person_schema_id( $user_id ) {
+	if ( gwf_guias_is_org_reviewer( $user_id ) ) {
+		return gwf_guias_committee_schema_id(); // El comité revisa como organización.
+	}
 	return home_url( '/#/schema/person/equipo-' . (int) $user_id );
 }
 
@@ -83,6 +86,20 @@ function gwf_guias_person_schema_id( $user_id ) {
  * verificables (sameAs), su ficha y, si lo es, que forma parte del comité editorial.
  */
 function gwf_guias_person_piece( $user_id ) {
+	if ( gwf_guias_is_org_reviewer( $user_id ) ) {
+		$user  = get_userdata( (int) $user_id );
+		$piece = array(
+			'@type'              => 'Organization',
+			'@id'                => gwf_guias_committee_schema_id(),
+			'name'               => $user ? $user->display_name : 'Comité editorial Growing Family',
+			'parentOrganization' => array( '@id' => home_url( '/#organization' ) ),
+		);
+		$url = gwf_guias_committee_page_url();
+		if ( $url ) {
+			$piece['url'] = $url;
+		}
+		return $piece;
+	}
 	$p = gwf_guias_person( $user_id );
 	if ( ! $p ) {
 		return null;

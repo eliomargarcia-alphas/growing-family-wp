@@ -54,6 +54,17 @@ function gwf_guias_reviewer( $post_id ) {
 	if ( ! $user ) {
 		return null;
 	}
+	if ( gwf_guias_is_org_reviewer( $user_id ) ) {
+		return array(
+			'id'           => $user_id,
+			'nombre'       => $user->display_name,
+			'cargo'        => '',
+			'foto'         => '',
+			'formacion'    => '',
+			'ficha'        => gwf_guias_committee_page_url(), // La página del comité, si existe.
+			'organizacion' => true,
+		);
+	}
 	$foto_id = (int) get_user_meta( $user_id, 'gwf_foto', true );
 	return array(
 		'id'        => $user_id,
