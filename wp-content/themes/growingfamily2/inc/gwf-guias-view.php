@@ -198,10 +198,12 @@ function gwf_g_reviewer_card( $reviewer ) {
 			<?php endif; ?>
 			<div>
 				<p class="gwf-g-reviewer-name"><?php echo esc_html( $reviewer['nombre'] ); ?></p>
-				<p class="gwf-g-reviewer-role">
-					<?php echo esc_html( $reviewer['cargo'] ); ?>
-					<?php if ( $reviewer['ficha'] ) : ?> · <a href="<?php echo esc_url( $reviewer['ficha'] ); ?>">Ver ficha</a><?php endif; ?>
-				</p>
+				<?php if ( $reviewer['cargo'] || $reviewer['ficha'] ) : ?>
+					<p class="gwf-g-reviewer-role">
+						<?php echo esc_html( $reviewer['cargo'] ); ?>
+						<?php if ( $reviewer['ficha'] ) : ?><?php echo $reviewer['cargo'] ? ' · ' : ''; ?><a href="<?php echo esc_url( $reviewer['ficha'] ); ?>"><?php echo empty( $reviewer['organizacion'] ) ? 'Ver ficha' : 'Conocer el comité'; ?></a><?php endif; ?>
+					</p>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>
