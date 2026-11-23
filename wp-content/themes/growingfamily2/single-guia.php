@@ -46,9 +46,9 @@ while ( have_posts() ) :
 		array(
 			'respuesta'        => $gwf_meta( 'gwf_respuesta' ) ? 'Respuesta directa' : '',
 			'lo-que-intentaste' => $gwf_meta( 'gwf_ya_intentaste' ) ? 'Lo que ya intentaste' : '',
-			'cuando-consultar' => $gwf_meta( 'gwf_cuando_consultar' ) ? 'Cuándo consultar' : '',
 			'por-que-pasa'     => $gwf_has_body ? 'Por qué pasa a esta edad' : '',
 			'que-hacer'        => $gwf_pasos ? 'Qué hacer esta noche' : '',
+			'cuando-consultar' => $gwf_meta( 'gwf_cuando_consultar' ) ? 'Cuándo consultar' : '',
 			'que-evitar'       => $gwf_evitar ? 'Qué conviene evitar' : '',
 			'desacuerdo'       => $gwf_meta( 'gwf_desacuerdo' ) ? 'Si no están de acuerdo' : '',
 			'cuento'           => $gwf_cuento ? 'Un cuento para esta noche' : '',
@@ -95,14 +95,7 @@ while ( have_posts() ) :
 					</section>
 				<?php endif; ?>
 
-				<?php if ( $gwf_meta( 'gwf_cuando_consultar' ) ) : // 4. Cuándo consultar: arriba, en la primera pantalla en móvil. ?>
-					<section id="cuando-consultar" class="gwf-g-block gwf-g-consultar">
-						<h2>Cuándo consultar con un profesional</h2>
-						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_cuando_consultar' ) ) ); ?>
-					</section>
-				<?php endif; ?>
-
-				<?php if ( $gwf_toc_html ) : // Índice desplegable (solo móvil), después de «Cuándo consultar». ?>
+				<?php if ( $gwf_toc_html ) : // Índice desplegable (solo móvil); en móvil el CSS lo sube tras la respuesta directa. ?>
 					<details class="gwf-g-toc-mobile" id="indice">
 						<summary>En esta guía</summary>
 						<ol><?php echo $gwf_toc_html; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado al construirlo. ?></ol>
@@ -127,6 +120,13 @@ while ( have_posts() ) :
 								</li>
 							<?php endforeach; ?>
 						</ol>
+					</section>
+				<?php endif; ?>
+
+				<?php if ( $gwf_meta( 'gwf_cuando_consultar' ) ) : // 4. Cuándo consultar: después de «Qué hacer esta noche» (la barra fija de móvil lleva a él). ?>
+					<section id="cuando-consultar" class="gwf-g-block gwf-g-consultar">
+						<h2>Cuándo consultar con un profesional</h2>
+						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_cuando_consultar' ) ) ); ?>
 					</section>
 				<?php endif; ?>
 

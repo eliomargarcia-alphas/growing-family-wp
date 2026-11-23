@@ -1422,13 +1422,13 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 	.gwf-g-layout { grid-template-columns: 1fr; gap: 0; }
 	.gwf-g-side { display: none; }
 
-	/* «Cuándo consultar» sube a la primera pantalla: justo después de la respuesta directa */
+	/* Índice desplegable justo después de la respuesta directa; «Cuándo consultar» sigue el orden del HTML
+	   (tras «Qué hacer esta noche») y la barra fija lleva a él */
 	.gwf-g-main { display: flex; flex-direction: column; }
 	.gwf-g-main > * { order: 5; }
 	.gwf-g-main > .gwf-g-header { order: 0; }
 	.gwf-g-main > #respuesta { order: 1; }
 	.gwf-g-main > #definicion { order: 1; }
-	.gwf-g-main > #cuando-consultar { order: 2; }
 	.gwf-g-main > .gwf-g-toc-mobile { order: 3; }
 	.gwf-g-main > #lo-que-intentaste { order: 4; }
 
