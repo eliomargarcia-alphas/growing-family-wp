@@ -50,7 +50,7 @@ while ( have_posts() ) :
 			'que-hacer'        => $gwf_pasos ? 'Qué hacer esta noche' : '',
 			'cuando-consultar' => $gwf_meta( 'gwf_cuando_consultar' ) ? 'Cuándo consultar' : '',
 			'que-evitar'       => $gwf_evitar ? 'Qué conviene evitar' : '',
-			'desacuerdo'       => $gwf_meta( 'gwf_desacuerdo' ) ? 'Si no están de acuerdo' : '',
+			'desacuerdo'       => $gwf_meta( 'gwf_desacuerdo' ) ? 'Si cada adulto responde distinto' : '',
 			'cuento'           => $gwf_cuento ? 'Un cuento para esta noche' : '',
 			'video'            => $gwf_video_id ? 'Vídeo' : '',
 		)
@@ -141,9 +141,9 @@ while ( have_posts() ) :
 					</section>
 				<?php endif; ?>
 
-				<?php if ( $gwf_meta( 'gwf_desacuerdo' ) ) : // 8. Madre y padre en desacuerdo (opcional). ?>
+				<?php if ( $gwf_meta( 'gwf_desacuerdo' ) ) : // 8. ¿Y si en casa cada adulto responde distinto? (opcional). ?>
 					<section id="desacuerdo" class="gwf-g-block gwf-g-optional">
-						<h2>Cuando la madre y el padre no están de acuerdo</h2>
+						<h2>¿Y si en casa cada adulto responde distinto?</h2>
 						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_desacuerdo' ) ) ); ?>
 					</section>
 				<?php endif; ?>
