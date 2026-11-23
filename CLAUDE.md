@@ -133,6 +133,11 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
 - Editor clásico a propósito: los campos ACF y la regla de publicación viajan en el mismo envío.
 - Sin ACF PRO: las listas (`gwf_pasos`, `gwf_evitar`, `gwf_fuentes`, `gwf_hitos`) son texto «a | b» por líneas.
   Leerlas siempre con `gwf_guias_items()`; con PRO pasan a repetidores con el mismo nombre (falta migrar y crear subcampos).
+- Títulos de las secciones 3 a 9 de la guía de problema editables (2026-11-23): campos `gwf_titulo_*` con el título por defecto ya escrito;
+  vacíos o iguales al de por defecto → `GWF_GUIAS_SECTION_TITLES` (`includes/template-tags.php`). Plantilla e índice usan
+  `gwf_guias_section_title()` / `gwf_guias_toc_label()` (el índice usa la versión corta mientras el título sea el de por defecto).
+  Solo los títulos propios cuentan en la huella de revisión. «Cuándo consultar» va tras «Qué hacer esta noche»; el bloque 8 se titula
+  «¿Y si en casa cada adulto responde distinto?».
 - Regla: `gwf_guias_check()` (revisor, fecha, 2 fuentes y bloques obligatorios). Sin cumplirla → «Pendiente de revisión»
   (o 400 por REST). Aprobación del revisor guarda nombre, fecha y `_gwf_hash_revisado`.
 - Fichas del equipo (2026-10-27, `includes/people.php` + `author.php` + `template-parts/gwf-persona.php`): `/equipo/<user_nicename>/` para

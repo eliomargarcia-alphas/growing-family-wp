@@ -8,6 +8,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Títulos de las secciones de la guía de problema: el editor puede cambiarlos (campos gwf_titulo_*); vacíos, se usa el de
+ * por defecto. «toc» es la versión corta del índice, que solo se usa mientras el título sea el de por defecto.
+ */
+const GWF_GUIAS_SECTION_TITLES = array(
+	'lo-que-intentaste' => array( 'field' => 'gwf_titulo_intentaste', 'default' => 'Lo que ya intentaste', 'toc' => 'Lo que ya intentaste' ),
+	'por-que-pasa'      => array( 'field' => 'gwf_titulo_por_que', 'default' => 'Por qué pasa a esta edad', 'toc' => 'Por qué pasa a esta edad' ),
+	'que-hacer'         => array( 'field' => 'gwf_titulo_que_hacer', 'default' => 'Qué hacer esta noche', 'toc' => 'Qué hacer esta noche' ),
+	'cuando-consultar'  => array( 'field' => 'gwf_titulo_consultar', 'default' => 'Cuándo consultar con un profesional', 'toc' => 'Cuándo consultar' ),
+	'que-evitar'        => array( 'field' => 'gwf_titulo_evitar', 'default' => 'Qué conviene evitar', 'toc' => 'Qué conviene evitar' ),
+	'desacuerdo'        => array( 'field' => 'gwf_titulo_desacuerdo', 'default' => '¿Y si en casa cada adulto responde distinto?', 'toc' => 'Si cada adulto responde distinto' ),
+	'cuento'            => array( 'field' => 'gwf_titulo_cuento', 'default' => 'Un cuento para esta noche', 'toc' => 'Un cuento para esta noche' ),
+);
+
+/** Título propio de una sección, o '' si está vacío o es igual al de por defecto. */
+function gwf_guias_custom_title( $post_id, $section ) {
+	$def   = GWF_GUIAS_SECTION_TITLES[ $section ] ?? null;
+	$saved = $def ? trim( (string) get_post_meta( $post_id, $def['field'], true ) ) : '';
+	return ( $def && $saved !== $def['default'] ) ? $saved : '';
+}
+
+/** Título de una sección tal como se muestra en la guía. */
+function gwf_guias_section_title( $post_id, $section ) {
+	$custom = gwf_guias_custom_title( $post_id, $section );
+	return '' !== $custom ? $custom : ( GWF_GUIAS_SECTION_TITLES[ $section ]['default'] ?? '' );
+}
+
+/** Texto de la sección en el índice: el título propio si lo hay; si no, la versión corta. */
+function gwf_guias_toc_label( $post_id, $section ) {
+	$custom = gwf_guias_custom_title( $post_id, $section );
+	return '' !== $custom ? $custom : ( GWF_GUIAS_SECTION_TITLES[ $section ]['toc'] ?? '' );
+}
+
 // Los campos de la persona revisora (y de cualquier ficha del equipo) están en includes/people.php.
 
 /**

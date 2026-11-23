@@ -156,6 +156,12 @@ function gwf_guias_content_hash( $post_id ) {
 	foreach ( array( 'gwf_respuesta', 'gwf_ya_intentaste', 'gwf_cuando_consultar', 'gwf_pasos', 'gwf_evitar', 'gwf_desacuerdo', 'gwf_definicion', 'gwf_hitos', 'gwf_curriculo', 'gwf_fuentes' ) as $name ) {
 		$parts[] = (string) get_post_meta( $post_id, $name, true );
 	}
+	foreach ( array_keys( GWF_GUIAS_SECTION_TITLES ) as $section ) {
+		$custom = gwf_guias_custom_title( $post_id, $section );
+		if ( '' !== $custom ) {
+			$parts[] = $section . ':' . $custom;
+		}
+	}
 	return md5( implode( "\n--\n", $parts ) );
 }
 

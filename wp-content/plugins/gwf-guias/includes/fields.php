@@ -27,6 +27,21 @@ function gwf_guias_field( $name, $label, $type, $extra = array() ) {
 	);
 }
 
+/** Campo de título de una sección, con el de por defecto ya escrito (GWF_GUIAS_SECTION_TITLES, includes/template-tags.php). */
+function gwf_guias_title_field( $section, $label, $extra_help = '' ) {
+	$def = GWF_GUIAS_SECTION_TITLES[ $section ];
+	return gwf_guias_field(
+		$def['field'],
+		$label,
+		'text',
+		array(
+			'default_value' => $def['default'],
+			'placeholder'   => $def['default'],
+			'instructions'  => trim( 'Puedes cambiarlo. Vacío: se usa «' . $def['default'] . '». ' . $extra_help ),
+		)
+	);
+}
+
 function gwf_guias_location( $types ) {
 	$location = array();
 	foreach ( (array) $types as $type ) {
@@ -131,13 +146,19 @@ function gwf_guias_register_fields() {
 			'location'   => gwf_guias_location( 'guia' ),
 			'fields'     => array(
 				gwf_guias_field( 'gwf_respuesta', '2. Respuesta directa', 'textarea', array( 'rows' => 3, 'new_lines' => '', 'instructions' => 'Obligatoria. 2 o 3 frases que responden la pregunta del título. También se usa como meta descripción.' ) ),
-				gwf_guias_field( 'gwf_ya_intentaste', '3. Reconocer lo que ya intentaste', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Obligatorio.' ) ),
-				gwf_guias_field( 'gwf_aviso_editor', '4. Por qué pasa a esta edad', 'message', array( 'message' => 'Se escribe en el editor de arriba, con subtítulos «Encabezado 2» que son preguntas de la familia. Si se deja vacío, el bloque no aparece.', 'new_lines' => '' ) ),
-				gwf_guias_field( 'gwf_pasos', '5. Qué hacer esta noche', 'textarea', array( 'rows' => 6, 'new_lines' => '', 'instructions' => 'Al menos 3 pasos. ' . $lines_help . ' Formato: Título del paso | Texto del paso' ) ),
-				gwf_guias_field( 'gwf_cuando_consultar', '6. Cuándo consultar', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Obligatorio. Va en un recuadro azul claro, después de «Qué hacer esta noche».' ) ),
-				gwf_guias_field( 'gwf_evitar', '7. Qué conviene evitar', 'textarea', array( 'rows' => 4, 'new_lines' => '', 'instructions' => 'Al menos 2. ' . $lines_help ) ),
-				gwf_guias_field( 'gwf_desacuerdo', '8. ¿Y si en casa cada adulto responde distinto?', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Opcional según el tema: si está vacío, el bloque no aparece.' ) ),
-				// 9. Un cuento para esta noche: se elige en el cuento («Guía relacionada», plugin gwf-cuentos).
+				gwf_guias_title_field( 'lo-que-intentaste', '3. Lo que ya intentaste: título' ),
+				gwf_guias_field( 'gwf_ya_intentaste', '3. Lo que ya intentaste: texto', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Obligatorio.' ) ),
+				gwf_guias_title_field( 'por-que-pasa', '4. Por qué pasa a esta edad: título', 'El texto se escribe en el editor de arriba, con subtítulos «Encabezado 2» que son preguntas de la familia. Si el editor está vacío, el bloque no aparece.' ),
+				gwf_guias_title_field( 'que-hacer', '5. Qué hacer esta noche: título' ),
+				gwf_guias_field( 'gwf_pasos', '5. Qué hacer esta noche: pasos', 'textarea', array( 'rows' => 6, 'new_lines' => '', 'instructions' => 'Al menos 3 pasos. ' . $lines_help . ' Formato: Título del paso | Texto del paso' ) ),
+				gwf_guias_title_field( 'cuando-consultar', '6. Cuándo consultar: título' ),
+				gwf_guias_field( 'gwf_cuando_consultar', '6. Cuándo consultar: texto', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Obligatorio. Va en un recuadro azul claro, después de «Qué hacer esta noche».' ) ),
+				gwf_guias_title_field( 'que-evitar', '7. Qué conviene evitar: título' ),
+				gwf_guias_field( 'gwf_evitar', '7. Qué conviene evitar: lista', 'textarea', array( 'rows' => 4, 'new_lines' => '', 'instructions' => 'Al menos 2. ' . $lines_help ) ),
+				gwf_guias_title_field( 'desacuerdo', '8. Si cada adulto responde distinto: título' ),
+				gwf_guias_field( 'gwf_desacuerdo', '8. Si cada adulto responde distinto: texto', 'textarea', array( 'rows' => 3, 'new_lines' => 'wpautop', 'instructions' => 'Opcional según el tema: si está vacío, el bloque no aparece.' ) ),
+				// 9. Un cuento para esta noche: el cuento se elige en el cuento («Guía relacionada», plugin gwf-cuentos); aquí solo el título.
+				gwf_guias_title_field( 'cuento', '9. Un cuento para esta noche: título', 'El cuento no se elige aquí: se enlaza desde el propio cuento, en su campo «Guía relacionada». Si ningún cuento eligió esta guía, el bloque no aparece.' ),
 				gwf_guias_field( 'gwf_video_url', '10. Vídeo: URL de YouTube', 'url', array( 'instructions' => 'Al publicar se avisa si falta.', 'wrapper' => array( 'width' => '50' ) ) ),
 				gwf_guias_field( 'gwf_video_titulo', '10. Vídeo: título', 'text', array( 'wrapper' => array( 'width' => '50' ) ) ),
 				gwf_guias_field( 'gwf_video_duracion', '10. Vídeo: duración (segundos)', 'number', array( 'min' => 1, 'wrapper' => array( 'width' => '50' ) ) ),

@@ -45,13 +45,13 @@ while ( have_posts() ) :
 	$gwf_toc    = array_filter(
 		array(
 			'respuesta'        => $gwf_meta( 'gwf_respuesta' ) ? 'Respuesta directa' : '',
-			'lo-que-intentaste' => $gwf_meta( 'gwf_ya_intentaste' ) ? 'Lo que ya intentaste' : '',
-			'por-que-pasa'     => $gwf_has_body ? 'Por qué pasa a esta edad' : '',
-			'que-hacer'        => $gwf_pasos ? 'Qué hacer esta noche' : '',
-			'cuando-consultar' => $gwf_meta( 'gwf_cuando_consultar' ) ? 'Cuándo consultar' : '',
-			'que-evitar'       => $gwf_evitar ? 'Qué conviene evitar' : '',
-			'desacuerdo'       => $gwf_meta( 'gwf_desacuerdo' ) ? 'Si cada adulto responde distinto' : '',
-			'cuento'           => $gwf_cuento ? 'Un cuento para esta noche' : '',
+			'lo-que-intentaste' => $gwf_meta( 'gwf_ya_intentaste' ) ? gwf_guias_toc_label( $gwf_id, 'lo-que-intentaste' ) : '',
+			'por-que-pasa'     => $gwf_has_body ? gwf_guias_toc_label( $gwf_id, 'por-que-pasa' ) : '',
+			'que-hacer'        => $gwf_pasos ? gwf_guias_toc_label( $gwf_id, 'que-hacer' ) : '',
+			'cuando-consultar' => $gwf_meta( 'gwf_cuando_consultar' ) ? gwf_guias_toc_label( $gwf_id, 'cuando-consultar' ) : '',
+			'que-evitar'       => $gwf_evitar ? gwf_guias_toc_label( $gwf_id, 'que-evitar' ) : '',
+			'desacuerdo'       => $gwf_meta( 'gwf_desacuerdo' ) ? gwf_guias_toc_label( $gwf_id, 'desacuerdo' ) : '',
+			'cuento'           => $gwf_cuento ? gwf_guias_toc_label( $gwf_id, 'cuento' ) : '',
 			'video'            => $gwf_video_id ? 'Vídeo' : '',
 		)
 	);
@@ -90,7 +90,7 @@ while ( have_posts() ) :
 
 				<?php if ( $gwf_meta( 'gwf_ya_intentaste' ) ) : // 3. Reconocer lo que ya intentaste. ?>
 					<section id="lo-que-intentaste" class="gwf-g-block">
-						<h2>Lo que ya intentaste</h2>
+						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'lo-que-intentaste' ) ); ?></h2>
 						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_ya_intentaste' ) ) ); ?>
 					</section>
 				<?php endif; ?>
@@ -104,14 +104,14 @@ while ( have_posts() ) :
 
 				<?php if ( $gwf_has_body ) : // 4. Por qué pasa a esta edad: editor, con H2 que son preguntas de la familia. ?>
 					<section id="por-que-pasa" class="gwf-g-block gwf-g-body">
-						<p class="gwf-g-kicker">Por qué pasa a esta edad</p>
+						<p class="gwf-g-kicker"><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'por-que-pasa' ) ); ?></p>
 						<?php the_content(); ?>
 					</section>
 				<?php endif; ?>
 
 				<?php if ( $gwf_pasos ) : // 5. Qué hacer esta noche. ?>
 					<section id="que-hacer" class="gwf-g-block">
-						<h2>Qué hacer esta noche</h2>
+						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'que-hacer' ) ); ?></h2>
 						<ol class="gwf-g-steps">
 							<?php foreach ( $gwf_pasos as $gwf_paso ) : ?>
 								<li>
@@ -125,14 +125,14 @@ while ( have_posts() ) :
 
 				<?php if ( $gwf_meta( 'gwf_cuando_consultar' ) ) : // 6. Cuándo consultar: después de «Qué hacer esta noche» (la barra fija de móvil lleva a él). ?>
 					<section id="cuando-consultar" class="gwf-g-block gwf-g-consultar">
-						<h2>Cuándo consultar con un profesional</h2>
+						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'cuando-consultar' ) ); ?></h2>
 						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_cuando_consultar' ) ) ); ?>
 					</section>
 				<?php endif; ?>
 
 				<?php if ( $gwf_evitar ) : // 7. Qué conviene evitar. ?>
 					<section id="que-evitar" class="gwf-g-block">
-						<h2>Qué conviene evitar</h2>
+						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'que-evitar' ) ); ?></h2>
 						<ul class="gwf-g-avoid">
 							<?php foreach ( $gwf_evitar as $gwf_item ) : ?>
 								<li><?php echo esc_html( $gwf_item['texto'] ); ?></li>
@@ -143,7 +143,7 @@ while ( have_posts() ) :
 
 				<?php if ( $gwf_meta( 'gwf_desacuerdo' ) ) : // 8. ¿Y si en casa cada adulto responde distinto? (opcional). ?>
 					<section id="desacuerdo" class="gwf-g-block gwf-g-optional">
-						<h2>¿Y si en casa cada adulto responde distinto?</h2>
+						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'desacuerdo' ) ); ?></h2>
 						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_desacuerdo' ) ) ); ?>
 					</section>
 				<?php endif; ?>
@@ -153,7 +153,7 @@ while ( have_posts() ) :
 				if ( $gwf_cuento ) :
 					?>
 					<section id="cuento" class="gwf-g-block gwf-g-story">
-						<h2>Un cuento para esta noche</h2>
+						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'cuento' ) ); ?></h2>
 						<a class="gwf-g-story-card" href="<?php echo esc_url( get_permalink( $gwf_cuento ) ); ?>" data-gwf-cuento="<?php echo esc_attr( get_post_field( 'post_name', $gwf_cuento ) ); ?>">
 							<?php echo gwf_g_card_image( $gwf_cuento ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							<span class="gwf-g-story-text">
