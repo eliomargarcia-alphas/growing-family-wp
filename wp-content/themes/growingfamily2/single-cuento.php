@@ -141,7 +141,7 @@ while ( have_posts() ) :
 					</section>
 					<?php if ( $gwf_space ) : ?>
 						<section class="gwf-cue-antes-card">
-							<h3>Recomendaciones del espacio</h3>
+							<h3>Recomendaciones del espacio:</h3>
 							<ul class="gwf-cue-space"><?php foreach ( $gwf_space as $gwf_s ) : ?><li><?php echo esc_html( $gwf_s ); ?></li><?php endforeach; ?></ul>
 						</section>
 					<?php endif; ?>

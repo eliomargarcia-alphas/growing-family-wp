@@ -14,7 +14,7 @@ const GWF_CUE_OPTION = 'gwf_cuentos_textos';
 /** Textos con su valor por defecto; se cambian en Cuentos → Ajustes. */
 function gwf_cue_texts() {
 	$defaults = array(
-		'espacio'       => "Baja la luz y deja el móvil lejos.\nSiéntate a su lado, a su altura.\nCuéntalo tú, con tu voz: no hace falta leerlo perfecto.",
+		'espacio'       => "Si te resulta cómodo para tu lectura, baja un poco la luz.\nSiéntate a su lado, a su altura.\nCuéntalo tú, con tu voz: no hace falta leerlo perfecto.",
 		'como_contarlo' => 'Lee despacio y deja pausas. Cuando veas una pregunta, házsela y escucha su respuesta sin corregirla. Si te pide repetir una página, repítela.',
 		'puente'        => 'En Growing Family hay un cuento así cada noche.',
 	);
