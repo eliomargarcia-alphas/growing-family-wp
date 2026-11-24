@@ -20,13 +20,15 @@ while ( have_posts() ) :
 	$gwf_id       = get_the_ID();
 	$gwf_prota    = gwf_cue_protagonist( $gwf_id );
 	$gwf_other    = 'ana' === $gwf_prota ? 'max' : 'ana';
+	// 2.0: cuento solo de Ana o de Max (sin selector), o de los dos con selector. Con la 1.0 del plugin, siempre selector.
+	$gwf_has_sel  = function_exists( 'gwf_cue_has_selector' ) ? gwf_cue_has_selector( $gwf_id ) : true;
 	$gwf_pages    = gwf_cue_pages( $gwf_id );
 	$gwf_total    = count( $gwf_pages );
 	$gwf_minutes  = gwf_cue_minutes( $gwf_id );
 	$gwf_edad     = gwf_cue_terms( $gwf_id, 'edad' );
 	$gwf_emocion  = gwf_cue_terms( $gwf_id, 'emocion' );
 	$gwf_situ     = gwf_cue_terms( $gwf_id, 'situacion' );
-	$gwf_alt_img  = (int) get_post_meta( $gwf_id, 'gwf_cue_ilustracion_alt', true );
+	$gwf_alt_img  = $gwf_has_sel ? (int) get_post_meta( $gwf_id, 'gwf_cue_ilustracion_alt', true ) : 0;
 	$gwf_texts    = gwf_cue_texts();
 	$gwf_howto    = trim( (string) get_post_meta( $gwf_id, 'gwf_cue_como_contarlo', true ) );
 	$gwf_howto    = $gwf_howto ? $gwf_howto : $gwf_texts['como_contarlo'];
@@ -63,7 +65,7 @@ while ( have_posts() ) :
 	};
 	?>
 
-<main id="site-content" class="gwf-guia gwf-cuento-page" data-gwf-origen="<?php echo esc_attr( get_post_field( 'post_name' ) ); ?>" data-gwf-tipo="cuento" data-prota="<?php echo esc_attr( $gwf_prota ); ?>" data-prota-default="<?php echo esc_attr( $gwf_prota ); ?>">
+<main id="site-content" class="gwf-guia gwf-cuento-page" data-gwf-origen="<?php echo esc_attr( get_post_field( 'post_name' ) ); ?>" data-gwf-tipo="cuento" data-prota="<?php echo esc_attr( $gwf_prota ); ?>" data-prota-default="<?php echo esc_attr( $gwf_prota ); ?>" data-selector="<?php echo $gwf_has_sel ? '1' : '0'; ?>">
 	<div class="container">
 
 		<?php // 0. Migas (Yoast: Inicio › Cuentos › cuento). ?>
@@ -73,8 +75,8 @@ while ( have_posts() ) :
 			<div <?php post_class( 'gwf-g-main' ); ?> id="post-<?php the_ID(); ?>">
 
 				<header class="gwf-g-header">
-					<?php // 1. Título y autoría. Con {Ana|Max} en el título, cambia con el selector como el resto del cuento. ?>
-					<?php $gwf_title_html = gwf_cue_variants( esc_html( get_post_field( 'post_title', $gwf_id ) ), $gwf_prota ); ?>
+					<?php // 1. Título y autoría. Con selector y {Ana|Max} en el título, cambia con el selector como el resto del cuento. ?>
+					<?php $gwf_title_html = gwf_cue_variants( esc_html( get_post_field( 'post_title', $gwf_id ) ), $gwf_prota, $gwf_has_sel ); ?>
 					<h1 class="gwf-g-title"><?php echo wp_kses_post( $gwf_title_html ); ?></h1>
 					<p class="gwf-g-byline">
 						Escrito por <?php echo gwf_g_author_html(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
@@ -83,7 +85,7 @@ while ( have_posts() ) :
 
 					<?php // 4 y 2. Franja compacta de móvil: selector y ficha. ?>
 					<div class="gwf-cue-strip">
-						<?php $gwf_selector(); ?>
+						<?php if ( $gwf_has_sel ) { $gwf_selector(); } ?>
 						<p><?php echo esc_html( implode( ' · ', array_filter( array( $gwf_edad ? $gwf_edad[0]->name : '', $gwf_emocion ? $gwf_emocion[0]->name : '', $gwf_total . ' páginas' ) ) ) ); ?> · <?php echo gwf_g_read_html( $gwf_minutes, 'min' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
 					</div>
 				</header>
@@ -91,7 +93,7 @@ while ( have_posts() ) :
 				<?php // 3. Portada: la del protagonista por defecto y, si hay, la del otro (cambia con el selector). ?>
 				<?php if ( has_post_thumbnail() ) : ?>
 					<figure class="gwf-a-cover gwf-cue-cover">
-						<?php the_post_thumbnail( 'large', array( 'fetchpriority' => 'high', 'alt' => '', 'class' => 'gwf-cue-for-' . $gwf_prota ) ); ?>
+						<?php the_post_thumbnail( 'large', array( 'fetchpriority' => 'high', 'alt' => '', 'class' => $gwf_has_sel ? 'gwf-cue-for-' . $gwf_prota : '' ) ); ?>
 						<?php if ( $gwf_alt_img ) : ?>
 							<?php echo wp_get_attachment_image( $gwf_alt_img, 'large', false, array( 'alt' => '', 'loading' => 'lazy', 'decoding' => 'async', 'class' => 'gwf-cue-for-' . $gwf_other ) ); ?>
 						<?php endif; ?>
@@ -102,7 +104,7 @@ while ( have_posts() ) :
 				<section class="gwf-g-block gwf-cue-start" aria-label="Así empieza">
 					<p class="gwf-g-kicker">Así empieza</p>
 					<?php $gwf_resumen = trim( (string) get_post_meta( $gwf_id, 'gwf_cue_asi_empieza', true ) ); ?>
-					<?php if ( $gwf_resumen ) : ?><p class="gwf-cue-summary"><?php echo wp_kses_post( gwf_cue_variants( esc_html( $gwf_resumen ), $gwf_prota ) ); ?></p><?php endif; ?>
+					<?php if ( $gwf_resumen ) : ?><p class="gwf-cue-summary"><?php echo wp_kses_post( gwf_cue_variants( esc_html( $gwf_resumen ), $gwf_prota, $gwf_has_sel ) ); ?></p><?php endif; ?>
 
 					<div id="leer" class="gwf-cuento" data-total="<?php echo (int) $gwf_total; ?>">
 						<?php foreach ( $gwf_pages as $gwf_i => $gwf_page ) : ?>
@@ -211,10 +213,12 @@ while ( have_posts() ) :
 
 			<aside class="gwf-g-side" aria-label="Sobre este cuento">
 				<div class="gwf-g-side-inner">
-					<div class="gwf-g-card">
-						<p class="gwf-g-card-title">¿Quién protagoniza esta noche?</p>
-						<?php $gwf_selector(); ?>
-					</div>
+					<?php if ( $gwf_has_sel ) : ?>
+						<div class="gwf-g-card">
+							<p class="gwf-g-card-title">¿Quién protagoniza esta noche?</p>
+							<?php $gwf_selector(); ?>
+						</div>
+					<?php endif; ?>
 					<div class="gwf-g-card">
 						<p class="gwf-g-card-title">Ficha</p>
 						<ul class="gwf-g-facts"><?php foreach ( $gwf_facts as $gwf_f ) : ?><li><?php echo $gwf_f; // phpcs:ignore WordPress.Security.EscapeOutput -- escapado al construir la ficha. ?></li><?php endforeach; ?></ul>

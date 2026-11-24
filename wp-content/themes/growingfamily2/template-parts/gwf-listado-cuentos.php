@@ -108,7 +108,8 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 						$gwf_age    = $gwf_age ? $gwf_age[0]->name : '';
 						$gwf_mins   = gwf_cue_minutes( $gwf_pid );
 						$gwf_summ   = has_excerpt() ? get_the_excerpt() : gwf_cue_plain_variants( (string) get_post_meta( $gwf_pid, 'gwf_cue_asi_empieza', true ), $gwf_pid );
-						$gwf_protas = get_post_meta( $gwf_pid, 'gwf_cue_protagonistas', true );
+						// Con quién se lee: los dos con selector, o solo su protagonista (2.0). Con la 1.0 del plugin, los dos.
+						$gwf_protas = function_exists( 'gwf_cue_protagonist_names' ) ? gwf_cue_protagonist_names( $gwf_pid ) : array( 'ana' => 'Ana', 'max' => 'Max' );
 						?>
 						<?php
 						$gwf_emoji_map = array(
@@ -136,7 +137,7 @@ foreach ( array( array( 'emocion', 'Emoción', 'Todas' ), array( 'situacion', 'S
 										<span class="gwf-cuento-chip gwf-cuento-chip--emotion"><?php echo esc_html( ( $gwf_emoji_map[ $gwf_badge->slug ] ?? '📚' ) . ' ' . $gwf_badge->name ); ?></span>
 									<?php endif; ?>
 									<span class="gwf-cuento-chip gwf-cuento-chip--time">⏱ <?php echo absint( $gwf_mins ); ?> min</span>
-									<span class="gwf-cuento-readwith">Para leer con: <strong>Ana</strong> • <strong>Max</strong></span>
+									<span class="gwf-cuento-readwith">Para leer con: <?php echo implode( ' • ', array_map( function ( $n ) { return '<strong>' . esc_html( $n ) . '</strong>'; }, $gwf_protas ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado en el map. ?></span>
 								</a>
 
 								<div class="gwf-cuento-body">

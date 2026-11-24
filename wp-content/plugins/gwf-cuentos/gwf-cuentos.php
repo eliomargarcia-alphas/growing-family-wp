@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: GWF Cuentos
- * Description: Cuentos con propósito (capa 1) con recorrido enfocado: tipo Cuento, taxonomías, campos, páginas del cuento, notas de lectura y variantes {Ana|Max}.
- * Version: 0.2.0
+ * Description: Cuentos con propósito (capa 1) con recorrido enfocado: tipo Cuento, taxonomías, campos, páginas del cuento y notas de lectura. 2.0: cada cuento es de Ana, de Max o de los dos con selector y variantes {Ana|Max}.
+ * Version: 2.0.0
  * Author: Elio
  * Text Domain: gwf-cuentos
  *
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'GWF_CUE_VERSION', '0.2.0' );
+define( 'GWF_CUE_VERSION', '2.0.0' );
 define( 'GWF_CUE_DIR', plugin_dir_path( __FILE__ ) );
 
 require GWF_CUE_DIR . 'includes/types.php';
@@ -40,12 +40,35 @@ function gwf_cue_deactivate() {
 }
 register_deactivation_hook( __FILE__, 'gwf_cue_deactivate' );
 
-/** Al cambiar de versión: términos iniciales y reglas de URL. */
+/** Al cambiar de versión: términos iniciales, migraciones y reglas de URL. */
 function gwf_cue_maybe_upgrade() {
-	if ( get_option( 'gwf_cue_version' ) !== GWF_CUE_VERSION ) {
+	$installed = (string) get_option( 'gwf_cue_version' );
+	if ( $installed !== GWF_CUE_VERSION ) {
+		gwf_cue_migrate_selector();
 		gwf_cue_seed_terms();
 		update_option( 'gwf_cue_version', GWF_CUE_VERSION );
 		flush_rewrite_rules();
 	}
 }
 add_action( 'init', 'gwf_cue_maybe_upgrade', 20 );
+
+/**
+ * 2.0: cada cuento es de un protagonista (Ana o Max) o, como en la 1.0, de los dos con selector.
+ * Los cuentos que no tienen el campo «Se lee con Ana y con Max» vienen de la 1.0, donde todos tenían selector:
+ * se marcan con selector para que se vean igual que antes. Es idempotente (solo toca los que no lo tienen).
+ */
+function gwf_cue_migrate_selector() {
+	$ids = get_posts(
+		array(
+			'post_type'      => 'cuento',
+			'post_status'    => array( 'publish', 'draft', 'pending', 'private', 'future' ),
+			'posts_per_page' => -1,
+			'fields'         => 'ids',
+			'meta_query'     => array( array( 'key' => 'gwf_cue_selector', 'compare' => 'NOT EXISTS' ) ), // phpcs:ignore WordPress.DB.SlowDBQuery
+		)
+	);
+	foreach ( $ids as $id ) {
+		update_post_meta( $id, 'gwf_cue_selector', '1' );
+		update_post_meta( $id, '_gwf_cue_selector', 'field_gwf_cue_selector' );
+	}
+}

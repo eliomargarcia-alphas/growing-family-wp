@@ -15,9 +15,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 /** Palabras por minuto leyendo en voz alta a una niña o un niño (con pausas). */
 const GWF_CUE_WPM = 90;
 
-/** Protagonista por defecto del cuento: 'ana' o 'max'. */
+/** Protagonista del cuento ('ana' o 'max'); con selector, el que se ve primero. */
 function gwf_cue_protagonist( $post_id ) {
 	return 'max' === get_post_meta( $post_id, 'gwf_cue_protagonista', true ) ? 'max' : 'ana';
+}
+
+/** ¿Se lee con Ana y con Max (selector)? 2.0: si no, es solo de su protagonista. Los cuentos de la 1.0 se migran con selector. */
+function gwf_cue_has_selector( $post_id ) {
+	return '1' === (string) get_post_meta( $post_id, 'gwf_cue_selector', true );
+}
+
+/** Nombres que protagonizan el cuento: los dos con selector, o solo el suyo. */
+function gwf_cue_protagonist_names( $post_id ) {
+	$names = array( 'ana' => 'Ana', 'max' => 'Max' );
+	return gwf_cue_has_selector( $post_id ) ? $names : array_intersect_key( $names, array( gwf_cue_protagonist( $post_id ) => true ) );
+}
+
+/** Variantes de un texto del cuento: con selector, marcadas para que cambien; sin selector, ya resueltas a su protagonista. */
+function gwf_cue_post_variants( $text, $post_id, $html = true ) {
+	return gwf_cue_variants( $text, gwf_cue_protagonist( $post_id ), $html && gwf_cue_has_selector( $post_id ) );
 }
 
 /**
@@ -77,15 +93,14 @@ function gwf_cue_page_blocks( $post_id ) {
  * @return array[] Una entrada por página: array( 'art' => html, 'text' => html ).
  */
 function gwf_cue_pages( $post_id ) {
-	$protagonist = gwf_cue_protagonist( $post_id );
-	$pages       = array();
+	$pages = array();
 	foreach ( gwf_cue_page_blocks( $post_id ) as $blocks ) {
 		$parts = array( 'art' => '', 'text' => '' );
 		foreach ( $blocks as $block ) {
 			$parts[ in_array( $block['blockName'], array( 'core/image', 'core/gallery' ), true ) ? 'art' : 'text' ] .= render_block( $block );
 		}
 		foreach ( $parts as $key => $html ) {
-			$parts[ $key ] = '' === trim( $html ) ? '' : gwf_cue_variants( wp_filter_content_tags( do_shortcode( $html ) ), $protagonist );
+			$parts[ $key ] = '' === trim( $html ) ? '' : gwf_cue_post_variants( wp_filter_content_tags( do_shortcode( $html ) ), $post_id );
 		}
 		$pages[] = $parts;
 	}
@@ -139,7 +154,7 @@ add_filter( 'render_block', 'gwf_cue_render_note', 10, 2 );
 
 /** Fuera de la plantilla del cuento (feeds, extractos, plantilla por defecto), las variantes quedan como texto. */
 function gwf_cue_content_variants( $content ) {
-	return 'cuento' === get_post_type() ? gwf_cue_variants( $content, gwf_cue_protagonist( get_the_ID() ) ) : $content;
+	return 'cuento' === get_post_type() ? gwf_cue_post_variants( $content, get_the_ID() ) : $content;
 }
 add_filter( 'the_content', 'gwf_cue_content_variants', 20 );
 
@@ -166,16 +181,29 @@ function gwf_cue_terms( $post_id, $taxonomy ) {
 	return $terms;
 }
 
-/** Otro cuento para seguir: de la misma emoción o, si no hay, de la misma edad. */
+/**
+ * Otro cuento para seguir: de la misma emoción o, si no hay, de la misma edad. Si el cuento es de un solo
+ * protagonista, primero uno del mismo protagonista (o con selector); si no hay, cualquiera.
+ */
 function gwf_cue_sibling( $post_id ) {
-	foreach ( array( 'emocion', 'edad' ) as $taxonomy ) {
-		$ids = wp_get_post_terms( $post_id, $taxonomy, array( 'fields' => 'ids' ) );
-		if ( ! $ids || is_wp_error( $ids ) ) {
-			continue;
-		}
-		$found = get_posts( array( 'post_type' => 'cuento', 'post_status' => 'publish', 'posts_per_page' => 1, 'post__not_in' => array( $post_id ), 'fields' => 'ids', 'orderby' => 'rand', 'tax_query' => array( array( 'taxonomy' => $taxonomy, 'terms' => $ids ) ) ) ); // phpcs:ignore WordPress.DB.SlowDBQuery
-		if ( $found ) {
-			return (int) $found[0];
+	$same = gwf_cue_has_selector( $post_id ) ? array( array() ) : array(
+		array( // phpcs:ignore WordPress.DB.SlowDBQuery
+			'relation' => 'OR',
+			array( 'key' => 'gwf_cue_protagonista', 'value' => gwf_cue_protagonist( $post_id ) ),
+			array( 'key' => 'gwf_cue_selector', 'value' => '1' ),
+		),
+		array(),
+	);
+	foreach ( $same as $meta_query ) {
+		foreach ( array( 'emocion', 'edad' ) as $taxonomy ) {
+			$ids = wp_get_post_terms( $post_id, $taxonomy, array( 'fields' => 'ids' ) );
+			if ( ! $ids || is_wp_error( $ids ) ) {
+				continue;
+			}
+			$found = get_posts( array( 'post_type' => 'cuento', 'post_status' => 'publish', 'posts_per_page' => 1, 'post__not_in' => array( $post_id ), 'fields' => 'ids', 'orderby' => 'rand', 'meta_query' => $meta_query, 'tax_query' => array( array( 'taxonomy' => $taxonomy, 'terms' => $ids ) ) ) ); // phpcs:ignore WordPress.DB.SlowDBQuery
+			if ( $found ) {
+				return (int) $found[0];
+			}
 		}
 	}
 	return 0;
