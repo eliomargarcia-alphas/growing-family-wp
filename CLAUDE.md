@@ -143,13 +143,20 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
 - Títulos de las secciones 3 a 9 de la guía de problema editables (2026-11-23): campos `gwf_titulo_*` con el título por defecto ya escrito;
   vacíos o iguales al de por defecto → `GWF_GUIAS_SECTION_TITLES` (`includes/template-tags.php`). Plantilla e índice usan
   `gwf_guias_section_title()` / `gwf_guias_toc_label()` (el índice usa la versión corta mientras el título sea el de por defecto).
-  Solo los títulos propios cuentan en la huella de revisión. «Cuándo consultar» va tras «Qué hacer esta noche»; el bloque 8 se titula
+  Solo los títulos propios cuentan en la huella de revisión. «Cuándo consultar» va al final, tras «Cómo sostenerlo» (2026-11-24, como en el documento de cada guía);
+  el bloque 8 se titula
   «¿Y si en casa cada adulto responde distinto?».
 - Bloques opcionales que solo se rellenan si el texto de la guía los trae (2026-11-23, plugin 0.4.0): `gwf_si_no_funciona`
   (5b, tras los pasos), `gwf_sostener` (9b, tras el cuento; está en la Estrategia v1.6) y `gwf_secciones_extra` (WYSIWYG,
   grupo compartido con `desarrollo`): cada «Encabezado 2» abre un bloque propio con entrada en el índice
   (`gwf_guias_extra_sections()`); en la guía de problema van tras el bloque 8, en el pilar tras «Cómo lo trabajamos».
   Nunca pegar secciones sin título dentro del texto del editor. Los tres solo entran en la huella de revisión si tienen texto.
+- Formato del documento (2026-11-24, plugin 0.5.0): los textos de bloque (`gwf_ya_intentaste`, `gwf_si_no_funciona`,
+  `gwf_cuando_consultar`, `gwf_desacuerdo`, `gwf_sostener`, `gwf_curriculo`) son WYSIWYG «basic» (negrita, listas, enlaces) y se
+  pintan con `gwf_guias_rich()` (el texto plano antiguo se ve igual). Los elementos de `gwf_pasos` y `gwf_evitar` admiten negrita
+  en línea (`<strong>` o `**texto**`, `gwf_guias_inline()`). Textos opcionales alrededor de las listas: `gwf_pasos_intro`,
+  `gwf_pasos_nota` y `gwf_evitar_nota` (solo en la huella si tienen texto). «Por qué pasa a esta edad» lleva su título como H2
+  (`.gwf-g-body-title`); los «Encabezado 2» del editor se ven como subtítulos.
 - Regla: `gwf_guias_check()` (revisor, fecha, 2 fuentes y bloques obligatorios). Sin cumplirla → «Pendiente de revisión»
   (o 400 por REST). Aprobación del revisor guarda nombre, fecha y `_gwf_hash_revisado`.
 - Fichas del equipo (2026-10-27, `includes/people.php` + `author.php` + `template-parts/gwf-persona.php`): `/equipo/<user_nicename>/` para
