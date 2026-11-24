@@ -70,6 +70,37 @@ function gwf_guias_extra_toc( $sections ) {
 	return $toc;
 }
 
+/**
+ * Texto de un bloque (editor visual o texto con líneas en blanco): párrafos, negritas, listas y enlaces.
+ * Con $class lo envuelve en un div (texto antes o después de una lista); vacío devuelve ''.
+ */
+function gwf_guias_rich( $text, $class = '' ) {
+	$text = trim( (string) $text );
+	if ( '' === trim( wp_strip_all_tags( $text ) ) ) {
+		return '';
+	}
+	$html = wp_kses_post( wpautop( $text ) );
+	return '' !== $class ? '<div class="' . esc_attr( $class ) . '">' . $html . '</div>' : $html;
+}
+
+/**
+ * Un elemento de lista (paso, punto de «Qué conviene evitar») con formato en línea: negrita con <strong> o **texto**,
+ * cursiva y enlaces. Todo lo demás se escapa.
+ */
+function gwf_guias_inline( $text ) {
+	$text = preg_replace( '/\*\*(.+?)\*\*/s', '<strong>$1</strong>', (string) $text );
+	return wp_kses(
+		$text,
+		array(
+			'strong' => array(),
+			'b'      => array(),
+			'em'     => array(),
+			'i'      => array(),
+			'a'      => array( 'href' => true ),
+		)
+	);
+}
+
 /** Título propio de una sección, o '' si está vacío o es igual al de por defecto. */
 function gwf_guias_custom_title( $post_id, $section ) {
 	$def   = GWF_GUIAS_SECTION_TITLES[ $section ] ?? null;
@@ -133,7 +164,7 @@ function gwf_guias_review_time( $post_id ) {
 /** Minutos de lectura del texto del editor y de los bloques (200 palabras por minuto, mínimo 1). */
 function gwf_guias_reading_time( $post_id ) {
 	$text = get_post_field( 'post_content', $post_id );
-	foreach ( array( 'gwf_respuesta', 'gwf_ya_intentaste', 'gwf_cuando_consultar', 'gwf_pasos', 'gwf_si_no_funciona', 'gwf_evitar', 'gwf_desacuerdo', 'gwf_secciones_extra', 'gwf_sostener', 'gwf_definicion', 'gwf_hitos', 'gwf_curriculo' ) as $name ) {
+	foreach ( array( 'gwf_respuesta', 'gwf_ya_intentaste', 'gwf_cuando_consultar', 'gwf_pasos_intro', 'gwf_pasos', 'gwf_pasos_nota', 'gwf_si_no_funciona', 'gwf_evitar', 'gwf_evitar_nota', 'gwf_desacuerdo', 'gwf_secciones_extra', 'gwf_sostener', 'gwf_definicion', 'gwf_hitos', 'gwf_curriculo' ) as $name ) {
 		$text .= ' ' . get_post_meta( $post_id, $name, true );
 	}
 	return max( 1, (int) ceil( str_word_count( wp_strip_all_tags( $text ) ) / 200 ) );

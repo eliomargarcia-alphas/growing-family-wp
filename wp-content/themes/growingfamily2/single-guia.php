@@ -1,7 +1,7 @@
 <?php
 /**
  * Guía de problema (capa 2). Bloques 0 a 13 en el orden de la Estrategia v1.6 y los wireframes «plantilla-guia-v2»,
- * salvo «Cuándo consultar», que va tras «Qué hacer esta noche» (2026-11-23). Todo el texto sale en el HTML del servidor; assets/js/gwf-guias.js solo maneja
+ * con los bloques opcionales 5b, 8b y 9b; «Cuándo consultar» va al final, como en el documento de cada guía (2026-11-24). Todo el texto sale en el HTML del servidor; assets/js/gwf-guias.js solo maneja
  * el índice, la barra fija de móvil y la carga del vídeo al pulsar.
  *
  * Los datos los da el plugin gwf-guias (gwf_guias_items, gwf_guias_reviewer, …).
@@ -51,7 +51,6 @@ while ( have_posts() ) :
 				'por-que-pasa'      => $gwf_has_body ? gwf_guias_toc_label( $gwf_id, 'por-que-pasa' ) : '',
 				'que-hacer'         => $gwf_pasos ? gwf_guias_toc_label( $gwf_id, 'que-hacer' ) : '',
 				'si-no-funciona'    => $gwf_meta( 'gwf_si_no_funciona' ) ? gwf_guias_toc_label( $gwf_id, 'si-no-funciona' ) : '',
-				'cuando-consultar'  => $gwf_meta( 'gwf_cuando_consultar' ) ? gwf_guias_toc_label( $gwf_id, 'cuando-consultar' ) : '',
 				'que-evitar'        => $gwf_evitar ? gwf_guias_toc_label( $gwf_id, 'que-evitar' ) : '',
 				'desacuerdo'        => $gwf_meta( 'gwf_desacuerdo' ) ? gwf_guias_toc_label( $gwf_id, 'desacuerdo' ) : '',
 			),
@@ -59,6 +58,7 @@ while ( have_posts() ) :
 			array(
 				'cuento'   => $gwf_cuento ? gwf_guias_toc_label( $gwf_id, 'cuento' ) : '',
 				'sostener' => $gwf_meta( 'gwf_sostener' ) ? gwf_guias_toc_label( $gwf_id, 'sostener' ) : '',
+				'cuando-consultar' => $gwf_meta( 'gwf_cuando_consultar' ) ? gwf_guias_toc_label( $gwf_id, 'cuando-consultar' ) : '',
 				'video'    => $gwf_video_id ? 'Vídeo' : '',
 			)
 		)
@@ -97,9 +97,9 @@ while ( have_posts() ) :
 				<?php endif; ?>
 
 				<?php if ( $gwf_meta( 'gwf_ya_intentaste' ) ) : // 3. Reconocer lo que ya intentaste. ?>
-					<section id="lo-que-intentaste" class="gwf-g-block">
+					<section id="lo-que-intentaste" class="gwf-g-block gwf-g-rich">
 						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'lo-que-intentaste' ) ); ?></h2>
-						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_ya_intentaste' ) ) ); ?>
+						<?php echo gwf_guias_rich( $gwf_meta( 'gwf_ya_intentaste' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</section>
 				<?php endif; ?>
 
@@ -111,8 +111,9 @@ while ( have_posts() ) :
 				<?php endif; ?>
 
 				<?php if ( $gwf_has_body ) : // 4. Por qué pasa a esta edad: editor, con H2 que son preguntas de la familia. ?>
-					<section id="por-que-pasa" class="gwf-g-block gwf-g-body">
-						<p class="gwf-g-kicker"><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'por-que-pasa' ) ); ?></p>
+					<section id="por-que-pasa" class="gwf-g-block gwf-g-body gwf-g-rich">
+						<?php // Título como el de los demás bloques; los «Encabezado 2» del editor salen como subtítulos (CSS). ?>
+						<h2 class="gwf-g-body-title"><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'por-que-pasa' ) ); ?></h2>
 						<?php the_content(); ?>
 					</section>
 				<?php endif; ?>
@@ -120,28 +121,23 @@ while ( have_posts() ) :
 				<?php if ( $gwf_pasos ) : // 5. Qué hacer esta noche. ?>
 					<section id="que-hacer" class="gwf-g-block">
 						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'que-hacer' ) ); ?></h2>
+						<?php echo gwf_guias_rich( $gwf_meta( 'gwf_pasos_intro' ), 'gwf-g-rich gwf-g-note' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 						<ol class="gwf-g-steps">
 							<?php foreach ( $gwf_pasos as $gwf_paso ) : ?>
 								<li>
-									<?php if ( $gwf_paso['titulo'] ) : ?><strong><?php echo esc_html( $gwf_paso['titulo'] ); ?></strong><?php endif; ?>
-									<?php if ( $gwf_paso['texto'] ) : ?><span><?php echo esc_html( $gwf_paso['texto'] ); ?></span><?php endif; ?>
+									<?php if ( $gwf_paso['titulo'] ) : ?><strong><?php echo gwf_guias_inline( $gwf_paso['titulo'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></strong><?php endif; ?>
+									<?php if ( $gwf_paso['texto'] ) : ?><span><?php echo gwf_guias_inline( $gwf_paso['texto'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span><?php endif; ?>
 								</li>
 							<?php endforeach; ?>
 						</ol>
+						<?php echo gwf_guias_rich( $gwf_meta( 'gwf_pasos_nota' ), 'gwf-g-rich gwf-g-note' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</section>
 				<?php endif; ?>
 
 				<?php if ( $gwf_meta( 'gwf_si_no_funciona' ) ) : // 5b. Si aun así no funciona (opcional: solo si el texto de la guía lo trae). ?>
-					<section id="si-no-funciona" class="gwf-g-block">
+					<section id="si-no-funciona" class="gwf-g-block gwf-g-rich">
 						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'si-no-funciona' ) ); ?></h2>
-						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_si_no_funciona' ) ) ); ?>
-					</section>
-				<?php endif; ?>
-
-				<?php if ( $gwf_meta( 'gwf_cuando_consultar' ) ) : // 6. Cuándo consultar: después de «Qué hacer esta noche» (la barra fija de móvil lleva a él). ?>
-					<section id="cuando-consultar" class="gwf-g-block gwf-g-consultar">
-						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'cuando-consultar' ) ); ?></h2>
-						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_cuando_consultar' ) ) ); ?>
+						<?php echo gwf_guias_rich( $gwf_meta( 'gwf_si_no_funciona' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</section>
 				<?php endif; ?>
 
@@ -150,16 +146,17 @@ while ( have_posts() ) :
 						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'que-evitar' ) ); ?></h2>
 						<ul class="gwf-g-avoid">
 							<?php foreach ( $gwf_evitar as $gwf_item ) : ?>
-								<li><?php echo esc_html( $gwf_item['texto'] ); ?></li>
+								<li><?php echo gwf_guias_inline( $gwf_item['texto'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></li>
 							<?php endforeach; ?>
 						</ul>
+						<?php echo gwf_guias_rich( $gwf_meta( 'gwf_evitar_nota' ), 'gwf-g-rich gwf-g-note' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</section>
 				<?php endif; ?>
 
 				<?php if ( $gwf_meta( 'gwf_desacuerdo' ) ) : // 8. ¿Y si en casa cada adulto responde distinto? (opcional). ?>
-					<section id="desacuerdo" class="gwf-g-block gwf-g-optional">
+					<section id="desacuerdo" class="gwf-g-block gwf-g-optional gwf-g-rich">
 						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'desacuerdo' ) ); ?></h2>
-						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_desacuerdo' ) ) ); ?>
+						<?php echo gwf_guias_rich( $gwf_meta( 'gwf_desacuerdo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</section>
 				<?php endif; ?>
 
@@ -183,9 +180,16 @@ while ( have_posts() ) :
 				<?php endif; ?>
 
 				<?php if ( $gwf_meta( 'gwf_sostener' ) ) : // 9b. Cómo sostenerlo en el tiempo (opcional: solo si el texto de la guía lo trae). ?>
-					<section id="sostener" class="gwf-g-block">
+					<section id="sostener" class="gwf-g-block gwf-g-rich">
 						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'sostener' ) ); ?></h2>
-						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_sostener' ) ) ); ?>
+						<?php echo gwf_guias_rich( $gwf_meta( 'gwf_sostener' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					</section>
+				<?php endif; ?>
+
+				<?php if ( $gwf_meta( 'gwf_cuando_consultar' ) ) : // 6. Cuándo consultar: último bloque de texto, como en el documento de la guía (2026-11-24). La barra fija de móvil lleva a él. ?>
+					<section id="cuando-consultar" class="gwf-g-block gwf-g-consultar gwf-g-rich">
+						<h2><?php echo esc_html( gwf_guias_section_title( $gwf_id, 'cuando-consultar' ) ); ?></h2>
+						<?php echo gwf_guias_rich( $gwf_meta( 'gwf_cuando_consultar' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</section>
 				<?php endif; ?>
 

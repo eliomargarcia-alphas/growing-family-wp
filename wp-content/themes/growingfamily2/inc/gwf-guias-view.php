@@ -184,7 +184,7 @@ function gwf_g_toc_html( $toc ) {
 /** Secciones adicionales de una guía (gwf_guias_extra_sections): un bloque por sección, con su título como H2. */
 function gwf_g_extra_sections( $sections ) {
 	foreach ( $sections as $section ) {
-		echo '<section id="' . esc_attr( $section['id'] ) . '" class="gwf-g-block gwf-g-extra">';
+		echo '<section id="' . esc_attr( $section['id'] ) . '" class="gwf-g-block gwf-g-extra gwf-g-rich">';
 		if ( '' !== $section['titulo'] ) {
 			echo '<h2>' . esc_html( $section['titulo'] ) . '</h2>';
 		}

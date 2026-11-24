@@ -122,11 +122,18 @@ body.single-cuento {
 .gwf-guia .gwf-g-body h2 { margin-top: 1.5rem; }
 .gwf-guia .gwf-g-body > h2:first-of-type { margin-top: 0; }
 .gwf-g-body img { height: auto; border-radius: 10px; }
-/* Secciones adicionales: el texto puede traer listas y subtítulos propios */
-.gwf-g-extra ul,
-.gwf-g-extra ol { padding-left: 1.25rem; }
-.gwf-g-extra li { font-size: 1.0625rem; line-height: 1.6; margin-bottom: 0.4rem; }
-.gwf-guia .gwf-g-extra h3 { font-size: 1.125rem; margin: 1.25rem 0 0.5rem; }
+/* Textos de bloque (editor visual) y secciones adicionales: pueden traer negritas, listas y subtítulos propios */
+.gwf-g-rich ul { list-style: disc; padding-left: 1.25rem; margin: 0 0 1rem; }
+.gwf-g-rich ol:not(.gwf-g-steps) { list-style: decimal; padding-left: 1.25rem; margin: 0 0 1rem; }
+.gwf-g-rich li { font-size: 1.0625rem; line-height: 1.6; margin-bottom: 0.4rem; }
+.gwf-g-rich strong, .gwf-g-rich b { font-weight: 700; }
+.gwf-guia .gwf-g-rich h3 { font-size: 1.125rem; margin: 1.25rem 0 0.5rem; }
+/* «Por qué pasa a esta edad»: el título va como los demás; los «Encabezado 2» del editor, como subtítulos */
+.gwf-guia .gwf-g-body h2:not(.gwf-g-body-title) { font-size: 1.15rem; margin: 1.5rem 0 0.5rem; }
+/* Texto antes o después de una lista (pasos, «Qué conviene evitar») */
+.gwf-g-note { margin: 0 0 1rem; }
+.gwf-g-steps + .gwf-g-note, .gwf-g-avoid + .gwf-g-note { margin: 1rem 0 0; }
+.gwf-g-note p:last-child { margin-bottom: 0; }
 
 /* 6. Pasos numerados */
 .gwf-g-steps {

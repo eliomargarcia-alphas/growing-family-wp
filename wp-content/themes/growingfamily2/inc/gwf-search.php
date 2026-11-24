@@ -25,7 +25,7 @@ const GWF_SEARCH_HIDDEN_PAGES = array( 'poltica-de-privacidad', 'politica-de-pri
 /** Campos de texto en los que también se busca. */
 const GWF_SEARCH_META_KEYS = array(
 	// Guías de problema y pilares.
-	'gwf_respuesta', 'gwf_ya_intentaste', 'gwf_cuando_consultar', 'gwf_pasos', 'gwf_evitar', 'gwf_desacuerdo', 'gwf_si_no_funciona', 'gwf_secciones_extra', 'gwf_sostener', 'gwf_video_titulo',
+	'gwf_respuesta', 'gwf_ya_intentaste', 'gwf_cuando_consultar', 'gwf_pasos', 'gwf_evitar', 'gwf_desacuerdo', 'gwf_si_no_funciona', 'gwf_secciones_extra', 'gwf_sostener', 'gwf_pasos_intro', 'gwf_pasos_nota', 'gwf_evitar_nota', 'gwf_video_titulo',
 	'gwf_definicion', 'gwf_hitos', 'gwf_curriculo',
 	// Actividades.
 	'gwf_act_materiales', 'gwf_act_participantes', 'gwf_act_lugar', 'gwf_act_pasos', 'gwf_act_imprimible_titulo',

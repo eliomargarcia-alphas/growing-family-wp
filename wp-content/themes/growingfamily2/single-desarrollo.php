@@ -114,9 +114,9 @@ while ( have_posts() ) :
 				<?php endif; ?>
 
 				<?php if ( $gwf_meta( 'gwf_curriculo' ) ) : // 5. Cómo lo trabajamos en el currículo (sin adelantar la app). ?>
-					<section id="curriculo" class="gwf-g-block">
+					<section id="curriculo" class="gwf-g-block gwf-g-rich">
 						<h2>Cómo lo trabajamos en el currículo</h2>
-						<?php echo wp_kses_post( wpautop( $gwf_meta( 'gwf_curriculo' ) ) ); ?>
+						<?php echo gwf_guias_rich( $gwf_meta( 'gwf_curriculo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</section>
 				<?php endif; ?>
 
