@@ -16,6 +16,10 @@ Necesitas:
 - Solo si el cuento lleva selector: la **ilustración alternativa**, la portada del otro protagonista (opcional, ver sección 3).
 - Las **fuentes** del contenido (título, organismo y enlace) si el cuento trata un tema de salud emocional.
 
+No hace falta que el texto del cuento traiga «Antes de empezar», «Cómo contarlo» ni las «Recomendaciones del espacio»:
+son comunes a todos los cuentos y la web ya los tiene (Cuentos → Ajustes). Solo se escriben si ese cuento necesita un
+«Cómo contarlo» propio (ver sección 3).
+
 ---
 
 ## 2. Crear el cuento
@@ -45,7 +49,7 @@ Los campos están en el bloque de datos del cuento. Algunos son obligatorios.
 
 | Campo | Obligatorio | Qué poner |
 |---|---|---|
-| **Cómo contarlo** | No | Texto de la pantalla "Antes de empezar". Vacío: se usa el texto por defecto de **Cuentos → Ajustes**. |
+| **Cómo contarlo** | No | Déjalo vacío salvo que este cuento necesite una indicación propia (por ejemplo, «haz el sonido del viento: fuuu»). Vacío: se usa el texto común de **Cuentos → Ajustes**. Las «Recomendaciones del espacio» y el «Antes de empezar» son siempre los comunes; cambiarlos afecta a todos los cuentos y lo hace un administrador. |
 
 ### Qué trabaja
 
