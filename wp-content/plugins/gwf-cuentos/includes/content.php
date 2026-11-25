@@ -135,7 +135,10 @@ function gwf_cue_sources( $post_id ) {
 	return $rows;
 }
 
-/** Notas de lectura: etiqueta de la pregunta e icono del tono, dentro del párrafo (el lector de pantalla los lee bien). */
+/**
+ * Notas de lectura: etiqueta de la pregunta dentro del párrafo. Los tonos (is-style-gwf-tono-*) no pintan
+ * icono ni texto: quien lee en voz alta podía tomarlos por parte del cuento. La clase queda en el párrafo.
+ */
 function gwf_cue_render_note( $html, $block ) {
 	if ( 'core/paragraph' !== $block['blockName'] || 'cuento' !== get_post_type() || empty( $block['attrs']['className'] ) ) {
 		return $html;
@@ -143,10 +146,6 @@ function gwf_cue_render_note( $html, $block ) {
 	$class = $block['attrs']['className'];
 	if ( false !== strpos( $class, 'is-style-gwf-pregunta' ) ) {
 		return preg_replace( '/^(\s*<p[^>]*>)/', '$1<span class="gwf-note-label">Pregunta para tu hija o hijo</span>', $html, 1 );
-	}
-	if ( preg_match( '/is-style-gwf-tono-([a-z]+)/', $class, $m ) && isset( GWF_CUE_TONES[ $m[1] ] ) ) {
-		$icon = '<span class="gwf-tone gwf-tone-' . esc_attr( $m[1] ) . '" aria-hidden="true"></span><span class="screen-reader-text">' . esc_html( GWF_CUE_TONES[ $m[1] ][1] ) . ': </span>';
-		return preg_replace( '/^(\s*<p[^>]*>)/', '$1' . $icon, $html, 1 );
 	}
 	return $html;
 }

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: GWF Cuentos
  * Description: Cuentos con propósito (capa 1) con recorrido enfocado: tipo Cuento, taxonomías, campos, páginas del cuento y notas de lectura. 2.0: cada cuento es de Ana, de Max o de los dos con selector y variantes {Ana|Max}.
- * Version: 2.0.0
+ * Version: 2.0.1
  * Author: Elio
  * Text Domain: gwf-cuentos
  *
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'GWF_CUE_VERSION', '2.0.0' );
+define( 'GWF_CUE_VERSION', '2.0.1' );
 define( 'GWF_CUE_DIR', plugin_dir_path( __FILE__ ) );
 
 require GWF_CUE_DIR . 'includes/types.php';
