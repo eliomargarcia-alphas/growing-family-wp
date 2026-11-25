@@ -72,6 +72,9 @@ body.single-cuento {
 .gwf-g-byline { font-size: 0.95rem; color: var(--g-muted); margin: 0; }
 .gwf-g-byline a { color: var(--g-blue); }
 .gwf-g-strip { display: none; }
+/* Imagen destacada de la guía, bajo la autoría */
+.gwf-g-hero { margin: 0 0 1.5rem; }
+.gwf-g-hero img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 12px; }
 
 /* Bloques */
 .gwf-g-block {
@@ -1439,6 +1442,8 @@ html:has(.gwf-l-filterbar) body { overflow-x: clip; }
 	.gwf-g-main { display: flex; flex-direction: column; }
 	.gwf-g-main > * { order: 5; }
 	.gwf-g-main > .gwf-g-header { order: 0; }
+	.gwf-g-main > .gwf-g-hero { order: 0; }
+	.gwf-g-hero { margin-bottom: 1rem; }
 	.gwf-g-main > #respuesta { order: 1; }
 	.gwf-g-main > #definicion { order: 1; }
 	.gwf-g-main > .gwf-g-toc-mobile { order: 3; }

@@ -90,6 +90,12 @@ while ( have_posts() ) :
 					</p>
 				</header>
 
+				<?php if ( has_post_thumbnail() ) : // Imagen destacada entre la autoría y la respuesta directa (2026-11-25). Es la imagen principal: sin lazy y con prioridad alta. ?>
+					<figure class="gwf-g-hero">
+						<?php the_post_thumbnail( 'large', array( 'loading' => 'eager', 'fetchpriority' => 'high', 'decoding' => 'async', 'sizes' => '(min-width: 1025px) 760px, 100vw' ) ); ?>
+					</figure>
+				<?php endif; ?>
+
 				<?php if ( $gwf_meta( 'gwf_respuesta' ) ) : // 2. Respuesta directa. ?>
 					<section id="respuesta" class="gwf-g-block gwf-g-respuesta" aria-label="Respuesta directa">
 						<p><?php echo esc_html( $gwf_meta( 'gwf_respuesta' ) ); ?></p>
