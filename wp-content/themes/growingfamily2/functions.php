@@ -421,6 +421,13 @@ require get_template_directory() . '/inc/gwf-guias-view.php';
 require get_template_directory() . '/inc/gwf-search.php';
 
 /**
+ * Avisos del escritorio que se ocultan (WP ULike con la licencia Pro caducada).
+ */
+if ( is_admin() ) {
+	require get_template_directory() . '/inc/gwf-admin-avisos.php';
+}
+
+/**
  * Register and Enqueue Styles.
  *
  * @since Twenty Twenty 1.0
