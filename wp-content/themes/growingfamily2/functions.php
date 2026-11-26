@@ -80,10 +80,13 @@ function gwf_trim_plugin_assets() {
 			wp_dequeue_script( $handle );
 		}
 
-		// AddToAny: la barra flotante está oculta en todas las páginas por CSS personalizado (.page .a2a_kit)
-		wp_dequeue_style( 'addtoany' );
-		wp_dequeue_script( 'addtoany-core' );
-		wp_dequeue_script( 'addtoany-jquery' );
+		// AddToAny: la barra flotante está oculta en todas las páginas por CSS personalizado (.page .a2a_kit).
+		// Guías y cuentos sí lo cargan: llevan la tarjeta «Compartir» y el bloque de móvil (gwf_g_share_card/_mobile).
+		if ( ! is_singular( array( 'guia', 'cuento' ) ) ) {
+			wp_dequeue_style( 'addtoany' );
+			wp_dequeue_script( 'addtoany-core' );
+			wp_dequeue_script( 'addtoany-jquery' );
+		}
 
 		// Contact Form 7: el único formulario está en Contacto y soporte
 		if ( ! is_page( 'contacto-y-soporte' ) ) {
