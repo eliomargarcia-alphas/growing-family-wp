@@ -404,16 +404,17 @@ body.single-cuento {
 }
 
 /* «Me gusta» + «Compártelo» en un solo bloque de dos columnas (gwf_g_like( true )); en móvil, apiladas */
-.gwf-g-feedback { display: grid; grid-template-columns: 1fr 1fr; padding: 0; }
-.gwf-g-feedback > .gwf-g-like { padding: 1.5rem; }
-.gwf-g-feedback > .gwf-g-like + .gwf-g-like { border-left: 1px solid var(--g-line); }
-.gwf-g-share .a2a_kit { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem; line-height: 0; }
+.gwf-guia .gwf-g-feedback { display: grid; grid-template-columns: 1fr 1fr; padding: 0; }
+.gwf-guia .gwf-g-feedback > .gwf-g-like { padding: 1.5rem 1rem; flex-direction: column; gap: 0.75rem; }
+.gwf-guia .gwf-g-feedback > .gwf-g-like + .gwf-g-like { border-left: 1px solid var(--g-line); }
+.gwf-g-share .a2a_kit { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.25rem; line-height: 0; }
+.gwf-g-share .a2a_kit a { padding: 0 !important; }
 .gwf-g-share .a2a_svg { border-radius: 8px !important; }
 /* El bloque automático de AddToAny al final del texto sobra donde ya está este */
 .gwf-guia:has(.gwf-g-feedback) .addtoany_content { display: none !important; }
 @media (max-width: 767.98px) {
-	.gwf-g-feedback { grid-template-columns: 1fr; }
-	.gwf-g-feedback > .gwf-g-like + .gwf-g-like { border-left: 0; border-top: 1px solid var(--g-line); }
+	.gwf-guia .gwf-g-feedback { grid-template-columns: 1fr; }
+	.gwf-guia .gwf-g-feedback > .gwf-g-like + .gwf-g-like { border-left: 0; border-top: 1px solid var(--g-line); }
 }
 
 /* Valoración (WP ULike), bajo autoría y fuentes */
