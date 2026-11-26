@@ -37,9 +37,12 @@
 	});
 
 	// Al cargar: ?con=max en un enlace compartido manda; si no, la elección guardada para los siguientes cuentos.
-	var param = (window.location.search.match(/[?&]con=(ana|max)\b/) || [])[1];
-	var initial = param || stored();
-	if (initial && initial !== main.getAttribute('data-prota')) setProta(initial, false);
+	// Solo en cuentos con selector (data-selector="1"); un cuento de un solo protagonista no cambia.
+	if (main.getAttribute('data-selector') !== '0') {
+		var param = (window.location.search.match(/[?&]con=(ana|max)\b/) || [])[1];
+		var initial = param || stored();
+		if (initial && initial !== main.getAttribute('data-prota')) setProta(initial, false);
+	}
 
 	/* Medición (GA4): como en las guías, con el cuento de origen; sin gtag (staging) queda en dataLayer. */
 	function track(name, params) {

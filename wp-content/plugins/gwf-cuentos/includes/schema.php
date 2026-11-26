@@ -4,7 +4,7 @@
  * «Así empieza», salvo valores propios en Yoast. Una sola URL: #leer, #pagina-n y ?con=max no cambian el canonical
  * (Yoast ya usa el enlace permanente).
  * Datos estructurados sobre el grafo de Yoast: Article con autoría (el equipo editorial, o el redactor si firma con
- * ficha), fechas, imagen, Ana y Max como personajes y tiempo para contarlo; reviewedBy y lastReviewed en el WebPage
+ * ficha), fechas, imagen, su protagonista (o Ana y Max con selector) como personajes y tiempo para contarlo; reviewedBy y lastReviewed en el WebPage
  * si requiere firma. Los «me gusta» nunca se marcan como valoración.
  */
 
@@ -69,10 +69,14 @@ function gwf_cue_schema_graph( $graph, $context ) {
 		),
 		'publisher'        => $org,
 		'inLanguage'       => str_replace( '_', '-', get_locale() ),
-		// Ana y Max: el mismo cuento se lee con cualquiera de los dos (selector de la página).
-		'character'        => array(
-			array( '@type' => 'Person', 'name' => 'Ana' ),
-			array( '@type' => 'Person', 'name' => 'Max' ),
+		// Ana y Max si el cuento se lee con los dos (selector); si no, solo su protagonista.
+		'character'        => array_values(
+			array_map(
+				function ( $name ) {
+					return array( '@type' => 'Person', 'name' => $name );
+				},
+				gwf_cue_protagonist_names( $post_id )
+			)
 		),
 		'timeRequired'     => 'PT' . gwf_cue_minutes( $post_id ) . 'M',
 	);

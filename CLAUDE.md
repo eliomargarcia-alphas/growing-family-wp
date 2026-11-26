@@ -191,6 +191,15 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   (imágenes 2309–2314, autor `equipo-editorial` ID 4, rol Editor, sin contraseña conocida), «Cuentos» en los menús 54 (ítem 2316, `nav-link`)
   y 55 (ítem 2317, `drawer-link`), antes de Blog. Backup previo: `~/backups/db-antes-cuentos-20261120-194040.sql.gz`.
 - «Próximo Estreno» (tarjeta + modal de aviso del listado) solo se muestra si el host contiene «staging» (`$gwf_show_soon`).
+- **GWF Cuentos 2.0** (rama `feature/cuentos-2.0`, en staging3 desde 2026-11-24; producción sigue en la 1.0 = 0.2.0, etiqueta git `gwf-cuentos-1.0`):
+  cada cuento es de Ana, de Max o de los dos con selector. Campo `gwf_cue_selector` (true_false, por defecto 0) junto a `gwf_cue_protagonista`.
+  `gwf_cue_has_selector()`, `gwf_cue_protagonist_names()`, `gwf_cue_post_variants()` (sin selector, variantes resueltas y sin spans).
+  Sin selector: sin botones, sin portada alternativa, `data-selector="0"` en el `<main>` (el JS no aplica `?con=` ni la preferencia),
+  tarjeta «Para leer con: <nombre>», `character` solo su protagonista y «Otro cuento» prefiere el mismo protagonista.
+  Migración al cambiar de versión (`gwf_cue_migrate_selector()`): los cuentos sin el campo vienen de la 1.0 → `gwf_cue_selector = 1`.
+  Para el live basta con desplegar (plugin + tema). El tema usa `function_exists` y funciona también con la 1.0.
+  En staging3 hay una copia desactivada `wp-content/plugins/gwf-cuentos-1-0/` («GWF Cuentos 1.0 (archivada)», fuera de `site.sh`):
+  no activarla a la vez que la 2.0 (mismas funciones). Prueba: cuento 2387 «[PRUEBA] … (solo Max)».
 - /cuentos/ se indexa desde el primer cuento; /cuentos/emocion|situacion|para-contar|edad/x/ con noindex por debajo de 3.
 - Fuentes del cuento opcionales. Variantes `{Ana | Max}` con espacios se aceptan (se recortan); el H1 cambia con el selector.
 - Subir cuentos: prompt para editores en `GWF/prompt-subir-cuento-wpvibe.md` (WPVibe solo funciona en el live; en staging3, por SSH).

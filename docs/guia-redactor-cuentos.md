@@ -12,8 +12,13 @@ Necesitas:
 - Acceso al panel de WordPress con permiso de **editor** (o superior).
 - El texto del cuento, dividido en páginas (ver sección 4).
 - Una **portada** (imagen destacada), con proporción **4:3** y al menos **1200 px** de ancho.
-- Si el cuento tiene dos protagonistas posibles (Ana y Max), la **ilustración alternativa** de la otra portada (opcional, ver sección 3).
+- Saber de quién es el cuento: **de Ana**, **de Max** o **de los dos con selector** (ver sección 3). Una historia para Ana y otra distinta para Max son dos cuentos.
+- Solo si el cuento lleva selector: la **ilustración alternativa**, la portada del otro protagonista (opcional, ver sección 3).
 - Las **fuentes** del contenido (título, organismo y enlace) si el cuento trata un tema de salud emocional.
+
+No hace falta que el texto del cuento traiga «Antes de empezar», «Cómo contarlo» ni las «Recomendaciones del espacio»:
+son comunes a todos los cuentos y la web ya los tiene (Cuentos → Ajustes). Solo se escriben si ese cuento necesita un
+«Cómo contarlo» propio (ver sección 3).
 
 ---
 
@@ -34,8 +39,9 @@ Los campos están en el bloque de datos del cuento. Algunos son obligatorios.
 
 | Campo | Obligatorio | Qué poner |
 |---|---|---|
-| **Protagonista por defecto** | Sí | `Ana` o `Max`. Repártelos entre los cuentos; no los elijas al azar. Es la versión que leen Google y los asistentes de IA. |
-| **Ilustración alternativa** | No | Portada del otro protagonista. Si la dejas vacía, la portada no cambia al cambiar de protagonista. |
+| **Protagonista** | Sí | `Ana` o `Max`: de quién es el cuento. Si lleva selector, el que se ve primero y el que leen Google y los asistentes de IA. Repártelos entre los cuentos. |
+| **Se lee con Ana y con Max (selector)** | No | Desactivado (lo normal): el cuento es solo de su protagonista, sin selector. Actívalo solo si el texto usa variantes `{Ana\|Max}` para leerse con los dos. |
+| **Ilustración alternativa** | No | Solo aparece con selector. Portada del otro protagonista; si la dejas vacía, la portada no cambia al cambiar de protagonista. |
 | **Así empieza (resumen)** | Sí | Dos frases sobre de qué va el cuento, sin spoilers. Se muestra en la tarjeta del listado. |
 | **Minutos para contarlo** | No | Vacío: se calcula solo (unas 90 palabras por minuto). Escribe un número solo si quieres forzarlo. |
 
@@ -43,7 +49,7 @@ Los campos están en el bloque de datos del cuento. Algunos son obligatorios.
 
 | Campo | Obligatorio | Qué poner |
 |---|---|---|
-| **Cómo contarlo** | No | Texto de la pantalla "Antes de empezar". Vacío: se usa el texto por defecto de **Cuentos → Ajustes**. |
+| **Cómo contarlo** | No | Déjalo vacío salvo que este cuento necesite una indicación propia (por ejemplo, «haz el sonido del viento: fuuu»). Vacío: se usa el texto común de **Cuentos → Ajustes**. Las «Recomendaciones del espacio» y el «Antes de empezar» son siempre los comunes; cambiarlos afecta a todos los cuentos y lo hace un administrador. |
 
 ### Qué trabaja
 
@@ -94,11 +100,11 @@ Selecciona un bloque de párrafo o imagen y elige el estilo en la barra lateral:
 |---|---|---|
 | **Nota: pregunta** | Una pregunta para hacer al niño | Muestra la etiqueta "Pregunta para tu hija o hijo". |
 | **Tono: alegre / sorpresa / susurro / grito / triste** | Indicar cómo leer ese párrafo | Muestra un icono y el tono. |
-| **Solo Ana** / **Solo Max** | Una ilustración que solo debe verse con un protagonista | Se oculta con el otro protagonista. Sin estilo, vale para los dos. |
+| **Solo Ana** / **Solo Max** | Solo en cuentos con selector: una ilustración que solo debe verse con un protagonista | Se oculta con el otro protagonista. Sin estilo, vale para los dos. En un cuento de un solo protagonista no hace falta. |
 
-### Variantes Ana / Max
+### Variantes Ana / Max (solo cuentos con selector)
 
-Para que el texto cambie según el protagonista, escribe las dos versiones entre llaves y barra:
+En un cuento de un solo protagonista escribe el texto normal, con su nombre. Solo si el cuento lleva selector, para que el texto cambie según el protagonista, escribe las dos versiones entre llaves y barra:
 
 - `{Ana|Max} encontró su osito.`
 - `Ana estaba {asustada|asustado}.`
@@ -119,7 +125,7 @@ Marca cada punto antes de publicar:
 
 - [ ] Título y extracto escritos.
 - [ ] Imagen destacada (portada) en 4:3, al menos 1200 px.
-- [ ] Protagonista por defecto asignado (Ana o Max, repartido).
+- [ ] Protagonista asignado (Ana o Max, repartido) y «Se lee con Ana y con Max» activado solo si el texto lleva variantes.
 - [ ] "Así empieza" con dos frases.
 - [ ] "Qué trabaja y por qué" escrito.
 - [ ] Si hay fuentes: en el formato `Título | Organismo | URL`, con enlaces que funcionan.
@@ -139,6 +145,7 @@ Cuando todo esté listo, pulsa **Publicar**.
 |---|---|---|
 | El cuento no aparece en el listado | Falta emoción o edad, o no está publicado | Revisa los términos y que el estado sea "Publicado". |
 | La tarjeta muestra 📚 en vez de un emoji | La emoción no tiene emoji en la plantilla | Avisa al equipo técnico. |
+| No sale el selector Ana / Max | El cuento es de un solo protagonista | Es lo normal. Si el texto lleva variantes `{Ana\|Max}`, activa «Se lee con Ana y con Max». |
 | No cambia la portada al elegir el otro protagonista | No hay ilustración alternativa | Sube la portada del otro protagonista en ese campo. |
 | Los minutos salen mal | Hay un valor fijo en "Minutos para contarlo" | Vacía el campo para que se calcule solo. |
 
@@ -146,5 +153,6 @@ Cuando todo esté listo, pulsa **Publicar**.
 
 ## 7. Notas para el equipo técnico
 
-- La tarjeta de cada cuento muestra siempre "Para leer con: Ana • Max" y el aval "Incluye pregunta de conexión guiada para padres". Ambos textos son fijos en la plantilla `gwf-listado-cuentos.php`, no dependen del cuento.
-- Desajuste detectado: el mapa de emojis usa `enfado` y `frustración`, pero los términos sembrados son `rabia` y `frustracion`. Hay que alinear uno con otro.
+- La tarjeta de cada cuento muestra "Para leer con:" según el cuento (su protagonista, o Ana • Max si lleva selector) y el aval fijo "Incluye pregunta de conexión guiada para padres" (plantilla `gwf-listado-cuentos.php`).
+- Desde GWF Cuentos 2.0 el campo `gwf_cue_selector` decide si el cuento lleva selector; los cuentos de la 1.0 se migraron con selector al actualizar.
+- El mapa de emojis ya incluye los slugs sembrados (`rabia`, `frustracion`, `alegria`).
