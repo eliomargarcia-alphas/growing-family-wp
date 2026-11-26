@@ -208,6 +208,11 @@ body.single-cuento {
 	border: 1px solid var(--g-line);
 	border-radius: var(--g-radius);
 	padding: 0.75rem;
+	/* Si el panel es más alto que la pantalla (índice largo + «Compartir»), se desplaza dentro en vez de quedar cortado */
+	max-height: calc(100vh - 120px);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	scrollbar-width: thin;
 }
 .gwf-g-card {
 	background: #fff;
