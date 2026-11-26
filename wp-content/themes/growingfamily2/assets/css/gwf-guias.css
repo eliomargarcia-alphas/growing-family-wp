@@ -388,6 +388,16 @@ body.single-cuento {
 .gwf-g-sources li { margin-bottom: 0.35rem; }
 .gwf-g-sources a::after { content: " ↗"; }
 
+/* Compartir (AddToAny, como en el blog): tarjeta en el panel lateral y, en móvil y tableta, bloque antes de «¿Te ha gustado…?» */
+.gwf-g-share-m { display: none; }
+.gwf-g-share-m-title { margin: 0 0 0.75rem; font-weight: 600; color: var(--g-text); }
+.gwf-g-share-card .a2a_kit,
+.gwf-g-share-m .a2a_kit { display: flex; flex-wrap: wrap; gap: 0.25rem; line-height: 0; }
+.gwf-g-share-m .a2a_kit { justify-content: center; }
+@media (max-width: 1024px) {
+	.gwf-g-share-m { display: block; margin: 1.5rem auto 2rem; text-align: center; }
+}
+
 /* Valoración (WP ULike), bajo autoría y fuentes */
 .gwf-g-like {
 	/* Frase centrada y el botón justo al lado, en una sola línea */

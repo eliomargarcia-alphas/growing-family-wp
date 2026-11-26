@@ -255,6 +255,35 @@ function gwf_g_credits( $author_html, $reviewer_html, $date_html, $fuentes, $sou
 	<?php
 }
 
+/**
+ * Compartir con AddToAny (mismos botones y colores que el blog). En escritorio, tarjeta «Compartir» al final del panel lateral;
+ * en móvil y tableta (≤ 1024px, donde el panel se oculta), bloque centrado justo antes de «¿Te ha gustado este contenido?».
+ */
+function gwf_g_share_card() {
+	if ( ! shortcode_exists( 'addtoany' ) ) {
+		return;
+	}
+	?>
+	<div class="gwf-g-card gwf-g-share-card">
+		<p class="gwf-g-card-title">Compartir</p>
+		<?php echo do_shortcode( '[addtoany]' ); ?>
+	</div>
+	<?php
+}
+
+/** @param string $title Encabezado del bloque de móvil («Compartir guía», «Compartir cuento»). */
+function gwf_g_share_mobile( $title ) {
+	if ( ! shortcode_exists( 'addtoany' ) ) {
+		return;
+	}
+	?>
+	<div class="gwf-g-share-m">
+		<p class="gwf-g-share-m-title"><?php echo esc_html( $title ); ?></p>
+		<?php echo do_shortcode( '[addtoany]' ); ?>
+	</div>
+	<?php
+}
+
 /** «¿Te ha gustado este contenido?» con el botón de WP ULike (los «me gusta» ordenan los listados). */
 function gwf_g_like() {
 	if ( ! shortcode_exists( 'wp_ulike' ) ) {
