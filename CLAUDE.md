@@ -187,11 +187,16 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
 - GA4: `gwf_imprimible_envio` (con `compromiso`). Schema: Article sin HowTo. Prueba en staging3: actividad 2328 y PDF 2327, todo «[PRUEBA]».
 
 ## Cuentos (plugin gwf-cuentos) — en producción desde 2026-11-20 (staging3 desde 2026-10-29)
-- Producción (2026-11-20): plugin activo (guías, pilares y actividades siguen inactivos), cuento 2315 «{Ana|Max} y la Piedra de la Alegría»
-  (imágenes 2309–2314, autor `equipo-editorial` ID 4, rol Editor, sin contraseña conocida), «Cuentos» en los menús 54 (ítem 2316, `nav-link`)
-  y 55 (ítem 2317, `drawer-link`), antes de Blog. Backup previo: `~/backups/db-antes-cuentos-20261120-194040.sql.gz`.
+- Producción (2026-11-26, plugin 2.0.1): cuentos 2346 «Ana y la música de las hojas» (imágenes 2343–2345) y 2350 «Max y la Piedra de la Alegría»
+  (imágenes 2347–2349), un solo protagonista cada uno, autor `equipo-editorial` (ID 4, rol Editor, sin contraseña conocida), copiados de staging3 (2397 y 2398).
+  «Cuentos» en los menús 54 (ítem 2351, `nav-link`) y 55 (ítem 2352, `drawer-link`), justo después de «Guías» / «Guías de problema».
+  El cuento 1.0 «{Ana|Max} y la Piedra de la Alegría» (2315 y su copia 2329) está en la papelera; su URL `/cuentos/la-piedra-de-la-alegria/`
+  redirige (301) al de Max con un bloque «GWF redirecciones» en el `.htaccess` raíz (fuera del repo; backup `~/backups/htaccess-20261126-142102-antes-redir-cuento.bak`).
+  Backups: `~/backups/db-antes-cuentos-20261120-194040.sql.gz` (1.0) y `~/backups/db-antes-cuentos-2-0-20261126-141936.sql.gz` (2.0).
 - «Próximo Estreno» (tarjeta + modal de aviso del listado) solo se muestra si el host contiene «staging» (`$gwf_show_soon`).
-- **GWF Cuentos 2.0** (rama `feature/cuentos-2.0`, en staging3 desde 2026-11-24; producción sigue en la 1.0 = 0.2.0, etiqueta git `gwf-cuentos-1.0`):
+- **GWF Cuentos 2.0** (2.0.1 en `main`, staging3 y producción desde 2026-11-26; la 1.0 = 0.2.0 queda en la etiqueta git `gwf-cuentos-1.0`).
+  La 2.0.1 quita el icono de tono de los párrafos (se confundía con un emoji); los estilos `is-style-gwf-tono-*` siguen en el editor sin efecto visible.
+ 
   cada cuento es de Ana, de Max o de los dos con selector. Campo `gwf_cue_selector` (true_false, por defecto 0) junto a `gwf_cue_protagonista`.
   `gwf_cue_has_selector()`, `gwf_cue_protagonist_names()`, `gwf_cue_post_variants()` (sin selector, variantes resueltas y sin spans).
   Sin selector: sin botones, sin portada alternativa, `data-selector="0"` en el `<main>` (el JS no aplica `?con=` ni la preferencia),
