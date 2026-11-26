@@ -11,7 +11,7 @@ Necesitas:
 
 - Acceso al panel de WordPress con permiso de **editor** (o superior).
 - El texto del cuento, dividido en páginas (ver sección 4).
-- Una **portada** (imagen destacada), con proporción **4:3** y al menos **1200 px** de ancho.
+- Una **portada** (imagen destacada) de al menos **1200 px** de ancho. Si el cuento no tiene una propia, vale una de sus ilustraciones (en los cuentos publicados, la de la página 3).
 - Saber de quién es el cuento: **de Ana**, **de Max** o **de los dos con selector** (ver sección 3). Una historia para Ana y otra distinta para Max son dos cuentos.
 - Solo si el cuento lleva selector: la **ilustración alternativa**, la portada del otro protagonista (opcional, ver sección 3).
 - Las **fuentes** del contenido (título, organismo y enlace) si el cuento trata un tema de salud emocional.
@@ -43,7 +43,7 @@ Los campos están en el bloque de datos del cuento. Algunos son obligatorios.
 | **Se lee con Ana y con Max (selector)** | No | Desactivado (lo normal): el cuento es solo de su protagonista, sin selector. Actívalo solo si el texto usa variantes `{Ana\|Max}` para leerse con los dos. |
 | **Ilustración alternativa** | No | Solo aparece con selector. Portada del otro protagonista; si la dejas vacía, la portada no cambia al cambiar de protagonista. |
 | **Así empieza (resumen)** | Sí | Dos frases sobre de qué va el cuento, sin spoilers. Se muestra en la tarjeta del listado. |
-| **Minutos para contarlo** | No | Vacío: se calcula solo (unas 90 palabras por minuto). Escribe un número solo si quieres forzarlo. |
+| **Minutos para contarlo** | No | Vacío: se calcula solo (unas 90 palabras por minuto). Escribe un número si el documento del cuento trae los minutos (por ejemplo, 4) o si quieres forzarlo. |
 
 ### Cómo contarlo
 
@@ -99,7 +99,7 @@ Selecciona un bloque de párrafo o imagen y elige el estilo en la barra lateral:
 | Estilo | Úsalo para | Qué hace |
 |---|---|---|
 | **Nota: pregunta** | Una pregunta para hacer al niño | Muestra la etiqueta "Pregunta para tu hija o hijo". |
-| **Tono: alegre / sorpresa / susurro / grito / triste** | Indicar cómo leer ese párrafo | Muestra un icono y el tono. |
+| **Tono: alegre / sorpresa / susurro / grito / triste** | Marcar cómo leer ese párrafo | Desde GWF Cuentos 2.0.1 no se ve en la web (antes salía un icono y se confundía con un emoji al leer en voz alta). Queda como nota en el editor; no es obligatorio. |
 | **Solo Ana** / **Solo Max** | Solo en cuentos con selector: una ilustración que solo debe verse con un protagonista | Se oculta con el otro protagonista. Sin estilo, vale para los dos. En un cuento de un solo protagonista no hace falta. |
 
 ### Variantes Ana / Max (solo cuentos con selector)
@@ -114,6 +114,9 @@ Se muestra la versión del protagonista elegido, y el lector puede cambiarla con
 ### Reglas de estilo
 
 - Frases cortas y lenguaje cálido, pensado para leerse en voz alta.
+- **Sin emojis** en el texto del cuento (tampoco en canciones ni preguntas): quien lee en voz alta podría tomarlos por parte del cuento.
+- Diálogos con raya: sin raya de cierre al final del párrafo (`—¡Mira, Zoe!`); solo se cierra si sigue el narrador (`—¡Mira! —dijo Ana—. Es un corazón.`).
+- Revisa los signos de apertura (`¿Qué siento yo?`, no `¡Qué siento yo?`) y la ortografía actual (`rio`, no `rió`).
 - Una idea por página.
 - Sin palabras que asusten de forma gratuita; si el tema es intenso, márcalo con **Requiere firma experta**.
 
@@ -124,7 +127,7 @@ Se muestra la versión del protagonista elegido, y el lector puede cambiarla con
 Marca cada punto antes de publicar:
 
 - [ ] Título y extracto escritos.
-- [ ] Imagen destacada (portada) en 4:3, al menos 1200 px.
+- [ ] Imagen destacada (portada) de al menos 1200 px de ancho.
 - [ ] Protagonista asignado (Ana o Max, repartido) y «Se lee con Ana y con Max» activado solo si el texto lleva variantes.
 - [ ] "Así empieza" con dos frases.
 - [ ] "Qué trabaja y por qué" escrito.
@@ -132,6 +135,7 @@ Marca cada punto antes de publicar:
 - [ ] Al menos una emoción, una edad y, si aplica, una situación.
 - [ ] Páginas separadas con **Salto de página**.
 - [ ] Las preguntas llevan el estilo **Nota: pregunta**.
+- [ ] Ningún emoji en el texto.
 - [ ] Si el tema es delicado: **Requiere firma experta** marcado, con **Revisado por** y **Fecha de revisión**.
 - [ ] Vista previa revisada en móvil y en escritorio.
 
