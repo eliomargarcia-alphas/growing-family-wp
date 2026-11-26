@@ -59,8 +59,9 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
 
 - Plugins por página: `gwf_trim_plugin_assets()` en functions.php quita CSS/JS de plugins donde no se usan
   (ULike, Easy TOC, AddToAny, CF7 fuera de Contacto, Ajax Search Lite).
-  AddToAny sí se carga en guías y cuentos (2026-11-26): botones de compartir como en el blog, `gwf_g_share_card()` al final del
-  panel lateral y `gwf_g_share_mobile()` antes de «¿Te ha gustado…?» solo ≤ 1024px (`inc/gwf-guias-view.php`). Las páginas ya **no cargan jQuery**:
+  AddToAny sí se carga en guías y cuentos (2026-11-26). Compartir en blog, guías y cuentos: `gwf_g_like( true )` (`inc/gwf-guias-view.php`)
+  pinta «¿Te ha gustado…?» y «Compártelo con otra familia» en un bloque de dos columnas (apiladas en móvil) y oculta el bloque
+  automático de AddToAny; nada de compartir en el panel lateral (lo alargaba y salía scroll). Las páginas ya **no cargan jQuery**:
   si una plantilla nueva lo necesita, encolarlo explícitamente (`wp_enqueue_script( 'jquery' )`).
   Si se añade un formulario CF7 en otra página, añadirla a la condición de `is_page( 'contacto-y-soporte' )`.
 
