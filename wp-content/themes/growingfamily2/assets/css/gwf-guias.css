@@ -208,11 +208,6 @@ body.single-cuento {
 	border: 1px solid var(--g-line);
 	border-radius: var(--g-radius);
 	padding: 0.75rem;
-	/* Si el panel es más alto que la pantalla (índice largo + «Compartir»), se desplaza dentro en vez de quedar cortado */
-	max-height: calc(100vh - 120px);
-	overflow-y: auto;
-	overscroll-behavior: contain;
-	scrollbar-width: thin;
 }
 .gwf-g-card {
 	background: #fff;
@@ -392,16 +387,6 @@ body.single-cuento {
 .gwf-g-sources ol { margin: 0; padding-left: 1.25rem; }
 .gwf-g-sources li { margin-bottom: 0.35rem; }
 .gwf-g-sources a::after { content: " ↗"; }
-
-/* Compartir (AddToAny, como en el blog): tarjeta en el panel lateral y, en móvil y tableta, bloque antes de «¿Te ha gustado…?» */
-.gwf-g-share-m { display: none; }
-.gwf-g-share-m-title { margin: 0 0 0.75rem; font-weight: 600; color: var(--g-text); }
-.gwf-g-share-card .a2a_kit,
-.gwf-g-share-m .a2a_kit { display: flex; flex-wrap: wrap; gap: 0.25rem; line-height: 0; }
-.gwf-g-share-m .a2a_kit { justify-content: center; }
-@media (max-width: 1024px) {
-	.gwf-g-share-m { display: block; margin: 1.5rem auto 2rem; text-align: center; }
-}
 
 /* «Me gusta» + «Compártelo» en un solo bloque de dos columnas (gwf_g_like( true )); en móvil, apiladas */
 .gwf-guia .gwf-g-feedback { display: grid; grid-template-columns: 1fr 1fr; padding: 0; }

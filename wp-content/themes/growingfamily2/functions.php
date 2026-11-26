@@ -81,7 +81,7 @@ function gwf_trim_plugin_assets() {
 		}
 
 		// AddToAny: la barra flotante está oculta en todas las páginas por CSS personalizado (.page .a2a_kit).
-		// Guías y cuentos sí lo cargan: llevan la tarjeta «Compartir» y el bloque de móvil (gwf_g_share_card/_mobile).
+		// Guías y cuentos sí lo cargan: llevan «Compártelo» junto al «me gusta» (gwf_g_like( true )).
 		if ( ! is_singular( array( 'guia', 'cuento' ) ) ) {
 			wp_dequeue_style( 'addtoany' );
 			wp_dequeue_script( 'addtoany-core' );

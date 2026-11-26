@@ -237,8 +237,6 @@ while ( have_posts() ) :
 						// phpcs:enable
 						?>
 					</nav>
-
-					<?php gwf_g_share_card(); // Compartir, como en el blog. ?>
 				</div>
 			</aside>
 		</div>
@@ -264,9 +262,7 @@ while ( have_posts() ) :
 			<?php // 10. Puente al método (texto global de Cuentos → Ajustes). ?>
 			<?php gwf_g_bridge( $gwf_texts['puente'] ); ?>
 
-			<?php gwf_g_share_mobile( 'Compartir cuento' ); // Solo móvil y tableta: el panel lateral está oculto. ?>
-
-			<?php gwf_g_like(); // 12. «¿Te ha gustado este contenido?», como en guías, actividades y entradas. ?>
+			<?php gwf_g_like( true ); // 12. «¿Te ha gustado este contenido?» y «Compártelo», como en guías y entradas (el JS lleva el «me gusta» a la pantalla final). ?>
 
 			<?php if ( $gwf_sibling || $gwf_guia || $gwf_pilar ) : // 11. Enlaces: otro cuento, su guía y su pilar. ?>
 				<nav class="gwf-g-block gwf-g-related" aria-label="Para seguir">

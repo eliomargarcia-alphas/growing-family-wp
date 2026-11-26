@@ -221,8 +221,6 @@ while ( have_posts() ) :
 							<ol><?php echo $gwf_toc_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></ol>
 						</nav>
 					<?php endif; ?>
-
-					<?php gwf_g_share_card(); // Compartir, como en el blog. ?>
 				</div>
 			</aside>
 		</div>
@@ -243,9 +241,7 @@ while ( have_posts() ) :
 
 			<?php gwf_g_credits( gwf_g_author_html(), $gwf_reviewer_html, $gwf_date_html, $gwf_fuentes ); // 12. Autoría, revisión, fuentes y fecha. ?>
 
-			<?php gwf_g_share_mobile( 'Compartir guía' ); // Solo móvil y tableta: el panel lateral está oculto. ?>
-
-			<?php gwf_g_like(); ?>
+			<?php gwf_g_like( true ); // «Me gusta» y «Compártelo» en dos columnas, como en el blog. ?>
 
 			<?php gwf_g_bridge( gwf_guias_bridge_text( 'guia' ) ); // 11. Puente al método (texto global), justo antes de «Relacionados». ?>
 
