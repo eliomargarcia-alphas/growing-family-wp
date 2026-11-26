@@ -248,6 +248,8 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
 ## Navegación (2026-11-04)
 - «Lista de Espera» como botón al final del menú en los dos entornos (producción desde 2026-11-26): ítem 2081 del menú 54 con `nav-link nav-cta`
   e ítem 2079 del menú 55 con `drawer-link drawer-cta` (backup `~/backups/db-antes-menu-cta-20261126-210711.sql.gz`).
+  Menú móvil de producción (2026-11-26): «Acerca de» (2027, con el hijo nuevo 2353 «Acerca de Growing Family») y «Legal» (2354, `#`)
+  agrupados como en staging3 (backup `~/backups/db-antes-menu-movil-grupos-20261126-210942.sql.gz`).
 - Móvil: menú 55 con padres Acerca de, Guías, Blog y Legal (los despliega `gwf-main.js`, el padre no navega) y «Lista de Espera»
   con la clase `drawer-cta` (botón al final). Panel con scroll propio y bloqueo real del scroll de la página (`lockScroll`).
 - Búsqueda: `<dialog id="gwf-search">` en `header.php` (búsqueda normal de WordPress, `?s=`), abierto con `[data-gwf-search]`:
