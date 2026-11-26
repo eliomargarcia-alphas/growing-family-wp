@@ -138,17 +138,12 @@ while ( have_posts() ) :
 							<ol><?php echo $gwf_toc_html; // phpcs:ignore WordPress.Security.EscapeOutput ?></ol>
 						</nav>
 					<?php endif; ?>
-					<!-- Compartir artículo en el sidebar -->
-					<div class="gwf-g-card">
-						<p class="gwf-g-card-title">Compartir</p>
-						<?php echo do_shortcode( '[addtoany]' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-					</div>
 				</div>
 			</aside>
 		</div>
 
 		<div class="gwf-g-bottom">
-			<?php gwf_g_like(); ?>
+			<?php gwf_g_like( true ); // «Me gusta» y «Compártelo» en dos columnas (sustituye a la tarjeta del panel y al bloque de AddToAny al final del texto). ?>
 
 			<?php if ( $gwf_related ) : ?>
 				<nav class="gwf-g-block gwf-g-related" aria-label="Relacionados">

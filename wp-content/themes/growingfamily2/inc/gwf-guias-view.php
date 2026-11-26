@@ -284,15 +284,39 @@ function gwf_g_share_mobile( $title ) {
 	<?php
 }
 
-/** «¿Te ha gustado este contenido?» con el botón de WP ULike (los «me gusta» ordenan los listados). */
-function gwf_g_like() {
-	if ( ! shortcode_exists( 'wp_ulike' ) ) {
+/**
+ * «¿Te ha gustado este contenido?» con el botón de WP ULike (los «me gusta» ordenan los listados).
+ *
+ * @param bool $share Con true, el bloque va en dos columnas: «me gusta» y «Compártelo con otra familia» (AddToAny),
+ *                    con el mismo estilo; en móvil, una debajo de la otra. Sustituye a la tarjeta «Compartir» del panel lateral.
+ */
+function gwf_g_like( $share = false ) {
+	$like  = shortcode_exists( 'wp_ulike' );
+	$share = $share && shortcode_exists( 'addtoany' );
+	if ( ! $like && ! $share ) {
+		return;
+	}
+	if ( ! $share ) {
+		?>
+		<section class="gwf-g-block gwf-g-like">
+			<h2>¿Te ha gustado este contenido?</h2>
+			<?php echo do_shortcode( '[wp_ulike]' ); ?>
+		</section>
+		<?php
 		return;
 	}
 	?>
-	<section class="gwf-g-block gwf-g-like">
-		<h2>¿Te ha gustado este contenido?</h2>
-		<?php echo do_shortcode( '[wp_ulike]' ); ?>
+	<section class="gwf-g-block gwf-g-feedback">
+		<?php if ( $like ) : ?>
+			<div class="gwf-g-like">
+				<h2>¿Te ha gustado este contenido?</h2>
+				<?php echo do_shortcode( '[wp_ulike]' ); ?>
+			</div>
+		<?php endif; ?>
+		<div class="gwf-g-like gwf-g-share">
+			<h2>Compártelo con otra familia</h2>
+			<?php echo do_shortcode( '[addtoany]' ); ?>
+		</div>
 	</section>
 	<?php
 }

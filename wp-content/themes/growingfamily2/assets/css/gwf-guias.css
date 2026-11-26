@@ -403,6 +403,19 @@ body.single-cuento {
 	.gwf-g-share-m { display: block; margin: 1.5rem auto 2rem; text-align: center; }
 }
 
+/* «Me gusta» + «Compártelo» en un solo bloque de dos columnas (gwf_g_like( true )); en móvil, apiladas */
+.gwf-g-feedback { display: grid; grid-template-columns: 1fr 1fr; padding: 0; }
+.gwf-g-feedback > .gwf-g-like { padding: 1.5rem; }
+.gwf-g-feedback > .gwf-g-like + .gwf-g-like { border-left: 1px solid var(--g-line); }
+.gwf-g-share .a2a_kit { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem; line-height: 0; }
+.gwf-g-share .a2a_svg { border-radius: 8px !important; }
+/* El bloque automático de AddToAny al final del texto sobra donde ya está este */
+.gwf-guia:has(.gwf-g-feedback) .addtoany_content { display: none !important; }
+@media (max-width: 767.98px) {
+	.gwf-g-feedback { grid-template-columns: 1fr; }
+	.gwf-g-feedback > .gwf-g-like + .gwf-g-like { border-left: 0; border-top: 1px solid var(--g-line); }
+}
+
 /* Valoración (WP ULike), bajo autoría y fuentes */
 .gwf-g-like {
 	/* Frase centrada y el botón justo al lado, en una sola línea */
