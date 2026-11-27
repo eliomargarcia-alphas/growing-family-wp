@@ -208,7 +208,8 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   Para el live basta con desplegar (plugin + tema). El tema usa `function_exists` y funciona también con la 1.0.
   En staging3 hay una copia desactivada `wp-content/plugins/gwf-cuentos-1-0/` («GWF Cuentos 1.0 (archivada)», fuera de `site.sh`):
   no activarla a la vez que la 2.0 (mismas funciones). Prueba: cuento 2387 «[PRUEBA] … (solo Max)».
-- /cuentos/ se indexa desde el primer cuento; /cuentos/emocion|situacion|para-contar|edad/x/ con noindex por debajo de 3.
+- Indexación (2.0.2, 2026-11-27): /cuentos/ y /cuentos/emocion|situacion|para-contar|edad/x/ se indexan desde el primer cuento;
+  noindex solo vacíos y en búsquedas (`gwf_cue_listing_robots()`).
 - Fuentes del cuento opcionales. Variantes `{Ana | Max}` con espacios se aceptan (se recortan); el H1 cambia con el selector.
 - Subir cuentos: prompt para editores en `GWF/prompt-subir-cuento-wpvibe.md` (WPVibe solo funciona en el live; en staging3, por SSH).
 - Plan: «Plan de implementación de cuentos en WordPress — Recorrido enfocado» (docx en la carpeta GWF; wireframes `wireframes/cuento-enfocado-*`).
@@ -227,7 +228,7 @@ Varias sesiones de Claude trabajan en paralelo sobre este repositorio, staging3 
   `.gwf-cue-r-ribbon` con la página, título en la página 1 (`.gwf-cue-page-title`). `gwf_cue_pages()` devuelve `art` (bloques Imagen y
   Galería) y `text`: en escritorio ≥ 900px, dos columnas con lomo; en móvil, ilustración arriba. Paso de página `is-enter-next|prev`.
 - Listados (etapa 8, `includes/listings.php` + `template-parts/gwf-listado-cuentos.php`): /cuentos/, /cuentos/emocion|situacion|para-contar/x/,
-  /cuentos/edad/x/. Destacado (`gwf_cue_destacado`) → «me gusta» → fecha; 12 por página; noindex con < 3; filtros Emoción, Situación y Edad.
+  /cuentos/edad/x/. Destacado (`gwf_cue_destacado`) → «me gusta» → fecha; 12 por página; filtros Emoción, Situación y Edad.
 - SEO y conexión (etapa 9): `includes/schema.php` (title «<título> | Growing Family» ≤ 60, descripción desde extracto o «Así empieza»,
   Article con `character` Ana y Max, `timeRequired`, autor = equipo editorial → comité, o el redactor con ficha; reviewedBy si requiere firma)
   y `includes/links.php`: la relación vive en el cuento (`gwf_cue_guia`, `gwf_cue_pilar`). `gwf_cue_for_guide()` → bloque 9 de la guía
