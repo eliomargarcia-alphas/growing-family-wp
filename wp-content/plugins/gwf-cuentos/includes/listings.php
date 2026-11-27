@@ -2,7 +2,7 @@
 /**
  * Listados (etapa 8): /cuentos/, /cuentos/emocion/<término>/, /cuentos/situacion/<término>/, /cuentos/para-contar/<término>/
  * y /cuentos/edad/<edad>/ (misma lógica que los de gwf-guias y gwf-actividades). Orden: Destacado, «me gusta» de WP ULike
- * y fecha; 12 por página; noindex con menos de 3 (salvo /cuentos/, que se indexa desde el primero).
+ * y fecha; 12 por página; se indexan desde el primer cuento (noindex vacíos y en búsquedas).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -133,11 +133,11 @@ function gwf_cue_listing_robots( $robots ) {
 	if ( ! gwf_cue_is_listing() ) {
 		return $robots;
 	}
-	$found = $GLOBALS['wp_query']->found_posts;
-	// /cuentos/ se indexa desde el primer cuento; los listados por emoción, situación o edad, desde 3.
-	if ( is_post_type_archive( 'cuento' ) && ! is_tax() && ! is_search() ) {
-		return $found ? $robots : 'noindex, follow';
+	// Desde 2026-11-27 todos los listados (/cuentos/ y por emoción, situación, «para contar» o edad) se indexan desde el
+	// primer cuento; solo llevan noindex vacíos y en las búsquedas.
+	if ( is_search() ) {
+		return 'noindex, follow';
 	}
-	return $found < 3 ? 'noindex, follow' : $robots;
+	return $GLOBALS['wp_query']->found_posts ? $robots : 'noindex, follow';
 }
 add_filter( 'wpseo_robots', 'gwf_cue_listing_robots', 25 );
